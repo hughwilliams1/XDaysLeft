@@ -1,2 +1,2 @@
-# XDaysLeft
-A climate change card game made in Java using LibGDX
+# XDaysLeft - Website
+The website for our climate change card game XDaysLeft
