@@ -34,7 +34,6 @@ com_crashlytics_export_strings.xml
 ## Eclipse
 
 .classpath
-.project
 .metadata/
 /android/bin/
 /core/bin/
@@ -99,7 +98,6 @@ nb-configuration.xml
 ## Gradle
 
 /local.properties
-.gradle/
 gradle-app.setting
 /build/
 /android/build/
