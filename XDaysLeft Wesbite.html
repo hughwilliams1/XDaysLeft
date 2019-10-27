@@ -30,6 +30,12 @@
   <div class="container" id="wrldMap">
   </div>
 
+  <div class="container-fluid" width="auto" id="circleLogoContainer">
+    <img src="croppedWorld.png" class="rounded-circle" width="100px" height="auto" id=circleLogo>
+    <h1 style="text-align: center; color: black;" id="circleLogoText"><b>XDaysLeft</b></h1>
+    <h2 style="text-align: center;" id="circleLogoText"><small>Created By...</small></h2>
+  </div>
+
 </body>
 
 <style>
@@ -49,6 +55,29 @@
     background-size: 100vw auto;
     background-repeat: no-repeat;
     background-position: -200% 13%;
+  }
+
+  #circleLogoContainer {
+    margin-bottom: -50px;
+  }
+
+  #circleLogo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    border-radius: 50%;
+    border-style: solid;
+    border-color: white;
+    border-width: 3px;
+    position: relative;
+    top: -50px;
+  }
+
+  #circleLogoText {
+    margin-top: 0px;
+    position: relative;
+    top: -50px;
   }
 
 </style>
