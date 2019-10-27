@@ -53,6 +53,21 @@
     </div>
   </div>
 
+  <div class="container-fluid" id="cardExamples">
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+      <image class="card img-responsive" src="redCard.png">
+    </div>
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+      <image class="card img-responsive" src="cyanCard.png">
+    </div>
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+      <image class="card img-responsive" src="greenCard.png">
+    </div>
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+      <image class="card img-responsive" src="blueCard.png">
+    </div>
+  <div>
+
 </body>
 
 <style>
@@ -100,6 +115,30 @@
   .panel {
     padding-top: 15px;
     padding-bottom:15px;
+  }
+
+  #cardExamples {
+    padding-right: 0px;
+    padding-left: 0px;
+    width: auto;
+  }
+
+  .card {
+    width: 80%;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+
+  .card:hover {
+    position:relative;
+    width:85%;
+    height:calc(auto+5%);
+    display:block;
+    z-index:999;
+    box-shadow: 0px 0px 20px black;
   }
 
 </style>
