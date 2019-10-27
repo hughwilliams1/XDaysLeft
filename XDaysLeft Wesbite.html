@@ -68,6 +68,12 @@
     </div>
   <div>
 
+  <footer class="footer">
+    <div class="container" id="rightFooter">
+      <p class="text-muted">Place sticky footer content here.</p>
+    </div>
+  </footer>
+
 </body>
 
 <style>
@@ -141,4 +147,28 @@
     box-shadow: 0px 0px 20px black;
   }
 
+    /* Sticky footer styles
+  -------------------------------------------------- */
+  html {
+    position: relative;
+    min-height: 100%;
+  }
+  body {
+    margin-bottom: 200px; /* Margin bottom by footer height */
+  }
+  .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px; /* Set the fixed height of the footer here */
+    background-color: black;
+  }
+
+  #rightFooter {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
 </style>
+
+</html>
