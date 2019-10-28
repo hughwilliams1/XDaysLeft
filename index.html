@@ -1,0 +1,174 @@
+</div><!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>XDaysLeft</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container-fluid">
+      <ul class="nav navbar-nav navbar-left">
+        <img class="navbar-brand" src="wrldMap.png" id="logo">
+        <li><a class="navbar-brand" href="#">XDaysLeft</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="#">Page 1</a></li>
+          <li><a href="#">Page 2</a></li>
+          <li><a href="#">Page 3</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container" id="wrldMap">
+  </div>
+
+  <div class="container-fluid" width="auto" id="circleLogoContainer">
+    <img src="croppedWorld.png" class="rounded-circle" width="100px" height="auto" id=circleLogo>
+    <h1 style="text-align: center; color: black;" id="circleLogoText"><b>XDaysLeft</b></h1>
+    <h2 style="text-align: center;" id="circleLogoText"><small>Created By...</small></h2>
+  </div>
+
+  <div class="container-fluid" id=video> <!-- If Needed Left and Right Padding in 'md' and 'lg' screen means use container class -->
+    <div class="row">
+      <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"> 
+
+      </div>
+      <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 panel panel-default container">
+        <div class="embed-responsive embed-responsive-16by9">
+          <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/ndMKTnSRsKM" allowfullscreen></iframe>
+        </div> 
+        <h2>Information</h2>
+      </div>
+      <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+        
+      </div>  
+    </div>
+  </div>
+
+  <div class="container-fluid" id="cardExamples">
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+      <image class="card img-responsive" src="redCard.png">
+    </div>
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+      <image class="card img-responsive" src="cyanCard.png">
+    </div>
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+      <image class="card img-responsive" src="greenCard.png">
+    </div>
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+      <image class="card img-responsive" src="blueCard.png">
+    </div>
+  <div>
+
+  <footer class="footer">
+    <div class="container" id="rightFooter">
+      <p class="text-muted">Place sticky footer content here.</p>
+    </div>
+  </footer>
+
+</body>
+
+<style>
+
+  .navbar {
+    margin-bottom: auto;
+  }
+
+  #wrldMap {
+    padding: 0px;
+    margin-left: 0;
+    margin-right: 0;
+    background-image: url("https://lookformedical.com/img/9/95/World_map_green.png");
+    width: calc(100vw - 17px);
+    height: 150px;
+
+    background-size: 100vw auto;
+    background-repeat: no-repeat;
+    background-position: -200% 13%;
+  }
+
+  #circleLogoContainer {
+    margin-bottom: -50px;
+  }
+
+  #circleLogo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    border-radius: 50%;
+    border-style: solid;
+    border-color: white;
+    border-width: 3px;
+    position: relative;
+    top: -50px;
+  }
+
+  #circleLogoText {
+    margin-top: 0px;
+    position: relative;
+    top: -50px;
+  }
+
+  .panel {
+    padding-top: 15px;
+    padding-bottom:15px;
+  }
+
+  #cardExamples {
+    padding-right: 0px;
+    padding-left: 0px;
+    width: auto;
+  }
+
+  .card {
+    width: 80%;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+
+  .card:hover {
+    position:relative;
+    width:85%;
+    height:calc(auto+5%);
+    display:block;
+    z-index:999;
+    box-shadow: 0px 0px 20px black;
+  }
+
+    /* Sticky footer styles
+  -------------------------------------------------- */
+  html {
+    position: relative;
+    min-height: 100%;
+  }
+  body {
+    margin-bottom: 200px; /* Margin bottom by footer height */
+  }
+  .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px; /* Set the fixed height of the footer here */
+    background-color: black;
+  }
+
+  #rightFooter {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+</style>
+
+</html>
