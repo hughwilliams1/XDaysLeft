@@ -1,6 +1,4 @@
-package com.xdays.game.sprites;
-
-import com.badlogic.gdx.Gdx;
+package com.xdays.game.cards;
 
 public class Industry extends Card {
 	
@@ -13,9 +11,12 @@ public class Industry extends Card {
 		this.points = points;
 	}
 	
-	@Override
-	public void handleInput() {
-		if(Gdx.input.justTouched())
-            System.out.println("industry card was pressed.");
+	public int getStars() {
+		return stars;
 	}
+	
+	public int getPoints() {
+		return points;
+	}
+
 }

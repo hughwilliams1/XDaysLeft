@@ -4,16 +4,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.xdays.game.Game;
-import com.xdays.game.sprites.SolarFieldCard;
 
 public class PlayState extends State{
 	
-	private SolarFieldCard card;
 
 	public PlayState(GameStateManager gsm) {
 		super(gsm);
 		cam.setToOrtho(false, Game.WIDTH, Game.HEIGHT);
-		card = new SolarFieldCard();
 	}
 
 	
@@ -22,9 +19,9 @@ public class PlayState extends State{
         if(Gdx.input.justTouched()) {
         	System.out.println("Play State touched");
         	Rectangle bounds = new Rectangle(Gdx.input.getX(), Gdx.input.getY(), 10, 10);
-        	if(card.getBounds().overlaps(bounds)) {
+        	/*if(card.getBounds().overlaps(bounds)) {
         		card.handleInput();
-        	}
+        	}*/
         }
 	}
 
@@ -38,7 +35,7 @@ public class PlayState extends State{
 		Gdx.gl.glClearColor(135/255f, 206/255f, 235/255f, 1);
         sb.setProjectionMatrix(cam.combined);
         sb.begin();
-        sb.draw(card.getTexture(), card.getPosition().x, card.getPosition().y, card.getTexture().getWidth()/2, card.getTexture().getHeight()/2);
+        //sb.draw();
         sb.end();
 		
 	}
