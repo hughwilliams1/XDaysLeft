@@ -1,0 +1,20 @@
+[
+	{
+	"title" : "cardOne-Bad", 
+	"cardText" : "This is cardOne-Bad.",
+	"stars" : "2",
+	"points" : "-1"
+	},
+	{
+	"title" : "cardTwo-Bad", 
+	"cardText" : "This is cardTwo-Bad.",
+	"stars" : "3",
+	"points" : "-2"
+	},
+	{
+	"title" : "cardThree-Bad", 
+	"cardText" : "This is cardThree-Bad.",
+	"stars" : "4",
+	"points" : "-3"
+	}
+]
