@@ -1,18 +1,9 @@
 package com.xdays.game;
 
-import com.xdays.game.cards.Card;
 
-public class User implements Player {
+public class User extends Player {
 	
-	private Card[] hand;
-	
-	public User(Card[] hand) {
-		this.hand = hand;
+	public User(String name) {
+		super(name);
 	}
-
-	@Override
-	public Card[] getHand() {
-		return hand;
-	}
-
 }

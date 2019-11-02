@@ -1,0 +1,63 @@
+[
+	{
+	"title" : "cardOne", 
+	"cardText" : "This is cardOne.",
+	"stars" : "2",
+	"points" : "1"
+	},
+	{
+	"title" : "cardTwo", 
+	"cardText" : "This is cardTwo.",
+	"stars" : "3",
+	"points" : "2"
+	},
+	{
+	"title" : "cardThree", 
+	"cardText" : "This is cardThree.",
+	"stars" : "4",
+	"points" : "3"
+	},
+	{
+	"title" : "cardFour", 
+	"cardText" : "This is cardFour.",
+	"stars" : "3",
+	"points" : "2"
+	},
+	{
+	"title" : "cardFive", 
+	"cardText" : "This is cardFive.",
+	"stars" : "4",
+	"points" : "3"
+	},
+	{
+	"title" : "cardSix", 
+	"cardText" : "This is cardSix.",
+	"stars" : "4",
+	"points" : "3"
+	},
+	{
+	"title" : "cardSeven", 
+	"cardText" : "This is cardSeven.",
+	"stars" : "4",
+	"points" : "3"
+	},
+	{
+	"title" : "cardEight", 
+	"cardText" : "This is cardEight.",
+	"stars" : "4",
+	"points" : "3"
+	},
+	{
+	"title" : "cardNine", 
+	"cardText" : "This is cardNine.",
+	"stars" : "4",
+	"points" : "3"
+	},
+	{
+	"title" : "cardTen", 
+	"cardText" : "This is cardTen.",
+	"stars" : "4",
+	"points" : "3"
+	},
+	
+]

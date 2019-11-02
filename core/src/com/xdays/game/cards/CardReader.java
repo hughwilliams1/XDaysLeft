@@ -19,17 +19,35 @@ public class CardReader {
 	
 	public CardReader() {
 		industryCards = new HashMap <String , Industry>();
-		socialCards = new HashMap <String , Social>();
+		//socialCards = new HashMap <String , Social>();
 		
 		industryCardsBad = new HashMap <String , Industry>();
-		socialCardsBad = new HashMap <String , Social>();
+		//socialCardsBad = new HashMap <String , Social>();
 		
 		readIndustryCards();
-		readSocialCards();
+		//readSocialCards();
 	}
 	
 	public HashMap <String , Industry> getIndustryCards(){
 		return industryCards;
+	}
+	
+	public Card[] getIndustryCardsArray() {
+		Object[] a = industryCards.values().toArray();
+		Card[] cards = new Card[10];
+		for(int i=0; i<a.length; i++) {
+			cards[i] = (Card) a[i];
+		}
+		return cards;
+	}
+	
+	public Card[] getIndustryCardsBadArray() {
+		Object[] a = industryCardsBad.values().toArray();
+		Card[] cards = new Card[10];
+		for(int i=0; i<a.length; i++) {
+			cards[i] = (Card) a[i];
+		}
+		return cards;
 	}
 	
 	public HashMap <String , Social> getSocialCards(){

@@ -1,20 +1,63 @@
 [
 	{
-	"title" : "cardOne-Bad", 
+	"title" : "cardOneBad", 
 	"cardText" : "This is cardOne-Bad.",
 	"stars" : "2",
-	"points" : "-1"
+	"points" : "1"
 	},
 	{
-	"title" : "cardTwo-Bad", 
+	"title" : "cardTwoBad", 
 	"cardText" : "This is cardTwo-Bad.",
 	"stars" : "3",
-	"points" : "-2"
+	"points" : "2"
 	},
 	{
-	"title" : "cardThree-Bad", 
+	"title" : "cardThreeBad", 
 	"cardText" : "This is cardThree-Bad.",
 	"stars" : "4",
-	"points" : "-3"
-	}
+	"points" : "3"
+	},
+	{
+	"title" : "cardFourBad", 
+	"cardText" : "This is cardFour-Bad.",
+	"stars" : "3",
+	"points" : "2"
+	},
+	{
+	"title" : "cardFiveBad", 
+	"cardText" : "This is cardFive-Bad.",
+	"stars" : "4",
+	"points" : "3"
+	},
+	{
+	"title" : "cardSixBad", 
+	"cardText" : "This is cardSix-Bad.",
+	"stars" : "4",
+	"points" : "3"
+	},
+	{
+	"title" : "cardSevenBad", 
+	"cardText" : "This is cardSeven-Bad.",
+	"stars" : "4",
+	"points" : "3"
+	},
+	{
+	"title" : "cardEightBad", 
+	"cardText" : "This is cardEight-Bad.",
+	"stars" : "4",
+	"points" : "3"
+	},
+	{
+	"title" : "cardNineBad", 
+	"cardText" : "This is cardNine-Bad.",
+	"stars" : "4",
+	"points" : "3"
+	},
+	{
+	"title" : "cardTenBad", 
+	"cardText" : "This is cardTen-Bad.",
+	"stars" : "4",
+	"points" : "3"
+	},
+	
 ]
