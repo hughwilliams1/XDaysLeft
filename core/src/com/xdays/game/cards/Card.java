@@ -32,7 +32,7 @@ public abstract class Card {
 	
 	public void setPosition(float x, float y) {
 		position = new Vector3 (x, y, 0);
-		bounds = new Rectangle(x, y, texture.getWidth()/2, texture.getHeight()/2);
+		bounds = new Rectangle(x, y, (texture.getWidth()/2), (texture.getHeight()/2));
 	}
 	
 	public Rectangle getBounds() {

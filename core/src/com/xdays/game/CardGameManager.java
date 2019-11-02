@@ -26,7 +26,7 @@ public class CardGameManager {
 		this.user.setHand(reader.getIndustryCardsArray());
 		this.enemyAI.setHand(reader.getIndustryCardsBadArray());
 		
-		isPlayerTurn = false;
+		isPlayerTurn = true;
 		
 		board = new Board();
 	}
