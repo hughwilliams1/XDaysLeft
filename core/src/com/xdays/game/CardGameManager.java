@@ -44,7 +44,10 @@ public class CardGameManager {
 		boolean finished = false;
 		
 		while(emissionsBar != 100 && emissionsBar != 0 && !finished) {
-			
+			if(!isPlayerTurn) {
+				processCard(getAI().nextCard(board));
+				switchPlayerTurn();
+			}
 			//User Plays
 			//AI plays
 			//changeEmissions(((Industry) card).getPoints());
