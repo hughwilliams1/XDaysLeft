@@ -43,4 +43,11 @@ public abstract class Card {
 		return position;
 	}
 	
+	public boolean isIndustry() {
+		return false;
+	}
+
+	public int getStars() {
+		return 0;
+	}
 }

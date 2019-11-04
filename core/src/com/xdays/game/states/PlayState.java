@@ -19,7 +19,7 @@ public class PlayState extends State{
 		super(gsm);
 		cam.setToOrtho(false, Game.WIDTH, Game.HEIGHT);
 		
-		manager = new CardGameManager(50, new User("Friendly"), new AI("Enemy"));
+		manager = new CardGameManager(50, new User("Friendly"), new AI("Enemy", 1));
 	}
 
 	

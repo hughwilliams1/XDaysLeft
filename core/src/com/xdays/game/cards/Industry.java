@@ -10,7 +10,7 @@ public class Industry extends Card {
 		this.stars = stars;
 		this.points = points;
 	}
-	
+	@Override
 	public int getStars() {
 		return stars;
 	}
@@ -18,5 +18,9 @@ public class Industry extends Card {
 	public int getPoints() {
 		return points;
 	}
-
+	
+	@Override
+	public boolean isIndustry() {
+		return true;
+	}
 }

@@ -23,4 +23,16 @@ public class Board {
 			return(aiField.add(card));
 		}
 	}
+	
+	public ArrayList<Card> getAIField() {
+		return aiField;
+	}
+	
+	public boolean removeFromField(boolean isPlayer, Card card) {
+		if (isPlayer) {
+			return userField.remove(card);
+		} else {
+			return aiField.remove(card);
+		}
+	}
 }
