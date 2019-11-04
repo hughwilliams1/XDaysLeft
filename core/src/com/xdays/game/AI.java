@@ -16,7 +16,7 @@ public class AI extends Player {
 	}
 	
 	public Card nextCard(Board enemyBoard) {
-		ArrayList<Card> cardsToUse = cardsAvailableToPlay(enemyBoard.getAIField(), getHand());
+		ArrayList<Card> cardsToUse = cardsAvailableToPlay(enemyBoard.getField(), getHand());
 		
 		if(random.nextInt(100) < 20*(5 - level)) {
 			//This means the AI is not selecting the best option.
@@ -43,7 +43,6 @@ public class AI extends Player {
 		int oneStarCards = 0;
 		int twoStarCards = 0;
 		int threeStarCards = 0;
-		int fourStarCards = 0;
 		ArrayList<Card> acceptableCardsToPlay = new ArrayList<Card>();
 		for(Card card:cardsOnBoard) {
 			if(card.isIndustry()) {

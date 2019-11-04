@@ -3,36 +3,61 @@ package com.xdays.game;
 import java.util.ArrayList;
 
 import com.xdays.game.cards.Card;
+import com.xdays.game.cards.Industry;
 
 public class Board {
 	
-	private ArrayList<Card> userField;
-	private ArrayList<Card> aiField;
+	private ArrayList<Card> field;
 	
 	public Board() {
-		
-		userField = new ArrayList<Card>(10);
-		aiField = new ArrayList<Card>(10);
-		
+		field = new ArrayList<Card>(10);
 	}
 	
-	public boolean addToField(boolean isPlayer, Card card) {
-		if (isPlayer) {
-			return userField.add(card);
+	public boolean addToField(Card card) {
+		return field.add(card);
+	}
+	
+	public ArrayList<Card> getField() {
+		return field;
+	}
+	
+	public boolean removeFromField(Card card) {
+		return field.remove(card);
+	}
+	
+	public boolean removeGroupFromField(ArrayList<Card> toRemove) {
+		if (field.containsAll(toRemove)) {
+			for (Card c : toRemove) {
+				field.remove(c);
+			}
 		} else {
-			return(aiField.add(card));
+			return false;
 		}
+		return true;
 	}
 	
-	public ArrayList<Card> getAIField() {
-		return aiField;
+	public int getTotalPoints() {
+		int points = 0;
+		for(Card c : field) {
+			points += ((Industry) c).getPoints();
+		}
+		return points;
 	}
 	
-	public boolean removeFromField(boolean isPlayer, Card card) {
-		if (isPlayer) {
-			return userField.remove(card);
+	public int getTotalStars(ArrayList<Card> passedField) {
+		int stars = 0;
+		for (Card c : passedField) {
+			stars += c.getStars();
+		}
+		return stars;
+	}
+	
+	public boolean mergeCard(Card card, ArrayList<Card> selectedCards) {
+		if(card.getStars() == getTotalStars(selectedCards)) {
+			removeGroupFromField(selectedCards);
+			return addToField(card);
 		} else {
-			return aiField.remove(card);
+			return false;
 		}
 	}
 }

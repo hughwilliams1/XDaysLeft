@@ -31,7 +31,7 @@ public class PlayState extends State{
         	for(int i=0; i<manager.getUser().getHand().length; i++) {
         		if(manager.getUser().getHand()[i].getBounds().overlaps(bounds)) {
         			System.out.println(manager.getUser().getHand()[i].getTitle());
-        			manager.processCard(manager.getUser().getHand()[i]);
+        			manager.processCard(manager.getUser().getHand()[i]); //Any other cards to sacrafice, if not then null
         		}
         	}
         }
