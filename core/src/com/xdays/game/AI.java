@@ -52,40 +52,89 @@ public class AI extends Player {
 					}
 				}
 				break; // need two one cards
-			case 3:
-				boolean oneStarCard = false;
-				boolean twoStarCard = false;
+			case 3: {
+					boolean[] starCardsFound = {false, false};
+					ArrayList<Card> tempCardList = new ArrayList<Card>();
+					while(totalStars != cardStarValue) {
+						for(Card currentCard: cardsInHand) {
+							if(iteration < 1) {
+								if(currentCard.getStars() == 1) {
+									tempCardList.add(currentCard);
+									totalStars = currentCard.getStars();
+								}
+							} else {
+								if(currentCard.getStars() == 1 && !starCardsFound[0]) {
+									tempCardList.add(currentCard);
+									totalStars = currentCard.getStars();
+									starCardsFound[0] = !starCardsFound[0];
+								} else if(currentCard.getStars() == 2 && !starCardsFound[1]) {
+									tempCardList.add(currentCard);
+									totalStars = currentCard.getStars();
+									starCardsFound[1] = !starCardsFound[1];
+								}
+							}
+							if(totalStars == cardStarValue) {
+								break;
+							}
+						}
+						iteration++;
+						if(totalStars == cardStarValue) {
+							cardsToReturn.addAll(tempCardList);
+						} else {
+							tempCardList = new ArrayList<Card>();
+						}
+					}
+				break; } // need either three one cards or one one card and a two
+			case 4: {
+				boolean[] starCardsFound = {false, false, false};
+				ArrayList<Card> tempCardList = new ArrayList<Card>();
 				while(totalStars != cardStarValue) {
 					for(Card currentCard: cardsInHand) {
 						if(iteration < 1) {
 							if(currentCard.getStars() == 1) {
-								cardsToReturn.add(currentCard);
+								tempCardList.add(currentCard);
 								totalStars = currentCard.getStars();
 							}
+						} else if(iteration == 2) {
+							if(currentCard.getStars() == 2 && !starCardsFound[0]) {
+								tempCardList.add(currentCard);
+								totalStars = currentCard.getStars();
+								starCardsFound[0] = !starCardsFound[0];
+							} else if(currentCard.getStars() == 1 && (!starCardsFound[1] || !starCardsFound[2] )) {
+								tempCardList.add(currentCard);
+								totalStars = currentCard.getStars();
+								if(!starCardsFound[1]) {
+									starCardsFound[1] = !starCardsFound[1];
+								} else {
+									starCardsFound[2] = !starCardsFound[2];
+								}
+							}
 						} else {
-							if(currentCard.getStars() == 1 && !oneStarCard) {
-								cardsToReturn.add(currentCard);
+							if(currentCard.getStars() == 2 && (!starCardsFound[0] || !starCardsFound[1])) {
+								tempCardList.add(currentCard);
 								totalStars = currentCard.getStars();
-								oneStarCard = !oneStarCard;
-							} else if(currentCard.getStars() == 2 && !twoStarCard) {
-								cardsToReturn.add(currentCard);
-								totalStars = currentCard.getStars();
-								twoStarCard = !oneStarCard;
+								starCardsFound[0] = !starCardsFound[0];
+								if(!starCardsFound[1]) {
+									starCardsFound[1] = !starCardsFound[1];
+								} else {
+									starCardsFound[0] = !starCardsFound[0];
+								}
 							}
 						}
 						if(totalStars == cardStarValue) {
 							break;
 						}
 					}
+					if(totalStars == cardStarValue) {
+						cardsToReturn.addAll(tempCardList);
+					} else {
+						tempCardList = new ArrayList<Card>();
+					}
 					iteration++;
 				}
-				break; // need either three one cards or one one card and a two
-			case 4:
-				break; // need either 4 one cards or 2 two cards  or 2 of each
+					
+				break; } // need either 4 one cards or 2 two cards  or 2 of each
 		}
-		
-			
-		
 		return cardsToReturn;
 	}
 	
