@@ -1,6 +1,7 @@
 package com.xdays.game;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 import com.xdays.game.cards.Card;
@@ -15,17 +16,77 @@ public class AI extends Player {
 		this.level = level;
 	}
 	
-	public Card nextCard(Board enemyBoard) {
+	public ArrayList<Card> nextCard(Board enemyBoard) {
 		ArrayList<Card> cardsToUse = cardsAvailableToPlay(enemyBoard.getField(), getHand());
-		
+		ArrayList<Card> cardsToProcess = new ArrayList<Card>();
 		if(random.nextInt(100) < 20*(5 - level)) {
 			//This means the AI is not selecting the best option.
 			//This is to make it easier for the user
-			return cardsToUse.get(random.nextInt(cardsToUse.size() - 1));
+			 cardsToProcess.add(cardsToUse.get(random.nextInt(cardsToUse.size() - 1)));
+			 cardsToProcess.addAll(cardsToMerge(cardsToProcess.get(0), getHand()));
 		} else {
 			//This means the AI is selecting the best option.
-			return getHighestStarCard(cardsToUse);
+			cardsToProcess.add(getHighestStarCard(cardsToUse));
+			cardsToProcess.addAll(cardsToMerge(cardsToProcess.get(0), getHand()));
 		}
+		return cardsToProcess;
+	}
+	
+	private ArrayList<Card> cardsToMerge(Card card, Card[] hand){
+		ArrayList<Card> cardsInHand = new ArrayList<Card>(Arrays.asList(hand));
+		ArrayList<Card> cardsToReturn = new ArrayList<Card>();
+		int cardStarValue = card.getStars();
+		int totalStars = 0;
+		int iteration = 1;
+		switch(cardStarValue) {
+			case 1:
+				break;
+			case 2:
+				for(Card currentCard: cardsInHand) {
+					if(currentCard.getStars() == 1) {
+						cardsToReturn.add(currentCard);
+						totalStars = currentCard.getStars();
+					} 
+					if(totalStars == cardStarValue) {
+						break;
+					}
+				}
+				break; // need two one cards
+			case 3:
+				boolean oneStarCard = false;
+				boolean twoStarCard = false;
+				while(totalStars != cardStarValue) {
+					for(Card currentCard: cardsInHand) {
+						if(iteration < 1) {
+							if(currentCard.getStars() == 1) {
+								cardsToReturn.add(currentCard);
+								totalStars = currentCard.getStars();
+							}
+						} else {
+							if(currentCard.getStars() == 1 && !oneStarCard) {
+								cardsToReturn.add(currentCard);
+								totalStars = currentCard.getStars();
+								oneStarCard = !oneStarCard;
+							} else if(currentCard.getStars() == 2 && !twoStarCard) {
+								cardsToReturn.add(currentCard);
+								totalStars = currentCard.getStars();
+								twoStarCard = !oneStarCard;
+							}
+						}
+						if(totalStars == cardStarValue) {
+							break;
+						}
+					}
+					iteration++;
+				}
+				break; // need either three one cards or one one card and a two
+			case 4:
+				break; // need either 4 one cards or 2 two cards  or 2 of each
+		}
+		
+			
+		
+		return cardsToReturn;
 	}
 	
 	private Card getHighestStarCard(ArrayList<Card> cardsToUse) {

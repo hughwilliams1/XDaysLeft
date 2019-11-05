@@ -62,8 +62,12 @@ public class CardGameManager {
 			}
 			
 			if(!isPlayerTurn) {
-				aiCard = getAI().nextCard(aiBoard);
-				processCard(aiCard, null); //Need the chosen cards to destroy too
+				
+				ArrayList<Card> cardsToProcess = getAI().nextCard(aiBoard);
+				
+				aiCard = cardsToProcess.get(0);
+				cardsToProcess.remove(0);
+				processCard(aiCard, cardsToProcess); //Need the chosen cards to destroy too
 				changeEmissions(aiBoard.getTotalPoints());
 				switchPlayerTurn();
 			}
