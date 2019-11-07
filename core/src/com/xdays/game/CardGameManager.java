@@ -44,13 +44,13 @@ public class CardGameManager {
 	public void playCardGameRound(Card card, ArrayList<Card> chosenCards) {
 		processCard(card, chosenCards);
 		changeEmissions(playerBoard.getTotalPoints());
-		/*switchPlayerTurn();
+		switchPlayerTurn();
 		ArrayList<Card> cardsToProcess = getAI().nextCard(aiBoard);
 		aiCard = cardsToProcess.get(0);
 		cardsToProcess.remove(0);
 		processCard(aiCard, cardsToProcess); //Need the chosen cards to destroy too
 		switchPlayerTurn();
-		changeEmissions(aiBoard.getTotalPoints());*/
+		changeEmissions(aiBoard.getTotalPoints());
 	}
 	
 	public void playCardGame () {
