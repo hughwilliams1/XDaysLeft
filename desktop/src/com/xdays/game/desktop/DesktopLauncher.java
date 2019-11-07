@@ -10,6 +10,7 @@ public class DesktopLauncher {
 		config.width = Game.WIDTH;
 		config.height = Game.HEIGHT;
 		config.title = Game.TITLE;
+		config.resizable = false;
 		new LwjglApplication(new Game(), config);
 	}
 }

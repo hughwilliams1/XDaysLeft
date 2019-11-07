@@ -15,8 +15,8 @@ public class MenuState extends State{
     public MenuState(GameStateManager gsm) {
         super(gsm);
         cam.setToOrtho(false, Game.WIDTH, Game.HEIGHT);
-        background = new Texture("background.JPG");
-        playBtn = new Texture("play.jpg");
+        background = new Texture("Title.PNG");
+        playBtn = new Texture("playButton.PNG");
     }
 
     @Override
@@ -37,7 +37,7 @@ public class MenuState extends State{
         sb.setProjectionMatrix(cam.combined);
         sb.begin();
         sb.draw(background, 0,0);
-        sb.draw(playBtn, (cam.position.x - 100 / 2), (cam.position.y - 100 / 2), 100, 100);
+        sb.draw(playBtn, (cam.position.x - playBtn.getWidth() / 2), (cam.position.y - playBtn.getHeight() / 2) - 150);
         sb.end();
     }
 

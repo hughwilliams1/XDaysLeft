@@ -1,63 +1,63 @@
 [
 	{
-	"title" : "cardOneBad", 
-	"cardText" : "This is cardOne-Bad.",
+	"title" : "Plant TreeBad", 
+	"cardText" : "This is Plant Tree - Bad.",
+	"stars" : "1",
+	"points" : "-2"
+	},
+	{
+	"title" : "Plant Tree2Bad", 
+	"cardText" : "This is Plant Tree - Bad.",
+	"stars" : "1",
+	"points" : "-2"
+	},
+	{
+	"title" : "Plant Tree3Bad", 
+	"cardText" : "This is Plant Tree - Bad.",
+	"stars" : "1",
+	"points" : "-2"
+	},
+	{
+	"title" : "Solar PanelBad", 
+	"cardText" : "This is Solar Panels - Bad.",
+	"stars" : "1",
+	"points" : "-1"
+	},
+	{
+	"title" : "Solar Panel2Bad", 
+	"cardText" : "This is Solar Panels - Bad.",
+	"stars" : "1",
+	"points" : "-1"
+	},
+	{
+	"title" : "Solar Panel3Bad", 
+	"cardText" : "This is Solar Panels - Bad.",
+	"stars" : "1",
+	"points" : "-1"
+	},
+	{
+	"title" : "WindmillBad", 
+	"cardText" : "This is Windmill - Bad.",
 	"stars" : "2",
-	"points" : "1"
+	"points" : "-6"
 	},
 	{
-	"title" : "cardTwoBad", 
-	"cardText" : "This is cardTwo-Bad.",
+	"title" : "Windmill2Bad", 
+	"cardText" : "This is Windmill - Bad.",
+	"stars" : "2",
+	"points" : "-6"
+	},
+	{
+	"title" : "Solar FarmBad", 
+	"cardText" : "This is Solar Farm - Bad.",
 	"stars" : "3",
-	"points" : "2"
+	"points" : "-9"
 	},
 	{
-	"title" : "cardThreeBad", 
-	"cardText" : "This is cardThree-Bad.",
+	"title" : "Geothermal GeneratorBad", 
+	"cardText" : "This is Geothermal Generator - Bad.",
 	"stars" : "4",
-	"points" : "3"
-	},
-	{
-	"title" : "cardFourBad", 
-	"cardText" : "This is cardFour-Bad.",
-	"stars" : "3",
-	"points" : "2"
-	},
-	{
-	"title" : "cardFiveBad", 
-	"cardText" : "This is cardFive-Bad.",
-	"stars" : "4",
-	"points" : "3"
-	},
-	{
-	"title" : "cardSixBad", 
-	"cardText" : "This is cardSix-Bad.",
-	"stars" : "4",
-	"points" : "3"
-	},
-	{
-	"title" : "cardSevenBad", 
-	"cardText" : "This is cardSeven-Bad.",
-	"stars" : "4",
-	"points" : "3"
-	},
-	{
-	"title" : "cardEightBad", 
-	"cardText" : "This is cardEight-Bad.",
-	"stars" : "4",
-	"points" : "3"
-	},
-	{
-	"title" : "cardNineBad", 
-	"cardText" : "This is cardNine-Bad.",
-	"stars" : "4",
-	"points" : "3"
-	},
-	{
-	"title" : "cardTenBad", 
-	"cardText" : "This is cardTen-Bad.",
-	"stars" : "4",
-	"points" : "3"
+	"points" : "-13"
 	},
 	
 ]

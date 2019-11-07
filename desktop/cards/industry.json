@@ -1,63 +1,63 @@
 [
 	{
-	"title" : "cardOne", 
-	"cardText" : "This is cardOne.",
-	"stars" : "2",
+	"title" : "Plant Tree", 
+	"cardText" : "This is Plant Tree.",
+	"stars" : "1",
+	"points" : "2"
+	},
+	{
+	"title" : "Plant Tree2", 
+	"cardText" : "This is Plant Tree.",
+	"stars" : "1",
+	"points" : "2"
+	},
+	{
+	"title" : "Plant Tree3", 
+	"cardText" : "This is Plant Tree.",
+	"stars" : "1",
+	"points" : "2"
+	},
+	{
+	"title" : "Solar Panel", 
+	"cardText" : "This is Solar Panels.",
+	"stars" : "1",
 	"points" : "1"
 	},
 	{
-	"title" : "cardTwo", 
-	"cardText" : "This is cardTwo.",
+	"title" : "Solar Panel2", 
+	"cardText" : "This is Solar Panels.",
+	"stars" : "1",
+	"points" : "1"
+	},
+	{
+	"title" : "Solar Panel3", 
+	"cardText" : "This is Solar Panels.",
+	"stars" : "1",
+	"points" : "1"
+	},
+	{
+	"title" : "Windmill", 
+	"cardText" : "This is Windmill.",
+	"stars" : "2",
+	"points" : "6"
+	},
+	{
+	"title" : "Windmill2", 
+	"cardText" : "This is Windmill.",
+	"stars" : "2",
+	"points" : "6"
+	},
+	{
+	"title" : "Solar Farm", 
+	"cardText" : "This is Solar Farm.",
 	"stars" : "3",
-	"points" : "2"
+	"points" : "9"
 	},
 	{
-	"title" : "cardThree", 
-	"cardText" : "This is cardThree.",
+	"title" : "Geothermal Generator", 
+	"cardText" : "This is Geothermal Generator.",
 	"stars" : "4",
-	"points" : "3"
-	},
-	{
-	"title" : "cardFour", 
-	"cardText" : "This is cardFour.",
-	"stars" : "3",
-	"points" : "2"
-	},
-	{
-	"title" : "cardFive", 
-	"cardText" : "This is cardFive.",
-	"stars" : "4",
-	"points" : "3"
-	},
-	{
-	"title" : "cardSix", 
-	"cardText" : "This is cardSix.",
-	"stars" : "4",
-	"points" : "3"
-	},
-	{
-	"title" : "cardSeven", 
-	"cardText" : "This is cardSeven.",
-	"stars" : "4",
-	"points" : "3"
-	},
-	{
-	"title" : "cardEight", 
-	"cardText" : "This is cardEight.",
-	"stars" : "4",
-	"points" : "3"
-	},
-	{
-	"title" : "cardNine", 
-	"cardText" : "This is cardNine.",
-	"stars" : "4",
-	"points" : "3"
-	},
-	{
-	"title" : "cardTen", 
-	"cardText" : "This is cardTen.",
-	"stars" : "4",
-	"points" : "3"
+	"points" : "13"
 	},
 	
 ]
