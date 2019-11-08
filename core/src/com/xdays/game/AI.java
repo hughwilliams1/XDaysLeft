@@ -22,8 +22,7 @@ public class AI extends Player {
 			//This means the AI is not selecting the best option.
 			//This is to make it easier for the user
 			int nextIndex = random.nextInt(cardsToUse.size());
-			System.out.println(nextIndex);
-			 cardsToProcess.add(cardsToUse.get(nextIndex));
+			cardsToProcess.add(cardsToUse.get(nextIndex));
 			 cardsToProcess.addAll(cardsToMerge(cardsToProcess.get(0), enemyBoard.getField()));
 		} else {
 			//This means the AI is selecting the best option.
@@ -37,7 +36,7 @@ public class AI extends Player {
 		ArrayList<Card> cardsToReturn = new ArrayList<Card>();
 		int cardStarValue = card.getStars();
 		int totalStars = 0;
-		int iteration = 1;
+		int iteration = 0;
 		switch(cardStarValue) {
 			case 1:
 				break;
@@ -172,9 +171,9 @@ public class AI extends Player {
 		}
 		
 		for(Card card: cardsInHand) {
-//			if(card.isPlayed()) {
-//				break;
-//			}
+			if(card.isPlayed()) {
+				continue;
+			}
 			switch(card.getStars()) {
 			case(1):
 				acceptableCardsToPlay.add(card);
