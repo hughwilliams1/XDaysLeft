@@ -47,6 +47,7 @@ public class CardGameManager {
 		switchPlayerTurn();
 		ArrayList<Card> cardsToProcess = getAI().nextCard(aiBoard);
 		aiCard = cardsToProcess.get(0);
+		System.out.println(aiCard.getTitle());
 		cardsToProcess.remove(0);
 		processCard(aiCard, cardsToProcess); //Need the chosen cards to destroy too
 		switchPlayerTurn();
@@ -70,6 +71,7 @@ public class CardGameManager {
 				ArrayList<Card> cardsToProcess = getAI().nextCard(aiBoard);
 				
 				aiCard = cardsToProcess.get(0);
+				System.out.println(aiCard.getTitle());
 				cardsToProcess.remove(0);
 				processCard(aiCard, cardsToProcess); //Need the chosen cards to destroy too
 				changeEmissions(aiBoard.getTotalPoints());
@@ -86,12 +88,14 @@ public class CardGameManager {
 				if (card.getStars() > 1) {
 					card.handleInput();
 					playerBoard.mergeCard(card, chosenCards);
+					user.removeCard(card);
 					for(int i=0; i<chosenCards.size(); i++) {
 						user.removeCard(chosenCards.get(i));
 					}
 				} else {
 					card.handleInput();
 					playerBoard.addToField(card);
+					user.removeCard(card);
 				}
 				hasPlayed = true;
 			} else {
@@ -99,6 +103,7 @@ public class CardGameManager {
 					card.switchTextures();
 					card.handleInputEnemy();
 					aiBoard.mergeCard(card, chosenCards);
+					enemyAI.removeCard(card);
 					for(int i=0; i<chosenCards.size(); i++) {
 						enemyAI.removeCard(chosenCards.get(i));
 					}
@@ -106,6 +111,7 @@ public class CardGameManager {
 					card.switchTextures();
 					card.handleInputEnemy();
 					aiBoard.addToField(card);
+					enemyAI.removeCard(card);
 				}
 			}
 			doCardAbility();
@@ -119,6 +125,10 @@ public class CardGameManager {
 	
 	public Board getPlayerBoard() {
 		return playerBoard;
+	}
+	
+	public Board getAIBoard() {
+		return aiBoard;
 	}
 	
 	public User getUser() {

@@ -14,7 +14,6 @@ public class Board {
 	}
 	
 	public boolean addToField(Card card) {
-		//System.out.println("Added: " + card.getTitle() + " to the field.");
 		return field.add(card);
 	}
 	
@@ -55,7 +54,7 @@ public class Board {
 	}
 	
 	public boolean mergeCard(Card card, ArrayList<Card> selectedCards) {
-		if(card.getStars() == getTotalStars(selectedCards)) {
+		if(card.getStars() <= getTotalStars(selectedCards)) {
 			removeGroupFromField(selectedCards);
 			return addToField(card);
 		} else {
