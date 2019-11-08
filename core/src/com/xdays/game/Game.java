@@ -20,7 +20,6 @@ public class Game extends ApplicationAdapter {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		gsm = new GameStateManager();
 		gsm.push(new MenuState(gsm));
@@ -40,6 +39,5 @@ public class Game extends ApplicationAdapter {
 	@Override
 	public void dispose () {
 		batch.dispose();
-		img.dispose();
 	}
 }

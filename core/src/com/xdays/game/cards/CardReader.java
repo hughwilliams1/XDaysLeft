@@ -2,6 +2,7 @@ package com.xdays.game.cards;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.json.simple.JSONArray;
@@ -32,20 +33,20 @@ public class CardReader {
 		return industryCards;
 	}
 	
-	public Card[] getIndustryCardsArray() {
+	public ArrayList<Card> getIndustryCardsArray() {
 		Object[] a = industryCards.values().toArray();
-		Card[] cards = new Card[10];
+		ArrayList<Card> cards = new ArrayList<Card>();
 		for(int i=0; i<a.length; i++) {
-			cards[i] = (Card) a[i];
+			cards.add((Card) a[i]);
 		}
 		return cards;
 	}
 	
-	public Card[] getIndustryCardsBadArray() {
+	public ArrayList<Card> getIndustryCardsBadArray() {
 		Object[] a = industryCardsBad.values().toArray();
-		Card[] cards = new Card[10];
+		ArrayList<Card> cards = new ArrayList<Card>();
 		for(int i=0; i<a.length; i++) {
-			cards[i] = (Card) a[i];
+			cards.add((Card) a[i]);
 		}
 		return cards;
 	}

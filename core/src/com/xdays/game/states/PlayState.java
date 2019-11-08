@@ -1,6 +1,12 @@
 package com.xdays.game.states;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.xdays.game.AI;
@@ -8,17 +14,23 @@ import com.xdays.game.CardGameManager;
 import com.xdays.game.Game;
 import com.xdays.game.User;
 import com.xdays.game.cards.Card;
-import com.xdays.game.cards.Industry;
 
 public class PlayState extends State{
 	
+	private boolean multipleCardsNeeded = false;
 	private boolean firstRun = true;
-	CardGameManager manager;
+	private CardGameManager manager;
+	private Card lastCardPlayed;
+	private ArrayList<Card> selectedCards;
+	private String messageToPrint;
+	private Texture background;
 
 	public PlayState(GameStateManager gsm) {
 		super(gsm);
+		background = new Texture("background.png");
+		selectedCards = new ArrayList<Card>();
+		messageToPrint = "";
 		cam.setToOrtho(false, Game.WIDTH, Game.HEIGHT);
-		
 		manager = new CardGameManager(50, new User("Friendly"), new AI("Enemy", 1));
 	}
 
@@ -26,15 +38,56 @@ public class PlayState extends State{
 	@Override
 	protected void handleInput() {
         if(Gdx.input.justTouched() && manager.isPlayersTurn()) {
-        	System.out.println("Play State touched");
-        	Rectangle bounds = new Rectangle(Gdx.input.getX(), Gdx.input.getY(), 5, 5);
-        	for(int i=0; i<manager.getUser().getHand().length; i++) {
-        		if(manager.getUser().getHand()[i].getBounds().overlaps(bounds)) {
-        			System.out.println(manager.getUser().getHand()[i].getTitle());
-        			manager.processCard(manager.getUser().getHand()[i]); //Any other cards to sacrafice, if not then null
+        	//System.out.println("Play State touched");
+        	Rectangle bounds = new Rectangle(Gdx.input.getX(), -(Gdx.input.getY()-720), 5, 5);
+        	for(int i=0; i<manager.getUser().getHand().size(); i++) {
+        		if(manager.getUser().getHand().get(i).getBounds().overlaps(bounds)) {
+        			Card selectedCard = manager.getUser().getHand().get(i);
+        			if(multipleCardsNeeded == false) {
+            			if(selectedCard.getStars()>1 && !selectedCard.isPlayed()) {
+            				if(manager.getPlayerBoard().getTotalStars(manager.getPlayerBoard().getField())<selectedCard.getStars()) {
+            					messageToPrint = "Not enough cards to play that card.";
+            					System.out.println("Not enough cards to play that card.");
+            				}else {
+            					messageToPrint = "Select cards to merge";
+            					multipleCardsNeeded = true;
+            					lastCardPlayed = selectedCard;
+            					lastCardPlayed.halfPlayed();
+            				}
+            			}else if(!selectedCard.isPlayed()){
+            				messageToPrint ="User played card: " + selectedCard.getTitle();
+            				System.out.println("User played card: " + selectedCard.getTitle());
+            				manager.playCardGameRound(selectedCard, null);
+            			}
+        			}else {
+        				if(calculateTotalStars(selectedCards)<lastCardPlayed.getStars()) {
+    		        		if(selectedCard.getBounds().overlaps(bounds) && !selectedCard.equals(lastCardPlayed) && selectedCard.isPlayed() && !selectedCards.contains(selectedCard)) {
+    		        			selectedCards.add(selectedCard);
+    		        			messageToPrint ="Selected card for merge: " + selectedCard.getTitle();
+    		        			System.out.println("Selected card for merge: " + selectedCard.getTitle());
+    		        			if(calculateTotalStars(selectedCards)>=lastCardPlayed.getStars()) {
+    	        					manager.playCardGameRound(lastCardPlayed, selectedCards);
+    	        					selectedCards.clear();
+    	        					multipleCardsNeeded = false;
+    		        			}
+    		        		}
+        				}
+        			}
         		}
         	}
         }
+	}
+	
+	private int calculateTotalStars(ArrayList<Card> selected) {
+		int a = 0;
+		if(selected.isEmpty()) {
+			return 0;
+		}else {
+			for(int i=0; i<selected.size(); i++) {
+				a += selected.get(i).getStars();
+			}
+			return a;
+		}
 	}
 
 	@Override
@@ -44,25 +97,41 @@ public class PlayState extends State{
 
 	@Override
 	public void render(SpriteBatch sb) {
+		BitmapFont console = new BitmapFont();
+		BitmapFont emissions = new BitmapFont();
+		emissions.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		emissions.getData().setScale(1);
+		emissions.setColor(Color.ORANGE);
+		console.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		console.getData().setScale(1);
+		console.setColor(Color.ORANGE);
+		
 		Gdx.gl.glClearColor(135/255f, 206/255f, 235/255f, 1);
+		
         sb.setProjectionMatrix(cam.combined);
         sb.begin();
-        //System.out.println("Rendering");
-        for(int i=0; i<10; i++) {
+        sb.draw(background, 0,0);
+        
+        for(int i=0; i<manager.getUser().getHand().size(); i++) {
         	if(firstRun) {
-        		manager.getUser().getHand()[i].setPosition(0 + i*250, 0);
-            	System.out.println(i);
-            	System.out.println(manager.getUser().getHand()[i].getBounds().getX());
-            	System.out.println(manager.getUser().getHand()[i].getBounds().getY());
-            	System.out.println(manager.getUser().getHand()[i].getBounds().getWidth());
-            	System.out.println(manager.getUser().getHand()[i].getBounds().getHeight());
+        		manager.getUser().getHand().get(i).setPosition(5 + i*127, 0);
         	}
-            sb.draw(manager.getUser().getHand()[i].getTexture(), 0 + i*250, 0, manager.getUser().getHand()[i].getTexture().getWidth()/2, manager.getUser().getHand()[i].getTexture().getHeight()/2);
-            //sb.draw(manager.getAI().getHand()[i].getTexture(), 0 + i*250, 50, manager.getAI().getHand()[i].getTexture().getWidth()/2, manager.getAI().getHand()[i].getTexture().getHeight()/2);
+
+            sb.draw(manager.getUser().getHand().get(i).getTexture(), manager.getUser().getHand().get(i).getBounds().getX(), manager.getUser().getHand().get(i).getBounds().getY(), manager.getUser().getHand().get(i).getTexture().getWidth()/3.4f, manager.getUser().getHand().get(i).getTexture().getHeight()/3.4f);      
         }
+        
+        for(int i=0; i<manager.getAI().getHand().size(); i++) {
+        	if(firstRun) {
+        		manager.getAI().getHand().get(i).setPosition(5 + i*127, 650);
+        	}
+            sb.draw(manager.getAI().getHand().get(i).getBackTexture(), manager.getAI().getHand().get(i).getBounds().getX(), manager.getAI().getHand().get(i).getBounds().getY(), manager.getAI().getHand().get(i).getTexture().getWidth()/3.4f, manager.getAI().getHand().get(i).getTexture().getHeight()/3.4f);
+        }
+        
+        console.draw(sb, messageToPrint, 600, 405);
+        emissions.draw(sb, "Emissions: " + Integer.toString(manager.getEmissionsBar()), 600, 380);
+        
         firstRun = false;
         sb.end();
-		
 	}
 
 	@Override

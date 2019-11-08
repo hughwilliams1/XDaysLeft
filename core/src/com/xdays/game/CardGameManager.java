@@ -41,12 +41,16 @@ public class CardGameManager {
 		aiCard = null;
 	}
 	
-	public User getUser() {
-		return user;
-	}
-	
-	public AI getAI() {
-		return enemyAI;
+	public void playCardGameRound(Card card, ArrayList<Card> chosenCards) {
+		processCard(card, chosenCards);
+		changeEmissions(playerBoard.getTotalPoints());
+		switchPlayerTurn();
+		ArrayList<Card> cardsToProcess = getAI().nextCard(aiBoard);
+		aiCard = cardsToProcess.get(0);
+		cardsToProcess.remove(0);
+		processCard(aiCard, cardsToProcess); //Need the chosen cards to destroy too
+		switchPlayerTurn();
+		changeEmissions(aiBoard.getTotalPoints());
 	}
 	
 	public void playCardGame () {
@@ -80,15 +84,27 @@ public class CardGameManager {
 		if(card instanceof Industry) {
 			if (isPlayerTurn) {
 				if (card.getStars() > 1) {
+					card.handleInput();
 					playerBoard.mergeCard(card, chosenCards);
+					for(int i=0; i<chosenCards.size(); i++) {
+						user.removeCard(chosenCards.get(i));
+					}
 				} else {
+					card.handleInput();
 					playerBoard.addToField(card);
 				}
 				hasPlayed = true;
 			} else {
 				if (card.getStars() > 1) {
+					card.switchTextures();
+					card.handleInputEnemy();
 					aiBoard.mergeCard(card, chosenCards);
+					for(int i=0; i<chosenCards.size(); i++) {
+						enemyAI.removeCard(chosenCards.get(i));
+					}
 				} else {
+					card.switchTextures();
+					card.handleInputEnemy();
 					aiBoard.addToField(card);
 				}
 			}
@@ -99,6 +115,18 @@ public class CardGameManager {
 			}
 			doCardAbility();
 		}
+	}
+	
+	public Board getPlayerBoard() {
+		return playerBoard;
+	}
+	
+	public User getUser() {
+		return user;
+	}
+	
+	public AI getAI() {
+		return enemyAI;
 	}
 	
 	public void changeEmissions(int amount) {

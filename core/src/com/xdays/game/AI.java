@@ -1,7 +1,6 @@
 package com.xdays.game;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 import com.xdays.game.cards.Card;
@@ -32,8 +31,7 @@ public class AI extends Player {
 		return cardsToProcess;
 	}
 	
-	private ArrayList<Card> cardsToMerge(Card card, Card[] hand){
-		ArrayList<Card> cardsInHand = new ArrayList<Card>(Arrays.asList(hand));
+	private ArrayList<Card> cardsToMerge(Card card, ArrayList<Card> cardsInHand){
 		ArrayList<Card> cardsToReturn = new ArrayList<Card>();
 		int cardStarValue = card.getStars();
 		int totalStars = 0;
@@ -149,7 +147,7 @@ public class AI extends Player {
 				
 	}
 
-	private ArrayList<Card> cardsAvailableToPlay(ArrayList<Card> cardsOnBoard, Card[] cardsInHand){
+	private ArrayList<Card> cardsAvailableToPlay(ArrayList<Card> cardsOnBoard, ArrayList<Card> cardsInHand){
 		int oneStarCards = 0;
 		int twoStarCards = 0;
 		int threeStarCards = 0;

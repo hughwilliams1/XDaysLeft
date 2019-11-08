@@ -14,6 +14,7 @@ public class Board {
 	}
 	
 	public boolean addToField(Card card) {
+		//System.out.println("Added: " + card.getTitle() + " to the field.");
 		return field.add(card);
 	}
 	
@@ -41,6 +42,7 @@ public class Board {
 		for(Card c : field) {
 			points += ((Industry) c).getPoints();
 		}
+		//System.out.println(points);
 		return points;
 	}
 	
