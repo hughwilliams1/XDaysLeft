@@ -1,242 +1,142 @@
-</div><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <title>XDaysLeft</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 </head>
 
+
 <body>
+    <nav class="navbar navbar-expand-md navbar-fixed-top navbar-light bg-light main-nav">
+        <div class="container" id="top-nav">
+            <ul class="nav navbar-nav nav-fill w-100">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">HOME</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">FORUM</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">SOCIAL</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav justify-content-center w-100">
+                <li class="nav-item">
+                    <img src="croppedWorld.png" class="rounded-circle" width="90px" height="auto" id=circleLogo>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav nav-fill w-100">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">GAMEPLAY</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">BUY</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">CONTACT</a>
+                </li>
 
-  <!-- navbar -->
-  <nav class="navbar navbar-inverse navbar-static-top">
-    <div class="container-fluid">
-      <ul class="nav navbar-nav navbar-left">
-        <img class="navbar-brand" src="wrldMap.png" id="logo">
-        <li><a class="navbar-brand" href="#">XDaysLeft</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-          <li class="active"><a href="#">Home</a></li>
-          <li><a href="#">Page 1</a></li>
-          <li><a href="#">Page 2</a></li>
-          <li><a href="#">Page 3</a></li>
-      </ul>
-    </div>
-  </nav>
-
-  <div class="container" id="wrldMap">
-  </div>
-
-  <div class="container-fluid" width="auto" id="circleLogoContainer">
-    <img src="croppedWorld.png" class="rounded-circle" width="100px" height="auto" id=circleLogo>
-    <h1 style="text-align: center; color: black;" id="circleLogoText"><b>XDaysLeft</b></h1>
-    <h2 style="text-align: center;" id="circleLogoText"><small>Created By...</small></h2>
-  </div>
-
-  <!-- carousel -->
-  <div class="content-section-b">
-    <div class="row">
-      <div class="col-lg-12">
-        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="false">
-          <!-- indicators -->
-          <ol class="carousel-indicators">
-            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-          </ol>
-                    
-          <!-- wrapper for slides -->
-          <div class="carousel-inner" role="listbox">
-            <div class="item active">
-              <iframe width="100%" height="100%" src="https://www.youtube.com/embed/ndMKTnSRsKM" frameborder="0" allowfullscreen></iframe>
-            </div>
-              <div class="item">
-                <img src="" alt="" style="width:100%;">
-              </div>
-            </div>
-              <!-- controls -->
-            <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-              <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-              <span class="sr-only">Previous</span>
-            </a>
-          <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-          </a>
+            </ul>
+            <hr>
+            </hr>
         </div>
-      </div>
-    </div>
-  </div>
+    </nav>
 
-
-  <div class="container-fluid" id=video>
-    <div class="row">
-      <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"> 
-
-      </div>
-      <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 panel panel-default container">
-        <div class="embed-responsive embed-responsive-16by9">
-          <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/ndMKTnSRsKM" allowfullscreen></iframe>
-        </div> 
-          <p> In X Days Left, you play as a scientist whoses one aim which is to save the world before time 
-			        runs out through card battles against different countries and their leaders throughout the world. 
-			        The world is red and is split up into regions with each region having several battles. 
-			        Beating a region will turn it green and to win the game
-			        all regions must be green in a time frame. </p>
-		      <p> In each battle, both you and your opponent have a deck of cards, and both
-			        get chances to play each to play cards in their turn. The overall objective
-			        of each battle is to get the emission bar over the threshhold value. </p>
-		      <p> This Global Warming Card dueling game allows you to take charge and battle
-			        opposing countries to reduce emissions and reduce global warming and save
-			        the world.</p>
-      </div>
-      <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-        
-      </div>  
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img class="d-block w-100" src="powerPollution.webp" alt="First slide">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Testing testing 1,2,3</h5>
+                    <p>Testing testing 1,2,3</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="mountainRange.webp" alt="Second slide">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Testing testing 1,2,3</h5>
+                    <p>Testing testing 1,2,3</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="trashCan.webp" alt="Third slide">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Testing testing 1,2,3</h5>
+                    <p>Testing testing 1,2,3</p>
+                </div>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
     </div>
-  </div>
-
-  <!-- hover cards -->
-  <div class="container-fluid" id="cardExamples">
-    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-      <image class="card img-responsive" src="redCard.png">
-    </div>
-    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-      <image class="card img-responsive" src="cyanCard.png">
-    </div>
-    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-      <image class="card img-responsive" src="greenCard.png">
-    </div>
-    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-      <image class="card img-responsive" src="blueCard.png">
-    </div>
-  <div>
-
-  <!-- footer -->
-  <footer class="footer">
-    <div class="container" id="rightFooter">
-      <p class="text-muted">Place sticky footer content here.</p>
-    </div>
-  </footer>
 
 </body>
 
+</html>
+
 <style>
 
-  .navbar {
-    margin-bottom: auto;
-  }
+    body {
+        background-image: url("blackBackground.png");
+    }
 
-  #wrldMap {
-    padding: 0px;
-    margin-left: 0;
-    margin-right: 0;
-    background-image: url("https://lookformedical.com/img/9/95/World_map_green.png");
-    width: calc(100vw - 17px);
-    height: 150px;
+    #top-nav {
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+        max-width: 100%;
+    }
 
-    background-size: 100vw auto;
-    background-repeat: no-repeat;
-    background-position: -200% 13%;
-  }
+    #circleLogo {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: auto;
+        border-radius: 50%;
+        border-style: solid;
+        border-color: white;
+        border-width: 3px;
+    }
 
-  #circleLogoContainer {
-    margin-bottom: -50px;
-  }
+    .nav-item {
+        margin-top: auto;
+        margin-bottom: auto;
+        border-bottom: 100px;
+    }
 
-  #circleLogo {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: auto;
-    border-radius: 50%;
-    border-style: solid;
-    border-color: white;
-    border-width: 3px;
-    position: relative;
-    top: -50px;
-  }
+    .main-nav {
+        border-bottom: 1px solid rgb(122, 121, 128);
+        padding-bottom: 10px
+    }
 
-  #circleLogoText {
-    margin-top: 0px;
-    position: relative;
-    top: -50px;
-  }
+    .carousel-inner>.carousel-item {
+        height: 800px;
+    }
 
-  
-  .content-section-b {
-    background-color: #3C5A78;
-  }
-
-  /* carousel css */
-
-  .row {
-    margin-left: 0;
-    margin-right: 0;
-    margin-bottom: 15px;
-  }
-
-  .col-lg-12 {
-    padding-right: 0;
-    padding-left: 0;
-  }
-
-  .panel {
-    padding-top: 15px;
-    padding-bottom:15px;
-  }
-
-  /* card hover css */
-
-  #cardExamples {
-    padding-right: 0px;
-    padding-left: 0px;
-    width: auto;
-  }
-
-  .card {
-    width: 80%;
-    height: auto;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  }
-
-  .card:hover {
-    position:relative;
-    width:85%;
-    height:calc(auto+5%);
-    display:block;
-    z-index:999;
-    box-shadow: 0px 0px 20px black;
-  }
-
-  /* sticky footer css */
-  html {
-    position: relative;
-    min-height: 100%;
-  }
-  body {
-    margin-bottom: 200px; /* margin bottom by footer height */
-  }
-  .footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 60px; /* set the fixed height of the footer here */
-    background-color: black;
-  }
-
-  #rightFooter {
-    margin-left: 0;
-    margin-right: 0;
-  }
-
+    @media(max-width: 1210px) {
+        .carousel-inner>.carousel-item {
+            height: auto;
+        }
+    }
 </style>
-
-
-</html>
