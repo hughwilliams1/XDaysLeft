@@ -4,6 +4,7 @@
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
@@ -91,14 +92,52 @@
         </a>
     </div>
 
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        </div>
+    </div>
+
+    <!-- hover cards -->
+    <div class="row" id="cardExamples">
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <image class="example-card img-responsive" src="redCard.png">
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <image class="example-card img-responsive" src="cyanCard.png">
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <image class="example-card img-responsive" src="greenCard.png">
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <image class="example-card img-responsive" src="blueCard.png">
+        </div>
+    </div>
+
+    <!-- footer -->>
+    <footer id="sticky-footer" class="py-4 bg-dark text-white-50">
+        <div class="container" id="footer-text">
+            <a class="foot-link" href="#"><small>Copyright &copy; XDAYSLEFT</small></a>
+            <a class="foot-link" href="#"><small>Forum</small></a>
+            <a class="foot-link" href="#"><small>FAQ</small></a>
+            <a class="foot-link" href="#"><small>Contact</small></a>
+            <a class="foot-link" href="#">
+                    <small>Github</small>
+                <i class="fab fa-github"></i>
+            </a>
+    </footer>
+
 </body>
 
 </html>
 
 <style>
 
+    a { color: inherit; } 
+
     body {
-        background-image: url("blackBackground.png");
+        background-image: url("treesBackground.png");
     }
 
     #top-nav {
@@ -138,5 +177,69 @@
         .carousel-inner>.carousel-item {
             height: auto;
         }
+    }
+
+    /* text panel css */
+    .card {
+        margin-right: 10vw;
+        margin-left: 10vw;
+        margin-top: 15px;
+    }
+
+
+    /* card hover css */
+
+    #cardExamples {
+        margin-top: 15px;
+        padding-right: 0px;
+        padding-left: 0px;
+        margin-right: 0;
+        margin-left: 0;
+        width: auto;
+    }
+
+    .example-card {
+        width: 80%;
+        height: auto;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    .example-card:hover {
+        position: relative;
+        width: 85%;
+        height: calc(auto+5%);
+        display: block;
+        z-index: 999;
+        box-shadow: 0px 0px 20px black;
+    }
+
+    /* sticky footer css */
+
+    html,
+    body {
+        height: 100%;
+    }
+
+    #page-content {
+        flex: 1 0 auto;
+    }
+
+    #sticky-footer {
+        flex-shrink: none;
+        margin-top: 100px;
+    }
+    
+    #footer-text {
+        width: 100%;
+        margin-right: 0;
+        margin-left: auto;
+        text-align: right !important; 
+    }
+    
+    .foot-link {
+        margin-right: 15px;
     }
 </style>
