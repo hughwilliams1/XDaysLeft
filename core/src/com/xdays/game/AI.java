@@ -21,7 +21,7 @@ public class AI extends Player {
 		if(random.nextInt(100) < 20*(5 - level)) {
 			//This means the AI is not selecting the best option.
 			//This is to make it easier for the user
-			int nextIndex = random.nextInt(cardsToUse.size() - 1);
+			int nextIndex = random.nextInt(cardsToUse.size());
 			System.out.println(nextIndex);
 			 cardsToProcess.add(cardsToUse.get(nextIndex));
 			 cardsToProcess.addAll(cardsToMerge(cardsToProcess.get(0), enemyBoard.getField()));
@@ -47,9 +47,8 @@ public class AI extends Player {
 						cardsToReturn.add(currentCard);
 						totalStars = currentCard.getStars();
 					} 
-					if(totalStars == cardStarValue) {
-						break;
-					}
+					if(totalStars == cardStarValue)	break;
+					
 				}
 				break; // need two one cards
 			case 3: {
@@ -73,9 +72,8 @@ public class AI extends Player {
 									starCardsFound[1] = !starCardsFound[1];
 								}
 							}
-							if(totalStars == cardStarValue) {
-								break;
-							}
+							if(totalStars == cardStarValue) break;
+							
 						}
 						iteration++;
 						if(totalStars == cardStarValue) {
@@ -121,9 +119,7 @@ public class AI extends Player {
 								}
 							}
 						}
-						if(totalStars == cardStarValue) {
-							break;
-						}
+						if(totalStars == cardStarValue) break;
 					}
 					if(totalStars == cardStarValue) {
 						cardsToReturn.addAll(tempCardList);
