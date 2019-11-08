@@ -33,7 +33,7 @@
             </ul>
             <ul class="nav navbar-nav justify-content-center w-100">
                 <li class="nav-item">
-                    <img src="croppedWorld.png" class="rounded-circle" width="90px" height="auto" id=circleLogo>
+                    <img src="xCroppedWorld.png" class="rounded-circle" width="90px" height="auto" id=circleLogo>
                 </li>
             </ul>
             <ul class="nav navbar-nav nav-fill w-100">
@@ -156,9 +156,7 @@
         margin-right: auto;
         margin-top: auto;
         border-radius: 50%;
-        border-style: solid;
         border-color: white;
-        border-width: 3px;
     }
 
     .nav-item {
@@ -204,9 +202,16 @@
 
     /* text panel css */
     .card {
-        margin-right: 10vw;
-        margin-left: 10vw;
+        margin-right: 15vw;
+        margin-left: 15vw;
         margin-top: 15px;
+    }
+
+    @media(max-width: 900px) {
+        .card {
+            margin-right: 0;
+            margin-left: 0;
+        }
     }
 
 
@@ -228,6 +233,7 @@
         margin-left: auto;
         margin-right: auto;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        margin-bottom: 5px;
     }
 
     .example-card:hover {
@@ -251,6 +257,7 @@
     }
 
     #sticky-footer {
+        border-top: 2px solid rgb(122, 121, 128);
         flex-shrink: none;
         margin-top: 100px;
     }
