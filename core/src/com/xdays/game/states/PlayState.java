@@ -40,26 +40,10 @@ public class PlayState extends State{
         if(Gdx.input.justTouched() && manager.isPlayersTurn()) {
         	//System.out.println("Play State touched");
         	Rectangle bounds = new Rectangle(Gdx.input.getX(), -(Gdx.input.getY()-720), 5, 5);
-        	for(int i=0; i<manager.getUser().getHand().size(); i++) {
-        		if(manager.getUser().getHand().get(i).getBounds().overlaps(bounds)) {
-        			Card selectedCard = manager.getUser().getHand().get(i);
-        			if(multipleCardsNeeded == false) {
-            			if(selectedCard.getStars()>1 && !selectedCard.isPlayed()) {
-            				if(manager.getPlayerBoard().getTotalStars(manager.getPlayerBoard().getField())<selectedCard.getStars()) {
-            					messageToPrint = "Not enough cards to play that card.";
-            					System.out.println("Not enough cards to play that card.");
-            				}else {
-            					messageToPrint = "Select cards to merge";
-            					multipleCardsNeeded = true;
-            					lastCardPlayed = selectedCard;
-            					lastCardPlayed.halfPlayed();
-            				}
-            			}else if(!selectedCard.isPlayed()){
-            				messageToPrint ="User played card: " + selectedCard.getTitle();
-            				System.out.println("User played card: " + selectedCard.getTitle());
-            				manager.playCardGameRound(selectedCard, null);
-            			}
-        			}else {
+        	if(multipleCardsNeeded) {
+        		for(int i=0; i<manager.getPlayerBoard().getField().size(); i++) {
+        			if(manager.getPlayerBoard().getField().get(i).getBounds().overlaps(bounds)) {
+        				Card selectedCard = manager.getPlayerBoard().getField().get(i);
         				if(calculateTotalStars(selectedCards)<lastCardPlayed.getStars()) {
     		        		if(selectedCard.getBounds().overlaps(bounds) && !selectedCard.equals(lastCardPlayed) && selectedCard.isPlayed() && !selectedCards.contains(selectedCard)) {
     		        			selectedCards.add(selectedCard);
@@ -74,6 +58,28 @@ public class PlayState extends State{
         				}
         			}
         		}
+        	}else {
+            	for(int i=0; i<manager.getUser().getHand().size(); i++) {
+            		if(manager.getUser().getHand().get(i).getBounds().overlaps(bounds)) {
+            			Card selectedCard = manager.getUser().getHand().get(i);
+                			if(selectedCard.getStars()>1 && !selectedCard.isPlayed()) {
+                				if(manager.getPlayerBoard().getTotalStars(manager.getPlayerBoard().getField())<selectedCard.getStars()) {
+                					messageToPrint = "Not enough cards to play that card.";
+                					System.out.println("Not enough cards to play that card.");
+                				}else {
+                					messageToPrint = "Select cards to merge";
+                					System.out.println("Select cards to merge");
+                					multipleCardsNeeded = true;
+                					lastCardPlayed = selectedCard;
+                					lastCardPlayed.halfPlayed();
+                				}
+                			}else if(!selectedCard.isPlayed()){
+                				messageToPrint ="User played card: " + selectedCard.getTitle();
+                				System.out.println("User played card: " + selectedCard.getTitle());
+                				manager.playCardGameRound(selectedCard, null);
+                			}
+            		}
+            	}
         	}
         }
 	}
@@ -119,12 +125,18 @@ public class PlayState extends State{
 
             sb.draw(manager.getUser().getHand().get(i).getTexture(), manager.getUser().getHand().get(i).getBounds().getX(), manager.getUser().getHand().get(i).getBounds().getY(), manager.getUser().getHand().get(i).getTexture().getWidth()/3.4f, manager.getUser().getHand().get(i).getTexture().getHeight()/3.4f);      
         }
+        for(int i=0; i<manager.getPlayerBoard().getField().size(); i++) {
+            sb.draw(manager.getPlayerBoard().getField().get(i).getTexture(), manager.getPlayerBoard().getField().get(i).getBounds().getX(), manager.getPlayerBoard().getField().get(i).getBounds().getY(), manager.getPlayerBoard().getField().get(i).getTexture().getWidth()/3.4f, manager.getPlayerBoard().getField().get(i).getTexture().getHeight()/3.4f);      
+        }
         
         for(int i=0; i<manager.getAI().getHand().size(); i++) {
         	if(firstRun) {
         		manager.getAI().getHand().get(i).setPosition(5 + i*127, 650);
         	}
             sb.draw(manager.getAI().getHand().get(i).getBackTexture(), manager.getAI().getHand().get(i).getBounds().getX(), manager.getAI().getHand().get(i).getBounds().getY(), manager.getAI().getHand().get(i).getTexture().getWidth()/3.4f, manager.getAI().getHand().get(i).getTexture().getHeight()/3.4f);
+        }
+        for(int i=0; i<manager.getAIBoard().getField().size(); i++) {
+            sb.draw(manager.getAIBoard().getField().get(i).getTexture(), manager.getAIBoard().getField().get(i).getBounds().getX(), manager.getAIBoard().getField().get(i).getBounds().getY(), manager.getAIBoard().getField().get(i).getTexture().getWidth()/3.4f, manager.getAIBoard().getField().get(i).getTexture().getHeight()/3.4f);      
         }
         
         console.draw(sb, messageToPrint, 600, 405);

@@ -88,12 +88,14 @@ public class CardGameManager {
 				if (card.getStars() > 1) {
 					card.handleInput();
 					playerBoard.mergeCard(card, chosenCards);
+					user.removeCard(card);
 					for(int i=0; i<chosenCards.size(); i++) {
 						user.removeCard(chosenCards.get(i));
 					}
 				} else {
 					card.handleInput();
 					playerBoard.addToField(card);
+					user.removeCard(card);
 				}
 				hasPlayed = true;
 			} else {
@@ -101,6 +103,7 @@ public class CardGameManager {
 					card.switchTextures();
 					card.handleInputEnemy();
 					aiBoard.mergeCard(card, chosenCards);
+					enemyAI.removeCard(card);
 					for(int i=0; i<chosenCards.size(); i++) {
 						enemyAI.removeCard(chosenCards.get(i));
 					}
@@ -108,6 +111,7 @@ public class CardGameManager {
 					card.switchTextures();
 					card.handleInputEnemy();
 					aiBoard.addToField(card);
+					enemyAI.removeCard(card);
 				}
 			}
 			doCardAbility();
@@ -121,6 +125,10 @@ public class CardGameManager {
 	
 	public Board getPlayerBoard() {
 		return playerBoard;
+	}
+	
+	public Board getAIBoard() {
+		return aiBoard;
 	}
 	
 	public User getUser() {
