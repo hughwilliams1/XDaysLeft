@@ -63,6 +63,7 @@
             <div class="carousel-item active">
                 <img class="d-block w-100" src="powerPollution.webp" alt="First slide">
                 <div class="carousel-caption d-none d-md-block">
+                    <h1 id="title"> X DAYS LEFT</h1>
                     <h5>Testing testing 1,2,3</h5>
                     <p>Testing testing 1,2,3</p>
                 </div>
@@ -118,12 +119,12 @@
     <!-- footer -->
     <footer id="sticky-footer" class="py-4 bg-dark text-white-50">
         <div class="container" id="footer-text">
-            <a class="foot-link" href="#"><small>Copyright &copy; XDAYSLEFT</small></a>
+            <a class="foot-link" href="#"><small>Copyright &copy; X DAYS LEFT</small></a>
             <a class="foot-link" href="#"><small>Forum</small></a>
             <a class="foot-link" href="#"><small>FAQ</small></a>
             <a class="foot-link" href="#"><small>Contact</small></a>
             <a class="foot-link" href="#">
-                    <small>Github</small>
+                <small>Github</small>
                 <i class="fab fa-github"></i>
             </a>
     </footer>
@@ -133,13 +134,15 @@
 </html>
 
 <style>
-
-    a { color: inherit; } 
+    a {
+        color: inherit;
+    }
 
     body {
         background-image: url("treesBackground.png");
     }
 
+    /* navbar css */
     #top-nav {
         margin-left: auto;
         margin-right: auto;
@@ -167,6 +170,26 @@
     .main-nav {
         border-bottom: 1px solid rgb(122, 121, 128);
         padding-bottom: 10px
+    }
+
+    /* carousel css */
+
+    #title {
+        position: absolute;
+        bottom: 630%;
+        left: calc(50% - 105px);
+        z-index: 20;
+        color: white;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, .6);
+    }
+
+    @media(max-width: 1210px) {
+        #title {
+            position: relative;
+            bottom: 0;
+            left: 0;
+            z-index: 10;
+        }
     }
 
     .carousel-inner>.carousel-item {
@@ -231,14 +254,14 @@
         flex-shrink: none;
         margin-top: 100px;
     }
-    
+
     #footer-text {
         width: 100%;
         margin-right: 0;
         margin-left: auto;
-        text-align: right !important; 
+        text-align: right !important;
     }
-    
+
     .foot-link {
         margin-right: 15px;
     }
