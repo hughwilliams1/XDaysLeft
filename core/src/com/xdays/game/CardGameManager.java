@@ -47,6 +47,7 @@ public class CardGameManager {
 		switchPlayerTurn();
 		ArrayList<Card> cardsToProcess = getAI().nextCard(aiBoard);
 		aiCard = cardsToProcess.get(0);
+		System.out.println(aiCard.getTitle());
 		cardsToProcess.remove(0);
 		processCard(aiCard, cardsToProcess); //Need the chosen cards to destroy too
 		switchPlayerTurn();
@@ -70,6 +71,7 @@ public class CardGameManager {
 				ArrayList<Card> cardsToProcess = getAI().nextCard(aiBoard);
 				
 				aiCard = cardsToProcess.get(0);
+				System.out.println(aiCard.getTitle());
 				cardsToProcess.remove(0);
 				processCard(aiCard, cardsToProcess); //Need the chosen cards to destroy too
 				changeEmissions(aiBoard.getTotalPoints());

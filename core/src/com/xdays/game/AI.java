@@ -21,17 +21,19 @@ public class AI extends Player {
 		if(random.nextInt(100) < 20*(5 - level)) {
 			//This means the AI is not selecting the best option.
 			//This is to make it easier for the user
-			 cardsToProcess.add(cardsToUse.get(random.nextInt(cardsToUse.size() - 1)));
-			 cardsToProcess.addAll(cardsToMerge(cardsToProcess.get(0), getHand()));
+			int nextIndex = random.nextInt(cardsToUse.size() - 1);
+			System.out.println(nextIndex);
+			 cardsToProcess.add(cardsToUse.get(nextIndex));
+			 cardsToProcess.addAll(cardsToMerge(cardsToProcess.get(0), enemyBoard.getField()));
 		} else {
 			//This means the AI is selecting the best option.
 			cardsToProcess.add(getHighestStarCard(cardsToUse));
-			cardsToProcess.addAll(cardsToMerge(cardsToProcess.get(0), getHand()));
+			cardsToProcess.addAll(cardsToMerge(cardsToProcess.get(0), enemyBoard.getField()));
 		}
 		return cardsToProcess;
 	}
 	
-	private ArrayList<Card> cardsToMerge(Card card, ArrayList<Card> cardsInHand){
+	private ArrayList<Card> cardsToMerge(Card card, ArrayList<Card> cardsOnBoard){
 		ArrayList<Card> cardsToReturn = new ArrayList<Card>();
 		int cardStarValue = card.getStars();
 		int totalStars = 0;
@@ -40,7 +42,7 @@ public class AI extends Player {
 			case 1:
 				break;
 			case 2:
-				for(Card currentCard: cardsInHand) {
+				for(Card currentCard: cardsOnBoard) {
 					if(currentCard.getStars() == 1) {
 						cardsToReturn.add(currentCard);
 						totalStars = currentCard.getStars();
@@ -54,7 +56,7 @@ public class AI extends Player {
 					boolean[] starCardsFound = {false, false};
 					ArrayList<Card> tempCardList = new ArrayList<Card>();
 					while(totalStars != cardStarValue) {
-						for(Card currentCard: cardsInHand) {
+						for(Card currentCard: cardsOnBoard) {
 							if(iteration < 1) {
 								if(currentCard.getStars() == 1) {
 									tempCardList.add(currentCard);
@@ -87,7 +89,7 @@ public class AI extends Player {
 				boolean[] starCardsFound = {false, false, false};
 				ArrayList<Card> tempCardList = new ArrayList<Card>();
 				while(totalStars != cardStarValue) {
-					for(Card currentCard: cardsInHand) {
+					for(Card currentCard: cardsOnBoard) {
 						if(iteration < 1) {
 							if(currentCard.getStars() == 1) {
 								tempCardList.add(currentCard);
@@ -137,13 +139,16 @@ public class AI extends Player {
 	}
 	
 	private Card getHighestStarCard(ArrayList<Card> cardsToUse) {
-		Card currentHighest = cardsToUse.get(0);
+		if(cardsToUse != null) {
+			Card currentHighest = cardsToUse.get(0);
 		for(Card card: cardsToUse) {
 			if(currentHighest.getStars() < card.getStars()) {
 				currentHighest = card;
 			}
 		}
 		return currentHighest;
+		}
+		return null;
 				
 	}
 
@@ -171,6 +176,9 @@ public class AI extends Player {
 		}
 		
 		for(Card card: cardsInHand) {
+//			if(card.isPlayed()) {
+//				break;
+//			}
 			switch(card.getStars()) {
 			case(1):
 				acceptableCardsToPlay.add(card);
