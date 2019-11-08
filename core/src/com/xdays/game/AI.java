@@ -58,16 +58,16 @@ public class AI extends Player {
 							if(iteration < 1) {
 								if(currentCard.getStars() == 1) {
 									tempCardList.add(currentCard);
-									totalStars = currentCard.getStars();
+									totalStars += currentCard.getStars();
 								}
 							} else {
 								if(currentCard.getStars() == 1 && !starCardsFound[0]) {
 									tempCardList.add(currentCard);
-									totalStars = currentCard.getStars();
+									totalStars += currentCard.getStars();
 									starCardsFound[0] = !starCardsFound[0];
 								} else if(currentCard.getStars() == 2 && !starCardsFound[1]) {
 									tempCardList.add(currentCard);
-									totalStars = currentCard.getStars();
+									totalStars += currentCard.getStars();
 									starCardsFound[1] = !starCardsFound[1];
 								}
 							}
@@ -79,6 +79,7 @@ public class AI extends Player {
 							cardsToReturn.addAll(tempCardList);
 						} else {
 							tempCardList = new ArrayList<Card>();
+							totalStars = 0;
 						}
 					}
 				break; } // need either three one cards or one one card and a two
@@ -90,16 +91,16 @@ public class AI extends Player {
 						if(iteration < 1) {
 							if(currentCard.getStars() == 1) {
 								tempCardList.add(currentCard);
-								totalStars = currentCard.getStars();
+								totalStars += currentCard.getStars();
 							}
 						} else if(iteration == 2) {
 							if(currentCard.getStars() == 2 && !starCardsFound[0]) {
 								tempCardList.add(currentCard);
-								totalStars = currentCard.getStars();
+								totalStars += currentCard.getStars();
 								starCardsFound[0] = !starCardsFound[0];
 							} else if(currentCard.getStars() == 1 && (!starCardsFound[1] || !starCardsFound[2] )) {
 								tempCardList.add(currentCard);
-								totalStars = currentCard.getStars();
+								totalStars += currentCard.getStars();
 								if(!starCardsFound[1]) {
 									starCardsFound[1] = !starCardsFound[1];
 								} else {
@@ -109,7 +110,7 @@ public class AI extends Player {
 						} else {
 							if(currentCard.getStars() == 2 && (!starCardsFound[0] || !starCardsFound[1])) {
 								tempCardList.add(currentCard);
-								totalStars = currentCard.getStars();
+								totalStars += currentCard.getStars();
 								starCardsFound[0] = !starCardsFound[0];
 								if(!starCardsFound[1]) {
 									starCardsFound[1] = !starCardsFound[1];
@@ -124,6 +125,7 @@ public class AI extends Player {
 						cardsToReturn.addAll(tempCardList);
 					} else {
 						tempCardList = new ArrayList<Card>();
+						totalStars = 0;
 					}
 					iteration++;
 				}
