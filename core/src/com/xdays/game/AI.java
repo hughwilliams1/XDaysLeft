@@ -64,11 +64,11 @@ public class AI extends Player {
 								if(currentCard.getStars() == 1 && !starCardsFound[0]) {
 									tempCardList.add(currentCard);
 									totalStars += currentCard.getStars();
-									starCardsFound[0] = !starCardsFound[0];
+									starCardsFound[0] = true;
 								} else if(currentCard.getStars() == 2 && !starCardsFound[1]) {
 									tempCardList.add(currentCard);
 									totalStars += currentCard.getStars();
-									starCardsFound[1] = !starCardsFound[1];
+									starCardsFound[1] = true;
 								}
 							}
 							if(totalStars == cardStarValue) break;
@@ -93,30 +93,40 @@ public class AI extends Player {
 								tempCardList.add(currentCard);
 								totalStars += currentCard.getStars();
 							}
-						} else if(iteration == 2) {
+						} else if(iteration == 1) {
 							if(currentCard.getStars() == 2 && !starCardsFound[0]) {
 								tempCardList.add(currentCard);
 								totalStars += currentCard.getStars();
-								starCardsFound[0] = !starCardsFound[0];
+								starCardsFound[0] = true;
 							} else if(currentCard.getStars() == 1 && (!starCardsFound[1] || !starCardsFound[2] )) {
 								tempCardList.add(currentCard);
 								totalStars += currentCard.getStars();
 								if(!starCardsFound[1]) {
-									starCardsFound[1] = !starCardsFound[1];
-								} else {
-									starCardsFound[2] = !starCardsFound[2];
+									starCardsFound[1] = true;
+								} else if (!starCardsFound[2]){
+									starCardsFound[2] = true;
 								}
 							}
-						} else {
+						} else if(iteration == 2){
 							if(currentCard.getStars() == 2 && (!starCardsFound[0] || !starCardsFound[1])) {
 								tempCardList.add(currentCard);
 								totalStars += currentCard.getStars();
 								starCardsFound[0] = !starCardsFound[0];
 								if(!starCardsFound[1]) {
-									starCardsFound[1] = !starCardsFound[1];
+									starCardsFound[1] = true;
 								} else {
-									starCardsFound[0] = !starCardsFound[0];
+									starCardsFound[0] = true;
 								}
+							}
+						} else {
+							if(currentCard.getStars() == 3 && !starCardsFound[0]) {
+								tempCardList.add(currentCard);
+								totalStars += currentCard.getStars();
+								starCardsFound[0] = true;
+							} else if(currentCard.getStars() == 1 && !starCardsFound[1]) {
+								tempCardList.add(currentCard);
+								totalStars += currentCard.getStars();
+								starCardsFound[1] = true;
 							}
 						}
 						if(totalStars == cardStarValue) break;
@@ -126,11 +136,14 @@ public class AI extends Player {
 					} else {
 						tempCardList = new ArrayList<Card>();
 						totalStars = 0;
+						starCardsFound[0] = false;
+						starCardsFound[1] = false;
+						starCardsFound[2] = false;
 					}
 					iteration++;
 				}
 					
-				break; } // need either 4 one cards or 2 two cards  or 2 of each
+				break; } // need either 4 one cards or (one 2 card and 2 one cards )or 2 two cards  or (1 one card and a 3 card)
 		}
 		return cardsToReturn;
 	}
