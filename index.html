@@ -26,10 +26,10 @@
                     <a class="nav-link" href="#">HOME</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">FORUM</a>
+                    <a class="nav-link" href="#">DEV BLOG</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">SOCIAL</a>
+                    <a class="nav-link" href="#">DOWNLOAD</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav justify-content-center w-100">
@@ -39,10 +39,10 @@
             </ul>
             <ul class="nav navbar-nav nav-fill w-100">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">GAMEPLAY</a>
+                    <a class="nav-link" href="#">FORUM</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">BUY</a>
+                    <a class="nav-link" href="#">SOCIAL</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">CONTACT</a>
@@ -101,8 +101,20 @@
 
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">What is X Days Left</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <h4 class="card-title">What is X DAYS LEFT?</h4>
+            <p class="card-text"> In X Days Left, you play as a mad scientist, Doctor Y. After years of trying to
+                protect the environment you finally reach your boiling point and realise the only way to tackle climate
+                change is to attack the issue head on. After leaving your job as a respected climate change researcher
+                you start a movement, going all round the world tackling influential leaders whose failure to address
+                these issues is running the world to its last breath. Battle some of the most powerful leaders Donald
+                Trump, Angela Merkel with many more in this unique strategical card game. Beware though don’t bite off
+                more than you can chew! Each area has varying difficulty and contains unique cards to be won off your
+                opponent to help you in your future battles.
+            </p>
+            <div class="card-text" style="text-align:center;">
+                <a href="https://github.com/hughwilliams1/XDaysLeft"><button class="btn"><i class="fa fa-download"></i>
+                        Download</button></a>
+            </div>
         </div>
     </div>
 
@@ -121,15 +133,24 @@
             <image class="example-card img-responsive" src="blueCard.png">
         </div>
     </div>
+    
+    <!-- Development Blog
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">?/11/19 - Development Blog</h4>
+        </div>
+    </div>
+
+    -->
 
     <!-- footer -->
     <footer id="sticky-footer" class="py-4 bg-dark text-white-50">
         <div class="container" id="footer-text">
-            <a class="foot-link" href="#"><small>Copyright &copy; X DAYS LEFT</small></a>
+            <a class="foot-link"><small>Copyright &copy; X DAYS LEFT</small>*</a>
             <a class="foot-link" href="#"><small>Forum</small></a>
             <a class="foot-link" href="#"><small>FAQ</small></a>
             <a class="foot-link" href="#"><small>Contact</small></a>
-            <a class="foot-link" href="#">
+            <a class="foot-link" href="https://github.com/hughwilliams1/XDaysLeft">
                 <small>Github</small>
                 <i class="fab fa-github"></i>
             </a>
@@ -146,6 +167,10 @@
 
     body {
         background-image: url("treesBackground.png");
+    }
+
+    p {
+        font-size: 20px;
     }
 
     /* navbar css */
@@ -180,7 +205,7 @@
 
     #title {
         position: absolute;
-        bottom: 500%;
+        bottom: 480%;
         left: calc(50% - 105px);
         z-index: 20;
         color: white;
@@ -208,8 +233,8 @@
 
     /* text panel css */
     .card {
-        margin-right: 15vw;
-        margin-left: 15vw;
+        margin-right: 20vw;
+        margin-left: 20vw;
         margin-top: 15px;
     }
 
@@ -220,6 +245,19 @@
         }
     }
 
+    /* Style buttons */
+    .btn {
+        background-color: #50c878;
+        border: none;
+        color: white;
+        padding: 12px 30px;
+        cursor: pointer;
+        font-size: 20px;
+    }
+
+    .btn:hover {
+        background-color: #33993F;
+    }
 
     /* card hover css */
 
