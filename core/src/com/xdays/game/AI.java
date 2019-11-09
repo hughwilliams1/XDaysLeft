@@ -18,11 +18,13 @@ public class AI extends Player {
 	public ArrayList<Card> nextCard(Board enemyBoard) {
 		ArrayList<Card> cardsToUse = cardsAvailableToPlay(enemyBoard.getField(), getHand());
 		ArrayList<Card> cardsToProcess = new ArrayList<Card>();
+		if(cardsToUse.size() == 0) {
+			return null;
+		}
 		if(random.nextInt(100) < 20*(5 - level)) {
 			//This means the AI is not selecting the best option.
 			//This is to make it easier for the user
-			int nextIndex = random.nextInt(cardsToUse.size());
-			cardsToProcess.add(cardsToUse.get(nextIndex));
+			cardsToProcess.add(cardsToUse.get(random.nextInt(cardsToUse.size())));
 			 cardsToProcess.addAll(cardsToMerge(cardsToProcess.get(0), enemyBoard.getField()));
 		} else {
 			//This means the AI is selecting the best option.
