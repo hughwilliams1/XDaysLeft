@@ -26,7 +26,7 @@
                     <a class="nav-link" href="#">HOME</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">DEV BLOG</a>
+                    <a class="nav-link" href="#">BLOG</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">DOWNLOAD</a>
@@ -34,7 +34,7 @@
             </ul>
             <ul class="nav navbar-nav justify-content-center w-100">
                 <li class="nav-item">
-                    <img src="xCroppedWorld.png" class="rounded-circle" width="90px" height="auto" id=circleLogo>
+                    <img src="x-cropped-world.png" class="rounded-circle" width="90px" height="auto" id=circleLogo>
                 </li>
             </ul>
             <ul class="nav navbar-nav nav-fill w-100">
@@ -62,7 +62,7 @@
         </ol>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img class="d-block w-100" src="power-plant.webp" alt="First slide">
+                <img class="d-block w-100" src="power-plant.png" alt="First slide">
                 <div class="carousel-caption d-none d-md-block">
                     <h1 id="title"> X DAYS LEFT</h1>
                     <h5>Save the world from pollution in the best environmental game</h5>
@@ -71,7 +71,7 @@
                 </div>
             </div>
             <div class="carousel-item">
-                <img class="d-block w-100" src="mountain-range.webp" alt="Second slide">
+                <img class="d-block w-100" src="mountain-range.png" alt="Second slide">
                 <div class="carousel-caption d-none d-md-block">
                     <h1 id="title"> X DAYS LEFT</h1>
                     <h5>We won't have a society if we destroy the</h5>
@@ -80,7 +80,7 @@
                 </div>
             </div>
             <div class="carousel-item">
-                <img class="d-block w-100" src="coast.webp" alt="Third slide">
+                <img class="d-block w-100" src="coast.png" alt="Third slide">
                 <div class="carousel-caption d-none d-md-block">
                     <h1 id="title"> X DAYS LEFT</h1>
                     <h5>The world's finest wilderness lies</h5>
@@ -121,16 +121,16 @@
     <!-- hover cards -->
     <div class="row" id="cardExamples">
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-            <image class="example-card img-responsive" src="redCard.png">
+            <image class="example-card img-responsive" src="solar-panel.png">
         </div>
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-            <image class="example-card img-responsive" src="cyanCard.png">
+            <image class="example-card img-responsive" src="plant-tree.png">
         </div>
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-            <image class="example-card img-responsive" src="greenCard.png">
+            <image class="example-card img-responsive" src="windmill.png">
         </div>
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-            <image class="example-card img-responsive" src="blueCard.png">
+            <image class="example-card img-responsive" src="geothermal-generator.png">
         </div>
     </div>
     
@@ -146,7 +146,7 @@
     <!-- footer -->
     <footer id="sticky-footer" class="py-4 bg-dark text-white-50">
         <div class="container" id="footer-text">
-            <a class="foot-link"><small>Copyright &copy; X DAYS LEFT</small>*</a>
+            <a class="foot-link"><small>Copyright &copy; X DAYS LEFT</small></a>
             <a class="foot-link" href="#"><small>Forum</small></a>
             <a class="foot-link" href="#"><small>FAQ</small></a>
             <a class="foot-link" href="#"><small>Contact</small></a>
@@ -166,7 +166,7 @@
     }
 
     body {
-        background-image: url("treesBackground.png");
+        background-image: url("trees-background.png");
     }
 
     p {
@@ -199,6 +199,12 @@
     .main-nav {
         border-bottom: 1px solid rgb(122, 121, 128);
         padding-bottom: 10px
+    }
+
+    @media(max-width: 767px) {
+        .main-nav {
+            margin-bottom: 5px;
+        }
     }
 
     /* carousel css */
@@ -238,14 +244,14 @@
         margin-top: 15px;
     }
 
-    @media(max-width: 900px) {
+    @media(max-width: 1024px) {
         .card {
-            margin-right: 0;
-            margin-left: 0;
+            margin-right: 5px;
+            margin-left: 5px;
         }
     }
 
-    /* Style buttons */
+    /* style buttons */
     .btn {
         background-color: #50c878;
         border: none;
@@ -276,7 +282,9 @@
         display: block;
         margin-left: auto;
         margin-right: auto;
+        /*
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        */
         margin-bottom: 5px;
     }
 
@@ -286,7 +294,9 @@
         height: calc(auto+5%);
         display: block;
         z-index: 999;
+        /*
         box-shadow: 0px 0px 20px black;
+        */
     }
 
     /* sticky footer css */
