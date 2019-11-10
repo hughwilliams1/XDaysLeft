@@ -18,11 +18,13 @@ public class AI extends Player {
 	public ArrayList<Card> nextCard(Board enemyBoard) {
 		ArrayList<Card> cardsToUse = cardsAvailableToPlay(enemyBoard.getField(), getHand());
 		ArrayList<Card> cardsToProcess = new ArrayList<Card>();
+		if(cardsToUse.size() == 0) {
+			return null;
+		}
 		if(random.nextInt(100) < 20*(5 - level)) {
 			//This means the AI is not selecting the best option.
 			//This is to make it easier for the user
-			int nextIndex = random.nextInt(cardsToUse.size());
-			cardsToProcess.add(cardsToUse.get(nextIndex));
+			cardsToProcess.add(cardsToUse.get(random.nextInt(cardsToUse.size())));
 			 cardsToProcess.addAll(cardsToMerge(cardsToProcess.get(0), enemyBoard.getField()));
 		} else {
 			//This means the AI is selecting the best option.
@@ -58,17 +60,17 @@ public class AI extends Player {
 							if(iteration < 1) {
 								if(currentCard.getStars() == 1) {
 									tempCardList.add(currentCard);
-									totalStars = currentCard.getStars();
+									totalStars += currentCard.getStars();
 								}
 							} else {
 								if(currentCard.getStars() == 1 && !starCardsFound[0]) {
 									tempCardList.add(currentCard);
-									totalStars = currentCard.getStars();
-									starCardsFound[0] = !starCardsFound[0];
+									totalStars += currentCard.getStars();
+									starCardsFound[0] = true;
 								} else if(currentCard.getStars() == 2 && !starCardsFound[1]) {
 									tempCardList.add(currentCard);
-									totalStars = currentCard.getStars();
-									starCardsFound[1] = !starCardsFound[1];
+									totalStars += currentCard.getStars();
+									starCardsFound[1] = true;
 								}
 							}
 							if(totalStars == cardStarValue) break;
@@ -79,6 +81,7 @@ public class AI extends Player {
 							cardsToReturn.addAll(tempCardList);
 						} else {
 							tempCardList = new ArrayList<Card>();
+							totalStars = 0;
 						}
 					}
 				break; } // need either three one cards or one one card and a two
@@ -90,32 +93,42 @@ public class AI extends Player {
 						if(iteration < 1) {
 							if(currentCard.getStars() == 1) {
 								tempCardList.add(currentCard);
-								totalStars = currentCard.getStars();
+								totalStars += currentCard.getStars();
 							}
-						} else if(iteration == 2) {
+						} else if(iteration == 1) {
 							if(currentCard.getStars() == 2 && !starCardsFound[0]) {
 								tempCardList.add(currentCard);
-								totalStars = currentCard.getStars();
-								starCardsFound[0] = !starCardsFound[0];
+								totalStars += currentCard.getStars();
+								starCardsFound[0] = true;
 							} else if(currentCard.getStars() == 1 && (!starCardsFound[1] || !starCardsFound[2] )) {
 								tempCardList.add(currentCard);
-								totalStars = currentCard.getStars();
+								totalStars += currentCard.getStars();
 								if(!starCardsFound[1]) {
-									starCardsFound[1] = !starCardsFound[1];
+									starCardsFound[1] = true;
+								} else if (!starCardsFound[2]){
+									starCardsFound[2] = true;
+								}
+							}
+						} else if(iteration == 2){
+							if(currentCard.getStars() == 2 && (!starCardsFound[0] || !starCardsFound[1])) {
+								tempCardList.add(currentCard);
+								totalStars += currentCard.getStars();
+								starCardsFound[0] = !starCardsFound[0];
+								if(!starCardsFound[1]) {
+									starCardsFound[1] = true;
 								} else {
-									starCardsFound[2] = !starCardsFound[2];
+									starCardsFound[0] = true;
 								}
 							}
 						} else {
-							if(currentCard.getStars() == 2 && (!starCardsFound[0] || !starCardsFound[1])) {
+							if(currentCard.getStars() == 3 && !starCardsFound[0]) {
 								tempCardList.add(currentCard);
-								totalStars = currentCard.getStars();
-								starCardsFound[0] = !starCardsFound[0];
-								if(!starCardsFound[1]) {
-									starCardsFound[1] = !starCardsFound[1];
-								} else {
-									starCardsFound[0] = !starCardsFound[0];
-								}
+								totalStars += currentCard.getStars();
+								starCardsFound[0] = true;
+							} else if(currentCard.getStars() == 1 && !starCardsFound[1]) {
+								tempCardList.add(currentCard);
+								totalStars += currentCard.getStars();
+								starCardsFound[1] = true;
 							}
 						}
 						if(totalStars == cardStarValue) break;
@@ -124,11 +137,15 @@ public class AI extends Player {
 						cardsToReturn.addAll(tempCardList);
 					} else {
 						tempCardList = new ArrayList<Card>();
+						totalStars = 0;
+						starCardsFound[0] = false;
+						starCardsFound[1] = false;
+						starCardsFound[2] = false;
 					}
 					iteration++;
 				}
 					
-				break; } // need either 4 one cards or 2 two cards  or 2 of each
+				break; } // need either 4 one cards or (one 2 card and 2 one cards )or 2 two cards  or (1 one card and a 3 card)
 		}
 		return cardsToReturn;
 	}
