@@ -69,13 +69,13 @@ public class CardReader {
 		JSONArray cardsBad = new JSONArray();
 
 		try {
-			Object obj = jsonParser.parse(new FileReader(System.getProperty("user.dir") + "\\cards\\industry.json"));
-			Object objBad = jsonParser.parse(new FileReader(System.getProperty("user.dir") + "\\cards\\industryBad.json"));
+			Object obj = jsonParser.parse(new FileReader(System.getProperty("user.dir") + "/cards/industry.json"));
+			Object objBad = jsonParser.parse(new FileReader(System.getProperty("user.dir") + "/cards/industryBad.json"));
 			
 			cards = (JSONArray)obj;
 			cardsBad = (JSONArray)objBad;
 		} catch (IOException | ParseException e) {
-			//e.printStackTrace();
+			e.printStackTrace();
 			System.out.println("Failed to read industry cards.");
 		}
 
@@ -99,13 +99,13 @@ public class CardReader {
 		JSONArray cardsBad = new JSONArray();
 		
 		try {
-			Object obj = jsonParser.parse(new FileReader(System.getProperty("user.dir") + "\\cards\\social.json"));
-			Object objBad = jsonParser.parse(new FileReader(System.getProperty("user.dir") + "\\cards\\socialBad.json"));
+			Object obj = jsonParser.parse(new FileReader(System.getProperty("user.dir") + "/cards/social.json"));
+			Object objBad = jsonParser.parse(new FileReader(System.getProperty("user.dir") + "/cards/socialBad.json"));
 			
 			cards = (JSONArray)obj;
 			cardsBad = (JSONArray)objBad;
 		} catch (IOException | ParseException e) {
-			//e.printStackTrace();
+			e.printStackTrace();
 			System.out.println("Failed to read social cards.");
 		}
 

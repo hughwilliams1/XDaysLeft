@@ -15,8 +15,8 @@ public class MenuState extends State{
     public MenuState(GameStateManager gsm) {
         super(gsm);
         cam.setToOrtho(false, Game.WIDTH, Game.HEIGHT);
-        background = new Texture("Title.PNG");
-        playBtn = new Texture("playButton.PNG");
+        background = new Texture("title.png");
+        playBtn = new Texture("playButton.png");
     }
 
     @Override

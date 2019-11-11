@@ -1,0 +1,63 @@
+[
+	{
+	"title" : "Plant Tree", 
+	"cardText" : "This is Plant Tree.",
+	"stars" : "1",
+	"points" : "1"
+	},
+	{
+	"title" : "Plant Tree", 
+	"cardText" : "This is Plant Tree.",
+	"stars" : "1",
+	"points" : "1"
+	},
+	{
+	"title" : "Plant Tree", 
+	"cardText" : "This is Plant Tree.",
+	"stars" : "1",
+	"points" : "1"
+	},
+	{
+	"title" : "Solar Panels", 
+	"cardText" : "This is Solar Panels.",
+	"stars" : "1",
+	"points" : "2"
+	},
+	{
+	"title" : "Solar Panels", 
+	"cardText" : "This is Solar Panels.",
+	"stars" : "1",
+	"points" : "2"
+	},
+	{
+	"title" : "Solar Panels", 
+	"cardText" : "This is Solar Panels.",
+	"stars" : "1",
+	"points" : "2"
+	},
+	{
+	"title" : "Windmill", 
+	"cardText" : "This is Windmill.",
+	"stars" : "2",
+	"points" : "6"
+	},
+	{
+	"title" : "Windmill", 
+	"cardText" : "This is Windmill.",
+	"stars" : "2",
+	"points" : "6"
+	},
+	{
+	"title" : "Solar Farm", 
+	"cardText" : "This is Solar Farm.",
+	"stars" : "3",
+	"points" : "9"
+	},
+	{
+	"title" : "Geothermal Generator", 
+	"cardText" : "This is Geothermal Generator.",
+	"stars" : "4",
+	"points" : "13"
+	}
+	
+]
