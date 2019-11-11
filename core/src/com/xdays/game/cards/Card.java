@@ -18,10 +18,10 @@ public class Card {
 	public Card(String title, String cardText) {
 		this.title = title;
 		this.cardText = cardText;
-		texture = new Texture(title + ".PNG");
+		texture = new Texture(title + ".png");
 		played = false;
 		halfPlayed = false;
-		back = new Texture("back.PNG");
+		back = new Texture("back.png");
 	}
 	
 	public boolean isPlayed() {
