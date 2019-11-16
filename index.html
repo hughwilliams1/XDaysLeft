@@ -3,6 +3,7 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="resources/css/all_style.css">
     <link rel="stylesheet" href="resources/css/index_style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -20,6 +21,7 @@
 
 
 <body>
+    <!-- navbar -->
     <nav class="navbar navbar-expand-md navbar-fixed-top navbar-light bg-light main-nav">
         <div class="container" id="top-nav">
             <ul class="nav navbar-nav nav-fill w-100">
@@ -27,13 +29,13 @@
                     <a class="nav-link" href="#">HOME</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">BLOG</a>
+                    <a class="nav-link" href="src/blog.html">BLOG</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">DOWNLOAD</a>
+                    <a class="nav-link" href="src/cards.html">CARDS</a>
                 </li>
             </ul>
-            <ul class="nav navbar-nav justify-content-center w-100">
+            <ul class="nav navbar-nav justify-content-center w-50" style="margin-left: auto; margin-right: auto;">
                 <li class="nav-item">
                     <img src="resources/images/x-cropped-world.png" class="rounded-circle" width="90px" height="auto"
                         id=circleLogo>
@@ -41,13 +43,13 @@
             </ul>
             <ul class="nav navbar-nav nav-fill w-100">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">FORUM</a>
+                    <a class="nav-link" href="src/forum.html">FORUM</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">SOCIAL</a>
+                    <a class="nav-link" href="src/gallery.html">GALLERY</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">CONTACT</a>
+                    <a class="nav-link" href="src/download.html">DOWNLOAD</a>
                 </li>
 
             </ul>
@@ -56,6 +58,7 @@
         </div>
     </nav>
 
+    <!-- carousel -->
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -101,6 +104,7 @@
         </a>
     </div>
 
+    <!-- game description -->
     <div class="card">
         <div class="card-body">
             <h4 class="card-title">What is X DAYS LEFT?</h4>
@@ -114,8 +118,7 @@
                 opponent to help you in your future battles.
             </p>
             <div class="card-text" style="text-align:center;">
-                <a href="https://github.com/hughwilliams1/XDaysLeft"><button class="btn"><i class="fa fa-download"></i>
-                        Download</button></a>
+                <a href="https://github.com/hughwilliams1/XDaysLeft"><button class="btn btn-success"><i class="fa fa-download"></i>Download</button></a>
             </div>
         </div>
     </div>
@@ -136,15 +139,6 @@
         </div>
     </div>
 
-    <!-- Development Blog
-    <div class="card">
-        <div class="card-body">
-            <h4 class="card-title">?/11/19 - Development Blog</h4>
-        </div>
-    </div>
-
-    -->
-
     <!-- footer -->
     <footer id="sticky-footer" class="py-4 bg-dark text-white-50">
         <div class="container" id="footer-text">
@@ -156,6 +150,7 @@
                 <small>Github</small>
                 <i class="fab fa-github"></i>
             </a>
+        </div>
     </footer>
 
 </body>
