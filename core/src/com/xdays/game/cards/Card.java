@@ -108,4 +108,5 @@ public class Card {
 	public int getStars() {
 		return 0;
 	}
+
 }
