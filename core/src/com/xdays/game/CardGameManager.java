@@ -46,43 +46,41 @@ public class CardGameManager {
 		changeEmissions(playerBoard.getTotalPoints());
 		switchPlayerTurn();
 		ArrayList<Card> cardsToProcess = getAI().nextCard(aiBoard);
-		if(cardsToProcess != null) {
+	
 		aiCard = cardsToProcess.get(0);
 		System.out.println(aiCard.getTitle());
 		cardsToProcess.remove(0);
-		processCard(aiCard, cardsToProcess); //Need the chosen cards to destroy too
-		changeEmissions(aiBoard.getTotalPoints());
-		}
+		processCard(aiCard, cardsToProcess);
+		
 		switchPlayerTurn();
 	}
 	
-	public void playCardGame () {
-		
-		boolean finished = false;
-		
-		while(emissionsBar != 100 && emissionsBar != 0 && !finished) {
-			
-			if (hasPlayed) {
-				changeEmissions(playerBoard.getTotalPoints());
-				hasPlayed = false;
-				switchPlayerTurn();
-			}
-			
-			if(!isPlayerTurn) {
-				
-				ArrayList<Card> cardsToProcess = getAI().nextCard(aiBoard);
-				
-				aiCard = cardsToProcess.get(0);
-				System.out.println(aiCard.getTitle());
-				cardsToProcess.remove(0);
-				processCard(aiCard, cardsToProcess); //Need the chosen cards to destroy too
-				changeEmissions(aiBoard.getTotalPoints());
-				switchPlayerTurn();
-			}
-			
-			// Quit clause
-		}
-	}
+//	public void playCardGame () {
+//		
+//		boolean finished = false;
+//		
+//		while(emissionsBar != 100 && emissionsBar != 0 && !finished) {
+//			
+//			if (hasPlayed) {
+//				changeEmissions(playerBoard.getTotalPoints());
+//				hasPlayed = false;
+//				switchPlayerTurn();
+//			}
+//			
+//			if(!isPlayerTurn) {
+//				
+//				ArrayList<Card> cardsToProcess = getAI().nextCard(aiBoard);
+//				
+//				aiCard = cardsToProcess.get(0);
+//				System.out.println(aiCard.getTitle());
+//				cardsToProcess.remove(0);
+//				processCard(aiCard, cardsToProcess); //Need the chosen cards to destroy too
+//				switchPlayerTurn();
+//			}
+//			
+//			// Quit clause
+//		}
+//	}
 	
 	public void processCard(Card card, ArrayList<Card> chosenCards) {
 		if(card instanceof Industry) {
@@ -115,6 +113,7 @@ public class CardGameManager {
 					aiBoard.addToField(card);
 					enemyAI.removeCard(card);
 				}
+				changeEmissions(aiBoard.getTotalPoints());
 			}
 			doCardAbility();
 		}else {
