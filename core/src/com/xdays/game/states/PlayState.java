@@ -3,6 +3,7 @@ package com.xdays.game.states;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
@@ -29,6 +30,8 @@ public class PlayState extends State{
 	private String messageToPrint;
 	private Texture background;
 	private Rectangle previousBounds;
+	private Sound placeCard;
+
 
 	public PlayState(GameStateManager gsm) {
 		super(gsm);
@@ -42,6 +45,8 @@ public class PlayState extends State{
 		Deck badDeck = new Deck(cardReader.getInudstryAndSocialCardsBad());
 		
 		manager = new CardGameManager(50, new User("Friendly", goodDeck), new AI("Enemy", 1, badDeck));
+		
+		placeCard = Gdx.audio.newSound(Gdx.files.internal("Tap.mp3"));
 	}
 
 	
@@ -121,6 +126,7 @@ public class PlayState extends State{
             	}
         	}
         }
+        placeCard.play(0.5f);
 	}
 	
 	private int calculateTotalStars(ArrayList<Card> selected) {
@@ -190,6 +196,7 @@ public class PlayState extends State{
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
+		placeCard.dispose();
 	}
 
 }
