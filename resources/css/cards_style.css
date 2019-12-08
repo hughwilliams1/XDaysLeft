@@ -1,2 +1,80 @@
 
-/* contains cards css */
+/* contains cards css  */
+.gallery{
+	box-sizing:border-box;
+	
+	
+}
+.row {
+  display: inline-flex; 
+  flex-wrap: wrap;
+  margin:auto;
+
+}  
+
+/* Create four equal columns that sits next to each other  */
+.column {
+  flex: 25%; 
+  max-width: 25%;
+  padding: 0px 4px; 
+  
+  
+}
+.column img {
+  margin-top: 8px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%; 
+  height: 20%; 
+  position:relative;
+
+} 
+
+
+
+/*allows for tooltip to be shown when a card is hovered over */	
+.card-hover {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+  transition: 0.2s;
+  
+}
+
+
+
+.tooltip{
+  position: absolute;
+  float:left;
+  padding: 20px;
+  margin:auto;
+  max-width: 300px;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  visibility: hidden;
+  opacity: 0;
+  z-index:1;
+  transition: 0.5s;
+}
+
+@media(max-width: 1024px) {
+	.tooltip>p{
+		font-size:15px
+	}
+}
+@media(max-width: 767px) {
+	.tooltip>p{
+		font-size:11.5px
+	}
+}
+
+
+.card-hover:hover .tooltip{
+  visibility: visible;
+  opacity: 1;
+  transl
+}
+
