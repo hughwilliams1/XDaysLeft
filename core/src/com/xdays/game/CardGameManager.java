@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.xdays.game.cards.Card;
 import com.xdays.game.cards.CardReader;
 import com.xdays.game.cards.Industry;
+import com.xdays.game.cards.Social;
 
 public class CardGameManager {
 	
@@ -22,15 +23,14 @@ public class CardGameManager {
 	private Card aiCard = null;
 	
 	public CardGameManager (int emissionsValue, User user, AI enemyAI) {
-		CardReader reader = new CardReader();
 		
 		emissionsBar = emissionsValue;
 		
 		this.user = user;
 		this.enemyAI = enemyAI;
 		
-		this.user.setHand(reader.getIndustryCardsArray());
-		this.enemyAI.setHand(reader.getIndustryCardsBadArray());
+		user.setHandFromDeck();
+		enemyAI.setHandFromDeck();
 		
 		isPlayerTurn = true;
 		hasPlayed = false;
@@ -87,18 +87,20 @@ public class CardGameManager {
 	public void processCard(Card card, ArrayList<Card> chosenCards) {
 		if(card instanceof Industry) {
 			if (isPlayerTurn) {
-				if (card.getStars() > 1) {
-					card.handleInput();
-					playerBoard.mergeCard(card, chosenCards);
-					user.removeCard(card);
-					for(int i=0; i<chosenCards.size(); i++) {
-						user.removeCard(chosenCards.get(i));
+					if (card.getStars() > 1) {
+						card.handleInput();
+						playerBoard.mergeCard(card, chosenCards);
+						user.removeCard(card);
+						user.addCardToHand();
+						for(int i=0; i<chosenCards.size(); i++) {
+							user.removeCard(chosenCards.get(i));
+						}
+					} else {
+						card.handleInput();
+						playerBoard.addToField(card);
+						user.removeCard(card);
+						user.addCardToHand();
 					}
-				} else {
-					card.handleInput();
-					playerBoard.addToField(card);
-					user.removeCard(card);
-				}
 				hasPlayed = true;
 			} else {
 				if (card.getStars() > 1) {
@@ -106,6 +108,7 @@ public class CardGameManager {
 					card.handleInputEnemy();
 					aiBoard.mergeCard(card, chosenCards);
 					enemyAI.removeCard(card);
+					enemyAI.addCardToHand();
 					for(int i=0; i<chosenCards.size(); i++) {
 						enemyAI.removeCard(chosenCards.get(i));
 					}
@@ -114,14 +117,21 @@ public class CardGameManager {
 					card.handleInputEnemy();
 					aiBoard.addToField(card);
 					enemyAI.removeCard(card);
+					enemyAI.addCardToHand();
 				}
 			}
 			doCardAbility();
 		}else {
 			if (isPlayerTurn) {
+				if(((Social) card).isSelectedCardNeeded()) {
+					((Social) card).doEffect(playerBoard, chosenCards.get(0));
+				}else {
+					((Social) card).doEffect(playerBoard, null);
+				}
 				hasPlayed = true;
+			}else {
+				
 			}
-			doCardAbility();
 		}
 	}
 	

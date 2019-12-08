@@ -14,7 +14,7 @@ public class Game extends ApplicationAdapter {
 	public static final String TITLE = "X Days Left";
 	
 	private GameStateManager gsm;
-	SpriteBatch batch;
+	public static SpriteBatch batch;
 	Texture img;
 	
 	@Override
@@ -23,6 +23,10 @@ public class Game extends ApplicationAdapter {
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		gsm = new GameStateManager();
 		gsm.push(new MenuState(gsm));
+	}
+	
+	public SpriteBatch getBatch() {
+		return batch;
 	}
 
 	@Override

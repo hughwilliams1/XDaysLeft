@@ -9,9 +9,11 @@ public abstract class Player {
 	
 	private String name;
 	private ArrayList<Card> hand;
+	private Deck deck;
 	
-	public Player(String name) {
+	public Player(String name, Deck deck) {
 		this.name = name;
+		this.deck = deck;
 	}
 		
 	public ArrayList<Card> getHand() {
@@ -20,6 +22,14 @@ public abstract class Player {
 	
 	public void setHand(ArrayList<Card> givenCards) {
 		hand = givenCards;
+	}
+	
+	public void setHandFromDeck() {
+		hand = deck.drawAmount(9);
+	}
+	
+	public void addCardToHand() {
+		hand.add(deck.draw());
 	}
 	
 	public void removeCard(Card card) {
