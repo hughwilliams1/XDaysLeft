@@ -1,6 +1,7 @@
 package com.xdays.game;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import com.xdays.game.cards.Card;
 import com.xdays.game.cards.CardReader;
@@ -119,6 +120,11 @@ public class CardGameManager {
 		}else {
 			if (isPlayerTurn) {
 				hasPlayed = true;
+			} else {
+				if(card.getTitle() == "Manipulation" || card.getTitle() == "Fake news") {
+					Random random = new Random();
+					chosenCards.add(playerBoard.getField().get(random.nextInt(playerBoard.getField().size() - 1)));
+				}
 			}
 			doCardAbility();
 		}

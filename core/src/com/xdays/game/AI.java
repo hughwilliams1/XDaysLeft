@@ -35,13 +35,38 @@ public class AI extends Player {
 	}
 
 	private ArrayList<Card> cardsToMerge(Card card, ArrayList<Card> cardsOnBoard){
+		
+		ArrayList<Card> cardsToReturn = new ArrayList<Card>();
+		
 		if(!card.isIndustry()) {
+			switch(card.getTitle()) {
+			case "Online post":
+			case "Cover up":
+				cardsToReturn.add(getHighestStarCard(cardsOnBoard));
+				return cardsToReturn;
+			case "Increase population":
+				for(Card currentCard : cardsOnBoard) {
+					if(currentCard.getStars() == 1) {
+						cardsToReturn.add(currentCard);
+						return cardsToReturn;
+					}
+				}
+				return null;
+			case "Corruption":
+				for(Card currentCard : cardsOnBoard) {
+					if(currentCard.getStars() == 3) {
+						cardsToReturn.add(currentCard);
+						return cardsToReturn;
+					}
+				}
+				return null;
+			}
 			return null;
 		}
-		ArrayList<Card> cardsToReturn = new ArrayList<Card>();
 		int cardStarValue = card.getStars();
 		int totalStars = 0;
 		int iteration = 0;
+		
 		switch(cardStarValue) {
 		case 1:
 			break;
@@ -162,8 +187,6 @@ public class AI extends Player {
 					if(currentHighest.getStars() < card.getStars()) {
 						currentHighest = card;
 					}
-				} else {
-					return card;
 				}
 			}
 			return currentHighest;
