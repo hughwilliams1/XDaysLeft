@@ -3,10 +3,6 @@
     this includes mainly navbar and footer
 */
 
-body {
-    background-image: url("../images/trees-background.png");
-}
-
 p {
     font-size: 20px;
 }
@@ -41,26 +37,6 @@ a {
 .main-nav {
     border-bottom: 1px solid rgb(122, 121, 128);
     padding-bottom: 10px
-}
-
-@media(max-width: 767px) {
-    .main-nav {
-        margin-bottom: 3px;
-    }
-}
-
-/* text panel css */
-.card {
-    margin-right: 20vw;
-    margin-left: 20vw;
-    margin-top: 5px;
-}
-
-@media(max-width: 1024px) {
-    .card {
-        margin-right: 5px;
-        margin-left: 5px;
-    }
 }
 
 /* sticky footer css */
