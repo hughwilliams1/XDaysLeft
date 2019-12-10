@@ -15,7 +15,44 @@
     border-bottom: 3px dotted #2c3e50;;
 }
 
-.title > p {
+#blog-1, #blog-2, #blog-3, #blog-4, #blog-5{
+    margin-left: 0;
+    margin-right: 0;
+    padding-bottom: 30px;
+}
+
+.blog-text {
+    text-align: left;
+}
+
+.blog-text > h1 {
+    padding-left: 10px;
+    display: inline-block;
+    font-size: 55px;
+}
+
+.blog-text > p {
+    padding-left: 10px;
     font-size: 25px;
     line-height: 40px;
+}
+
+.blog-image-right {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+#team-words {
+    padding-left: 10px;
+    padding-right: 10px;
+    max-width: 100%;
+    height: auto;
+}
+
+#line {
+    width: 100%;
+    display: inline-block;
+    margin-bottom: 30px;
+    font-size: 65px;
+    border-bottom: 3px dotted #2c3e50;;
 }

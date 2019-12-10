@@ -52,7 +52,6 @@ body {
 #sticky-footer {
     border-top: 2px solid rgb(122, 121, 128);
     flex-shrink: none;
-    margin-top: 100px;
 }
 
 #footer-text {
