@@ -75,6 +75,28 @@
 .card-hover:hover .tooltip{
   visibility: visible;
   opacity: 1;
-  transl
 }
 
+/* title */
+
+.title {
+  padding: 5px;
+  text-align: center;
+}
+
+.title > h1 {
+  display: inline-block;
+  margin-bottom: 30px;
+  font-size: 65px;
+  border-bottom: 3px dotted #2c3e50;;
+}
+
+.title > p {
+  font-size: 25px;
+  line-height: 40px;
+}
+
+.gallery > .row {
+  margin-right: 0;
+  margin-left: 0;
+}
