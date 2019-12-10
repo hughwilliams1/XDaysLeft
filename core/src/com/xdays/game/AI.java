@@ -9,10 +9,11 @@ public class AI extends Player {
 	private Random random;
 	private int level;
 
-	public AI(String name, int level) {
-		super(name);
+	public AI(String name, int level, Deck deck) {
+		super(name, deck);
 		random = new Random();
 		this.level = level;
+		
 	}
 
 	public ArrayList<Card> nextCard(Board enemyBoard) {

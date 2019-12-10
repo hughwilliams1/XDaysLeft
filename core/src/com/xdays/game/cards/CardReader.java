@@ -20,13 +20,39 @@ public class CardReader {
 	
 	public CardReader() {
 		industryCards = new HashMap <String , Industry>();
-		//socialCards = new HashMap <String , Social>();
+		socialCards = new HashMap <String , Social>();
 		
 		industryCardsBad = new HashMap <String , Industry>();
-		//socialCardsBad = new HashMap <String , Social>();
+		socialCardsBad = new HashMap <String , Social>();
 		
 		readIndustryCards();
-		//readSocialCards();
+		readSocialCards();
+	}
+	
+	public ArrayList<Card> getInudstryAndSocialCards(){
+		Object[] a = industryCards.values().toArray();
+		Object[] b = socialCards.values().toArray();
+		ArrayList<Card> cards = new ArrayList<Card>();
+		for(int i=0; i<a.length; i++) {
+			cards.add((Card) a[i]);
+		}
+		for(int i=0; i<b.length; i++) {
+			cards.add((Card) b[i]);
+		}
+		return cards;
+	}
+	
+	public ArrayList<Card> getInudstryAndSocialCardsBad(){
+		Object[] a = industryCardsBad.values().toArray();
+		Object[] b = socialCardsBad.values().toArray();
+		ArrayList<Card> cards = new ArrayList<Card>();
+		for(int i=0; i<a.length; i++) {
+			cards.add((Card) a[i]);
+		}
+		for(int i=0; i<b.length; i++) {
+			cards.add((Card) b[i]);
+		}
+		return cards;
 	}
 	
 	public HashMap <String , Industry> getIndustryCards(){
@@ -113,8 +139,25 @@ public class CardReader {
 			JSONObject card = (JSONObject) cards.get(i);
 			JSONObject cardBad = (JSONObject) cardsBad.get(i);
 			
-			socialCards.put(card.get("title").toString(), new Social(card.get("title").toString(), card.get("cardText").toString()));
-			socialCardsBad.put(cardBad.get("title").toString(), new Social(cardBad.get("title").toString(), cardBad.get("cardText").toString()));
+			Social tempSocial = new Social(card.get("title").toString(), card.get("cardText").toString(), Integer.valueOf(card.get("amount").toString()),  Boolean.parseBoolean(card.get("selectedCardsNeeded").toString()));
+			if(card.get("type").toString().equals("Destroy")) {
+				tempSocial.setEffect(new Destroy());
+			}else if(card.get("type").toString().equals("EditEmmision")) {
+				tempSocial.setEffect(new EditEmmison());
+			}else {
+				tempSocial.setEffect(new EditStar());
+			}
+			socialCards.put(card.get("title").toString(), tempSocial);
+			
+			Social tempSocialBad = new Social(cardBad.get("title").toString(), cardBad.get("cardText").toString(), Integer.valueOf(cardBad.get("amount").toString()), Boolean.parseBoolean(cardBad.get("selectedCardsNeeded").toString()));
+			if(cardBad.get("type").toString().equals("Destroy")) {
+				tempSocialBad.setEffect(new Destroy());
+			}else if(cardBad.get("type").toString().equals("EditEmmision")) {
+				tempSocialBad.setEffect(new EditEmmison());
+			}else {
+				tempSocialBad.setEffect(new EditStar());
+			}
+			socialCardsBad.put(cardBad.get("title").toString(), tempSocialBad);
 		}
 	}
 }

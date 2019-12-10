@@ -11,27 +11,37 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.xdays.game.AI;
 import com.xdays.game.CardGameManager;
+import com.xdays.game.Deck;
 import com.xdays.game.Game;
 import com.xdays.game.User;
 import com.xdays.game.cards.Card;
+import com.xdays.game.cards.CardReader;
+import com.xdays.game.cards.Social;
 
 public class PlayState extends State{
 	
 	private boolean multipleCardsNeeded = false;
+	private boolean selectedCardsNeeded = false;
 	private boolean firstRun = true;
 	private CardGameManager manager;
 	private Card lastCardPlayed;
 	private ArrayList<Card> selectedCards;
 	private String messageToPrint;
 	private Texture background;
+	private Rectangle previousBounds;
 
 	public PlayState(GameStateManager gsm) {
 		super(gsm);
+		CardReader cardReader = new CardReader();
 		background = new Texture("background.png");
 		selectedCards = new ArrayList<Card>();
 		messageToPrint = "";
 		cam.setToOrtho(false, Game.WIDTH, Game.HEIGHT);
-		manager = new CardGameManager(50, new User("Friendly"), new AI("Enemy", 1));
+		
+		Deck goodDeck = new Deck(cardReader.getInudstryAndSocialCards());
+		Deck badDeck = new Deck(cardReader.getInudstryAndSocialCardsBad());
+		
+		manager = new CardGameManager(50, new User("Friendly", goodDeck), new AI("Enemy", 1, badDeck));
 	}
 
 	
@@ -58,10 +68,36 @@ public class PlayState extends State{
         				}
         			}
         		}
+        	}else if(selectedCardsNeeded){
+        		for(int i=0; i<manager.getPlayerBoard().getField().size(); i++) {
+        			if(manager.getPlayerBoard().getField().get(i).getBounds().overlaps(bounds) || manager.getAIBoard().getField().get(i).getBounds().overlaps(bounds)) {
+        				Card selectedCard = manager.getPlayerBoard().getField().get(i);
+		        		if(selectedCard.getBounds().overlaps(bounds) && !selectedCard.equals(lastCardPlayed) && selectedCard.isPlayed() && !selectedCards.contains(selectedCard)) {
+		        			selectedCards.add(selectedCard);
+		        			messageToPrint ="Selected card for apply social card to: " + selectedCard.getTitle();
+		        			System.out.println("Selected card for apply social card to: " + selectedCard.getTitle());
+		        			manager.playCardGameRound(lastCardPlayed, selectedCards);
+        					selectedCards.clear();
+        					multipleCardsNeeded = false;
+		        		}
+        			}
+        		}
         	}else {
             	for(int i=0; i<manager.getUser().getHand().size(); i++) {
             		if(manager.getUser().getHand().get(i).getBounds().overlaps(bounds)) {
+            			System.out.println(manager.getUser().getHand().get(i).getTitle());
             			Card selectedCard = manager.getUser().getHand().get(i);
+            			if(selectedCard instanceof Social) {
+            				if(((Social) selectedCard).isSelectedCardNeeded()) {
+            					messageToPrint = "Select cards to apply the social card to";
+            					System.out.println("Select cards to apply the social card to");
+            					selectedCardsNeeded = true;
+            					lastCardPlayed = selectedCard;
+            					lastCardPlayed.halfPlayed();
+            				}else {
+            					
+            				}
+            			}else {
                 			if(selectedCard.getStars()>1 && !selectedCard.isPlayed()) {
                 				if(manager.getPlayerBoard().getTotalStars(manager.getPlayerBoard().getField())<selectedCard.getStars()) {
                 					messageToPrint = "Not enough cards to play that card.";
@@ -74,10 +110,13 @@ public class PlayState extends State{
                 					lastCardPlayed.halfPlayed();
                 				}
                 			}else if(!selectedCard.isPlayed()){
+                				previousBounds = selectedCard.getBounds();
                 				messageToPrint ="User played card: " + selectedCard.getTitle();
                 				System.out.println("User played card: " + selectedCard.getTitle());
                 				manager.playCardGameRound(selectedCard, null);
+                				render(Game.batch);
                 			}
+            			}
             		}
             	}
         	}
@@ -120,9 +159,11 @@ public class PlayState extends State{
         
         for(int i=0; i<manager.getUser().getHand().size(); i++) {
         	if(firstRun) {
+            	manager.getUser().getHand().get(i).setPosition(5 + i*127, 0);
+        	}else if(!manager.getUser().getHand().get(i).haveBoundsBeenSet() && firstRun == false) {
+        		//manager.getUser().getHand().get(i).setPosition(previousBounds.getX(), previousBounds.getY());
         		manager.getUser().getHand().get(i).setPosition(5 + i*127, 0);
         	}
-
             sb.draw(manager.getUser().getHand().get(i).getTexture(), manager.getUser().getHand().get(i).getBounds().getX(), manager.getUser().getHand().get(i).getBounds().getY(), manager.getUser().getHand().get(i).getTexture().getWidth()/3.4f, manager.getUser().getHand().get(i).getTexture().getHeight()/3.4f);      
         }
         for(int i=0; i<manager.getPlayerBoard().getField().size(); i++) {
@@ -130,7 +171,7 @@ public class PlayState extends State{
         }
         
         for(int i=0; i<manager.getAI().getHand().size(); i++) {
-        	if(firstRun) {
+        	if(!manager.getAI().getHand().get(i).haveBoundsBeenSet()) {
         		manager.getAI().getHand().get(i).setPosition(5 + i*127, 650);
         	}
             sb.draw(manager.getAI().getHand().get(i).getBackTexture(), manager.getAI().getHand().get(i).getBounds().getX(), manager.getAI().getHand().get(i).getBounds().getY(), manager.getAI().getHand().get(i).getTexture().getWidth()/3.4f, manager.getAI().getHand().get(i).getTexture().getHeight()/3.4f);

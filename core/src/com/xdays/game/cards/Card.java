@@ -14,6 +14,7 @@ public class Card {
 	private boolean played;
 	private boolean halfPlayed;
 	private Texture back;
+	private boolean boundsSet;
 	
 	public Card(String title, String cardText) {
 		this.title = title;
@@ -22,6 +23,7 @@ public class Card {
 		played = false;
 		halfPlayed = false;
 		back = new Texture("back.PNG");
+		boundsSet = false;
 	}
 	
 	public boolean isPlayed() {
@@ -46,13 +48,17 @@ public class Card {
 	
 	public void handleInput() {
 		if(!played) {
-			if(halfPlayed) {
-				position.y += 100;
-			}else {
+			if(this instanceof Social) {
 				position.y += 210;
+			}else {
+				if(halfPlayed) {
+					position.y += 100;
+				}else {
+					position.y += 210;
+				}
+				bounds.setY(position.y);
+				played = true;
 			}
-			bounds.setY(position.y);
-			played = true;
 		}
 	}
 	
@@ -89,8 +95,13 @@ public class Card {
 	}
 	
 	public void setPosition(float x, float y) {
+		boundsSet = true;
 		position = new Vector3 (x, y, 0);
 		bounds = new Rectangle(x, y, (texture.getWidth()/3.4f), (texture.getHeight()/3.4f));
+	}
+	
+	public boolean haveBoundsBeenSet() {
+		return boundsSet;
 	}
 	
 	public Rectangle getBounds() {

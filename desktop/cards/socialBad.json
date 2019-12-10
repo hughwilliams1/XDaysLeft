@@ -1,14 +1,16 @@
 [
 	{
-	"title" : "cardOneSocial-Bad", 
-	"cardText" : "This is cardOneSocial-Bad."
+	"title" : "Online Posts", 
+	"cardText" : "Increase / Decrease the emission of a nraom card by one.",
+	"amount" : "1",
+	"type" : "EditEmmision",
+	"selectedCardsNeeded" : "false"
 	},
 	{
-	"title" : "cardTwoSocial-Bad", 
-	"cardText" : "This is cardTwoSocial-Bad."
+	"title" : "Fake news", 
+	"cardText" : "Destroy a card of your choosing.",
+	"amount" : "0",
+	"type" : "Destroy",
+	"selectedCardsNeeded" : "true"
 	},
-	{
-	"title" : "cardThreeSocial-Bad", 
-	"cardText" : "This is cardThreeSocial-Bad."
-	}
 ]
