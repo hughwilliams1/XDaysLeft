@@ -1,10 +1,10 @@
 package com.xdays.game;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import com.xdays.game.cards.Card;
 import com.xdays.game.cards.CardReader;
+import com.xdays.game.cards.Destroy;
 import com.xdays.game.cards.Industry;
 import com.xdays.game.cards.Social;
 
@@ -30,8 +30,21 @@ public class CardGameManager {
 		this.user = user;
 		this.enemyAI = enemyAI;
 		
-		user.setHandFromDeck();
-		enemyAI.setHandFromDeck();
+		CardReader cardReader = new CardReader();
+		//user.setHandFromDeck();
+		//enemyAI.setHandFromDeck();
+		
+		this.user.setHand(cardReader.getIndustryCardsArray());
+		this.enemyAI.setHand(cardReader.getIndustryCardsBadArray());	
+		
+		//this.user.getHand().remove(0);
+		//this.user.getHand().remove(1);
+		
+		this.user.getHand().add(cardReader.getSocialCards().get("Online Posts"));
+		this.user.getHand().add(cardReader.getSocialCards().get("Protests"));
+		
+		System.out.println(this.user.getHand().size());
+		System.out.println(this.enemyAI.getHand().size());
 		
 		isPlayerTurn = true;
 		hasPlayed = false;
@@ -47,41 +60,15 @@ public class CardGameManager {
 		changeEmissions(playerBoard.getTotalPoints());
 		switchPlayerTurn();
 		ArrayList<Card> cardsToProcess = getAI().nextCard(aiBoard);
-	
+		if(cardsToProcess != null) {
 		aiCard = cardsToProcess.get(0);
 		System.out.println(aiCard.getTitle());
 		cardsToProcess.remove(0);
-		processCard(aiCard, cardsToProcess);
-		
+		processCard(aiCard, cardsToProcess); //Need the chosen cards to destroy too
+		changeEmissions(aiBoard.getTotalPoints());
+		}
 		switchPlayerTurn();
 	}
-	
-//	public void playCardGame () {
-//		
-//		boolean finished = false;
-//		
-//		while(emissionsBar != 100 && emissionsBar != 0 && !finished) {
-//			
-//			if (hasPlayed) {
-//				changeEmissions(playerBoard.getTotalPoints());
-//				hasPlayed = false;
-//				switchPlayerTurn();
-//			}
-//			
-//			if(!isPlayerTurn) {
-//				
-//				ArrayList<Card> cardsToProcess = getAI().nextCard(aiBoard);
-//				
-//				aiCard = cardsToProcess.get(0);
-//				System.out.println(aiCard.getTitle());
-//				cardsToProcess.remove(0);
-//				processCard(aiCard, cardsToProcess); //Need the chosen cards to destroy too
-//				switchPlayerTurn();
-//			}
-//			
-//			// Quit clause
-//		}
-//	}
 	
 	public void processCard(Card card, ArrayList<Card> chosenCards) {
 		if(card instanceof Industry) {
@@ -90,15 +77,15 @@ public class CardGameManager {
 						card.handleInput();
 						playerBoard.mergeCard(card, chosenCards);
 						user.removeCard(card);
-						user.addCardToHand();
+						//user.addCardToHand();
 						for(int i=0; i<chosenCards.size(); i++) {
 							user.removeCard(chosenCards.get(i));
 						}
-					} else {
+					} else {	
 						card.handleInput();
 						playerBoard.addToField(card);
 						user.removeCard(card);
-						user.addCardToHand();
+						//user.addCardToHand();
 					}
 				hasPlayed = true;
 			} else {
@@ -107,7 +94,7 @@ public class CardGameManager {
 					card.handleInputEnemy();
 					aiBoard.mergeCard(card, chosenCards);
 					enemyAI.removeCard(card);
-					enemyAI.addCardToHand();
+					//enemyAI.addCardToHand();
 					for(int i=0; i<chosenCards.size(); i++) {
 						enemyAI.removeCard(chosenCards.get(i));
 					}
@@ -116,24 +103,24 @@ public class CardGameManager {
 					card.handleInputEnemy();
 					aiBoard.addToField(card);
 					enemyAI.removeCard(card);
-					enemyAI.addCardToHand();
+					//enemyAI.addCardToHand();
 				}
-				changeEmissions(aiBoard.getTotalPoints());
 			}
-			doCardAbility();
 		}else {
 			if (isPlayerTurn) {
 				if(((Social) card).isSelectedCardNeeded()) {
-					((Social) card).doEffect(playerBoard, chosenCards.get(0));
+					if(((Social) card).getSocialEffect() instanceof Destroy) {
+						((Social) card).doEffect(aiBoard, chosenCards.get(0));
+						user.removeCard(card);
+					}else {
+						((Social) card).doEffect(playerBoard, chosenCards.get(0));
+					}
 				}else {
 					((Social) card).doEffect(playerBoard, null);
 				}
 				hasPlayed = true;
-			} else {
-				if(card.getTitle() == "Manipulation" || card.getTitle() == "Fake news") {
-					Random random = new Random();
-					chosenCards.add(playerBoard.getField().get(random.nextInt(playerBoard.getField().size() - 1)));
-				}
+			}else {
+				
 			}
 		}
 	}
@@ -156,10 +143,6 @@ public class CardGameManager {
 	
 	public void changeEmissions(int amount) {
 		emissionsBar += amount;
-	}
-	
-	public void doCardAbility() {
-		
 	}
 	
 	public boolean isPlayersTurn() {

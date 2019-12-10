@@ -25,7 +25,7 @@ public abstract class Player {
 	}
 	
 	public void setHandFromDeck() {
-		hand = deck.drawAmount(9);
+		hand = deck.drawAmount(8);
 	}
 	
 	public void addCardToHand() {

@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 import com.xdays.game.cards.Card;
+import com.xdays.game.cards.Industry;
 
 public class Deck {
 	
@@ -31,10 +32,21 @@ public class Deck {
 	
 	public ArrayList<Card> drawAmount(int amount) {
 		ArrayList<Card> returnArray = new ArrayList<Card>();
-		
+		int industryCards = 0;
 		if (!deck.isEmpty() || deck.size() < amount) {
 			for (int i = 0; i <= amount; i++) {
-				returnArray.add(deck.poll());
+				Card c = deck.poll();
+				if(c instanceof Industry) {
+					industryCards ++;
+				}
+				if(industryCards<=7) {
+					returnArray.add(deck.poll());
+				}else {
+					while(c instanceof Industry) {
+						c = deck.poll();
+					}
+					returnArray.add(c);
+				}
 			}
 			return returnArray;
 		}

@@ -16,6 +16,7 @@ import com.xdays.game.Game;
 import com.xdays.game.User;
 import com.xdays.game.cards.Card;
 import com.xdays.game.cards.CardReader;
+import com.xdays.game.cards.Destroy;
 import com.xdays.game.cards.Social;
 
 public class PlayState extends State{
@@ -32,16 +33,16 @@ public class PlayState extends State{
 
 	public PlayState(GameStateManager gsm) {
 		super(gsm);
-		CardReader cardReader = new CardReader();
+		//CardReader cardReader = new CardReader();
 		background = new Texture("background.png");
 		selectedCards = new ArrayList<Card>();
 		messageToPrint = "";
 		cam.setToOrtho(false, Game.WIDTH, Game.HEIGHT);
 		
-		Deck goodDeck = new Deck(cardReader.getInudstryAndSocialCards());
-		Deck badDeck = new Deck(cardReader.getInudstryAndSocialCardsBad());
+		//Deck goodDeck = new Deck(cardReader.getInudstryAndSocialCards());
+		//Deck badDeck = new Deck(cardReader.getInudstryAndSocialCardsBad());
 		
-		manager = new CardGameManager(50, new User("Friendly", goodDeck), new AI("Enemy", 1, badDeck));
+		manager = new CardGameManager(50, new User("Friendly", null), new AI("Enemy", 1, null));
 	}
 
 	
@@ -69,18 +70,21 @@ public class PlayState extends State{
         			}
         		}
         	}else if(selectedCardsNeeded){
-        		for(int i=0; i<manager.getPlayerBoard().getField().size(); i++) {
-        			if(manager.getPlayerBoard().getField().get(i).getBounds().overlaps(bounds) || manager.getAIBoard().getField().get(i).getBounds().overlaps(bounds)) {
-        				Card selectedCard = manager.getPlayerBoard().getField().get(i);
-		        		if(selectedCard.getBounds().overlaps(bounds) && !selectedCard.equals(lastCardPlayed) && selectedCard.isPlayed() && !selectedCards.contains(selectedCard)) {
-		        			selectedCards.add(selectedCard);
-		        			messageToPrint ="Selected card for apply social card to: " + selectedCard.getTitle();
-		        			System.out.println("Selected card for apply social card to: " + selectedCard.getTitle());
-		        			manager.playCardGameRound(lastCardPlayed, selectedCards);
-        					selectedCards.clear();
-        					multipleCardsNeeded = false;
-		        		}
-        			}
+        		if(((Social)lastCardPlayed).getSocialEffect() instanceof Destroy) {
+            		for(int i=0; i<manager.getAIBoard().getField().size(); i++) {
+            			if(manager.getAIBoard().getField().get(i).getBounds().overlaps(bounds)) {
+            				Card selectedCard = manager.getAIBoard().getField().get(i);
+    		        		if(selectedCard.getBounds().overlaps(bounds) && !selectedCard.equals(lastCardPlayed) && selectedCard.isPlayed() && !selectedCards.contains(selectedCard)) {
+    		        			selectedCards.add(selectedCard);
+    		        			messageToPrint ="Selected card for apply social card to: " + selectedCard.getTitle();
+    		        			System.out.println("Selected card for apply social card to: " + selectedCard.getTitle());
+    		        			manager.playCardGameRound(lastCardPlayed, selectedCards);
+            					selectedCards.clear();
+            					selectedCardsNeeded = false;
+            					render(Game.batch);
+    		        		}
+            			}
+            		}
         		}
         	}else {
             	for(int i=0; i<manager.getUser().getHand().size(); i++) {

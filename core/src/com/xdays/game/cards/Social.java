@@ -26,4 +26,8 @@ public class Social extends Card {
 		return socialEffect.doEffect(board, card, amount);
 	}
 	
+	public SocialEffect getSocialEffect() {
+		return socialEffect;
+	}
+	
 }
