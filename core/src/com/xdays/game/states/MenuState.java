@@ -23,7 +23,7 @@ public class MenuState extends State{
     public void handleInput() {
         if(Gdx.input.justTouched()){
         	System.out.println("Play button pressed");
-            gsm.set(new PlayState(gsm));
+            gsm.set(new MapState(gsm));
         }
     }
 
