@@ -1,6 +1,7 @@
 package com.xdays.game;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import com.xdays.game.cards.Card;
 import com.xdays.game.cards.CardReader;
@@ -37,10 +38,10 @@ public class CardGameManager {
 		this.user.setHand(cardReader.getIndustryCardsArray());
 		this.enemyAI.setHand(cardReader.getIndustryCardsBadArray());	
 		
-		//this.user.getHand().remove(0);
-		//this.user.getHand().remove(1);
+		this.user.getHand().remove(0);
+		this.user.getHand().remove(1);
 		
-		this.user.getHand().add(cardReader.getSocialCards().get("Online Posts"));
+		this.user.getHand().add(cardReader.getSocialCards().get("Protests2"));
 		this.user.getHand().add(cardReader.getSocialCards().get("Protests"));
 		
 		System.out.println(this.user.getHand().size());

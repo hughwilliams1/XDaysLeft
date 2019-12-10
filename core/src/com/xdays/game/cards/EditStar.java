@@ -15,6 +15,12 @@ public class EditStar implements SocialEffect{
 		
 		return board;
 	}
+
+	@Override
+	public Card getChosenCard() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 	

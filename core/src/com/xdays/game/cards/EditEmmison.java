@@ -9,6 +9,7 @@ import com.xdays.game.Board;
 public class EditEmmison implements SocialEffect{
 	
 	private Random rand;
+	private Card chosenCard;
 	
 	/**
 	 * @param board - The board to be altered
@@ -22,11 +23,12 @@ public class EditEmmison implements SocialEffect{
 				boolean found = false;
 				Card c = null;
 				while (!found) {
-					c = board.getField().get(rand.nextInt(board.getField().size() - 1));
+					c = board.getField().get(rand.nextInt(board.getField().size() - 2));
 					if (c instanceof Industry) {
 						found = true;
 					}
 				}
+				chosenCard = c;
 				((Industry) c).editBuff(amount);
 			} else {
 				((Industry) card).editBuff(amount);
@@ -34,5 +36,9 @@ public class EditEmmison implements SocialEffect{
 		}
 		
 		return board;	
+	}
+	
+	public Card getChosenCard() {
+		return chosenCard;
 	}
 }

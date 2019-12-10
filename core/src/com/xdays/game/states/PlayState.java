@@ -92,14 +92,22 @@ public class PlayState extends State{
             			System.out.println(manager.getUser().getHand().get(i).getTitle());
             			Card selectedCard = manager.getUser().getHand().get(i);
             			if(selectedCard instanceof Social) {
-            				if(((Social) selectedCard).isSelectedCardNeeded()) {
-            					messageToPrint = "Select cards to apply the social card to";
-            					System.out.println("Select cards to apply the social card to");
-            					selectedCardsNeeded = true;
-            					lastCardPlayed = selectedCard;
-            					lastCardPlayed.halfPlayed();
+            				if(!manager.getAIBoard().getField().isEmpty() && !manager.getPlayerBoard().getField().isEmpty()) {
+                				if(((Social) selectedCard).isSelectedCardNeeded()) {
+                					messageToPrint = "Select cards to apply the social card to";
+                					System.out.println("Select cards to apply the social card to");
+                					selectedCardsNeeded = true;
+                					lastCardPlayed = selectedCard;
+                					lastCardPlayed.halfPlayed();
+                				}else {
+                					((Social) selectedCard).doEffect(manager.getPlayerBoard(), null);
+                					messageToPrint = "Social card applied.";
+                					System.out.println("Select card applied to: " + ((Social) selectedCard).getSocialEffect().getChosenCard());
+                					
+                				}
             				}else {
-            					
+            					messageToPrint = "No cards have been placed on the board yet.";
+            					System.out.println("No cards have been placed on the board yet.");
             				}
             			}else {
                 			if(selectedCard.getStars()>1 && !selectedCard.isPlayed()) {

@@ -1,13 +1,13 @@
 [
 	{
-	"title" : "Online Posts", 
-	"cardText" : "Increase / Decrease the emission of a random card by one.",
-	"amount" : "1",
-	"type" : "EditEmmision",
-	"selectedCardsNeeded" : "false"
+	"title" : "Protests", 
+	"cardText" : "Destroy a card of your choosing.",
+	"amount" : "0",
+	"type" : "Destroy",
+	"selectedCardsNeeded" : "true"
 	},
 	{
-	"title" : "Protests", 
+	"title" : "Protests2", 
 	"cardText" : "Destroy a card of your choosing.",
 	"amount" : "0",
 	"type" : "Destroy",

@@ -1,73 +1,73 @@
 [
 	{
-	"title" : "Plant TreeBad", 
-	"cardText" : "This is Plant Tree - Bad.",
+	"title" : "Remove Tree", 
+	"cardText" : "This is Remove Tree.",
 	"stars" : "1",
 	"points" : "-2"
 	},
 	{
-	"title" : "Plant Tree2Bad", 
-	"cardText" : "This is Plant Tree - Bad.",
+	"title" : "Remove Tree2", 
+	"cardText" : "This is Remove Tree.",
 	"stars" : "1",
 	"points" : "-2"
 	},
 	{
-	"title" : "Plant Tree3Bad", 
-	"cardText" : "This is Plant Tree - Bad.",
+	"title" : "Remove Tree3", 
+	"cardText" : "This is Remove Tree.",
 	"stars" : "1",
 	"points" : "-2"
 	},
 	{
-	"title" : "Solar PanelBad", 
-	"cardText" : "This is Solar Panels - Bad.",
+	"title" : "Diesel Car", 
+	"cardText" : "This is Diesel Car.",
 	"stars" : "1",
 	"points" : "-1"
 	},
 	{
-	"title" : "Solar Panel2Bad", 
-	"cardText" : "This is Solar Panels - Bad.",
+	"title" : "Diesel Car2", 
+	"cardText" : "This is Diesel Car.",
 	"stars" : "1",
 	"points" : "-1"
 	},
 	{
-	"title" : "Solar Panel3Bad", 
-	"cardText" : "This is Solar Panels - Bad.",
+	"title" : "Diesel Car3", 
+	"cardText" : "This is Diesel Car.",
 	"stars" : "1",
 	"points" : "-1"
 	},
 	{
-	"title" : "WindmillBad", 
-	"cardText" : "This is Windmill - Bad.",
+	"title" : "Landfill", 
+	"cardText" : "This is Landfill.",
 	"stars" : "2",
 	"points" : "-6"
 	},
 	{
-	"title" : "Windmill2Bad", 
-	"cardText" : "This is Windmill - Bad.",
+	"title" : "Landfill2", 
+	"cardText" : "This is Landfill.",
 	"stars" : "2",
 	"points" : "-6"
 	},
 	{
-	"title" : "Solar FarmBad", 
-	"cardText" : "This is Solar Farm - Bad.",
+	"title" : "Car Factory", 
+	"cardText" : "This is Car Factory.",
 	"stars" : "3",
 	"points" : "-9"
 	},
 	{
-	"title" : "Geothermal GeneratorBad", 
-	"cardText" : "This is Geothermal Generator - Bad.",
+	"title" : "Car Factory2", 
+	"cardText" : "This is Car Factory.",
 	"stars" : "4",
-	"points" : "-13"
+	"points" : "-9"
 	},
 	{
-	"title" : "Geothermal GeneratorBad", 
-	"cardText" : "This is Geothermal Generator - Bad.",
+	"title" : "Coal Power Plant", 
+	"cardText" : "This is Coal Power Plant.",
 	"stars" : "4",
 	"points" : "-13"
 	},
 		{
-	"title" : "Geothermal GeneratorBad", 
-	"cardText" : "This is Geothermal Generator - Bad.",
+	"title" : "Coal Power Plant2", 
+	"cardText" : "This is Coal Power Plant.",
 	"stars" : "4",
 	"points" : "-13"
 	},
