@@ -50,6 +50,7 @@ body {
 }
 
 #sticky-footer {
+    margin-top: 30px;
     border-top: 2px solid rgb(122, 121, 128);
     flex-shrink: none;
 }
