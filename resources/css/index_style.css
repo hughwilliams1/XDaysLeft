@@ -156,7 +156,7 @@
     .btn {
         /* centers button on image */
         position:absolute;
-        left:48%;
+        left:47%;
         top:50%;
         margin-left:-33px;
         margin-top:-9px;
@@ -218,20 +218,12 @@
         margin-top: 0;
     }
 
-/* The team */
+@media(max-width: 420px) {
+    .title > h1, .development > h1{
+        font-size: 40px;
+    }
+    .title > p, .development > p {
+        font-size: 20px;
+    }
 
-.the-team {
-    padding: 5px;
-    text-align: center;
-}
-
-.the-team > h1 {
-    display: inline-block;
-    margin-bottom: 30px;
-    font-size: 55px;
-}
-
-.the-team > p {
-    font-size: 25px;
-    line-height: 40px;
 }
