@@ -12,7 +12,7 @@
 .btn {
     /* centers button on image */
     position:absolute;
-    left:47%;
+    left:49%;
     top:50%;
     margin-left:-33px;
     margin-top:-9px;
@@ -65,3 +65,46 @@
     box-shadow: 0px 0px 20px black;
 
   }
+
+  @media(max-width: 1250px) {
+    .btn {
+      left:48%;
+    }
+  }
+
+@media(max-width: 1050px) {
+    .btn {
+      left:47%;
+    }
+  }
+
+  @media(max-width: 540px) {
+    .btn {
+      left:46%;
+    }
+  }
+
+    @media(max-width: 470px) {
+      .btn {
+        left:45%;
+      }
+    }
+      @media(max-width: 350px) {
+        .btn {
+          left:44%;
+      }
+    }
+
+    @media(max-width: 310px) {
+      .btn {
+        left:43%;
+    }
+  }
+
+  @media(max-width: 270px) {
+    .btn {
+      left:42%;
+  }
+}
+
+    
