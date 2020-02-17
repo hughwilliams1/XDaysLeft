@@ -9,10 +9,14 @@ import com.xdays.game.cards.Industry;
 
 public class Deck {
 	
+	// queue of cards represents deck
 	private Queue<Card> deck;
+	// smallest amount of cards each deck should have
+	private static final int minimumDeckSize = 10;
 	
 	public Deck(ArrayList<Card> givenCards) {
 		deck = new LinkedList<>();
+		// deck get cards from player but probably shouldn't do that but what about the enemy
 		addCards(givenCards);
 	}
 	

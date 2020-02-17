@@ -1,0 +1,27 @@
+cards should automatically be displayed
+i.e. when a card is created it should be displayed depending on where it is in the hand
+hand should have predetermined locations
+
+card game manager sorts out hand
+user extend player and has a the deck
+playstate has playing cards
+deck isnt actually used at the moment just manually add cards
+
+we have a different play state and card game manager for each level
+
+
+how do i want deck to work
+player to draw to from deck
+deck to be a collection of all the players/enemies cards
+how am i going to make what inside deck
+maybe consider having an enemy deck and a player deck
+
+enemy deck
+predetermined
+dont need a add/remove card can just send in an array
+
+player deck
+can be changed
+
+card reader could be split into card reader and cards/cardList
+

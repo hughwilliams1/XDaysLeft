@@ -32,12 +32,18 @@ public class CardGameManager {
 		this.enemyAI = enemyAI;
 		
 		CardReader cardReader = new CardReader();
+		
 		//user.setHandFromDeck();
 		//enemyAI.setHandFromDeck();
 		
+		// currently the deck class isn't used
+		// you get the cards to display from card reader aka deck is pointless rn
+		
 		this.user.setHand(cardReader.getIndustryCardsArray());
+		// card game manager should probably determine the enemies deck
 		this.enemyAI.setHand(cardReader.getIndustryCardsBadArray());	
 		
+		// these cards are removed or hand will be too big from card reader?
 		this.user.getHand().remove(0);
 		this.user.getHand().remove(1);
 		
