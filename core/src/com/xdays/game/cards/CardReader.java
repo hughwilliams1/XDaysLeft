@@ -4,92 +4,36 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+/**
+ * Reads all the card in the .json files to be used by card collection
+ */
+
 public class CardReader {
 	
-	private HashMap <String , Industry> industryCards;
-	private HashMap <String , Social> socialCards;
-	
-	private HashMap <String , Industry> industryCardsBad;
-	private HashMap <String , Social> socialCardsBad;
-	
-	public CardReader() {
-		industryCards = new HashMap <String , Industry>();
-		socialCards = new HashMap <String , Social>();
+	public CardReader() {	
 		
-		industryCardsBad = new HashMap <String , Industry>();
-		socialCardsBad = new HashMap <String , Social>();
+	}
+	
+	public HashMap<String, Industry> readIndustryCards() {
 		
-		readIndustryCards();
-		readSocialCards();
-	}
-	
-	public ArrayList<Card> getInudstryAndSocialCards(){
-		Object[] a = industryCards.values().toArray();
-		Object[] b = socialCards.values().toArray();
-		ArrayList<Card> cards = new ArrayList<Card>();
-		for(int i=0; i<a.length; i++) {
-			cards.add((Card) a[i]);
-		}
-		for(int i=0; i<b.length; i++) {
-			cards.add((Card) b[i]);
-		}
-		return cards;
-	}
-	
-	public ArrayList<Card> getInudstryAndSocialCardsBad(){
-		Object[] a = industryCardsBad.values().toArray();
-		Object[] b = socialCardsBad.values().toArray();
-		ArrayList<Card> cards = new ArrayList<Card>();
-		for(int i=0; i<a.length; i++) {
-			cards.add((Card) a[i]);
-		}
-		for(int i=0; i<b.length; i++) {
-			cards.add((Card) b[i]);
-		}
-		return cards;
-	}
-	
-	public HashMap <String , Industry> getIndustryCards(){
-		return industryCards;
-	}
-	
-	public ArrayList<Card> getIndustryCardsArray() {
-		Object[] a = industryCards.values().toArray();
-		ArrayList<Card> cards = new ArrayList<Card>();
-		for(int i=0; i<a.length; i++) {
-			cards.add((Card) a[i]);
-		}
-		return cards;
-	}
-	
-	public ArrayList<Card> getIndustryCardsBadArray() {
-		Object[] a = industryCardsBad.values().toArray();
-		ArrayList<Card> cards = new ArrayList<Card>();
-		for(int i=0; i<a.length; i++) {
-			cards.add((Card) a[i]);
-		}
-		return cards;
-	}
-	
-	public HashMap <String , Social> getSocialCards(){
-		return socialCards;
-	}
-	
-	public HashMap <String , Industry> getIndustryCardsBad(){
-		return industryCardsBad;
-	}
-	
-	public HashMap <String , Social> getSocialCardsBad(){
-		return socialCardsBad;
-	}
-	
-	public void readIndustryCards() {
+		// creates the good industry card hashmap to be returned
+		HashMap<String, Industry> industryCards = new HashMap <String , Industry>();
+		
+		// creates the bad social card hashmap to be returned
+		HashMap<String, Industry> industryCardsBad = new HashMap <String , Industry>();
+		
+		/** Array of Map<String, Industry> in case we want to divide good and bad cards
+		ArrayList<Map<String, Industry>> industryCollection = new ArrayList<Map<String, Industry>>();
+		**/
+		
 		JSONParser jsonParser = new JSONParser();
 		JSONArray cards = new JSONArray();
 		JSONArray cardsBad = new JSONArray();
@@ -116,10 +60,25 @@ public class CardReader {
 			industryCardsBad.put(industryBad.getTitle(), industryBad);
 		}
 		
+		// adds the bad and good cards together to be returned
+		industryCards.putAll(industryCardsBad);
 		
+		return industryCards;
 	}
 	
-	public void readSocialCards() {
+	// should return an arraylist of hashmaps
+	
+	public HashMap<String, Social> readSocialCards() {
+		// creates the good social card hashmap to be returned
+		HashMap<String, Social> socialCards = new HashMap <String , Social>();
+		
+		// creates the bad social card hashmap to be returned
+		HashMap<String, Social> socialCardsBad = new HashMap <String , Social>();
+		
+		/** creates array of HashMaps<String, Social> so you can return bad or good cards
+		ArrayList<Map<String, Social>> socialCollection = new ArrayList<Map<String, Social>>();
+		**/
+		
 		JSONParser jsonParser = new JSONParser();
 		JSONArray cards = new JSONArray();
 		JSONArray cardsBad = new JSONArray();
@@ -159,5 +118,10 @@ public class CardReader {
 			}
 			socialCardsBad.put(cardBad.get("title").toString(), tempSocialBad);
 		}
+		
+		// merges bad and good social cards together to be returned
+		socialCards.putAll(socialCardsBad);
+		
+		return socialCards;
 	}
 }

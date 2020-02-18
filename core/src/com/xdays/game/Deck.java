@@ -11,19 +11,19 @@ public class Deck {
 	
 	// queue of cards represents deck
 	private Queue<Card> deck;
-	// smallest amount of cards each deck should have
-	private static final int minimumDeckSize = 10;
 	
 	public Deck(ArrayList<Card> givenCards) {
 		deck = new LinkedList<>();
-		// deck get cards from player but probably shouldn't do that but what about the enemy
+		
 		addCards(givenCards);
+		shuffle();
 	}
 	
 	public void addCard(Card card) {	
 		deck.add(card);
 	}
 	
+	// adds cards from a given array to the deck
 	public void addCards(ArrayList<Card> givenCards) {
 		for(Card c : givenCards) {
 			deck.add(c);
@@ -34,23 +34,20 @@ public class Deck {
 		return deck.poll();
 	}
 	
+	// shuffle the current deck so cards are not drawn in the same order
+	private void shuffle() {
+		
+	}
+	
+	// draw an amount of cards from the deck returns null if want to draw
+	// more card than in the deck otherwise returns array of drawn cards
 	public ArrayList<Card> drawAmount(int amount) {
 		ArrayList<Card> returnArray = new ArrayList<Card>();
-		int industryCards = 0;
+
 		if (!deck.isEmpty() || deck.size() < amount) {
-			for (int i = 0; i <= amount; i++) {
-				Card c = deck.poll();
-				if(c instanceof Industry) {
-					industryCards ++;
-				}
-				if(industryCards<=7) {
-					returnArray.add(deck.poll());
-				}else {
-					while(c instanceof Industry) {
-						c = deck.poll();
-					}
-					returnArray.add(c);
-				}
+			for (int i = 0; i < amount; i++) {
+				Card c = draw();
+				returnArray.add(c);
 			}
 			return returnArray;
 		}

@@ -25,3 +25,7 @@ can be changed
 
 card reader could be split into card reader and cards/cardList
 
+///// shuffle method
+
+play state should just reset
+player should just have a default deck in player

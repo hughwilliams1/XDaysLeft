@@ -9,13 +9,9 @@ import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
-import com.xdays.game.AI;
 import com.xdays.game.CardGameManager;
-import com.xdays.game.Deck;
 import com.xdays.game.Game;
-import com.xdays.game.User;
 import com.xdays.game.cards.Card;
-import com.xdays.game.cards.CardReader;
 import com.xdays.game.cards.Destroy;
 import com.xdays.game.cards.Social;
 
@@ -42,7 +38,7 @@ public class PlayState extends State{
 		//Deck goodDeck = new Deck(cardReader.getInudstryAndSocialCards());
 		//Deck badDeck = new Deck(cardReader.getInudstryAndSocialCardsBad());
 		
-		manager = new CardGameManager(50, new User("Friendly", null), new AI("Enemy", 1, null));
+		manager = new CardGameManager(50);
 	}
 
 	

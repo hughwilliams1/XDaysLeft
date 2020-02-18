@@ -8,9 +8,11 @@ import com.xdays.game.cards.Card;
 public class AI extends Player {
 	private Random random;
 	private int level;
+	private Deck deck;
 	
 	public AI(String name, int level, Deck deck) {
 		super(name, deck);
+		this.deck = deck;
 		random = new Random();
 		this.level = level;
 		

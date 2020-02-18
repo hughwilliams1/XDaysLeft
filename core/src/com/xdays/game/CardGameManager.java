@@ -1,10 +1,8 @@
 package com.xdays.game;
 
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
-
 import com.xdays.game.cards.Card;
-import com.xdays.game.cards.CardReader;
+import com.xdays.game.cards.CardCollection;
 import com.xdays.game.cards.Destroy;
 import com.xdays.game.cards.Industry;
 import com.xdays.game.cards.Social;
@@ -23,35 +21,27 @@ public class CardGameManager {
 	private Board aiBoard;
 	
 	private Card aiCard = null;
+	private CardCollection collection;
 	
-	public CardGameManager (int emissionsValue, User user, AI enemyAI) {
+	// array of strings for representing the enemy deck
+	private String[] enemyDeck_1;
+	
+	public CardGameManager (int emissionsValue) {
 		
+		// array of strings for representing the enemy deck
+		enemyDeck_1 = new String[]{"Remove Tree", "Remove Tree2", "Remove Tree3", "Diesel Car",
+				"Diesel Car2", "Diesel Car3", "Landfill", "Landfill2", "Online Posts", "Fake news"};
+		
+		// TODO Emissions are hard to understand
 		emissionsBar = emissionsValue;
 		
-		this.user = user;
-		this.enemyAI = enemyAI;
+		collection = new CardCollection();
 		
-		CardReader cardReader = new CardReader();
+		this.user = new User("Friendly");
+		this.enemyAI = new AI("Enemy", 1, createEnemyDeck());
 		
-		//user.setHandFromDeck();
-		//enemyAI.setHandFromDeck();
-		
-		// currently the deck class isn't used
-		// you get the cards to display from card reader aka deck is pointless rn
-		
-		this.user.setHand(cardReader.getIndustryCardsArray());
-		// card game manager should probably determine the enemies deck
-		this.enemyAI.setHand(cardReader.getIndustryCardsBadArray());	
-		
-		// these cards are removed or hand will be too big from card reader?
-		this.user.getHand().remove(0);
-		this.user.getHand().remove(1);
-		
-		this.user.getHand().add(cardReader.getSocialCards().get("Protests2"));
-		this.user.getHand().add(cardReader.getSocialCards().get("Protests"));
-		
-		System.out.println(this.user.getHand().size());
-		System.out.println(this.enemyAI.getHand().size());
+		user.setHandFromDeck();
+		enemyAI.setHandFromDeck();
 		
 		isPlayerTurn = true;
 		hasPlayed = false;
@@ -61,7 +51,7 @@ public class CardGameManager {
 		
 		aiCard = null;
 	}
-	
+
 	public void playCardGameRound(Card card, ArrayList<Card> chosenCards) {
 		processCard(card, chosenCards);
 		changeEmissions(playerBoard.getTotalPoints());
@@ -166,6 +156,15 @@ public class CardGameManager {
 	
 	private void switchPlayerTurn() {
 		isPlayerTurn = !isPlayerTurn;
+	}
+	
+	// creates a deck by using the string array enemyDeck and the CardCollection class
+	// for retrieving cards
+	private Deck createEnemyDeck() {
+		Deck deck = new Deck(collection.getMultipleCards(enemyDeck_1));
+		
+		return deck;
+		
 	}
 	
 }
