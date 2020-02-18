@@ -1,8 +1,12 @@
 package com.xdays.game;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
+import java.util.Random;
 
 import com.xdays.game.cards.Card;
 import com.xdays.game.cards.Industry;
@@ -16,6 +20,8 @@ public class Deck {
 		deck = new LinkedList<>();
 		
 		addCards(givenCards);
+		
+		// randomises card order each time
 		shuffle();
 	}
 	
@@ -36,7 +42,22 @@ public class Deck {
 	
 	// shuffle the current deck so cards are not drawn in the same order
 	private void shuffle() {
+		ArrayList<Card> shuffleArray = queueToArray();
+		Collections.shuffle(shuffleArray);
 		
+		// clears the current queue
+		deck.clear();
+		addCards(shuffleArray);
+	}
+	
+	// convert the deck from a queue into an arraylist note the deck is kept intact
+	private ArrayList<Card> queueToArray() {
+		ArrayList<Card> returnArray = new ArrayList<Card>();
+		for (Card card : deck) {
+			returnArray.add(card);
+		}
+		
+		return returnArray;
 	}
 	
 	// draw an amount of cards from the deck returns null if want to draw
