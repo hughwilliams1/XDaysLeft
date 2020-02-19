@@ -6,31 +6,7 @@
 	"points" : "-2"
 	},
 	{
-	"title" : "Remove Tree2", 
-	"cardText" : "This is Remove Tree.",
-	"stars" : "1",
-	"points" : "-2"
-	},
-	{
-	"title" : "Remove Tree3", 
-	"cardText" : "This is Remove Tree.",
-	"stars" : "1",
-	"points" : "-2"
-	},
-	{
 	"title" : "Diesel Car", 
-	"cardText" : "This is Diesel Car.",
-	"stars" : "1",
-	"points" : "-1"
-	},
-	{
-	"title" : "Diesel Car2", 
-	"cardText" : "This is Diesel Car.",
-	"stars" : "1",
-	"points" : "-1"
-	},
-	{
-	"title" : "Diesel Car3", 
 	"cardText" : "This is Diesel Car.",
 	"stars" : "1",
 	"points" : "-1"
@@ -61,12 +37,6 @@
 	},
 	{
 	"title" : "Coal Power Plant", 
-	"cardText" : "This is Coal Power Plant.",
-	"stars" : "4",
-	"points" : "-13"
-	},
-		{
-	"title" : "Coal Power Plant2", 
 	"cardText" : "This is Coal Power Plant.",
 	"stars" : "4",
 	"points" : "-13"

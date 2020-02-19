@@ -14,8 +14,18 @@ public class Social extends Card {
 		this.selectedCardNeeded = selectedCardNeeded;
 	}
 	
+	// clone constructor
+	public Social(Social social) {
+		this(social.getTitle(), social.getCardText(), social.getAmount(), social.isSelectedCardNeeded());
+		setEffect(social.getSocialEffect());
+	}
+	
 	public boolean isSelectedCardNeeded() {
 		return selectedCardNeeded;
+	}
+	
+	public int getAmount() {
+		return amount;
 	}
 	
 	public void setEffect(SocialEffect effect) {
@@ -29,5 +39,6 @@ public class Social extends Card {
 	public SocialEffect getSocialEffect() {
 		return socialEffect;
 	}
+	
 	
 }

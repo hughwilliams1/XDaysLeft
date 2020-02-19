@@ -14,6 +14,12 @@ public class Industry extends Card {
 		buff = 0;
 		starBuff = 0;
 	}
+	
+	// clone constructor
+	public Industry(Industry industry) {
+		this(industry.getTitle(), industry.getCardText(), industry.getStars(), industry.getPoints());
+	}
+	
 	@Override
 	public int getStars() {
 		return stars + getStarBuff();

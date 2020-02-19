@@ -3,6 +3,7 @@ package com.xdays.game.cards;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
 /**
  * 
  * Collection of all of both social and industry cards in the game
@@ -26,11 +27,26 @@ public class CardCollection {
 	
 	// returns a card from either the industry cards or the social card
 	// note if key is invalid with return null which may cause a null point error
+	
 	public Card getCard(String key) {
+		
 		Card returnCard = industryCards.get(key);
 		if (returnCard == null) {
 			returnCard = socialCards.get(key);
 		}
+
+		// ** IMPORTANT **
+		// If the card isn't a null object uses the copy constructor for both industry and social cards
+		// this stops two cards referencing the same object even if the card its the same card
+		// this allows us to get the same card from the hashmap and use it multiple times
+		if (returnCard != null) {
+			if (returnCard.isIndustry()) {
+				returnCard = new Industry((Industry) returnCard);
+			} else if (!returnCard.isIndustry()) {
+				returnCard = new Social((Social) returnCard);
+			}
+		}
+
 		return returnCard;
 	}
 	
@@ -40,6 +56,7 @@ public class CardCollection {
 		ArrayList<Card> cardArray = new ArrayList<Card>();
 		
 		for(String key : keys) {
+			// need to check if its an industry or 
 			cardArray.add(getCard(key));
 		}
 		

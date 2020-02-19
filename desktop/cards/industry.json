@@ -6,25 +6,7 @@
 	"points" : "2"
 	},
 	{
-	"title" : "Plant Tree2", 
-	"cardText" : "This is Plant Tree.",
-	"stars" : "1",
-	"points" : "2"
-	},
-	{
-	"title" : "Plant Tree3", 
-	"cardText" : "This is Plant Tree.",
-	"stars" : "1",
-	"points" : "2"
-	},
-	{
 	"title" : "Solar Panel", 
-	"cardText" : "This is Solar Panels.",
-	"stars" : "1",
-	"points" : "1"
-	},
-	{
-	"title" : "Solar Panel2", 
 	"cardText" : "This is Solar Panels.",
 	"stars" : "1",
 	"points" : "1"

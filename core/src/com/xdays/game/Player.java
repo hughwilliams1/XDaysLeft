@@ -21,8 +21,8 @@ public abstract class Player {
 	// constructor used by the player who deck will remain the same throughout different levels
 	public Player(String name) {
 		// string array of the start deck
-		starterDeck = new String[]{"Plant Tree", "Plant Tree2", "Protests2", "Solar Panel",
-				"Solar Panel2", "Protests", "Windmill", "Windmill2", "Solar Farm", "Solar Farm2"};
+		starterDeck = new String[]{"Plant Tree", "Plant Tree", "Solar Panel",
+				"Solar Panel", "Windmill", "Windmill", "Solar Farm", "Solar Farm", "Protests", "Protests"};
 		
 		this.name = name;
 		CardCollection collection = new CardCollection();

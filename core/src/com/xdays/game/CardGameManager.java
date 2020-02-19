@@ -29,10 +29,14 @@ public class CardGameManager {
 	public CardGameManager (int emissionsValue) {
 		
 		// array of strings for representing the enemy deck
-		enemyDeck_1 = new String[]{"Remove Tree", "Remove Tree2", "Remove Tree3", "Diesel Car",
-				"Diesel Car2", "Diesel Car3", "Landfill", "Landfill2", "Online Posts", "Fake news"};
+		// TODO In industry.json when deleting some unused card it crashes the game
+		// TODO Same with landfill 2 and car factory 2 in industryBad.json
+		// TODO Also protests2 in social.json
 		
-		// TODO Emissions are hard to understand
+		enemyDeck_1 = new String[]{"Remove Tree", "Remove Tree", "Remove Tree", "Diesel Car",
+				"Diesel Car", "Diesel Car", "Landfill", "Landfill", "Coal Power Plant", "Car Factory",
+				"Online Posts", "Fake news"};
+
 		emissionsBar = emissionsValue;
 		
 		collection = new CardCollection();
