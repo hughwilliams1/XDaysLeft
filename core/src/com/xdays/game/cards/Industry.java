@@ -18,6 +18,8 @@ public class Industry extends Card {
 	// clone constructor
 	public Industry(Industry industry) {
 		this(industry.getTitle(), industry.getCardText(), industry.getStars(), industry.getPoints());
+		buff = industry.getBuff();
+		starBuff = industry.getStarBuff();
 	}
 	
 	@Override
