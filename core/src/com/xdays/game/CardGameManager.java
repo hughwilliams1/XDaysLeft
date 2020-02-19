@@ -63,9 +63,11 @@ public class CardGameManager {
 		ArrayList<Card> cardsToProcess = getAI().nextCard(aiBoard);
 		if(cardsToProcess != null) {
 		aiCard = cardsToProcess.get(0);
-		System.out.println(aiCard.getTitle());
-		cardsToProcess.remove(0);
+		// prints out ai's played card
+		System.out.println("AI Played: " + aiCard.getTitle());
 		processCard(aiCard, cardsToProcess); //Need the chosen cards to destroy too
+		// prints out ai's current hand
+		System.out.println("AI's Current Hand: " + enemyAI.currentHandAsString());
 		changeEmissions(aiBoard.getTotalPoints());
 		}
 		switchPlayerTurn();
@@ -120,8 +122,6 @@ public class CardGameManager {
 					((Social) card).doEffect(playerBoard, null);
 				}
 				hasPlayed = true;
-			}else {
-				
 			}
 		}
 	}

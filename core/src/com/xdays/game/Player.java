@@ -42,7 +42,7 @@ public abstract class Player {
 	// gets players current hand
 	public ArrayList<Card> getHand() {
 		return hand;
-	};
+	}
 	
 	// set hand as a give array of cards
 	public void setHand(ArrayList<Card> givenCards) {
@@ -64,6 +64,19 @@ public abstract class Player {
 		if(hand.contains(card)) {
 			hand.remove(hand.indexOf(card));
 		}
+	}
+	
+	// returns the current hand of the player as a string
+	public String currentHandAsString() {
+		String returnString = "";
+		for (int x = 0 ; x < hand.size() ; x++) {
+			if (x != hand.size()-1) {
+				returnString = returnString + hand.get(x).getTitle() + ", ";
+			} else {
+				returnString = returnString + hand.get(x).getTitle();
+			}
+		}
+		return returnString;
 	}
 
 }

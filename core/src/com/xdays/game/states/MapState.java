@@ -39,7 +39,7 @@ public class MapState extends State{
 
 	@Override
 	public void render(SpriteBatch sb) {
-		System.out.println("Here");
+		//System.out.println("Here");
         sb.setProjectionMatrix(cam.combined);
         sb.begin();
         sb.draw(background, 0,0);
