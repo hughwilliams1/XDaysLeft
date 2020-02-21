@@ -37,6 +37,7 @@ public class AI extends Player {
 		return cardsToProcess;
 	}
 	
+	// TODO merging doesn't work ai just plays whatever
 	private ArrayList<Card> cardsToMerge(Card card, ArrayList<Card> cardsOnBoard){
 		ArrayList<Card> cardsToReturn = new ArrayList<Card>();
 		int cardStarValue = card.getStars();

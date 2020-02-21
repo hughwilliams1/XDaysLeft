@@ -32,10 +32,10 @@ public class CardGameManager {
 		// TODO In industry.json when deleting some unused card it crashes the game
 		// TODO Same with landfill 2 and car factory 2 in industryBad.json
 		// TODO Also protests2 in social.json
-		
-		enemyDeck_1 = new String[]{"Remove Tree", "Remove Tree", "Remove Tree", "Diesel Car",
-				"Diesel Car", "Diesel Car", "Landfill", "Landfill", "Coal Power Plant", "Car Factory",
-				"Online Posts", "Fake news"};
+		// TODO "Coal Power Plant" and "Car Factory" can be played without merging
+		// TODO Fake news causes cards to break when duplicate cards are not removed from.json fake news isn't read by the parser
+		enemyDeck_1 = new String[]{"Remove Tree", "Remove Tree", "Online Posts", "Diesel Car",
+				"Diesel Car", "Diesel Car", "Landfill", "Landfill", "Online Posts", "Remove Tree"};
 
 		emissionsBar = emissionsValue;
 		

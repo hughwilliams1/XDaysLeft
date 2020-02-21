@@ -22,7 +22,7 @@ public class Deck {
 		addCards(givenCards);
 		
 		// randomises card order each time
-		shuffle();
+		//shuffle();
 	}
 	
 	public void addCard(Card card) {	
