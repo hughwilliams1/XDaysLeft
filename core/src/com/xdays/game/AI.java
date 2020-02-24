@@ -50,7 +50,7 @@ public class AI extends Player {
 				for(Card currentCard: cardsOnBoard) {
 					if(currentCard.getStars() == 1) {
 						cardsToReturn.add(currentCard);
-						totalStars = currentCard.getStars();
+						totalStars += currentCard.getStars();
 					} 
 					if(totalStars == cardStarValue)	break;
 					

@@ -8,26 +8,26 @@ import com.xdays.game.cards.Industry;
 import com.xdays.game.cards.Social;
 
 public class CardGameManager {
-	
+
 	private int emissionsBar;
-	
+
 	private User user;
 	private AI enemyAI;
-	
+
 	private boolean isPlayerTurn;
 	private boolean hasPlayed;
-	
+
 	private Board playerBoard;
 	private Board aiBoard;
-	
+
 	private Card aiCard = null;
 	private CardCollection collection;
-	
+
 	// array of strings for representing the enemy deck
 	private String[] enemyDeck_1;
-	
+
 	public CardGameManager (int emissionsValue) {
-		
+
 		// array of strings for representing the enemy deck
 		// TODO In industry.json when deleting some unused card it crashes the game
 		// TODO Same with landfill 2 and car factory 2 in industryBad.json
@@ -38,21 +38,21 @@ public class CardGameManager {
 				"Diesel Car", "Diesel Car", "Landfill", "Landfill", "Online Posts", "Remove Tree"};
 
 		emissionsBar = emissionsValue;
-		
+
 		collection = new CardCollection();
-		
+
 		this.user = new User("Friendly");
 		this.enemyAI = new AI("Enemy", 1, createEnemyDeck());
-		
+
 		user.setHandFromDeck();
 		enemyAI.setHandFromDeck();
-		
+
 		isPlayerTurn = true;
 		hasPlayed = false;
-		
+
 		playerBoard = new Board();
 		aiBoard = new Board();
-		
+
 		aiCard = null;
 	}
 
@@ -62,40 +62,41 @@ public class CardGameManager {
 		switchPlayerTurn();
 		ArrayList<Card> cardsToProcess = getAI().nextCard(aiBoard);
 		if(cardsToProcess != null) {
-		aiCard = cardsToProcess.get(0);
-		// prints out ai's played card
-		System.out.println("AI Played: " + aiCard.getTitle());
-		processCard(aiCard, cardsToProcess); //Need the chosen cards to destroy too
-		// prints out ai's current hand
-		System.out.println("AI's Current Hand: " + enemyAI.currentHandAsString());
-		changeEmissions(aiBoard.getTotalPoints());
+			aiCard = cardsToProcess.remove(0);
+			// prints out ai's played card
+			System.out.println("AI Played: " + aiCard.getTitle());
+			processCard(aiCard, cardsToProcess); //Need the chosen cards to destroy too
+			// prints out ai's current hand
+			System.out.println("AI's Current Hand: " + enemyAI.currentHandAsString());
+			changeEmissions(aiBoard.getTotalPoints());
 		}
 		switchPlayerTurn();
 	}
-	
+
 	public void processCard(Card card, ArrayList<Card> chosenCards) {
 		if(card instanceof Industry) {
 			if (isPlayerTurn) {
-					if (card.getStars() > 1) {
-						card.handleInput();
-						playerBoard.mergeCard(card, chosenCards);
-						user.removeCard(card);
-						//user.addCardToHand();
-						for(int i=0; i<chosenCards.size(); i++) {
-							user.removeCard(chosenCards.get(i));
-						}
-					} else {	
-						card.handleInput();
-						playerBoard.addToField(card);
-						user.removeCard(card);
-						//user.addCardToHand();
+				if (card.getStars() > 1) {
+					card.handleInput();
+					playerBoard.mergeCard(card, chosenCards);
+					user.removeCard(card);
+					//user.addCardToHand();
+					for(int i=0; i<chosenCards.size(); i++) {
+						user.removeCard(chosenCards.get(i));
 					}
+				} else {	
+					card.handleInput();
+					playerBoard.addToField(card);
+					user.removeCard(card);
+					//user.addCardToHand();
+				}
 				hasPlayed = true;
 			} else {
 				if (card.getStars() > 1) {
 					card.switchTextures();
 					card.handleInputEnemy();
 					aiBoard.mergeCard(card, chosenCards);
+					
 					enemyAI.removeCard(card);
 					//enemyAI.addCardToHand();
 					for(int i=0; i<chosenCards.size(); i++) {
@@ -125,50 +126,50 @@ public class CardGameManager {
 			}
 		}
 	}
-	
+
 	public Board getPlayerBoard() {
 		return playerBoard;
 	}
-	
+
 	public Board getAIBoard() {
 		return aiBoard;
 	}
-	
+
 	public User getUser() {
 		return user;
 	}
-	
+
 	public AI getAI() {
 		return enemyAI;
 	}
-	
+
 	public void changeEmissions(int amount) {
 		emissionsBar += amount;
 	}
-	
+
 	public boolean isPlayersTurn() {
 		return isPlayerTurn;
 	}
-	
+
 	public int getEmissionsBar() {
 		return emissionsBar;
 	}
-	
+
 	public Card getAiCard() {
 		return aiCard;
 	}
-	
+
 	private void switchPlayerTurn() {
 		isPlayerTurn = !isPlayerTurn;
 	}
-	
+
 	// creates a deck by using the string array enemyDeck and the CardCollection class
 	// for retrieving cards
 	private Deck createEnemyDeck() {
 		Deck deck = new Deck(collection.getMultipleCards(enemyDeck_1));
-		
+
 		return deck;
-		
+
 	}
-	
+
 }
