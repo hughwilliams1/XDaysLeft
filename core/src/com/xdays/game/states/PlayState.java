@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.xdays.game.Board;
 import com.xdays.game.CardGameManager;
 import com.xdays.game.Game;
 import com.xdays.game.cards.Card;
@@ -41,22 +42,20 @@ public class PlayState extends State{
 		manager = new CardGameManager(50);
 	}
 
-	
 	@Override
 	protected void handleInput() {
         if(Gdx.input.justTouched() && manager.isPlayersTurn()) {
         	//System.out.println("Play State touched");
         	Rectangle bounds = new Rectangle(Gdx.input.getX(), -(Gdx.input.getY()-720), 5, 5);
         	if(multipleCardsNeeded) {
-        		for(int i=0; i<manager.getPlayerBoard().getField().size(); i++) {
-        			if(manager.getPlayerBoard().getField().get(i).getBounds().overlaps(bounds)) {
-        				Card selectedCard = manager.getPlayerBoard().getField().get(i);
-        				if(calculateTotalStars(selectedCards)<lastCardPlayed.getStars()) {
-    		        		if(selectedCard.getBounds().overlaps(bounds) && !selectedCard.equals(lastCardPlayed) && selectedCard.isPlayed() && !selectedCards.contains(selectedCard)) {
+        		for(int i=0; i<getNumCards(); i++) {
+        			if(checkCardOverlaps(getPlayerCard(i),(bounds))) {
+        				Card selectedCard =getPlayerCard(i);
+        				if(compareStar() && compareCards(bounds, selectedCard)) {
     		        			selectedCards.add(selectedCard);
     		        			messageToPrint ="Selected card for merge: " + selectedCard.getTitle();
     		        			System.out.println("Selected card for merge: " + selectedCard.getTitle());
-    		        			if(calculateTotalStars(selectedCards)>=lastCardPlayed.getStars()) {
+    		        			if(calculateTotalStars(selectedCards)>=lastCardPlayed.getStars()) { 
     	        					manager.playCardGameRound(lastCardPlayed, selectedCards);
     	        					selectedCards.clear();
     	        					multipleCardsNeeded = false;
@@ -65,12 +64,12 @@ public class PlayState extends State{
         				}
         			}
         		}
-        	}else if(selectedCardsNeeded){
+        	else if(selectedCardsNeeded){
         		if(((Social)lastCardPlayed).getSocialEffect() instanceof Destroy) {
-            		for(int i=0; i<manager.getAIBoard().getField().size(); i++) {
-            			if(manager.getAIBoard().getField().get(i).getBounds().overlaps(bounds)) {
-            				Card selectedCard = manager.getAIBoard().getField().get(i);
-    		        		if(selectedCard.getBounds().overlaps(bounds) && !selectedCard.equals(lastCardPlayed) && selectedCard.isPlayed() && !selectedCards.contains(selectedCard)) {
+            		for(int i=0; i<getNumAiCards(); i++) {
+            			if(getAICard(i).getBounds().overlaps(bounds)) {
+            				Card selectedCard = getAICard(i);
+    		        		if(isCardValid(bounds, selectedCard)) {
     		        			selectedCards.add(selectedCard);
     		        			messageToPrint ="Selected card for apply social card to: " + selectedCard.getTitle();
     		        			System.out.println("Selected card for apply social card to: " + selectedCard.getTitle());
@@ -84,11 +83,11 @@ public class PlayState extends State{
         		}
         	}else {
             	for(int i=0; i<manager.getUser().getHand().size(); i++) {
-            		if(manager.getUser().getHand().get(i).getBounds().overlaps(bounds)) {
-            			System.out.println(manager.getUser().getHand().get(i).getTitle());
-            			Card selectedCard = manager.getUser().getHand().get(i);
-            			if(selectedCard instanceof Social) {
-            				if(!manager.getAIBoard().getField().isEmpty() && !manager.getPlayerBoard().getField().isEmpty()) {
+            		if(getCardHand(i).getBounds().overlaps(bounds)) {
+            			System.out.println(getCardHand(i).getTitle());
+            			Card selectedCard = getCardHand(i);
+            			if(selectedCard instanceof Social) {  
+            				if(!manager.getAIBoard().getField().isEmpty() && !getPlayerBoard().getField().isEmpty()) {
                 				if(((Social) selectedCard).isSelectedCardNeeded()) {
                 					messageToPrint = "Select cards to apply the social card to";
                 					System.out.println("Select cards to apply the social card to");
@@ -96,7 +95,7 @@ public class PlayState extends State{
                 					lastCardPlayed = selectedCard;
                 					lastCardPlayed.halfPlayed();
                 				}else {
-                					((Social) selectedCard).doEffect(manager.getPlayerBoard(), null);
+                					((Social) selectedCard).doEffect(getPlayerBoard(), null);
                 					messageToPrint = "Social card applied.";
                 					System.out.println("Select card applied to: " + ((Social) selectedCard).getSocialEffect().getChosenCard());
                 					
@@ -107,7 +106,7 @@ public class PlayState extends State{
             				}
             			}else {
                 			if(selectedCard.getStars()>1 && !selectedCard.isPlayed()) {
-                				if(manager.getPlayerBoard().getTotalStars(manager.getPlayerBoard().getField())<selectedCard.getStars()) {
+                				if(checkValidStars(selectedCard)) {
                 					messageToPrint = "Not enough cards to play that card.";
                 					System.out.println("Not enough cards to play that card.");
                 				}else {
@@ -130,6 +129,10 @@ public class PlayState extends State{
         	}
         }
 	}
+
+
+
+
 	
 	private int calculateTotalStars(ArrayList<Card> selected) {
 		int a = 0;
@@ -152,12 +155,8 @@ public class PlayState extends State{
 	public void render(SpriteBatch sb) {
 		BitmapFont console = new BitmapFont();
 		BitmapFont emissions = new BitmapFont();
-		emissions.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		emissions.getData().setScale(1);
-		emissions.setColor(Color.ORANGE);
-		console.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		console.getData().setScale(1);
-		console.setColor(Color.ORANGE);
+		setBitmap(console);
+		setBitmap(emissions);
 		
 		Gdx.gl.glClearColor(135/255f, 206/255f, 235/255f, 1);
 		
@@ -167,25 +166,25 @@ public class PlayState extends State{
         
         for(int i=0; i<manager.getUser().getHand().size(); i++) {
         	if(firstRun) {
-            	manager.getUser().getHand().get(i).setPosition(5 + i*127, 0);
-        	}else if(!manager.getUser().getHand().get(i).haveBoundsBeenSet() && firstRun == false) {
+            	getCardHand(i).setPosition(5 + i*127, 0);
+        	}else if(!getCardHand(i).haveBoundsBeenSet() && firstRun == false) {
         		//manager.getUser().getHand().get(i).setPosition(previousBounds.getX(), previousBounds.getY());
-        		manager.getUser().getHand().get(i).setPosition(5 + i*127, 0);
+        		getCardHand(i).setPosition(5 + i*127, 0);
         	}
-            sb.draw(manager.getUser().getHand().get(i).getTexture(), manager.getUser().getHand().get(i).getBounds().getX(), manager.getUser().getHand().get(i).getBounds().getY(), manager.getUser().getHand().get(i).getTexture().getWidth()/3.4f, manager.getUser().getHand().get(i).getTexture().getHeight()/3.4f);      
+            sb.draw(getCardHand(i).getTexture(), getXValue(getCardHand(i)), getYValue(getCardHand(i)), getCardWidth(getCardHand(i)), getCardHeight(getCardHand(i)));      
         }
-        for(int i=0; i<manager.getPlayerBoard().getField().size(); i++) {
-            sb.draw(manager.getPlayerBoard().getField().get(i).getTexture(), manager.getPlayerBoard().getField().get(i).getBounds().getX(), manager.getPlayerBoard().getField().get(i).getBounds().getY(), manager.getPlayerBoard().getField().get(i).getTexture().getWidth()/3.4f, manager.getPlayerBoard().getField().get(i).getTexture().getHeight()/3.4f);      
+        for(int i=0; i<getNumCards(); i++) {
+            sb.draw(getCurrentCard(i).getTexture(), getXValue(getCurrentCard(i)), getYValue(getCurrentCard(i)), getCardWidth(getCurrentCard(i)), getCardHeight(getCurrentCard(i)));      
         }
         
-        for(int i=0; i<manager.getAI().getHand().size(); i++) {
-        	if(!manager.getAI().getHand().get(i).haveBoundsBeenSet()) {
-        		manager.getAI().getHand().get(i).setPosition(5 + i*127, 650);
+        for(int i=0; i<getAIHand().size(); i++) {
+        	if(!getAIHand().get(i).haveBoundsBeenSet()) {
+        		getAIHand().get(i).setPosition(5 + i*127, 650);
         	}
-            sb.draw(manager.getAI().getHand().get(i).getBackTexture(), manager.getAI().getHand().get(i).getBounds().getX(), manager.getAI().getHand().get(i).getBounds().getY(), manager.getAI().getHand().get(i).getTexture().getWidth()/3.4f, manager.getAI().getHand().get(i).getTexture().getHeight()/3.4f);
+            sb.draw(getAIHand().get(i).getBackTexture(), getXValue(getAIHand().get(i)), getYValue(getAIHand().get(i)), getCardWidth(getAIHand().get(i)), getCardHeight(getAIHand().get(i)));
         }
-        for(int i=0; i<manager.getAIBoard().getField().size(); i++) {
-            sb.draw(manager.getAIBoard().getField().get(i).getTexture(), manager.getAIBoard().getField().get(i).getBounds().getX(), manager.getAIBoard().getField().get(i).getBounds().getY(), manager.getAIBoard().getField().get(i).getTexture().getWidth()/3.4f, manager.getAIBoard().getField().get(i).getTexture().getHeight()/3.4f);      
+        for(int i=0; i<getNumAiCards(); i++) {
+            sb.draw(getAICard(i).getTexture(), getXValue(getAICard(i)), getYValue(getAICard(i)), getCardWidth(getAICard(i)), getCardHeight(getAICard(i)));      
         }
         
         console.draw(sb, messageToPrint, 600, 405);
@@ -193,6 +192,73 @@ public class PlayState extends State{
         
         firstRun = false;
         sb.end();
+	}
+	
+	private boolean isCardValid(Rectangle bounds, Card selectedCard) {
+		return selectedCard.getBounds().overlaps(bounds) && !selectedCard.equals(lastCardPlayed) && selectedCard.isPlayed() && !selectedCards.contains(selectedCard);
+	}
+	private boolean checkValidStars(Card selectedCard) {
+		return getPlayerBoard().getTotalStars(getPlayerBoard().getField())<selectedCard.getStars();
+	}
+	private Card getPlayerCard(int i) {
+		return getCurrentCard(i);
+	}
+	private Card getAICard(int i) {
+		return manager.getAIBoard().getField().get(i);
+	}
+	private Boolean checkCardOverlaps(Card card, Rectangle bounds){
+		return card.getBounds().overlaps(bounds);
+	}
+	
+	private int getNumCards() {
+		return getPlayerBoard().getField().size();
+	}
+	private int getNumAiCards() {
+		return manager.getAIBoard().getField().size();
+	}	
+	private Card getCardHand(int i) {
+		return manager.getUser().getHand().get(i);
+	}
+	private boolean compareStar() {
+		return calculateTotalStars(selectedCards)<lastCardPlayed.getStars();
+	}	
+	private boolean compareCards(Rectangle bounds, Card selectedCard) {
+		return checkCardOverlaps(selectedCard,bounds) && !selectedCard.equals(lastCardPlayed) && selectedCard.isPlayed() && !selectedCards.contains(selectedCard);
+	}
+	
+	private Board getPlayerBoard() {
+		return manager.getPlayerBoard();
+	}
+	
+	private Card getCurrentCard(int i) {
+		return getPlayerBoard().getField().get(i);
+	}
+
+	private float getCardWidth(Card card) {
+		return card.getTexture().getWidth()/3.4f;
+	}
+	
+	private float getCardHeight(Card card) {
+		return card.getTexture().getHeight()/3.4f;
+	}
+	
+	private float getXValue(Card card) {
+		return card.getBounds().getX();
+	}
+	
+	private float getYValue(Card card) {
+		return card.getBounds().getY();
+	}
+
+	private ArrayList<Card> getAIHand() {
+		return manager.getAI().getHand();
+	}
+
+	private void setBitmap(BitmapFont bitmap) {
+		bitmap.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		bitmap.getData().setScale(1);
+		bitmap.setColor(Color.ORANGE);
+		
 	}
 
 	@Override
