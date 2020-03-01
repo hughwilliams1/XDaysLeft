@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.xdays.game.Game;
+import com.xdays.game.cards.CardCollection;
 
 public class MapState extends State{
 	   private Texture background;
@@ -26,7 +27,9 @@ public class MapState extends State{
 		 if(Gdx.input.justTouched()) {
 			 Rectangle bounds = new Rectangle(Gdx.input.getX(), -(Gdx.input.getY()-720), 5, 5);
 			 if(bounds.overlaps(markerBounds)) {
-				 gsm.set(new PlayState(gsm));
+				 // used for testing the collection system
+				 gsm.set(new CollectionState(gsm, new CardCollection()));
+				 //gsm.set(new PlayState(gsm));
 			 }
 		  }
 		

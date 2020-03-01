@@ -5,12 +5,5 @@
 	"amount" : "0",
 	"type" : "Destroy",
 	"selectedCardsNeeded" : "true"
-	},
-	{
-	"title" : "Protests2", 
-	"cardText" : "Destroy a card of your choosing.",
-	"amount" : "0",
-	"type" : "Destroy",
-	"selectedCardsNeeded" : "true"
-	},
+	}
 ]

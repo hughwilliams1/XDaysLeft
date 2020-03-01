@@ -50,6 +50,10 @@ public class CardCollection {
 		return returnCard;
 	}
 	
+	public int getSize() {
+		return industryCards.size() + socialCards.size();
+	}
+	
 	// draw multiple card from the deck using an array of strings
 	// TODO could maybe have CardCollection direction create the decks and return that
 	public ArrayList<Card> getMultipleCards(String[] keys) {	
@@ -61,6 +65,19 @@ public class CardCollection {
 		}
 		
 		return cardArray;
+	}
+	
+	public ArrayList<Card> getAllCards() {
+		ArrayList<Card> returnArray = new ArrayList<Card>();
+		for (String key : industryCards.keySet()) {
+			returnArray.add(industryCards.get(key));
+		}
+		
+		for (String key : socialCards.keySet()) {
+			returnArray.add(socialCards.get(key));
+		}
+		
+		return returnArray;
 	}
 	
 	/** 

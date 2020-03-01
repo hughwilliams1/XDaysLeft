@@ -12,31 +12,13 @@
 	"points" : "1"
 	},
 	{
-	"title" : "Solar Panel3", 
-	"cardText" : "This is Solar Panels.",
-	"stars" : "1",
-	"points" : "1"
-	},
-	{
 	"title" : "Windmill", 
 	"cardText" : "This is Windmill.",
 	"stars" : "2",
 	"points" : "6"
 	},
 	{
-	"title" : "Windmill2", 
-	"cardText" : "This is Windmill.",
-	"stars" : "2",
-	"points" : "6"
-	},
-	{
 	"title" : "Solar Farm", 
-	"cardText" : "This is Solar Farm.",
-	"stars" : "3",
-	"points" : "9"
-	},
-	{
-	"title" : "Solar Farm2", 
 	"cardText" : "This is Solar Farm.",
 	"stars" : "3",
 	"points" : "9"

@@ -18,21 +18,9 @@
 	"points" : "-6"
 	},
 	{
-	"title" : "Landfill2", 
-	"cardText" : "This is Landfill.",
-	"stars" : "2",
-	"points" : "-6"
-	},
-	{
 	"title" : "Car Factory", 
 	"cardText" : "This is Car Factory.",
 	"stars" : "3",
-	"points" : "-9"
-	},
-	{
-	"title" : "Car Factory2", 
-	"cardText" : "This is Car Factory.",
-	"stars" : "4",
 	"points" : "-9"
 	},
 	{
@@ -40,5 +28,5 @@
 	"cardText" : "This is Coal Power Plant.",
 	"stars" : "4",
 	"points" : "-13"
-	},
+	}
 ]
