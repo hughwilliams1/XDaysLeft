@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.xdays.game.Game;
+import com.xdays.game.User;
 import com.xdays.game.cards.CardCollection;
 
 public class MapState extends State{
@@ -25,11 +26,9 @@ public class MapState extends State{
 	@Override
 	protected void handleInput() {
 		 if(Gdx.input.justTouched()) {
-			 Rectangle bounds = new Rectangle(Gdx.input.getX(), -(Gdx.input.getY()-720), 5, 5);
+			 Rectangle bounds = new Rectangle(Gdx.input.getX(), -(Gdx.input.getY()-720), 1, 1);
 			 if(bounds.overlaps(markerBounds)) {
-				 // used for testing the collection system
-				 gsm.set(new CollectionState(gsm, new CardCollection()));
-				 //gsm.set(new PlayState(gsm));
+				 gsm.set(new PlayState(gsm));
 			 }
 		  }
 		
@@ -46,7 +45,7 @@ public class MapState extends State{
         sb.setProjectionMatrix(cam.combined);
         sb.begin();
         sb.draw(background, 0,0);
-        Rectangle bounds = new Rectangle(Gdx.input.getX(), -(Gdx.input.getY()-720), 5, 5);
+        Rectangle bounds = new Rectangle(Gdx.input.getX(), -(Gdx.input.getY()-720), 1, 1);
         if(bounds.overlaps(markerBounds)) {
         	sb.draw(hoverMarker, (cam.position.x - 335), (cam.position.y - 120), hoverMarker.getWidth()/3, hoverMarker.getHeight()/3);
         	//System.out.println("True");

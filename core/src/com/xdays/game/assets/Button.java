@@ -1,4 +1,4 @@
-package com.xdays.game.states;
+package com.xdays.game.assets;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;

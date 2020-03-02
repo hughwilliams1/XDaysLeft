@@ -44,6 +44,10 @@ public abstract class Player {
 		return hand;
 	}
 	
+	public Deck getDeck() {
+		return deck;
+	}
+	
 	// set hand as a give array of cards
 	public void setHand(ArrayList<Card> givenCards) {
 		hand = givenCards;

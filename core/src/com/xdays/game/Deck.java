@@ -15,18 +15,20 @@ public class Deck {
 	
 	// queue of cards represents deck
 	private Queue<Card> deck;
+	private ArrayList<Card> arrayDeck;
 	
 	public Deck(ArrayList<Card> givenCards) {
 		deck = new LinkedList<>();
-		
 		addCards(givenCards);
 		
 		// randomises card order each time
+		arrayDeck = queueToArray();
 		shuffle();
 	}
 	
 	public void addCard(Card card) {	
 		deck.add(card);
+		arrayDeck = queueToArray();
 	}
 	
 	// adds cards from a given array to the deck
@@ -34,10 +36,21 @@ public class Deck {
 		for(Card c : givenCards) {
 			deck.add(c);
 		}
+		arrayDeck = queueToArray();
 	}
 	
 	public Card draw() {
-		return deck.poll();
+		Card drawn = deck.poll();
+		arrayDeck = queueToArray();
+		return drawn;
+	}
+	
+	public int getDeckSize() {
+		return deck.size();
+	}
+	
+	public Card getCard(int position) {
+		return arrayDeck.get(position);
 	}
 	
 	// shuffle the current deck so cards are not drawn in the same order
@@ -48,6 +61,7 @@ public class Deck {
 		// clears the current queue
 		deck.clear();
 		addCards(shuffleArray);
+		arrayDeck = queueToArray();
 	}
 	
 	// convert the deck from a queue into an arraylist note the deck is kept intact
@@ -70,6 +84,7 @@ public class Deck {
 				Card c = draw();
 				returnArray.add(c);
 			}
+			arrayDeck = queueToArray();
 			return returnArray;
 		}
 		return null;

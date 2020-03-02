@@ -4,6 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.xdays.game.Game;
+import com.xdays.game.User;
+import com.xdays.game.assets.Button;
+import com.xdays.game.cards.CardCollection;
 
 /**
  * Created by Brent on 6/26/2015.
@@ -18,6 +21,7 @@ public class MenuState extends State{
     private Button playBtn;
     private Button settingsBtn;
     private Button quitBtn;
+    private Button collectionBtn;
     
     public MenuState(GameStateManager gsm) {
         super(gsm);
@@ -28,7 +32,11 @@ public class MenuState extends State{
         
         playBtn = new Button(BTN_WIDTH, BTN_HEIGHT, x, (Game.HEIGHT / 2 - BTN_HEIGHT / 2) - 110, "PlayBtn.PNG");
         settingsBtn = new Button(BTN_WIDTH, BTN_HEIGHT, x, (Game.HEIGHT / 2 - BTN_HEIGHT / 2) - (110 + BTN_HEIGHT + 10), "SettingsBtn.PNG");
-        quitBtn = new Button(BTN_WIDTH, BTN_HEIGHT, x, (Game.HEIGHT / 2 - BTN_HEIGHT / 2) - (110 + (BTN_HEIGHT*2) + 20), "QuitBtn.PNG");
+        
+        //TODO give collectionBtn a texture
+        collectionBtn = new Button(BTN_WIDTH, BTN_HEIGHT, x, (Game.HEIGHT / 2 - BTN_HEIGHT / 2) - (110 + (BTN_HEIGHT*2) + 20), "QuitBtn.PNG");
+        
+        quitBtn = new Button(BTN_WIDTH, BTN_HEIGHT, x, (Game.HEIGHT / 2 - BTN_HEIGHT / 2) - (110 + (BTN_HEIGHT*3) + 30), "QuitBtn.PNG");
     }
 
     @Override
@@ -36,9 +44,16 @@ public class MenuState extends State{
         if(Gdx.input.justTouched() && playBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY(), Game.HEIGHT)){
             gsm.set(new MapState(gsm));
         }
+        
         if(Gdx.input.justTouched() && settingsBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY(), Game.HEIGHT)){
         	System.out.println("Settings button pressed");
         }
+        
+        // if collectionBtn is clicked changed to collection state 
+        if(Gdx.input.justTouched() && collectionBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY(), Game.HEIGHT)){
+        	gsm.set(new CollectionState(gsm, new CardCollection(), new User("Player 1")));
+        }
+        
         if(Gdx.input.justTouched() && quitBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY(), Game.HEIGHT)){
             Gdx.app.exit();
         }
@@ -57,6 +72,7 @@ public class MenuState extends State{
         
         playBtn.draw(sb);
         settingsBtn.draw(sb);
+        collectionBtn.draw(sb);
         quitBtn.draw(sb);
         
         sb.end();
