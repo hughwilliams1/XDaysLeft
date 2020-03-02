@@ -1,15 +1,21 @@
 package com.xdays.game.states;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.xdays.game.User;
+import com.xdays.game.cards.CardCollection;
 
 import java.util.Stack;
 
 public class GameStateManager {
 
     private Stack<State> states;
+    private User user;
+    private CardCollection collection;
 
     public GameStateManager(){
         states = new Stack<State>();
+        collection = new CardCollection();
+        user = new User("User", collection);
     }
 
     public void push(State state){
@@ -31,5 +37,13 @@ public class GameStateManager {
 
     public void render(SpriteBatch sb){
         states.peek().render(sb);
+    }
+    
+    public User getUser() {
+    	return user;
+    }
+    
+    public CardCollection getCollection() {
+    	return collection;
     }
 }

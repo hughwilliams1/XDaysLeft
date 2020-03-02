@@ -51,7 +51,7 @@ public class MenuState extends State{
         
         // if collectionBtn is clicked changed to collection state 
         if(Gdx.input.justTouched() && collectionBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY(), Game.HEIGHT)){
-        	gsm.set(new CollectionState(gsm, new CardCollection(), new User("Player 1")));
+        	gsm.set(new CollectionState(gsm, gsm.getCollection(), gsm.getUser()));
         }
         
         if(Gdx.input.justTouched() && quitBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY(), Game.HEIGHT)){

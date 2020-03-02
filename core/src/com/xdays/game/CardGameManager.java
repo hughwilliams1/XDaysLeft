@@ -26,7 +26,7 @@ public class CardGameManager {
 	// array of strings for representing the enemy deck
 	private String[] enemyDeck_1;
 
-	public CardGameManager (int emissionsValue) {
+	public CardGameManager (int emissionsValue, User givenUser) {
 
 		// array of strings for representing the enemy deck
 		// TODO In industry.json when deleting some unused card it crashes the game
@@ -41,7 +41,7 @@ public class CardGameManager {
 
 		collection = new CardCollection();
 
-		this.user = new User("Friendly");
+		user = givenUser;
 		this.enemyAI = new AI("Enemy", 1, createEnemyDeck());
 
 		user.setHandFromDeck();
