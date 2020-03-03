@@ -21,7 +21,6 @@ public class MenuState extends State{
     private Button playBtn;
     private Button settingsBtn;
     private Button quitBtn;
-    private Button collectionBtn;
     
     public MenuState(GameStateManager gsm) {
         super(gsm);
@@ -32,11 +31,7 @@ public class MenuState extends State{
         
         playBtn = new Button(BTN_WIDTH, BTN_HEIGHT, x, (Game.HEIGHT / 2 - BTN_HEIGHT / 2) - 110, "PlayBtn.PNG");
         settingsBtn = new Button(BTN_WIDTH, BTN_HEIGHT, x, (Game.HEIGHT / 2 - BTN_HEIGHT / 2) - (110 + BTN_HEIGHT + 10), "SettingsBtn.PNG");
-        
-        //TODO give collectionBtn a texture
-        collectionBtn = new Button(BTN_WIDTH, BTN_HEIGHT, x, (Game.HEIGHT / 2 - BTN_HEIGHT / 2) - (110 + (BTN_HEIGHT*2) + 20), "QuitBtn.PNG");
-        
-        quitBtn = new Button(BTN_WIDTH, BTN_HEIGHT, x, (Game.HEIGHT / 2 - BTN_HEIGHT / 2) - (110 + (BTN_HEIGHT*3) + 30), "QuitBtn.PNG");
+        quitBtn = new Button(BTN_WIDTH, BTN_HEIGHT, x, (Game.HEIGHT / 2 - BTN_HEIGHT / 2) - (110 + (BTN_HEIGHT*2) + 20), "QuitBtn.PNG");
     }
 
     @Override
@@ -47,11 +42,6 @@ public class MenuState extends State{
         
         if(Gdx.input.justTouched() && settingsBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY(), Game.HEIGHT)){
         	System.out.println("Settings button pressed");
-        }
-        
-        // if collectionBtn is clicked changed to collection state 
-        if(Gdx.input.justTouched() && collectionBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY(), Game.HEIGHT)){
-        	gsm.set(new CollectionState(gsm, gsm.getCollection(), gsm.getUser()));
         }
         
         if(Gdx.input.justTouched() && quitBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY(), Game.HEIGHT)){
@@ -72,7 +62,6 @@ public class MenuState extends State{
         
         playBtn.draw(sb);
         settingsBtn.draw(sb);
-        collectionBtn.draw(sb);
         quitBtn.draw(sb);
         
         sb.end();

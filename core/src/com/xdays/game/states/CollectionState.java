@@ -27,7 +27,7 @@ public class CollectionState extends State {
 	
 	private Button collectionNextPageBtn;
 	private Button playerNextPageBtn;
-	
+	private Button mapBackBtn;
 	
 	protected static final int CARDS_PER_PAGE = 9;
 	
@@ -41,6 +41,7 @@ public class CollectionState extends State {
 		// TODO give btns a texture
 		collectionNextPageBtn = new Button(BTN_WIDTH, BTN_HEIGHT, ((Game.WIDTH / 6 ) * 3 ) - 180, 15, "PlayBtn.PNG");
 		playerNextPageBtn = new Button(BTN_WIDTH, BTN_HEIGHT, ((Game.WIDTH / 6 ) * 3 ) + 30, 15, "PlayBtn.PNG");
+		mapBackBtn = new Button(BTN_WIDTH, BTN_HEIGHT, ((Game.WIDTH / 6 ) * 5 ) + 60, 15, "quitBtn.PNG");
 		
 		// Circular pages array
 		collectionDisplayPages = new CircularList<CollectionPage>();
@@ -69,6 +70,7 @@ public class CollectionState extends State {
 
 	@Override
 	protected void handleInput() {
+		// this checks if any btns are touched then performs the respective btns functionallity
 		if(Gdx.input.justTouched() && collectionNextPageBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY(), Game.HEIGHT)){
 			currentCollectionPage = collectionDisplayPages.get(collectionDisplayPages.indexOf((currentCollectionPage))+1);
         }
@@ -76,6 +78,11 @@ public class CollectionState extends State {
 		if (Gdx.input.justTouched() && playerNextPageBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY(), Game.HEIGHT)) {
 			currentPlayerPage = playerDisplayPages.get(playerDisplayPages.indexOf((currentPlayerPage))+1);
 		}
+		
+		if (Gdx.input.justTouched() && mapBackBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY(), Game.HEIGHT)) {
+			gsm.set(new MapState(gsm));
+		}
+		
 		
 		// Checks if any collection cards are touched by comparing the card bounds to a small rectangle created around the mouse
 		for (Card card : currentCollectionPage.getDisplayedCards()) {
@@ -108,6 +115,7 @@ public class CollectionState extends State {
 		currentPlayerPage.displayPlayerCards(sb);
 		collectionNextPageBtn.draw(sb);
 		playerNextPageBtn.draw(sb);
+		mapBackBtn.draw(sb);
 		sb.end();
 	}
 
