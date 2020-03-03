@@ -60,7 +60,7 @@ public class CardGameManager {
 		processCard(card, chosenCards);
 		changeEmissions(playerBoard.getTotalPoints());
 		switchPlayerTurn();
-		ArrayList<Card> cardsToProcess = getAI().nextCard(aiBoard);
+		ArrayList<Card> cardsToProcess = getAI().nextCard(aiBoard, playerBoard);
 		if(cardsToProcess != null) {
 			aiCard = cardsToProcess.remove(0);
 			// prints out ai's played card
@@ -120,9 +120,38 @@ public class CardGameManager {
 						((Social) card).doEffect(playerBoard, chosenCards.get(0));
 					}
 				}else {
-					((Social) card).doEffect(playerBoard, null);
+					switch(card.getTitle()) {
+					case "Online Posts":
+					case "UN Law":
+						((Social) card).doEffect(playerBoard, null);
+						break;
+					case "Strike":
+					case "Petition":
+					((Social) card).doEffect(aiBoard, null);
+						break;
+					}
 				}
 				hasPlayed = true;
+			} else {
+				if(((Social) card).isSelectedCardNeeded()) {
+					if(((Social) card).getSocialEffect() instanceof Destroy) {
+						((Social) card).doEffect(playerBoard, chosenCards.get(0));
+						enemyAI.removeCard(card);
+					}else {
+						((Social) card).doEffect(aiBoard, chosenCards.get(0));
+					}
+				}else {
+					switch(card.getTitle()) {
+					case "Online Posts":
+					case "Cover-up":
+						((Social) card).doEffect(aiBoard, null);
+						break;
+					case "Bribe":
+					case "Propaganda":
+					((Social) card).doEffect(playerBoard, null);
+						break;
+					}
+				}
 			}
 		}
 	}
