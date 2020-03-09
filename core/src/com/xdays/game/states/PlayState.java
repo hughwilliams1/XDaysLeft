@@ -9,9 +9,11 @@ import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.xdays.game.AI;
 import com.xdays.game.Board;
 import com.xdays.game.CardGameManager;
 import com.xdays.game.Game;
+import com.xdays.game.User;
 import com.xdays.game.cards.Card;
 import com.xdays.game.cards.Destroy;
 import com.xdays.game.cards.Social;
@@ -47,10 +49,46 @@ public class PlayState extends State {
 		if (Gdx.input.justTouched() && manager.isPlayersTurn()) {
 			// System.out.println("Play State touched");
 			Rectangle bounds = new Rectangle(Gdx.input.getX(), -(Gdx.input.getY() - 720), 1, 1);
+			
+			if(hasPlayerWon()) {
+				System.out.println("Player Win");
+				messageToPrint="You have won this battle";
+				//Player win return to edited map
+				gsm.set(new MapState(gsm));  // Unsure if this is a longer term solution, should work in theory
+			}
+			if(hasAIWon()) {
+				System.out.println("Enemy Win");
+				messageToPrint="You have lost this battle";
+				// //AI win return to original map
+				gsm.set(new MapState(gsm));
+			}
+			
+			if(AreDecksEmpty()) {
+				System.out.println("Sudden Death");
+				messageToPrint="Sudden Death";
+				if(getEmissionBar()>=50) {
+					System.out.println("Enemy Win");
+					messageToPrint="You have lost this battle";
+					//AI win return to original map
+					gsm.set(new MapState(gsm));
+				}
+				else {
+					System.out.println("Player Win");
+					messageToPrint="You have won this battle";
+					//Player win return to edited map
+					gsm.set(new MapState(gsm));
+				}
+				
+			}
+			
+			
+			
+			
 			if (multipleCardsNeeded) {
+				// goes through the board
 				for (int i = 0; i < getNumCards(); i++) {
-					if (checkCardOverlaps(getPlayerCard(i), (bounds))) {
-						Card selectedCard = getPlayerCard(i);
+					Card selectedCard = getPlayerCard(i);
+					if (checkCardOverlaps(selectedCard, (bounds))) {
 						if (compareStar() && compareCards(bounds, selectedCard)) {
 							selectedCards.add(selectedCard);
 							messageToPrint = "Selected card for merge: " + selectedCard.getTitle();
@@ -60,7 +98,14 @@ public class PlayState extends State {
 								selectedCards.clear();
 								multipleCardsNeeded = false;
 							}
-						}
+						} 
+					} else if (checkCardOverlaps(lastCardPlayed, bounds)){
+						lastCardPlayed.stopHalfPlay();
+						multipleCardsNeeded = false;
+						
+						// This msg print twice in console no clue why lmao
+						System.out.println("Unselected card for merge: " + lastCardPlayed.getTitle());
+						messageToPrint = "Unselected card for merge: " + lastCardPlayed.getTitle();
 					}
 				}
 			} else if (selectedCardsNeeded) {
@@ -82,10 +127,12 @@ public class PlayState extends State {
 					}
 				}
 			} else {
-				for (int i = 0; i < manager.getUser().getHand().size(); i++) {
-					if (getCardHand(i).getBounds().overlaps(bounds)) {
-						System.out.println(getCardHand(i).getTitle());
-						Card selectedCard = getCardHand(i);
+				User player = manager.getUser();
+				for (int i = 0; i < player.handSize(); i++) {
+					Card card = player.getCardFromHand(i);
+					if (card.getBounds().overlaps(bounds)) {
+						System.out.println(card.getTitle());
+						Card selectedCard = card;
 						if (selectedCard instanceof Social) {
 							if (!manager.getAIBoard().getField().isEmpty() && !getPlayerBoard().getField().isEmpty()) {
 								if (((Social) selectedCard).isSelectedCardNeeded()) {
@@ -161,29 +208,53 @@ public class PlayState extends State {
 		sb.begin();
 		sb.draw(background, 0, 0);
 
-		for (int i = 0; i < manager.getUser().getHand().size(); i++) {
-			if (firstRun) {
-				getCardHand(i).setPosition(5 + i * 127, 0);
-			} else if (!getCardHand(i).haveBoundsBeenSet() && firstRun == false) {
-				// manager.getUser().getHand().get(i).setPosition(previousBounds.getX(),
-				// previousBounds.getY());
-				getCardHand(i).setPosition(5 + i * 127, 0);
+		// gets player to be used
+		User player = manager.getUser();
+
+		// renders player hand
+		for (int i = 0; i < player.handSize(); i++) {
+			Card card = player.getCardFromHand(i);
+
+			// remove && !card.haveBoundsBeenSet() the hand will move cards when you play
+			if (card.isHalfPlayed() != true && !card.haveBoundsBeenSet()) {
+				card.setPosition(0, 0);
+				card.setPosition(((((Game.WIDTH) * ((i + 1) / ((float) player.handSize() + 1)))) - card.getWidth() / 2),
+						0);
 			}
-			sb.draw(getCardHand(i).getTexture(), getXValue(getCardHand(i)), getYValue(getCardHand(i)),
-					getCardWidth(getCardHand(i)), getCardHeight(getCardHand(i)));
-		}
-		for (int i = 0; i < getNumCards(); i++) {
-			sb.draw(getCurrentCard(i).getTexture(), getXValue(getCurrentCard(i)), getYValue(getCurrentCard(i)),
-					getCardWidth(getCurrentCard(i)), getCardHeight(getCurrentCard(i)));
+
+			sb.draw(card.getTexture(), getXValue(card), getYValue(card), getCardWidth(card), getCardHeight(card));
 		}
 
-		for (int i = 0; i < getAIHand().size(); i++) {
-			if (!getAIHand().get(i).haveBoundsBeenSet()) {
-				getAIHand().get(i).setPosition(5 + i * 127, 650);
-			}
-			sb.draw(getAIHand().get(i).getBackTexture(), getXValue(getAIHand().get(i)), getYValue(getAIHand().get(i)),
-					getCardWidth(getAIHand().get(i)), getCardHeight(getAIHand().get(i)));
+		// Renders the players cards from the player board
+		// Turn this into a render board method
+		Board playerBoard = manager.getPlayerBoard();
+		int playerNumBoardCards = playerBoard.getBoardSize();
+
+		for (int i = 0; i < playerNumBoardCards; i++) {
+
+			Card currentCard = playerBoard.getCard(i);
+
+			sb.draw(currentCard.getTexture(), getXValue(currentCard), getYValue(currentCard), getCardWidth(currentCard),
+					getCardHeight(currentCard));
 		}
+
+		// gets the ai from manager to be changed
+		AI ai = manager.getAI();
+
+		for (int i = 0; i < ai.handSize(); i++) {
+			Card aiCard = ai.getCardFromHand(i);
+
+			if (aiCard.isHalfPlayed() != true && !aiCard.haveBoundsBeenSet()) {
+				aiCard.setPosition(0, 0);
+				aiCard.setPosition(
+						((((Game.WIDTH) * ((i + 1) / ((float) player.handSize() + 1)))) - aiCard.getWidth() / 2), 650);
+			}
+
+			sb.draw(aiCard.getBackTexture(), getXValue(aiCard), getYValue(aiCard), getCardWidth(aiCard),
+					getCardHeight(aiCard));
+		}
+
+		// render the ais cards on the board
 		for (int i = 0; i < getNumAiCards(); i++) {
 			sb.draw(getAICard(i).getTexture(), getXValue(getAICard(i)), getYValue(getAICard(i)),
 					getCardWidth(getAICard(i)), getCardHeight(getAICard(i)));
@@ -195,7 +266,32 @@ public class PlayState extends State {
 		firstRun = false;
 		sb.end();
 	}
-
+	
+	private int getEmissionBar() { 
+		return manager.getEmissionsBar(); 
+	} 
+	 
+	private Boolean hasPlayerWon() { 
+		if(getEmissionBar()==0) { 
+			return true; 
+		} 
+		return false; 
+	} 
+	 
+	private Boolean hasAIWon() { 
+		if(getEmissionBar()==100) { 
+			return true; 
+		} 
+		return false; 
+	} 
+	private Boolean AreDecksEmpty() { 
+		if((manager.getUser().getDeck().getDeckSize()==0) || (manager.getAI().getDeck().getDeckSize()==0)) { 
+			return true; 
+		} 
+		 
+		return false; 
+	} 
+	
 	private boolean isCardValid(Rectangle bounds, Card selectedCard) {
 		return selectedCard.getBounds().overlaps(bounds) && !selectedCard.equals(lastCardPlayed)
 				&& selectedCard.isPlayed() && !selectedCards.contains(selectedCard);
@@ -210,7 +306,7 @@ public class PlayState extends State {
 	}
 
 	private Card getAICard(int i) {
-		return manager.getAIBoard().getField().get(i);
+		return manager.getAIBoard().getCard(i);
 	}
 
 	private Boolean checkCardOverlaps(Card card, Rectangle bounds) {
@@ -218,15 +314,11 @@ public class PlayState extends State {
 	}
 
 	private int getNumCards() {
-		return getPlayerBoard().getField().size();
+		return getPlayerBoard().getBoardSize();
 	}
 
 	private int getNumAiCards() {
-		return manager.getAIBoard().getField().size();
-	}
-
-	private Card getCardHand(int i) {
-		return manager.getUser().getHand().get(i);
+		return manager.getAIBoard().getBoardSize();
 	}
 
 	private boolean compareStar() {
@@ -243,7 +335,7 @@ public class PlayState extends State {
 	}
 
 	private Card getCurrentCard(int i) {
-		return getPlayerBoard().getField().get(i);
+		return getPlayerBoard().getCard(i);
 	}
 
 	private float getCardWidth(Card card) {
@@ -260,10 +352,6 @@ public class PlayState extends State {
 
 	private float getYValue(Card card) {
 		return card.getBounds().getY();
-	}
-
-	private ArrayList<Card> getAIHand() {
-		return manager.getAI().getHand();
 	}
 
 	private void setBitmap(BitmapFont bitmap) {

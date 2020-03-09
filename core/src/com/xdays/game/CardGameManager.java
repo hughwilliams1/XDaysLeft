@@ -28,14 +28,8 @@ public class CardGameManager {
 
 	public CardGameManager (int emissionsValue, User givenUser) {
 
-		// array of strings for representing the enemy deck
-		// TODO In industry.json when deleting some unused card it crashes the game
-		// TODO Same with landfill 2 and car factory 2 in industryBad.json
-		// TODO Also protests2 in social.json
-		// TODO "Coal Power Plant" and "Car Factory" can be played without merging
-		// TODO Fake news causes cards to break when duplicate cards are not removed from.json fake news isn't read by the parser
-		enemyDeck_1 = new String[]{"Remove Tree", "Remove Tree", "Online Posts", "Diesel Car",
-				"Diesel Car", "Diesel Car", "Landfill", "Landfill", "Online Posts", "Remove Tree"};
+		enemyDeck_1 = new String[]{"Remove Tree", "Remove Tree", "Remove Tree", "Diesel Car",
+				"Diesel Car", "Diesel Car", "Landfill", "Landfill", "Remove Tree", "Remove Tree"};
 
 		emissionsBar = emissionsValue;
 
@@ -77,16 +71,17 @@ public class CardGameManager {
 		if(card instanceof Industry) {
 			if (isPlayerTurn) {
 				if (card.getStars() > 1) {
-					card.handleInput();
-					playerBoard.mergeCard(card, chosenCards);
+					handleInput(card);
+					playerBoard.mergeCard(card, chosenCards, true);
 					user.removeCard(card);
 					//user.addCardToHand();
 					for(int i=0; i<chosenCards.size(); i++) {
 						user.removeCard(chosenCards.get(i));
 					}
 				} else {	
-					card.handleInput();
-					playerBoard.addToField(card);
+
+					playerBoard.addToField(card, true);
+					handleInput(card);
 					user.removeCard(card);
 					//user.addCardToHand();
 				}
@@ -94,8 +89,9 @@ public class CardGameManager {
 			} else {
 				if (card.getStars() > 1) {
 					card.switchTextures();
-					card.handleInputEnemy();
-					aiBoard.mergeCard(card, chosenCards);
+
+					handleInputEnemy(card);
+					aiBoard.mergeCard(card, chosenCards, false);
 					
 					enemyAI.removeCard(card);
 					//enemyAI.addCardToHand();
@@ -104,8 +100,9 @@ public class CardGameManager {
 					}
 				} else {
 					card.switchTextures();
-					card.handleInputEnemy();
-					aiBoard.addToField(card);
+					
+					handleInputEnemy(card);
+					aiBoard.addToField(card, false);
 					enemyAI.removeCard(card);
 					//enemyAI.addCardToHand();
 				}
@@ -153,6 +150,30 @@ public class CardGameManager {
 					}
 				}
 			}
+		}
+	}
+	
+	private void handleInput(Card card) {
+		if(!card.isPlayed()) {
+			if(card instanceof Social) {
+				card.position.y += 210;
+			}else {
+				if(card.isHalfPlayed()) {
+					card.position.y += 100;
+				}
+				card.updateBounds();
+				card.setPlayed(true);
+			}
+		}
+	}
+	
+	private void handleInputEnemy(Card card) {
+		if(!card.isPlayed()) {
+			if(card.isHalfPlayed()) {
+				card.position.y += 100;
+			}
+			card.updateBounds();
+			card.setPlayed(true);
 		}
 	}
 

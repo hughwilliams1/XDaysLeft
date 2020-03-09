@@ -7,14 +7,38 @@ import com.xdays.game.cards.Industry;
 
 public class Board {
 	
+	private final static int MAX_BOARD_SIZE = 8;
 	private ArrayList<Card> field;
 	
 	public Board() {
-		field = new ArrayList<Card>(10);
+		field = new ArrayList<Card>();
 	}
 	
-	public boolean addToField(Card card) {
-		return field.add(card);
+	// TODO need to prevent cards from being added if it exceeds board size
+	public void addToField(Card card, boolean isPlayer) {
+		
+		if (isPlayer) {
+			card.position.y = 0;
+			card.position.y += 210;
+		} else {
+			card.position.y -= 220;
+		}
+		
+		field.add(card);
+		
+		// update cards x 
+		updateCards();
+		
+	}
+	
+	private void updateCards() {
+		for (float cardPosition = 0 ; cardPosition < field.size() ; cardPosition++) {
+			
+			Card card = field.get((int) cardPosition);
+			
+			card.position.x = (((Game.WIDTH) * ((cardPosition+1)/ ((float) field.size()+1)))) - card.getWidth()/2;
+			card.updateBounds();
+		}
 	}
 	
 	public ArrayList<Card> getField() {
@@ -53,12 +77,19 @@ public class Board {
 		return stars;
 	}
 	
-	public boolean mergeCard(Card card, ArrayList<Card> selectedCards) {
+	public void mergeCard(Card card, ArrayList<Card> selectedCards, Boolean isPlayer) {
 		if(card.getStars() <= getTotalStars(selectedCards)) {
 			removeGroupFromField(selectedCards);
-			return addToField(card);
-		} else {
-			return false;
-		}
+			addToField(card, isPlayer);
+		} 
 	}
+	
+	public int getBoardSize() {
+		return field.size();
+	}
+	
+	public Card getCard(int index) {
+		return field.get(index);
+	}
+
 }

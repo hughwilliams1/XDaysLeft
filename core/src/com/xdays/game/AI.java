@@ -21,7 +21,7 @@ public class AI extends Player {
 	}
 
 	public ArrayList<Card> nextCard(Board enemyBoard, Board playerBoard) {
-		ArrayList<Card> cardsToUse = cardsAvailableToPlay(enemyBoard.getField(), getHand());
+		ArrayList<Card> cardsToUse = cardsAvailableToPlay(enemyBoard.getField(), this.hand);
 		ArrayList<Card> cardsToProcess = new ArrayList<Card>();
 		this.playerBoard = playerBoard.getField();
 		if(cardsToUse.size() == 0) {
@@ -164,7 +164,7 @@ public class AI extends Player {
 					cardsToReturn.add(getHighestStarCard(playerBoard));
 					break;
 				case "Corruption":
-					for(Card currentCard: getHand()) {
+					for(Card currentCard: this.hand) {
 						if(currentCard.getStars() == 2) {
 							cardsToReturn.add(currentCard);
 							break;
@@ -173,7 +173,7 @@ public class AI extends Player {
 					}
 					break;
 				case "Increase Population":
-					for(Card currentCard: getHand()) {
+					for(Card currentCard: this.hand) {
 						if(currentCard.getStars() == 3) {
 							cardsToReturn.add(currentCard);
 							break;

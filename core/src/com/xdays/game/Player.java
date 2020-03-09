@@ -10,19 +10,24 @@ public abstract class Player {
 	
 	private String name;
 	// the current players hand
-	private ArrayList<Card> hand;
+	protected ArrayList<Card> hand;
 	// current players deck
 	private Deck deck;
 	private String[] starterDeck;
 	
 	// most card that can be in a hand
-	private static final int MAX_HAND_SIZE = 10;
+	private static final int MAX_HAND_SIZE = 8;
 	
 	// constructor used by the player who deck will remain the same throughout different levels
 	public Player(String name, CardCollection collection) {
 		// string array of the start deck
 		starterDeck = new String[]{"Plant Tree", "Plant Tree", "Solar Panel",
 				"Solar Panel", "Windmill", "Windmill", "Solar Farm", "Solar Farm", "Protests", "Protests"};
+		 
+		/**
+		starterDeck = new String[]{"Plant Tree", "Plant Tree", "Solar Panel",
+				"Solar Panel", "Solar Panel", "Solar Panel", "Solar Panel", "Solar Panel", "Solar Panel", "Solar Panel"};
+		**/
 		
 		this.name = name;
 		hand = new ArrayList<Card>();
@@ -37,10 +42,15 @@ public abstract class Player {
 		this.name = name;
 		hand = new ArrayList<Card>();
 	}
-		
+	
+	// gets hand size
+	public int handSize() {
+		return hand.size();
+	}
+	
 	// gets players current hand
-	public ArrayList<Card> getHand() {
-		return hand;
+	public Card getCardFromHand(int index) {
+		return hand.get(index);
 	}
 	
 	public Deck getDeck() {

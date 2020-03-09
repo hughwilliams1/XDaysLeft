@@ -10,7 +10,7 @@ public class Card {
 	private String cardText;
 	private Texture texture;
 	private Rectangle bounds;
-	private Vector3 position;
+	public Vector3 position;
 	private boolean played;
 	private boolean halfPlayed;
 	private Texture back;
@@ -30,45 +30,32 @@ public class Card {
 		return played;
 	}
 	
+	public void setPlayed(Boolean played) {
+		this.played = played;
+	}
+	
+	public boolean isHalfPlayed() {
+		return halfPlayed;
+	}
+	
 	public void switchTextures() {
 		back = texture;
 	}
 	
-	public void handleInputEnemy() {
-		if(!played) {
-			if(halfPlayed) {
-				position.y += 100;
-			}else {
-				position.y -= 220;
-			}
-			bounds.setY(position.y);
-			played = true;
-		}
-	}
-	
-	public void handleInput() {
-		if(!played) {
-			if(this instanceof Social) {
-				position.y += 210;
-			}else {
-				if(halfPlayed) {
-					position.y += 100;
-				}else {
-					position.y += 210;
-				}
-				bounds.setY(position.y);
-				played = true;
-			}
-		}
-	}
-	
 	public void halfPlayed() {
-		if(!played) {
+		if(!played && halfPlayed == false) {
 			position.y += 110;
 			bounds.setY(position.y);
 			halfPlayed = true;
-		}
+		} 
 	}
+	
+	public void stopHalfPlay() {
+		position.y = 0;
+		bounds.setY(position.y);
+		halfPlayed = false;
+	}
+	
 	
 	public void resetPosition() {
 		if(played) {
@@ -76,6 +63,11 @@ public class Card {
 			bounds.setY(position.y);
 			played = false;
 		}
+	}
+	
+	public void updateBounds() {
+		bounds.setX(position.x);
+		bounds.setY(position.y);
 	}
 	
 	public String getTitle() {
@@ -106,6 +98,10 @@ public class Card {
 	
 	public Rectangle getBounds() {
 		return bounds;
+	}
+	
+	public float getWidth() {
+		return bounds.getWidth();
 	}
 	
 	public Vector3 getPosition() {
