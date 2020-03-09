@@ -49,37 +49,39 @@ public class PlayState extends State {
 		if (Gdx.input.justTouched() && manager.isPlayersTurn()) {
 			// System.out.println("Play State touched");
 			Rectangle bounds = new Rectangle(Gdx.input.getX(), -(Gdx.input.getY() - 720), 1, 1);
-			if(hasPlayerWon()) {
+
+			if (hasPlayerWon()) {
 				System.out.println("Player Win");
-				messageToPrint="You have won this battle";
-				//Player win return to edited map
-				gsm.set(new MapState(gsm));  // Unsure if this is a longer term solution, should work in theory
+				messageToPrint = "You have won this battle";
+				// Player win return to edited map
+				gsm.set(new MapState(gsm)); // Unsure if this is a longer term solution, should work in theory
 			}
-				System.out.println("Enemy Win");
-			if(hasAIWon()) {
+			System.out.println("Enemy Win");
+			if (hasAIWon()) {
 				// //AI win return to original map
-				messageToPrint="You have lost this battle";
-			}
+				messageToPrint = "You have lost this battle";
 				gsm.set(new MapState(gsm));
-			
-			if(AreDecksEmpty()) {
-				messageToPrint="Sudden Death";
+			}
+            /**
+             * if (AreDecksEmpty()) {
+				messageToPrint = "Sudden Death";
 				System.out.println("Sudden Death");
-					System.out.println("Enemy Win");
-				if(getEmissionBar()>=50) {
-					messageToPrint="You have lost this battle";
-					//AI win return to original map
+				System.out.println("Enemy Win");
+				if (getEmissionBar() >= 50) {
+					messageToPrint = "You have lost this battle";
+					// AI win return to original map
 					gsm.set(new MapState(gsm));
-				}
-				else {
+				} else {
 					System.out.println("Player Win");
-					messageToPrint="You have won this battle";
-					//Player win return to edited map
+					messageToPrint = "You have won this battle";
+					// Player win return to edited map
 					gsm.set(new MapState(gsm));
-				
+
 				}
 			}
+             */
 			
+
 			if (multipleCardsNeeded) {
 				// goes through the board
 				for (int i = 0; i < getNumCards(); i++) {
@@ -94,11 +96,11 @@ public class PlayState extends State {
 								selectedCards.clear();
 								multipleCardsNeeded = false;
 							}
-						} 
-					} else if (checkCardOverlaps(lastCardPlayed, bounds)){
+						}
+					} else if (checkCardOverlaps(lastCardPlayed, bounds)) {
 						lastCardPlayed.stopHalfPlay();
 						multipleCardsNeeded = false;
-						
+
 						// This msg print twice in console no clue why lmao
 						System.out.println("Unselected card for merge: " + lastCardPlayed.getTitle());
 						messageToPrint = "Unselected card for merge: " + lastCardPlayed.getTitle();
@@ -212,7 +214,7 @@ public class PlayState extends State {
 			Card card = player.getCardFromHand(i);
 
 			// remove && !card.haveBoundsBeenSet() the hand will move cards when you play
-			if (card.isHalfPlayed() != true && !card.haveBoundsBeenSet()) {
+			if (card.isHalfPlayed() != true) {
 				card.setPosition(0, 0);
 				card.setPosition(((((Game.WIDTH) * ((i + 1) / ((float) player.handSize() + 1)))) - card.getWidth() / 2),
 						0);
@@ -240,7 +242,7 @@ public class PlayState extends State {
 		for (int i = 0; i < ai.handSize(); i++) {
 			Card aiCard = ai.getCardFromHand(i);
 
-			if (aiCard.isHalfPlayed() != true && !aiCard.haveBoundsBeenSet()) {
+			if (aiCard.isHalfPlayed() != true) {
 				aiCard.setPosition(0, 0);
 				aiCard.setPosition(
 						((((Game.WIDTH) * ((i + 1) / ((float) player.handSize() + 1)))) - aiCard.getWidth() / 2), 650);
@@ -262,31 +264,35 @@ public class PlayState extends State {
 		firstRun = false;
 		sb.end();
 	}
+
 	private int getEmissionBar() {
 		return manager.getEmissionsBar();
 	}
+
 	private Boolean hasPlayerWon() {
-		if(getEmissionBar()==0) {
+		if (getEmissionBar() == 0) {
 			return true;
 		}
 		return false;
 	}
-	
+
 	private Boolean hasAIWon() {
-		if(getEmissionBar()==100) {
+		if (getEmissionBar() == 100) {
 			return true;
 		}
+		return false;
 	}
-		return false;
+
+	// TODO Also need to check if hand is empty
 	private Boolean AreDecksEmpty() {
-		if((manager.getUser().getDeck().getDeckSize()==0) || (manager.getAI().getDeck().getDeckSize()==0)) {
+		if ((manager.getUser().getDeck().getDeckSize() == 0) || (manager.getAI().getDeck().getDeckSize() == 0)) {
 			return true;
 		}
-		
+
 		return false;
-	
 
 	}
+
 	private boolean isCardValid(Rectangle bounds, Card selectedCard) {
 		return selectedCard.getBounds().overlaps(bounds) && !selectedCard.equals(lastCardPlayed)
 				&& selectedCard.isPlayed() && !selectedCards.contains(selectedCard);

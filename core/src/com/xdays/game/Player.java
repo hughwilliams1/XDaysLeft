@@ -68,8 +68,13 @@ public abstract class Player {
 	}
 	
 	// adds a card from the deck to the player hand
+	// TODO update hand visually
 	public void addCardToHand() {
-		hand.add(deck.draw());
+		if (!deck.isDeckEmpty()) {
+			hand.add(deck.draw());
+		} else {
+			System.out.println("Deck is empty");
+		}
 	}
 	
 	// removes a given card from the player hand

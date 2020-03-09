@@ -49,6 +49,11 @@ public class Deck {
 		return deck.size();
 	}
 	
+	// returns true if deck empty
+	public boolean isDeckEmpty() {
+		return deck.isEmpty();
+	}
+	
 	public Card getCard(int position) {
 		return arrayDeck.get(position);
 	}

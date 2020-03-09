@@ -52,6 +52,7 @@ public class CardGameManager {
 
 	public void playCardGameRound(Card card, ArrayList<Card> chosenCards) {
 		processCard(card, chosenCards);
+		System.out.println("Player's Current Hand: " + user.currentHandAsString());
 		changeEmissions(playerBoard.getTotalPoints());
 		switchPlayerTurn();
 		ArrayList<Card> cardsToProcess = getAI().nextCard(aiBoard, playerBoard);
@@ -74,7 +75,7 @@ public class CardGameManager {
 					handleInput(card);
 					playerBoard.mergeCard(card, chosenCards, true);
 					user.removeCard(card);
-					//user.addCardToHand();
+					user.addCardToHand();
 					for(int i=0; i<chosenCards.size(); i++) {
 						user.removeCard(chosenCards.get(i));
 					}
@@ -83,7 +84,7 @@ public class CardGameManager {
 					playerBoard.addToField(card, true);
 					handleInput(card);
 					user.removeCard(card);
-					//user.addCardToHand();
+					user.addCardToHand();
 				}
 				hasPlayed = true;
 			} else {
@@ -94,7 +95,7 @@ public class CardGameManager {
 					aiBoard.mergeCard(card, chosenCards, false);
 					
 					enemyAI.removeCard(card);
-					//enemyAI.addCardToHand();
+					enemyAI.addCardToHand();
 					for(int i=0; i<chosenCards.size(); i++) {
 						enemyAI.removeCard(chosenCards.get(i));
 					}
@@ -104,7 +105,7 @@ public class CardGameManager {
 					handleInputEnemy(card);
 					aiBoard.addToField(card, false);
 					enemyAI.removeCard(card);
-					//enemyAI.addCardToHand();
+					enemyAI.addCardToHand();
 				}
 			}
 		}else {
