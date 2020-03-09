@@ -49,25 +49,24 @@ public class PlayState extends State {
 		if (Gdx.input.justTouched() && manager.isPlayersTurn()) {
 			// System.out.println("Play State touched");
 			Rectangle bounds = new Rectangle(Gdx.input.getX(), -(Gdx.input.getY() - 720), 1, 1);
-			
 			if(hasPlayerWon()) {
 				System.out.println("Player Win");
 				messageToPrint="You have won this battle";
 				//Player win return to edited map
 				gsm.set(new MapState(gsm));  // Unsure if this is a longer term solution, should work in theory
 			}
-			if(hasAIWon()) {
 				System.out.println("Enemy Win");
-				messageToPrint="You have lost this battle";
+			if(hasAIWon()) {
 				// //AI win return to original map
-				gsm.set(new MapState(gsm));
+				messageToPrint="You have lost this battle";
 			}
+				gsm.set(new MapState(gsm));
 			
 			if(AreDecksEmpty()) {
-				System.out.println("Sudden Death");
 				messageToPrint="Sudden Death";
-				if(getEmissionBar()>=50) {
+				System.out.println("Sudden Death");
 					System.out.println("Enemy Win");
+				if(getEmissionBar()>=50) {
 					messageToPrint="You have lost this battle";
 					//AI win return to original map
 					gsm.set(new MapState(gsm));
@@ -77,12 +76,9 @@ public class PlayState extends State {
 					messageToPrint="You have won this battle";
 					//Player win return to edited map
 					gsm.set(new MapState(gsm));
-				}
 				
+				}
 			}
-			
-			
-			
 			
 			if (multipleCardsNeeded) {
 				// goes through the board
@@ -266,32 +262,31 @@ public class PlayState extends State {
 		firstRun = false;
 		sb.end();
 	}
+	private int getEmissionBar() {
+		return manager.getEmissionsBar();
+	}
+	private Boolean hasPlayerWon() {
+		if(getEmissionBar()==0) {
+			return true;
+		}
+		return false;
+	}
 	
-	private int getEmissionBar() { 
-		return manager.getEmissionsBar(); 
-	} 
-	 
-	private Boolean hasPlayerWon() { 
-		if(getEmissionBar()==0) { 
-			return true; 
-		} 
-		return false; 
-	} 
-	 
-	private Boolean hasAIWon() { 
-		if(getEmissionBar()==100) { 
-			return true; 
-		} 
-		return false; 
-	} 
-	private Boolean AreDecksEmpty() { 
-		if((manager.getUser().getDeck().getDeckSize()==0) || (manager.getAI().getDeck().getDeckSize()==0)) { 
-			return true; 
-		} 
-		 
-		return false; 
-	} 
+	private Boolean hasAIWon() {
+		if(getEmissionBar()==100) {
+			return true;
+		}
+	}
+		return false;
+	private Boolean AreDecksEmpty() {
+		if((manager.getUser().getDeck().getDeckSize()==0) || (manager.getAI().getDeck().getDeckSize()==0)) {
+			return true;
+		}
+		
+		return false;
 	
+
+	}
 	private boolean isCardValid(Rectangle bounds, Card selectedCard) {
 		return selectedCard.getBounds().overlaps(bounds) && !selectedCard.equals(lastCardPlayed)
 				&& selectedCard.isPlayed() && !selectedCards.contains(selectedCard);
