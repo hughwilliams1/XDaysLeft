@@ -15,7 +15,6 @@ public class CardGameManager {
 	private AI enemyAI;
 
 	private boolean isPlayerTurn;
-	private boolean hasPlayed;
 
 	private Board playerBoard;
 	private Board aiBoard;
@@ -42,7 +41,6 @@ public class CardGameManager {
 		enemyAI.setHandFromDeck();
 
 		isPlayerTurn = true;
-		hasPlayed = false;
 
 		playerBoard = new Board();
 		aiBoard = new Board();
@@ -86,7 +84,6 @@ public class CardGameManager {
 					user.removeCard(card);
 					user.addCardToHand();
 				}
-				hasPlayed = true;
 			} else {
 				if (card.getStars() > 1) {
 					card.switchTextures();
@@ -129,7 +126,6 @@ public class CardGameManager {
 						break;
 					}
 				}
-				hasPlayed = true;
 			} else {
 				if(((Social) card).isSelectedCardNeeded()) {
 					if(((Social) card).getSocialEffect() instanceof Destroy) {

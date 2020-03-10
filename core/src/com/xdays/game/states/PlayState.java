@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
 import com.xdays.game.AI;
 import com.xdays.game.Board;
@@ -22,13 +24,11 @@ public class PlayState extends State {
 
 	private boolean multipleCardsNeeded = false;
 	private boolean selectedCardsNeeded = false;
-	private boolean firstRun = true;
 	private CardGameManager manager;
 	private Card lastCardPlayed;
 	private ArrayList<Card> selectedCards;
 	private String messageToPrint;
 	private Texture background;
-	private Rectangle previousBounds;
 
 	public PlayState(GameStateManager gsm) {
 		super(gsm);
@@ -56,8 +56,8 @@ public class PlayState extends State {
 				// Player win return to edited map
 				gsm.set(new MapState(gsm)); // Unsure if this is a longer term solution, should work in theory
 			}
-			System.out.println("Enemy Win");
 			if (hasAIWon()) {
+				System.out.println("Enemy Win");
 				// //AI win return to original map
 				messageToPrint = "You have lost this battle";
 				gsm.set(new MapState(gsm));
@@ -86,7 +86,7 @@ public class PlayState extends State {
 				// goes through the board
 				for (int i = 0; i < getNumCards(); i++) {
 					Card selectedCard = getPlayerCard(i);
-					if (checkCardOverlaps(selectedCard, (bounds))) {
+					if (checkCardOverlaps(selectedCard, (bounds)) && multipleCardsNeeded) {
 						if (compareStar() && compareCards(bounds, selectedCard)) {
 							selectedCards.add(selectedCard);
 							messageToPrint = "Selected card for merge: " + selectedCard.getTitle();
@@ -97,11 +97,9 @@ public class PlayState extends State {
 								multipleCardsNeeded = false;
 							}
 						}
-					} else if (checkCardOverlaps(lastCardPlayed, bounds)) {
+					} else if (checkCardOverlaps(lastCardPlayed, bounds) && multipleCardsNeeded) {
 						lastCardPlayed.stopHalfPlay();
 						multipleCardsNeeded = false;
-
-						// This msg print twice in console no clue why lmao
 						System.out.println("Unselected card for merge: " + lastCardPlayed.getTitle());
 						messageToPrint = "Unselected card for merge: " + lastCardPlayed.getTitle();
 					}
@@ -163,7 +161,6 @@ public class PlayState extends State {
 									lastCardPlayed.halfPlayed();
 								}
 							} else if (!selectedCard.isPlayed()) {
-								previousBounds = selectedCard.getBounds();
 								messageToPrint = "User played card: " + selectedCard.getTitle();
 								System.out.println("User played card: " + selectedCard.getTitle());
 								manager.playCardGameRound(selectedCard, null);
@@ -209,6 +206,19 @@ public class PlayState extends State {
 		// gets player to be used
 		User player = manager.getUser();
 
+		// Renders the players cards from the player board
+		// Turn this into a render board method
+		Board playerBoard = manager.getPlayerBoard();
+		int playerNumBoardCards = playerBoard.getBoardSize();
+
+		for (int i = 0; i < playerNumBoardCards; i++) {
+
+			Card currentCard = playerBoard.getCard(i);
+
+			sb.draw(currentCard.getTexture(), getXValue(currentCard), getYValue(currentCard), getCardWidth(currentCard),
+					getCardHeight(currentCard));
+		}
+		
 		// renders player hand
 		for (int i = 0; i < player.handSize(); i++) {
 			Card card = player.getCardFromHand(i);
@@ -221,19 +231,6 @@ public class PlayState extends State {
 			}
 
 			sb.draw(card.getTexture(), getXValue(card), getYValue(card), getCardWidth(card), getCardHeight(card));
-		}
-
-		// Renders the players cards from the player board
-		// Turn this into a render board method
-		Board playerBoard = manager.getPlayerBoard();
-		int playerNumBoardCards = playerBoard.getBoardSize();
-
-		for (int i = 0; i < playerNumBoardCards; i++) {
-
-			Card currentCard = playerBoard.getCard(i);
-
-			sb.draw(currentCard.getTexture(), getXValue(currentCard), getYValue(currentCard), getCardWidth(currentCard),
-					getCardHeight(currentCard));
 		}
 
 		// gets the ai from manager to be changed
@@ -259,10 +256,19 @@ public class PlayState extends State {
 		}
 
 		console.draw(sb, messageToPrint, 600, 405);
-		emissions.draw(sb, "Emissions: " + Integer.toString(manager.getEmissionsBar()), 600, 380);
+		emissions.draw(sb, "Emissions: " + Integer.toString(getEmissionBar()), 600, 380);
 
-		firstRun = false;
 		sb.end();
+		
+		drawEmissionsBar();
+	}
+	
+	private void drawEmissionsBar() {
+		ShapeRenderer shapeRenderer = new ShapeRenderer();
+	    shapeRenderer.begin(ShapeType.Filled);
+	    shapeRenderer.setColor(Color.RED);
+	    shapeRenderer.rect(400, 400, getEmissionBar()*4, 50);
+	    shapeRenderer.end();
 	}
 
 	private int getEmissionBar() {
