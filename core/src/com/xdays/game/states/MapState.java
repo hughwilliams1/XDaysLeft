@@ -83,7 +83,7 @@ public class MapState extends State {
 
 	}
 
-	private class Marker {
+	class Marker {
 		private Texture normalMarker;
 		private Texture hoverMarker;
 		private Rectangle bounds;
@@ -95,6 +95,7 @@ public class MapState extends State {
 			bounds = new Rectangle(x, y, normalMarker.getWidth() / DEFAULT_SCALE,
 					normalMarker.getHeight() / DEFAULT_SCALE);
 		}
+		
 
 		public Rectangle getBounds() {
 			return bounds;
@@ -125,7 +126,7 @@ public class MapState extends State {
 		}
 
 		public void drawNormalMarker(SpriteBatch sb) {
-			sb.draw(normalMarker, getX(), getY(), getWidth(), getHeight());
+				sb.draw(normalMarker, getX(), getY(), getWidth(), getHeight());
 		}
 
 		public void drawHoverMarker(SpriteBatch sb) {

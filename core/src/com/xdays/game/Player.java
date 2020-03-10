@@ -22,12 +22,9 @@ public abstract class Player {
 	public Player(String name, CardCollection collection) {
 		// string array of the start deck
 		starterDeck = new String[]{"Plant Tree", "Plant Tree", "Solar Panel",
-				"Solar Panel", "Windmill", "Windmill", "Solar Farm", "Solar Farm", "Protests", "Protests"};
-		 
-		/**
-		starterDeck = new String[]{"Plant Tree", "Plant Tree", "Solar Panel",
-				"Solar Panel", "Solar Panel", "Solar Panel", "Solar Panel", "Solar Panel", "Solar Panel", "Solar Panel"};
-		**/
+				"Solar Panel", "Windmill", "Windmill", "Solar Farm", "Solar Farm", "Protests", "Protests",
+				"Plant Tree", "Plant Tree", "Solar Panel", "Solar Panel", "Windmill", "Windmill",
+				"Solar Farm", "Solar Farm", "Protests", "Protests"};
 		
 		this.name = name;
 		hand = new ArrayList<Card>();

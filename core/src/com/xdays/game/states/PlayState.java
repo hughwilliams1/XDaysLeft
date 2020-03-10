@@ -62,8 +62,7 @@ public class PlayState extends State {
 				messageToPrint = "You have lost this battle";
 				gsm.set(new MapState(gsm));
 			}
-            /**
-             * if (AreDecksEmpty()) {
+            if (AreDecksEmpty() && manager.getUser().handSize() == 0 && manager.getAI().handSize() == 0) {
 				messageToPrint = "Sudden Death";
 				System.out.println("Sudden Death");
 				System.out.println("Enemy Win");
@@ -79,7 +78,7 @@ public class PlayState extends State {
 
 				}
 			}
-             */
+            
 			
 
 			if (multipleCardsNeeded) {
@@ -326,6 +325,10 @@ public class PlayState extends State {
 
 	private int getNumAiCards() {
 		return manager.getAIBoard().getBoardSize();
+	}
+	
+	private int getNumPlayerCards() {
+		return manager.getPlayerBoard().getBoardSize();
 	}
 
 	private boolean compareStar() {

@@ -9,6 +9,7 @@ import java.util.Stack;
 public class GameStateManager {
 
     private Stack<State> states;
+    
     private User user;
     private CardCollection collection;
 

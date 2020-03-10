@@ -123,6 +123,7 @@ public class CollectionState extends State {
 
 	@Override
 	public void dispose() {
+		System.out.println("DISDAPIHS{ODIGPOF@SDF");
 		// TODO Not sure what this does or if its important
 	}
 	
