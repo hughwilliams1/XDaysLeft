@@ -1,6 +1,8 @@
 package com.xdays.game.states;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.xdays.game.Game;
@@ -22,8 +24,19 @@ public class MenuState extends State{
     private Button settingsBtn;
     private Button quitBtn;
     
+    static Music mainMenuMusic;
+    private Sound clickSound;
+    
     public MenuState(GameStateManager gsm) {
         super(gsm);
+        
+        mainMenuMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/MenuMusic.mp3"));
+        mainMenuMusic.setLooping(true);
+        mainMenuMusic.setVolume(.6f);        
+        mainMenuMusic.play();
+        
+        clickSound = Gdx.audio.newSound(Gdx.files.internal("sounds/ClickSound.wav"));
+        
         cam.setToOrtho(false, Game.WIDTH, Game.HEIGHT);
         background = new Texture("Title.PNG");
         
@@ -37,15 +50,18 @@ public class MenuState extends State{
     @Override
     public void handleInput() {
         if(Gdx.input.justTouched() && playBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY(), Game.HEIGHT)){
-            gsm.set(new MapState(gsm));
+        	clickSound();
+        	gsm.set(new MapState(gsm));
         }
         
         if(Gdx.input.justTouched() && settingsBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY(), Game.HEIGHT)){
+        	clickSound();
         	System.out.println("Settings button pressed");
         }
         
         if(Gdx.input.justTouched() && quitBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY(), Game.HEIGHT)){
-            Gdx.app.exit();
+        	clickSound();
+        	Gdx.app.exit();
         }
     }
 
@@ -74,5 +90,9 @@ public class MenuState extends State{
         settingsBtn.dispose();
         quitBtn.dispose();
         System.out.println("Menu State Disposed");
+    }
+    
+    private void clickSound() {
+    	clickSound.play(2.0f);
     }
 }

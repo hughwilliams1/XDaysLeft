@@ -3,6 +3,8 @@ package com.xdays.game.states;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
@@ -18,9 +20,19 @@ public class MapState extends State {
 	private Texture background;
 	private ArrayList<Marker> markers;
 	private Button collectionBtn;
+	
+    static Music mainMenuMusic;
+    private Sound clickSound;
 
 	public MapState(GameStateManager gsm) {
 		super(gsm);
+		
+		if(!MenuState.mainMenuMusic.isPlaying()) {
+			MenuState.mainMenuMusic.play();
+		}
+		
+        clickSound = Gdx.audio.newSound(Gdx.files.internal("sounds/ClickSound.wav"));
+		
 		cam.setToOrtho(false, Game.WIDTH, Game.HEIGHT);
 		background = new Texture("Area Selection.png");
 		markers = new ArrayList<Marker>();
@@ -37,6 +49,8 @@ public class MapState extends State {
 	protected void handleInput() {
 		if (Gdx.input.justTouched()) {
 			Rectangle bounds = new Rectangle(Gdx.input.getX(), -(Gdx.input.getY() - 720), 1, 1);
+			//Pause the background music when going into a battle
+			MenuState.mainMenuMusic.pause();
 			for (int i = 0; i < markers.size(); i++) {
 				if (bounds.overlaps(markers.get(i).getBounds())) {
 					gsm.set(new PlayState(gsm));

@@ -3,6 +3,8 @@ package com.xdays.game.states;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
@@ -29,9 +31,20 @@ public class PlayState extends State {
 	private ArrayList<Card> selectedCards;
 	private String messageToPrint;
 	private Texture background;
+	
+	private Music battleMusic;
+	private Sound selectCard;
 
 	public PlayState(GameStateManager gsm) {
 		super(gsm);
+		
+		battleMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/BattleMusic.wav"));
+		battleMusic.setLooping(true);
+		battleMusic.setVolume(.6f);        
+		battleMusic.play();
+		
+		selectCard = Gdx.audio.newSound(Gdx.files.internal("sounds/SelectCard.wav"));
+		
 		// CardReader cardReader = new CardReader();
 		background = new Texture("background.png");
 		selectedCards = new ArrayList<Card>();
@@ -92,6 +105,7 @@ public class PlayState extends State {
 							System.out.println("Selected card for merge: " + selectedCard.getTitle());
 							if (calculateTotalStars(selectedCards) >= lastCardPlayed.getStars()) {
 								manager.playCardGameRound(lastCardPlayed, selectedCards);
+								selectCardSound();
 								selectedCards.clear();
 								multipleCardsNeeded = false;
 							}
@@ -129,6 +143,7 @@ public class PlayState extends State {
 						System.out.println(card.getTitle());
 						Card selectedCard = card;
 						if (selectedCard instanceof Social) {
+							selectCardSound();
 							if (!manager.getAIBoard().getField().isEmpty() && !getPlayerBoard().getField().isEmpty()) {
 								if (((Social) selectedCard).isSelectedCardNeeded()) {
 									messageToPrint = "Select cards to apply the social card to";
@@ -153,6 +168,7 @@ public class PlayState extends State {
 									messageToPrint = "Not enough cards to play that card.";
 									System.out.println("Not enough cards to play that card.");
 								} else {
+									selectCardSound();
 									messageToPrint = "Select cards to merge";
 									System.out.println("Select cards to merge");
 									multipleCardsNeeded = true;
@@ -160,6 +176,7 @@ public class PlayState extends State {
 									lastCardPlayed.halfPlayed();
 								}
 							} else if (!selectedCard.isPlayed()) {
+								selectCardSound();
 								messageToPrint = "User played card: " + selectedCard.getTitle();
 								System.out.println("User played card: " + selectedCard.getTitle());
 								manager.playCardGameRound(selectedCard, null);
@@ -326,10 +343,6 @@ public class PlayState extends State {
 	private int getNumAiCards() {
 		return manager.getAIBoard().getBoardSize();
 	}
-	
-	private int getNumPlayerCards() {
-		return manager.getPlayerBoard().getBoardSize();
-	}
 
 	private boolean compareStar() {
 		return calculateTotalStars(selectedCards) < lastCardPlayed.getStars();
@@ -370,10 +383,16 @@ public class PlayState extends State {
 		bitmap.setColor(Color.ORANGE);
 
 	}
+	
+	private void selectCardSound() {
+		selectCard.play();
+	}
 
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
+		selectCard.dispose();
+		battleMusic.dispose();
 	}
 
 }
