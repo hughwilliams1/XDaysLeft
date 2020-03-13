@@ -59,41 +59,42 @@ public class PlayState extends State {
 
 	@Override
 	protected void handleInput() {
-		if (Gdx.input.justTouched() && manager.isPlayersTurn()) {
-			// System.out.println("Play State touched");
-			Rectangle bounds = new Rectangle(Gdx.input.getX(), -(Gdx.input.getY() - 720), 1, 1);
-
-			if (hasPlayerWon()) {
+		
+		if (hasPlayerWon()) {
+			System.out.println("Player Win");
+			messageToPrint = "You have won this battle";
+			// Player win return to edited map
+			gsm.set(new MapState(gsm)); // Unsure if this is a longer term solution, should work in theory
+		}
+		if (hasAIWon()) {
+			System.out.println("Enemy Win");
+			System.out.println(getEmissionBar());
+			// //AI win return to original map
+			messageToPrint = "You have lost this battle";
+			gsm.set(new MapState(gsm));
+		}
+        if (AreDecksEmpty() && manager.getUser().handSize() == 0 && manager.getAI().handSize() == 0) {
+			messageToPrint = "Sudden Death";
+			System.out.println("Sudden Death");
+			if (getEmissionBar() >= 50) {
+				System.out.println("Enemy Win");
+				messageToPrint = "You have lost this battle";
+				// AI win return to original map
+				gsm.set(new MapState(gsm));
+			} else {
 				System.out.println("Player Win");
 				messageToPrint = "You have won this battle";
 				// Player win return to edited map
-				gsm.set(new MapState(gsm)); // Unsure if this is a longer term solution, should work in theory
-			}
-			if (hasAIWon()) {
-				System.out.println("Enemy Win");
-				// //AI win return to original map
-				messageToPrint = "You have lost this battle";
 				gsm.set(new MapState(gsm));
-			}
-            if (AreDecksEmpty() && manager.getUser().handSize() == 0 && manager.getAI().handSize() == 0) {
-				messageToPrint = "Sudden Death";
-				System.out.println("Sudden Death");
-				System.out.println("Enemy Win");
-				if (getEmissionBar() >= 50) {
-					messageToPrint = "You have lost this battle";
-					// AI win return to original map
-					gsm.set(new MapState(gsm));
-				} else {
-					System.out.println("Player Win");
-					messageToPrint = "You have won this battle";
-					// Player win return to edited map
-					gsm.set(new MapState(gsm));
 
-				}
 			}
+        }
+		
+		
+		if (Gdx.input.justTouched() && manager.isPlayersTurn()) {
+			// System.out.println("Play State touched");
+			Rectangle bounds = new Rectangle(Gdx.input.getX(), -(Gdx.input.getY() - 720), 1, 1);
             
-			
-
 			if (multipleCardsNeeded) {
 				// goes through the board
 				for (int i = 0; i < getNumCards(); i++) {
@@ -292,14 +293,14 @@ public class PlayState extends State {
 	}
 
 	private Boolean hasPlayerWon() {
-		if (getEmissionBar() == 0) {
+		if (getEmissionBar() <= 0) {
 			return true;
 		}
 		return false;
 	}
 
 	private Boolean hasAIWon() {
-		if (getEmissionBar() == 100) {
+		if (getEmissionBar() >= 100) {
 			return true;
 		}
 		return false;
