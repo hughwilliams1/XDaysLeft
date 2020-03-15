@@ -40,9 +40,8 @@ public class MapState extends State {
 		markers.add(new Marker((cam.position.x - 350), (cam.position.y - 220)));
 
 		int x = (Game.WIDTH / 2 - BTN_WIDTH / 2);
-		// TODO give collectionBtn a texture
 		collectionBtn = new Button(BTN_WIDTH, BTN_HEIGHT, x,
-				(Game.HEIGHT / 2 - BTN_HEIGHT / 2) - (110 + (BTN_HEIGHT * 3) + 30), "QuitBtn.PNG");
+				(Game.HEIGHT / 2 - BTN_HEIGHT / 2) - (110 + (BTN_HEIGHT * 3) + 30), "DeckBtn.PNG");
 	}
 
 	@Override

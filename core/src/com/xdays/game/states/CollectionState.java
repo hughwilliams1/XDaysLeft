@@ -41,9 +41,9 @@ public class CollectionState extends State {
 		
 		// Buttons
 		// TODO give btns a texture
-		collectionNextPageBtn = new Button(BTN_WIDTH, BTN_HEIGHT, ((Game.WIDTH / 6 ) * 3 ) - 180, 15, "PlayBtn.PNG");
-		playerNextPageBtn = new Button(BTN_WIDTH, BTN_HEIGHT, ((Game.WIDTH / 6 ) * 3 ) + 30, 15, "PlayBtn.PNG");
-		mapBackBtn = new Button(BTN_WIDTH, BTN_HEIGHT, ((Game.WIDTH / 6 ) * 5 ) + 60, 15, "quitBtn.PNG");
+		collectionNextPageBtn = new Button(BTN_WIDTH, BTN_HEIGHT, ((Game.WIDTH / 6 ) * 3 ) - 180, 15, "NextBtn.PNG");
+		playerNextPageBtn = new Button(BTN_WIDTH, BTN_HEIGHT, ((Game.WIDTH / 6 ) * 3 ) + 30, 15, "NextBtn.PNG");
+		mapBackBtn = new Button(BTN_WIDTH, BTN_HEIGHT, ((Game.WIDTH / 6 ) * 5 ) + 60, 15, "BackBtn.PNG");
 		
 		// Circular pages array
 		collectionDisplayPages = new CircularList<CollectionPage>();
