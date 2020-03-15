@@ -4,40 +4,56 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.xdays.game.User;
 import com.xdays.game.cards.CardCollection;
 
+import java.util.EnumMap;
 import java.util.Stack;
 
 public class GameStateManager {
-
-    private Stack<State> states;
+	
+	private EnumMap<StateEnum, State> stateMap; 
     
+    private StateEnum currentState;
     private User user;
     private CardCollection collection;
 
-    public GameStateManager(){
-        states = new Stack<State>();
+    public GameStateManager(){        
+        currentState = StateEnum.MENU_STATE;
+        stateMap = new EnumMap<>(StateEnum.class);
         collection = new CardCollection();
         user = new User("User", collection);
+        CreateStates();
     }
-
-    public void push(State state){
-        states.push(state);
+    
+    private void CreateStates() {
+    	stateMap.put(StateEnum.MENU_STATE, new MenuState(this));
+    	stateMap.put(StateEnum.MAP_STATE, new MapState(this));
+    	stateMap.put(StateEnum.COLLECTION_STATE, new CollectionState(this, new CardCollection(), new User("Player 1", new CardCollection())));
     }
-
-    public void pop(){
-        states.pop().dispose();
+    
+    public void setState(StateEnum state) {
+    	stateMap.get(currentState).dispose();
+    	currentState = state;
     }
-
-    public void set(State state){
-        states.pop().dispose();
-        states.push(state);
+    
+    public void setStateAsNew(State state, StateEnum stateEnum) {
+    	stateMap.remove(stateEnum);
+    	stateMap.put(stateEnum, state);
+    	currentState = stateEnum;
+    }
+    
+    public void removeState(StateEnum state) {
+    	stateMap.remove(state);
+    }
+    
+    public State getState(StateEnum state) {
+    	return stateMap.get(state);
     }
 
     public void update(float dt){
-        states.peek().update(dt);
+    	stateMap.get(currentState).update(dt);
     }
 
     public void render(SpriteBatch sb){
-        states.peek().render(sb);
+    	stateMap.get(currentState).render(sb);
     }
     
     public User getUser() {
@@ -47,4 +63,5 @@ public class GameStateManager {
     public CardCollection getCollection() {
     	return collection;
     }
+
 }

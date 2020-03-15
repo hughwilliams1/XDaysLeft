@@ -82,7 +82,7 @@ public class CollectionState extends State {
 		}
 		
 		if (Gdx.input.justTouched() && mapBackBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY(), Game.HEIGHT)) {
-			gsm.set(new MapState(gsm));
+			gsm.setState(StateEnum.MAP_STATE);
 		}
 		
 		
@@ -110,6 +110,10 @@ public class CollectionState extends State {
 
 	@Override
 	public void render(SpriteBatch sb) {
+		if(!MenuState.mainMenuMusic.isPlaying()) {
+			MenuState.mainMenuMusic.play();
+		}
+		
 		sb.setProjectionMatrix(cam.combined);
 		sb.begin();
 		sb.draw(background, 0, 0);

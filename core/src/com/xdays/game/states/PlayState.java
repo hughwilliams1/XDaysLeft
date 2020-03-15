@@ -41,7 +41,6 @@ public class PlayState extends State {
 		battleMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/BattleMusic.wav"));
 		battleMusic.setLooping(true);
 		battleMusic.setVolume(.6f);        
-		battleMusic.play();
 		
 		selectCard = Gdx.audio.newSound(Gdx.files.internal("sounds/SelectCard.wav"));
 		
@@ -64,14 +63,16 @@ public class PlayState extends State {
 			System.out.println("Player Win");
 			messageToPrint = "You have won this battle";
 			// Player win return to edited map
-			gsm.set(new MapState(gsm)); // Unsure if this is a longer term solution, should work in theory
+			gsm.setState(StateEnum.MAP_STATE);
+			gsm.removeState(StateEnum.PLAY_STATE);
 		}
 		if (hasAIWon()) {
 			System.out.println("Enemy Win");
 			System.out.println(getEmissionBar());
 			// //AI win return to original map
 			messageToPrint = "You have lost this battle";
-			gsm.set(new MapState(gsm));
+			gsm.setState(StateEnum.MAP_STATE);
+			gsm.removeState(StateEnum.PLAY_STATE);
 		}
         if (AreDecksEmpty() && manager.getUser().handSize() == 0 && manager.getAI().handSize() == 0) {
 			messageToPrint = "Sudden Death";
@@ -80,12 +81,14 @@ public class PlayState extends State {
 				System.out.println("Enemy Win");
 				messageToPrint = "You have lost this battle";
 				// AI win return to original map
-				gsm.set(new MapState(gsm));
+				gsm.setState(StateEnum.MAP_STATE);
+				gsm.removeState(StateEnum.PLAY_STATE);
 			} else {
 				System.out.println("Player Win");
 				messageToPrint = "You have won this battle";
 				// Player win return to edited map
-				gsm.set(new MapState(gsm));
+				gsm.setState(StateEnum.MAP_STATE);
+				gsm.removeState(StateEnum.PLAY_STATE);
 
 			}
         }
@@ -209,6 +212,11 @@ public class PlayState extends State {
 
 	@Override
 	public void render(SpriteBatch sb) {
+		if(!battleMusic.isPlaying()) {
+			battleMusic.play();
+		}
+		
+		
 		BitmapFont console = new BitmapFont();
 		BitmapFont emissions = new BitmapFont();
 		setBitmap(console);

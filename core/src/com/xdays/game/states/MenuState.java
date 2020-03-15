@@ -51,7 +51,7 @@ public class MenuState extends State{
     public void handleInput() {
         if(Gdx.input.justTouched() && playBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY(), Game.HEIGHT)){
         	clickSound();
-        	gsm.set(new MapState(gsm));
+        	gsm.setState(StateEnum.MAP_STATE);
         }
         
         if(Gdx.input.justTouched() && settingsBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY(), Game.HEIGHT)){

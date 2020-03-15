@@ -27,10 +27,6 @@ public class MapState extends State {
 	public MapState(GameStateManager gsm) {
 		super(gsm);
 		
-		if(!MenuState.mainMenuMusic.isPlaying()) {
-			MenuState.mainMenuMusic.play();
-		}
-		
         clickSound = Gdx.audio.newSound(Gdx.files.internal("sounds/ClickSound.wav"));
 		
 		cam.setToOrtho(false, Game.WIDTH, Game.HEIGHT);
@@ -52,14 +48,14 @@ public class MapState extends State {
 			MenuState.mainMenuMusic.pause();
 			for (int i = 0; i < markers.size(); i++) {
 				if (bounds.overlaps(markers.get(i).getBounds())) {
-					gsm.set(new PlayState(gsm));
+					gsm.setStateAsNew(new PlayState(gsm), StateEnum.PLAY_STATE);
 				}
 			}
 		}
 
 		// if collectionBtn is clicked changed to collection state
 		if (Gdx.input.justTouched() && collectionBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY(), Game.HEIGHT)) {
-			gsm.set(new CollectionState(gsm, new CardCollection(), new User("Player 1", new CardCollection())));
+			gsm.setState(StateEnum.COLLECTION_STATE);
 		}
 	}
 
@@ -71,6 +67,10 @@ public class MapState extends State {
 	@Override
 	public void render(SpriteBatch sb) {
 		// System.out.println("Here");
+		if(!MenuState.mainMenuMusic.isPlaying()) {
+			MenuState.mainMenuMusic.play();
+		}
+		
 		sb.setProjectionMatrix(cam.combined);
 		sb.begin();
 		sb.draw(background, 0, 0);

@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.xdays.game.cards.CardCollection;
 import com.xdays.game.states.GameStateManager;
 import com.xdays.game.states.MenuState;
+import com.xdays.game.states.StateEnum;
 
 public class Game extends ApplicationAdapter {
 	public static final int WIDTH = 1280;
@@ -23,7 +24,6 @@ public class Game extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		gsm = new GameStateManager();
-		gsm.push(new MenuState(gsm));
 	}
 	
 	public SpriteBatch getBatch() {
