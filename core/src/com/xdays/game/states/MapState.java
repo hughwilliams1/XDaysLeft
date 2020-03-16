@@ -20,6 +20,7 @@ public class MapState extends State {
 	private Texture background;
 	private ArrayList<Marker> markers;
 	private Button collectionBtn;
+	private Button homeBtn;
 	
     static Music mainMenuMusic;
     private Sound clickSound;
@@ -36,8 +37,11 @@ public class MapState extends State {
 		markers.add(new Marker((cam.position.x - 350), (cam.position.y - 220)));
 
 		int x = (Game.WIDTH / 2 - BTN_WIDTH / 2);
-		collectionBtn = new Button(BTN_WIDTH, BTN_HEIGHT, x,
+		collectionBtn = new Button(BTN_WIDTH, BTN_HEIGHT, x + (BTN_WIDTH/2) + 30,
 				(Game.HEIGHT / 2 - BTN_HEIGHT / 2) - (110 + (BTN_HEIGHT * 3) + 30), "DeckBtn.PNG");
+		
+		homeBtn = new Button(BTN_WIDTH, BTN_HEIGHT, x - (BTN_WIDTH/2) - 30, 
+				(Game.HEIGHT / 2 - BTN_HEIGHT / 2) - (110 + (BTN_HEIGHT * 3) + 30), "HomeBtn.PNG");
 	}
 
 	@Override
@@ -59,6 +63,12 @@ public class MapState extends State {
 			clickSound.play();
 			gsm.setState(StateEnum.COLLECTION_STATE);
 		}
+		
+		// if collectionBtn is clicked changed to collection state
+		if (Gdx.input.justTouched() && homeBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY())) {
+			clickSound.play();
+			gsm.setState(StateEnum.MENU_STATE);
+		}		
 	}
 
 	@Override
@@ -77,6 +87,7 @@ public class MapState extends State {
 		sb.draw(background, 0, 0);
 		renderAllMarkers(sb);
 		collectionBtn.draw(sb);
+		homeBtn.draw(sb);
 		sb.end();
 	}
 
