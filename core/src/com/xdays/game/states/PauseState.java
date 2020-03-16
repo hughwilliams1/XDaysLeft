@@ -14,6 +14,8 @@ public class PauseState extends State {
 	
 	private Texture background;
 	private Button backBtn;
+	private Button loadBtn;
+	private Button saveBtn;
 	
 	private Sound clickSound;
 	
@@ -26,6 +28,8 @@ public class PauseState extends State {
         
 		background = new Texture("pauseMenuBackground.PNG");
 		backBtn = new Button(BTN_WIDTH, BTN_HEIGHT, x, (Game.HEIGHT / 2 - BTN_HEIGHT / 2) - 120, "BackBtn.PNG");
+		loadBtn = new Button(BTN_WIDTH, BTN_HEIGHT, x, (Game.HEIGHT / 2 - BTN_HEIGHT / 2) - 150, "NextBtn.PNG");
+		saveBtn = new Button(BTN_WIDTH, BTN_HEIGHT, x, (Game.HEIGHT / 2 - BTN_HEIGHT / 2) - 170, "SaveBtn.PNG");
 
         clickSound = Gdx.audio.newSound(Gdx.files.internal("sounds/ClickSound.wav"));
 	}
@@ -35,6 +39,14 @@ public class PauseState extends State {
 		if (Gdx.input.justTouched() && backBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY())) {
 			clickSound.play();
 			gsm.back();
+		}
+		if (Gdx.input.justTouched() && loadBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY())) {
+			clickSound.play();
+			gsm.loadGame();
+		}
+		if (Gdx.input.justTouched() && saveBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY())) {
+			clickSound.play();
+			gsm.saveGame();
 		}
 	}
 

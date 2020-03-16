@@ -63,6 +63,7 @@ public class PlayState extends State {
 			System.out.println("Player Win");
 			messageToPrint = "You have won this battle";
 			// Player win return to edited map
+			gsm.wonLevel();
 			gsm.setState(StateEnum.MAP_STATE);
 			gsm.removeState(StateEnum.PLAY_STATE);
 		}
@@ -87,6 +88,7 @@ public class PlayState extends State {
 				System.out.println("Player Win");
 				messageToPrint = "You have won this battle";
 				// Player win return to edited map
+				gsm.wonLevel();
 				gsm.setState(StateEnum.MAP_STATE);
 				gsm.removeState(StateEnum.PLAY_STATE);
 

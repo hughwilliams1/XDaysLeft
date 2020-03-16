@@ -4,6 +4,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.xdays.game.User;
 import com.xdays.game.cards.CardCollection;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.EnumMap;
 import java.util.Stack;
 
@@ -15,6 +21,7 @@ public class GameStateManager {
     private StateEnum previousState;
     private User user;
     private CardCollection collection;
+    private int levelsWon;
 
     public GameStateManager(){        
         currentState = StateEnum.MENU_STATE;
@@ -23,6 +30,7 @@ public class GameStateManager {
         collection = new CardCollection();
         user = new User("User", collection);
         CreateStates();
+        levelsWon=0;
     }
     
     private void CreateStates() {
@@ -45,6 +53,54 @@ public class GameStateManager {
     	stateMap.put(stateEnum, state);
     	currentState = stateEnum;
     }
+    
+    private int getLevelsWon() {
+    	return levelsWon;
+    }
+    
+    public void wonLevel() {
+    	levelsWon++;
+    }
+    
+    public void saveGame() {
+    	try {
+            FileWriter fileWriter = new FileWriter("saveFile.txt");
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            bufferedWriter.write(getLevelsWon());
+            bufferedWriter.close();
+        }
+        catch(IOException ex) {
+        	ex.printStackTrace();
+        }
+    }
+    
+    public void loadGame() {
+
+        String line = null;
+        String levelValue=null;
+
+        try {
+            FileReader fileReader = new FileReader("saveFile.txt");
+
+            // Always wrap FileReader in BufferedReader.
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+            while((line = bufferedReader.readLine()) != null) {
+                levelValue=line;
+            }   
+
+            // Always close files.
+            bufferedReader.close();         
+        }
+        catch(FileNotFoundException ex) {
+        	ex.printStackTrace();            
+        }
+        catch(IOException ex) {
+            ex.printStackTrace();
+        }
+        levelsWon=Integer.valueOf(levelValue);
+    }
+    
     
     public void back() {
     	setState(previousState);
