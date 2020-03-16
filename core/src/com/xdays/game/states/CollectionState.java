@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Rectangle;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.xdays.game.Game;
@@ -31,6 +32,8 @@ public class CollectionState extends State {
 	private Button playerNextPageBtn;
 	private Button mapBackBtn;
 	
+    private Sound clickSound;
+	
 	protected static final int CARDS_PER_PAGE = 9;
 	
 	public CollectionState(GameStateManager gsm, CardCollection cardCollection, User player) {
@@ -38,6 +41,10 @@ public class CollectionState extends State {
 		cam.setToOrtho(false, Game.WIDTH, Game.HEIGHT);
 		// textures
 		background = new Texture("collectionBackground.png");
+		
+		// Click sound
+        clickSound = Gdx.audio.newSound(Gdx.files.internal("sounds/ClickSound.wav"));
+
 		
 		// Buttons
 		// TODO give btns a texture
@@ -74,14 +81,17 @@ public class CollectionState extends State {
 	protected void handleInput() {
 		// this checks if any btns are touched then performs the respective btns functionallity
 		if(Gdx.input.justTouched() && collectionNextPageBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY())){
+			clickSound.play();
 			currentCollectionPage = collectionDisplayPages.get(collectionDisplayPages.indexOf((currentCollectionPage))+1);
         }
 		
 		if (Gdx.input.justTouched() && playerNextPageBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY())) {
+			clickSound.play();
 			currentPlayerPage = playerDisplayPages.get(playerDisplayPages.indexOf((currentPlayerPage))+1);
 		}
 		
 		if (Gdx.input.justTouched() && mapBackBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY())) {
+			clickSound.play();
 			gsm.setState(StateEnum.MAP_STATE);
 		}
 		

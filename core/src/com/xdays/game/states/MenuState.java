@@ -32,7 +32,7 @@ public class MenuState extends State{
         
         mainMenuMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/MenuMusic.mp3"));
         mainMenuMusic.setLooping(true);
-        mainMenuMusic.setVolume(.6f);        
+        mainMenuMusic.setVolume(.4f);        
         mainMenuMusic.play();
         
         clickSound = Gdx.audio.newSound(Gdx.files.internal("sounds/ClickSound.wav"));
@@ -56,7 +56,7 @@ public class MenuState extends State{
         
         if(Gdx.input.justTouched() && settingsBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY())){
         	clickSound();
-        	System.out.println("Settings button pressed");
+        	gsm.setState(StateEnum.PAUSE_STATE);
         }
         
         if(Gdx.input.justTouched() && quitBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY())){
