@@ -49,17 +49,17 @@ public class MenuState extends State{
 
     @Override
     public void handleInput() {
-        if(Gdx.input.justTouched() && playBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY(), Game.HEIGHT)){
+        if(Gdx.input.justTouched() && playBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY())){
         	clickSound();
         	gsm.setState(StateEnum.MAP_STATE);
         }
         
-        if(Gdx.input.justTouched() && settingsBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY(), Game.HEIGHT)){
+        if(Gdx.input.justTouched() && settingsBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY())){
         	clickSound();
         	System.out.println("Settings button pressed");
         }
         
-        if(Gdx.input.justTouched() && quitBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY(), Game.HEIGHT)){
+        if(Gdx.input.justTouched() && quitBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY())){
         	clickSound();
         	Gdx.app.exit();
         }
@@ -72,6 +72,10 @@ public class MenuState extends State{
 
     @Override
     public void render(SpriteBatch sb) {
+		if(!MenuState.mainMenuMusic.isPlaying()) {
+			MenuState.mainMenuMusic.play();
+		}
+		
         sb.setProjectionMatrix(cam.combined);
         sb.begin();
         sb.draw(background, 0,0);
@@ -85,11 +89,6 @@ public class MenuState extends State{
 
     @Override
     public void dispose() {
-        background.dispose();
-        playBtn.dispose();
-        settingsBtn.dispose();
-        quitBtn.dispose();
-        System.out.println("Menu State Disposed");
     }
     
     private void clickSound() {

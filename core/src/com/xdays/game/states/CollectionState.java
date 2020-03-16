@@ -73,15 +73,15 @@ public class CollectionState extends State {
 	@Override
 	protected void handleInput() {
 		// this checks if any btns are touched then performs the respective btns functionallity
-		if(Gdx.input.justTouched() && collectionNextPageBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY(), Game.HEIGHT)){
+		if(Gdx.input.justTouched() && collectionNextPageBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY())){
 			currentCollectionPage = collectionDisplayPages.get(collectionDisplayPages.indexOf((currentCollectionPage))+1);
         }
 		
-		if (Gdx.input.justTouched() && playerNextPageBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY(), Game.HEIGHT)) {
+		if (Gdx.input.justTouched() && playerNextPageBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY())) {
 			currentPlayerPage = playerDisplayPages.get(playerDisplayPages.indexOf((currentPlayerPage))+1);
 		}
 		
-		if (Gdx.input.justTouched() && mapBackBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY(), Game.HEIGHT)) {
+		if (Gdx.input.justTouched() && mapBackBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY())) {
 			gsm.setState(StateEnum.MAP_STATE);
 		}
 		

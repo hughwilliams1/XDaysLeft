@@ -12,11 +12,13 @@ public class GameStateManager {
 	private EnumMap<StateEnum, State> stateMap; 
     
     private StateEnum currentState;
+    private StateEnum previousState;
     private User user;
     private CardCollection collection;
 
     public GameStateManager(){        
         currentState = StateEnum.MENU_STATE;
+        previousState = null;
         stateMap = new EnumMap<>(StateEnum.class);
         collection = new CardCollection();
         user = new User("User", collection);
@@ -30,14 +32,21 @@ public class GameStateManager {
     }
     
     public void setState(StateEnum state) {
-    	stateMap.get(currentState).dispose();
-    	currentState = state;
+    	if(stateMap.containsKey(state)) {
+    		previousState = currentState;
+        	currentState = state;
+    	}
     }
     
     public void setStateAsNew(State state, StateEnum stateEnum) {
+    	previousState = currentState;
     	stateMap.remove(stateEnum);
     	stateMap.put(stateEnum, state);
     	currentState = stateEnum;
+    }
+    
+    public void back() {
+    	setState(previousState);
     }
     
     public void removeState(StateEnum state) {

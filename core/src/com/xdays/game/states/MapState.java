@@ -48,13 +48,15 @@ public class MapState extends State {
 			MenuState.mainMenuMusic.pause();
 			for (int i = 0; i < markers.size(); i++) {
 				if (bounds.overlaps(markers.get(i).getBounds())) {
+					clickSound.play();
 					gsm.setStateAsNew(new PlayState(gsm), StateEnum.PLAY_STATE);
 				}
 			}
 		}
 
 		// if collectionBtn is clicked changed to collection state
-		if (Gdx.input.justTouched() && collectionBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY(), Game.HEIGHT)) {
+		if (Gdx.input.justTouched() && collectionBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY())) {
+			clickSound.play();
 			gsm.setState(StateEnum.COLLECTION_STATE);
 		}
 	}
@@ -66,7 +68,6 @@ public class MapState extends State {
 
 	@Override
 	public void render(SpriteBatch sb) {
-		// System.out.println("Here");
 		if(!MenuState.mainMenuMusic.isPlaying()) {
 			MenuState.mainMenuMusic.play();
 		}
@@ -92,8 +93,6 @@ public class MapState extends State {
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
-
 	}
 
 	class Marker {

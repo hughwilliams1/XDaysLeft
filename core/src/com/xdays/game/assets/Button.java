@@ -2,6 +2,7 @@ package com.xdays.game.assets;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.xdays.game.Game;
 
 public class Button {
 	
@@ -31,7 +32,7 @@ public class Button {
 		texture.dispose();
 	}
 	
-	public boolean isPointerOver(int pX, int pY, int gameHeight) {
-		return(pX < posX + width && pX > posX && gameHeight - pY < posY + height && gameHeight - pY > posY);
+	public boolean isPointerOver(int pX, int pY) {
+		return(pX < posX + width && pX > posX && Game.HEIGHT - pY < posY + height && Game.HEIGHT - pY > posY);
 	}
 }

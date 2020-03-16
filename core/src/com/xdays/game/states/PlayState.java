@@ -53,7 +53,7 @@ public class PlayState extends State {
 		// Deck goodDeck = new Deck(cardReader.getInudstryAndSocialCards());
 		// Deck badDeck = new Deck(cardReader.getInudstryAndSocialCardsBad());
 
-		manager = new CardGameManager(50, gsm.getUser());
+		manager = new CardGameManager(99, gsm.getUser());
 	}
 
 	@Override
