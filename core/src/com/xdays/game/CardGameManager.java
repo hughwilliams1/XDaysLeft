@@ -28,7 +28,7 @@ public class CardGameManager {
 	public CardGameManager (int emissionsValue, User givenUser) {
 
 		enemyDeck_1 = new String[]{"Remove Tree", "Remove Tree", "Remove Tree", "Diesel Car",
-				"Diesel Car", "Diesel Car", "Landfill", "Landfill", "Remove Tree", "Remove Tree"};
+				"Diesel Car", "Diesel Car", "Online Posts", "Online Posts", "Online Posts", "Online Posts"}; //"Landfill", "Landfill", "Remove Tree", "Remove Tree"
 
 		emissionsBar = emissionsValue;
 
