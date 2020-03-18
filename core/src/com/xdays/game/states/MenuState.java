@@ -32,7 +32,7 @@ public class MenuState extends State{
         
         mainMenuMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/MenuMusic.mp3"));
         mainMenuMusic.setLooping(true);
-        mainMenuMusic.setVolume(.4f);        
+        mainMenuMusic.setVolume(.1f);        
         mainMenuMusic.play();
         
         clickSound = Gdx.audio.newSound(Gdx.files.internal("sounds/ClickSound.wav"));
@@ -92,6 +92,6 @@ public class MenuState extends State{
     }
     
     private void clickSound() {
-    	clickSound.play(2.0f);
+    	clickSound.play(0.1f);
     }
 }

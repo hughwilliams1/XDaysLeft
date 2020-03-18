@@ -40,7 +40,7 @@ public class PlayState extends State {
 		
 		battleMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/BattleMusic.wav"));
 		battleMusic.setLooping(true);
-		battleMusic.setVolume(.6f);        
+		battleMusic.setVolume(.2f);        
 		
 		selectCard = Gdx.audio.newSound(Gdx.files.internal("sounds/SelectCard.wav"));
 		

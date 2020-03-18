@@ -12,6 +12,7 @@ import com.xdays.game.Game;
 import com.xdays.game.User;
 import com.xdays.game.assets.Button;
 import com.xdays.game.cards.CardCollection;
+import com.xdays.game.cutscenes.StartLevel1CutsceneState;
 
 public class MapState extends State {
 	private static final int BTN_WIDTH = 200;
@@ -53,7 +54,7 @@ public class MapState extends State {
 			for (int i = 0; i < markers.size(); i++) {
 				if (bounds.overlaps(markers.get(i).getBounds())) {
 					clickSound.play();
-					gsm.setStateAsNew(new PlayState(gsm), StateEnum.PLAY_STATE);
+					gsm.setStateAsNew(new StartLevel1CutsceneState(gsm), StateEnum.PLAY_STATE);
 				}
 			}
 		}
