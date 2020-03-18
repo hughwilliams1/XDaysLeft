@@ -62,44 +62,44 @@ public class GameStateManager {
     	levelsWon++;
     }
     
-    public void saveGame() {
-    	try {
-            FileWriter fileWriter = new FileWriter("saveFile.txt");
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            bufferedWriter.write(getLevelsWon());
-            bufferedWriter.close();
-        }
-        catch(IOException ex) {
-        	ex.printStackTrace();
-        }
-    }
-    
-    public void loadGame() {
-
-        String line = null;
-        String levelValue=null;
-
-        try {
-            FileReader fileReader = new FileReader("saveFile.txt");
-
-            // Always wrap FileReader in BufferedReader.
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-
-            while((line = bufferedReader.readLine()) != null) {
-                levelValue=line;
-            }   
-
-            // Always close files.
-            bufferedReader.close();         
-        }
-        catch(FileNotFoundException ex) {
-        	ex.printStackTrace();            
-        }
-        catch(IOException ex) {
-            ex.printStackTrace();
-        }
-        levelsWon=Integer.valueOf(levelValue);
-    }
+//    public void saveGame() {
+//    	try {
+//            FileWriter fileWriter = new FileWriter("saveFile.txt");
+//            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+//            bufferedWriter.write(getLevelsWon());
+//            bufferedWriter.close();
+//        }
+//        catch(IOException ex) {
+//        	ex.printStackTrace();
+//        }
+//    }
+//    
+//    public void loadGame() {
+//
+//        String line = null;
+//        String levelValue=null;
+//
+//        try {
+//            FileReader fileReader = new FileReader("saveFile.txt");
+//
+//            // Always wrap FileReader in BufferedReader.
+//            BufferedReader bufferedReader = new BufferedReader(fileReader);
+//
+//            while((line = bufferedReader.readLine()) != null) {
+//                levelValue=line;
+//            }   
+//
+//            // Always close files.
+//            bufferedReader.close();         
+//        }
+//        catch(FileNotFoundException ex) {
+//        	ex.printStackTrace();            
+//        }
+//        catch(IOException ex) {
+//            ex.printStackTrace();
+//        }
+//        levelsWon=Integer.valueOf(levelValue);
+//    }
     
     
     public void back() {

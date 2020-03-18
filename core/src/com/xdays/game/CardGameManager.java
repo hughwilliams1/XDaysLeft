@@ -28,7 +28,7 @@ public class CardGameManager {
 	public CardGameManager (int emissionsValue, User givenUser) {
 
 		enemyDeck_1 = new String[]{"Remove Tree", "Remove Tree", "Remove Tree", "Diesel Car",
-				"Diesel Car", "Diesel Car", "Landfill", "Landfill", "Remove Tree", "Remove Tree"};
+				"Diesel Car", "Diesel Car", "Online Posts", "Online Posts", "Online Posts", "Online Posts"}; //"Landfill", "Landfill", "Remove Tree", "Remove Tree"
 
 		emissionsBar = emissionsValue;
 
@@ -49,6 +49,10 @@ public class CardGameManager {
 	}
 
 	public void playCardGameRound(Card card, ArrayList<Card> chosenCards) {
+		if(card == null) {
+			switchPlayerTurn();
+			return;
+		}
 		processCard(card, chosenCards);
 		System.out.println("Player's Current Hand: " + user.currentHandAsString());
 		changeEmissions(playerBoard.getTotalPoints());
@@ -218,5 +222,6 @@ public class CardGameManager {
 		return deck;
 
 	}
+
 
 }

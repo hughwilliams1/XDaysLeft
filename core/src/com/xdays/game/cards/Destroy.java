@@ -6,7 +6,7 @@ import com.xdays.game.Board;
 
 public class Destroy implements SocialEffect {
 	
-	private Random rand;
+	private Random rand = new Random();
 	
 	/**
 	 * @param board - The board to be altered
@@ -20,7 +20,7 @@ public class Destroy implements SocialEffect {
 				boolean found = false;
 				Card c = null;
 				while (!found) {
-					c = board.getField().get(rand.nextInt(board.getField().size() - 1));
+					c = board.getField().get(rand.nextInt(board.getField().size())); 
 					if (c instanceof Industry) {
 						if (c.getStars() == amount) {
 							found = true;

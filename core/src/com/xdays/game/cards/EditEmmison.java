@@ -1,5 +1,6 @@
 package com.xdays.game.cards;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import com.xdays.game.Board;
@@ -8,7 +9,7 @@ import com.xdays.game.Board;
 
 public class EditEmmison implements SocialEffect{
 	
-	private Random rand;
+	private Random rand = new Random();
 	private Card chosenCard;
 	
 	/**
@@ -22,8 +23,13 @@ public class EditEmmison implements SocialEffect{
 			if(card == null) {
 				boolean found = false;
 				Card c = null;
-				while (!found) {
-					c = board.getField().get(rand.nextInt(board.getField().size() - 2));
+				while (!found) { // line below throws a null pointer?
+					ArrayList<Card> cards = board.getField();
+					int cardSize = board.getField().size();
+					System.out.println(cardSize);
+					int nextRandom = rand.nextInt(cardSize);
+					c = cards.get(nextRandom); // is this supposed to be one??
+				//	c = board.getField().get(rand.nextInt(board.getField().size())); // is this supposed to be one??
 					if (c instanceof Industry) {
 						found = true;
 					}
