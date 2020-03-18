@@ -49,6 +49,10 @@ public class CardGameManager {
 	}
 
 	public void playCardGameRound(Card card, ArrayList<Card> chosenCards) {
+		if(card == null) {
+			switchPlayerTurn();
+			return;
+		}
 		processCard(card, chosenCards);
 		System.out.println("Player's Current Hand: " + user.currentHandAsString());
 		changeEmissions(playerBoard.getTotalPoints());
@@ -218,5 +222,6 @@ public class CardGameManager {
 		return deck;
 
 	}
+
 
 }

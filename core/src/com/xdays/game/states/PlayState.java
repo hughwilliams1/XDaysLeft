@@ -18,6 +18,7 @@ import com.xdays.game.Board;
 import com.xdays.game.CardGameManager;
 import com.xdays.game.Game;
 import com.xdays.game.User;
+import com.xdays.game.assets.Button;
 import com.xdays.game.cards.Card;
 import com.xdays.game.cards.Destroy;
 import com.xdays.game.cards.Social;
@@ -32,15 +33,27 @@ public class PlayState extends State {
 	private String messageToPrint;
 	private Texture background;
 	
+	private Button pauseBtn;
+	private Button skipBtn;
+	
+	private static final int BTN_WIDTH = 47;
+	private static final int BTN_HEIGHT = 41;
+	
 	private Music battleMusic;
 	private Sound selectCard;
+	private Sound clickSound;
 
 	public PlayState(GameStateManager gsm) {
 		super(gsm);
 		
+		pauseBtn = new Button(BTN_WIDTH, BTN_HEIGHT, 15, 15, "PauseSBtn.PNG");
+		skipBtn = new Button(BTN_WIDTH, BTN_HEIGHT, 15, 30 + BTN_HEIGHT, "SkipSBtn.png");
+		
 		battleMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/BattleMusic.wav"));
 		battleMusic.setLooping(true);
-		battleMusic.setVolume(.6f);        
+		battleMusic.setVolume(.6f);    
+		
+		clickSound = Gdx.audio.newSound(Gdx.files.internal("sounds/clickSound.wav"));
 		
 		selectCard = Gdx.audio.newSound(Gdx.files.internal("sounds/SelectCard.wav"));
 		
@@ -53,11 +66,20 @@ public class PlayState extends State {
 		// Deck goodDeck = new Deck(cardReader.getInudstryAndSocialCards());
 		// Deck badDeck = new Deck(cardReader.getInudstryAndSocialCardsBad());
 
-		manager = new CardGameManager(99, gsm.getUser());
+		manager = new CardGameManager(50, gsm.getUser());
 	}
 
 	@Override
 	protected void handleInput() {
+		
+        if(Gdx.input.justTouched() && pauseBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY())){
+        	clickSound.play();
+        	gsm.setState(StateEnum.PAUSE_STATE);
+        }
+		
+		if(Gdx.input.justTouched() && skipBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY())){
+        	clickSound.play();
+        }
 		
 		if (hasPlayerWon()) {
 			System.out.println("Player Win");
@@ -229,7 +251,10 @@ public class PlayState extends State {
 		sb.setProjectionMatrix(cam.combined);
 		sb.begin();
 		sb.draw(background, 0, 0);
-
+		
+		pauseBtn.draw(sb);
+		skipBtn.draw(sb);
+		
 		// gets player to be used
 		User player = manager.getUser();
 
