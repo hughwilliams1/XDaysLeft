@@ -38,6 +38,7 @@ public class GameStateManager {
     	stateMap.put(StateEnum.MAP_STATE, new MapState(this));
     	stateMap.put(StateEnum.COLLECTION_STATE, new CollectionState(this, new CardCollection(), new User("Player 1", new CardCollection())));
     	stateMap.put(StateEnum.PAUSE_STATE, new PauseState(this));
+    	stateMap.put(StateEnum.TUTORIAL_STATE, new TutorialState(this));
     }
     
     public void setState(StateEnum state) {
