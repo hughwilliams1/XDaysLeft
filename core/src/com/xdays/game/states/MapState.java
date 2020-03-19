@@ -54,7 +54,7 @@ public class MapState extends State {
 			for (int i = 0; i < markers.size(); i++) {
 				if (bounds.overlaps(markers.get(i).getBounds())) {
 					clickSound.play();
-					gsm.setStateAsNew(new StartLevel1CutsceneState(gsm), StateEnum.PLAY_STATE);
+					gsm.setStateAsNew(new StartLevel1CutsceneState(gsm), StateEnum.CUTSCENE_STATE);
 				}
 			}
 		}

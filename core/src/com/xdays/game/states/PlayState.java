@@ -78,6 +78,7 @@ public class PlayState extends State {
         }
 		
 		if(Gdx.input.justTouched() && skipBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY())){
+			manager.playCardGameRound(null, null);
         	clickSound.play();
         }
 		

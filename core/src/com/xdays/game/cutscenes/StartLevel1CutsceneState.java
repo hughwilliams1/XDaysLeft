@@ -108,6 +108,7 @@ public class StartLevel1CutsceneState extends State {
 			textBoxQueue.peek().showTextBox(sb);
 		} catch (Exception e) {
 			gsm.setStateAsNew(new PlayState(gsm), StateEnum.PLAY_STATE);
+			gsm.removeState(StateEnum.CUTSCENE_STATE);
 			dispose();
 		}
 		
