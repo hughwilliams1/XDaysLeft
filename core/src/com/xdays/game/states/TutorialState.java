@@ -36,7 +36,7 @@ public class TutorialState extends State {
 
         if(Gdx.input.justTouched() && quitBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY())){
         	clickSound();
-        	gsm.setState(StateEnum.MAP_STATE);
+        	gsm.back();
         }
 	}
 

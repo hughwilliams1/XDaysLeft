@@ -56,7 +56,7 @@ public class MenuState extends State{
         
         if(Gdx.input.justTouched() && settingsBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY())){
         	clickSound();
-        	gsm.setState(StateEnum.PAUSE_STATE);
+        	gsm.setState(StateEnum.TUTORIAL_STATE);
         }
         
         if(Gdx.input.justTouched() && quitBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY())){
