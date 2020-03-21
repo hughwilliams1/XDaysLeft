@@ -36,7 +36,8 @@ public class CardGameManager {
 
 		user = givenUser;
 		this.enemyAI = new AI("Enemy", 1, createEnemyDeck());
-
+		
+		user.resetHand();
 		user.setHandFromDeck();
 		enemyAI.setHandFromDeck();
 
@@ -171,7 +172,7 @@ public class CardGameManager {
 	private void handleInputEnemy(Card card) {
 		if(!card.isPlayed()) {
 			if(card.isHalfPlayed()) {
-				card.position.y += 100;
+				card.position.y += 80;
 			}
 			card.updateBounds();
 			card.setPlayed(true);

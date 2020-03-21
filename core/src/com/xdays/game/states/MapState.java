@@ -32,10 +32,11 @@ public class MapState extends State {
         clickSound = Gdx.audio.newSound(Gdx.files.internal("sounds/ClickSound.wav"));
 		
 		cam.setToOrtho(false, Game.WIDTH, Game.HEIGHT);
-		background = new Texture("Area Selection.png");
+		background = new Texture("Area Selection2.png");
+		
 		markers = new ArrayList<Marker>();
 		markers.add(new Marker((cam.position.x - 335), (cam.position.y - 120)));
-		markers.add(new Marker((cam.position.x - 350), (cam.position.y - 220)));
+		markers.add(new Marker((cam.position.x - 475), (cam.position.y+150)));
 
 		int x = (Game.WIDTH / 2 - BTN_WIDTH / 2);
 		collectionBtn = new Button(BTN_WIDTH, BTN_HEIGHT, x + (BTN_WIDTH/2) + 30,
@@ -52,9 +53,10 @@ public class MapState extends State {
 			//Pause the background music when going into a battle
 			MenuState.mainMenuMusic.pause();
 			for (int i = 0; i < markers.size(); i++) {
-				if (bounds.overlaps(markers.get(i).getBounds())) {
+				if (bounds.overlaps(markers.get(i).getBounds()) && !markers.get(i).isCompleted()) {
 					clickSound.play();
 					gsm.setStateAsNew(new StartLevel1CutsceneState(gsm), StateEnum.CUTSCENE_STATE);
+					markers.get(i).complete();
 				}
 			}
 		}
@@ -110,14 +112,30 @@ public class MapState extends State {
 	class Marker {
 		private Texture normalMarker;
 		private Texture hoverMarker;
+		private Texture completedMarker;
+		private Texture redMark;
+		private Texture redMarkHover;
 		private Rectangle bounds;
 		private final int DEFAULT_SCALE = 3;
+		private boolean completed;
 
 		public Marker(float x, float y) {
 			normalMarker = new Texture("Marker.png");
 			hoverMarker = new Texture("Marker Hover.png");
+			completedMarker = new Texture("Marker Completed.png");
+			redMark = new Texture("RedMark.png");
+			redMarkHover = new Texture("RedMark2.png");
 			bounds = new Rectangle(x, y, normalMarker.getWidth() / DEFAULT_SCALE,
 					normalMarker.getHeight() / DEFAULT_SCALE);
+			completed = false;
+		}
+		
+		public boolean isCompleted() {
+			return completed;
+		}
+		
+		public void complete() {
+			completed = true;
 		}
 		
 
@@ -150,11 +168,21 @@ public class MapState extends State {
 		}
 
 		public void drawNormalMarker(SpriteBatch sb) {
+			if(completed) {
+				sb.draw(completedMarker, getX(), getY(), getWidth(), getHeight());
+			}else {
+				sb.draw(redMark, getX()-85, getY()-85, getWidth()*5, getHeight()*5);
 				sb.draw(normalMarker, getX(), getY(), getWidth(), getHeight());
+			}
 		}
 
 		public void drawHoverMarker(SpriteBatch sb) {
-			sb.draw(hoverMarker, getX(), getY(), getWidth(), getHeight());
+			if(completed) {
+				sb.draw(completedMarker, getX(), getY(), getWidth(), getHeight());
+			}else {
+				sb.draw(redMarkHover, getX()-85, getY()-85, getWidth()*5, getHeight()*5);
+				sb.draw(hoverMarker, getX(), getY(), getWidth(), getHeight());
+			}
 		}
 	}
 
