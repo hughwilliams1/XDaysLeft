@@ -36,7 +36,7 @@ public class Board {
 			
 			Card card = field.get((int) cardPosition);
 			
-			card.position.x = (((Game.WIDTH) * ((cardPosition+1)/ ((float) field.size()+1)))) - card.getWidth()/2;
+			card.position.x = (((Game.WIDTH) * ((cardPosition+1)/ ((float) field.size()+1)))) - card.getBoundsWidth();
 			card.updateBounds();
 		}
 	}

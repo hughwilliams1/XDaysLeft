@@ -5,5 +5,12 @@
 	"amount" : "0",
 	"type" : "Destroy",
 	"selectedCardsNeeded" : "true"
+	},
+	{
+	"title" : "Online Posts", 
+	"cardText" : "Buff",
+	"amount" : "2",
+	"type" : "EditEmission",
+	"selectedCardsNeeded" : "true"
 	}
 ]

@@ -100,8 +100,20 @@ public class Card {
 		return bounds;
 	}
 	
-	public float getWidth() {
+	public float getX() {
+		return bounds.getX();
+	}
+	
+	public float getY() {
+		return bounds.getY();
+	}
+	
+	public float getBoundsWidth() {
 		return bounds.getWidth();
+	}
+	
+	public float getBoundsHeight() {
+		return bounds.getHeight();
 	}
 	
 	public Vector3 getPosition() {
