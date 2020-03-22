@@ -23,14 +23,12 @@ public class GameStateManager {
     private User user;
     private CardCollection collection;
     private int levelsWon;
-
     public GameStateManager(){        
         currentState = StateEnum.LOADING_STATE;
         previousState = null;
         
         stateMap = new EnumMap<>(StateEnum.class);
-        stateMap.put(StateEnum.LOADING_STATE, new LoadingState(this));
-        
+		stateMap.put(StateEnum.LOADING_STATE, new LoadingState(this));
         collection = new CardCollection();
         
         user = new User("User", collection);

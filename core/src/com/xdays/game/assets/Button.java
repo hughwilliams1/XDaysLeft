@@ -13,6 +13,9 @@ public class Button {
 	private int posY;
 	
 	private Texture texture;
+	private Texture altTexture;
+	
+	private boolean hover;
 	
 	public Button(int width, int height, int posX, int posY, String textureLocation) {
 		this.width = width;
@@ -22,10 +25,22 @@ public class Button {
 		this.posY = posY;
 		
 		texture = new Texture(textureLocation);
+		altTexture = null;
+		hover = false;
+	}
+	
+	public Button(int width, int height, int posX, int posY, String textureLocation, String altTextureLoc) {
+		this(width, height, posX, posY, textureLocation);
+		
+		altTexture = new Texture(altTextureLoc);
 	}
 	
 	public void draw(SpriteBatch sb) {
-		sb.draw(texture, posX, posY, width, height);
+		if(!hover) {
+			sb.draw(texture, posX, posY, width, height);
+		} else {
+			sb.draw(altTexture, posX, posY, width, height);
+		}
 	}
 	
 	public void dispose() {
@@ -34,5 +49,13 @@ public class Button {
 	
 	public boolean isPointerOver(int pX, int pY) {
 		return(pX < posX + width && pX > posX && Game.HEIGHT - pY < posY + height && Game.HEIGHT - pY > posY);
+	}
+	
+	public void hovering() {
+		hover = true;
+	}
+	
+	public void notHovering() {
+		hover = false;
 	}
 }
