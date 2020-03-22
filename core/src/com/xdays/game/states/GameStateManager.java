@@ -1,5 +1,6 @@
 package com.xdays.game.states;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.xdays.game.User;
 import com.xdays.game.cards.CardCollection;
@@ -24,21 +25,39 @@ public class GameStateManager {
     private int levelsWon;
 
     public GameStateManager(){        
-        currentState = StateEnum.MENU_STATE;
+        currentState = StateEnum.LOADING_STATE;
         previousState = null;
+        
         stateMap = new EnumMap<>(StateEnum.class);
+        stateMap.put(StateEnum.LOADING_STATE, new LoadingState(this));
+        
         collection = new CardCollection();
+        
         user = new User("User", collection);
-        CreateStates();
         levelsWon=0;
-    }
-    
-    private void CreateStates() {
-    	stateMap.put(StateEnum.MENU_STATE, new MenuState(this));
-    	stateMap.put(StateEnum.MAP_STATE, new MapState(this));
-    	stateMap.put(StateEnum.COLLECTION_STATE, new CollectionState(this, new CardCollection(), new User("Player 1", new CardCollection())));
-    	stateMap.put(StateEnum.PAUSE_STATE, new PauseState(this));
-    	stateMap.put(StateEnum.TUTORIAL_STATE, new TutorialState(this));
+        
+        new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				Gdx.app.postRunnable(new Runnable() {
+
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+				    	stateMap.put(StateEnum.MENU_STATE, new MenuState(GameStateManager.this));
+				    	stateMap.put(StateEnum.MAP_STATE, new MapState(GameStateManager.this));
+				    	stateMap.put(StateEnum.COLLECTION_STATE, new CollectionState(GameStateManager.this, new CardCollection(), new User("Player 1", new CardCollection())));
+				    	stateMap.put(StateEnum.PAUSE_STATE, new PauseState(GameStateManager.this));
+				    	stateMap.put(StateEnum.TUTORIAL_STATE, new TutorialState(GameStateManager.this));
+				    	currentState = StateEnum.MENU_STATE;
+					}
+					
+				}) ;
+			}
+        	
+        }).start();
     }
     
     public void setState(StateEnum state) {
@@ -61,6 +80,38 @@ public class GameStateManager {
     
     public void wonLevel() {
     	levelsWon++;
+    }
+    
+    public void back() {
+    	setState(previousState);
+    }
+    
+    public void removeState(StateEnum state) {
+    	stateMap.remove(state);
+    }
+    
+    public State getState(StateEnum state) {
+    	return stateMap.get(state);
+    }
+
+    public void update(float dt){
+    	stateMap.get(currentState).update(dt);
+    }
+
+    public void render(SpriteBatch sb){
+    	stateMap.get(currentState).render(sb);
+    }
+    
+    public User getUser() {
+    	return user;
+    }
+    
+    public CardCollection getCollection() {
+    	return collection;
+    }
+    
+    public EnumMap<StateEnum, State> getStateMap() {
+    	return stateMap;
     }
     
 //    public void saveGame() {
@@ -102,33 +153,4 @@ public class GameStateManager {
 //        levelsWon=Integer.valueOf(levelValue);
 //    }
     
-    
-    public void back() {
-    	setState(previousState);
-    }
-    
-    public void removeState(StateEnum state) {
-    	stateMap.remove(state);
-    }
-    
-    public State getState(StateEnum state) {
-    	return stateMap.get(state);
-    }
-
-    public void update(float dt){
-    	stateMap.get(currentState).update(dt);
-    }
-
-    public void render(SpriteBatch sb){
-    	stateMap.get(currentState).render(sb);
-    }
-    
-    public User getUser() {
-    	return user;
-    }
-    
-    public CardCollection getCollection() {
-    	return collection;
-    }
-
 }
