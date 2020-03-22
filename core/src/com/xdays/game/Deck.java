@@ -22,7 +22,14 @@ public class Deck {
 		addCards(givenCards);
 		
 		// randomises card order each time
-		arrayDeck = queueToArray();
+		/*Commented this, because it's already done in addCards()?
+		arrayDeck = queueToArray();*/
+		shuffle();
+	}
+	
+	public void resetDeck(ArrayList<Card> givenCards) {
+		deck = new LinkedList<>();
+		addCards(givenCards);
 		shuffle();
 	}
 	

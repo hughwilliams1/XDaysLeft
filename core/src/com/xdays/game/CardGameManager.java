@@ -36,7 +36,8 @@ public class CardGameManager {
 
 		user = givenUser;
 		this.enemyAI = new AI("Enemy", 1, createEnemyDeck());
-
+		
+		user.resetHand();
 		user.setHandFromDeck();
 		enemyAI.setHandFromDeck();
 
@@ -51,12 +52,12 @@ public class CardGameManager {
 	public void playCardGameRound(Card card, ArrayList<Card> chosenCards) {
 		if(card == null) {
 			switchPlayerTurn();
-			return;
+		} else {
+			processCard(card, chosenCards);
+			System.out.println("Player's Current Hand: " + user.currentHandAsString());
+			changeEmissions(playerBoard.getTotalPoints());
+			switchPlayerTurn();
 		}
-		processCard(card, chosenCards);
-		System.out.println("Player's Current Hand: " + user.currentHandAsString());
-		changeEmissions(playerBoard.getTotalPoints());
-		switchPlayerTurn();
 		ArrayList<Card> cardsToProcess = getAI().nextCard(aiBoard, playerBoard);
 		if(cardsToProcess != null) {
 			aiCard = cardsToProcess.remove(0);
@@ -171,7 +172,7 @@ public class CardGameManager {
 	private void handleInputEnemy(Card card) {
 		if(!card.isPlayed()) {
 			if(card.isHalfPlayed()) {
-				card.position.y += 100;
+				card.position.y += 80;
 			}
 			card.updateBounds();
 			card.setPlayed(true);

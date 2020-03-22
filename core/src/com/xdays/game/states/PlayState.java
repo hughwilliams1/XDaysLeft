@@ -21,6 +21,7 @@ import com.xdays.game.User;
 import com.xdays.game.assets.Button;
 import com.xdays.game.cards.Card;
 import com.xdays.game.cards.Destroy;
+import com.xdays.game.cards.Industry;
 import com.xdays.game.cards.Social;
 
 public class PlayState extends State {
@@ -58,7 +59,7 @@ public class PlayState extends State {
 		selectCard = Gdx.audio.newSound(Gdx.files.internal("sounds/SelectCard.wav"));
 		
 		// CardReader cardReader = new CardReader();
-		background = new Texture("background.png");
+		background = new Texture("background2.png");
 		selectedCards = new ArrayList<Card>();
 		messageToPrint = "";
 		cam.setToOrtho(false, Game.WIDTH, Game.HEIGHT);
@@ -248,11 +249,9 @@ public class PlayState extends State {
 		setBitmap(emissions);
 
 		Gdx.gl.glClearColor(135 / 255f, 206 / 255f, 235 / 255f, 1);
-
 		sb.setProjectionMatrix(cam.combined);
 		sb.begin();
 		sb.draw(background, 0, 0);
-		
 		pauseBtn.draw(sb);
 		skipBtn.draw(sb);
 		
@@ -268,8 +267,12 @@ public class PlayState extends State {
 
 			Card currentCard = playerBoard.getCard(i);
 
-			sb.draw(currentCard.getTexture(), getXValue(currentCard), getYValue(currentCard), getCardWidth(currentCard),
-					getCardHeight(currentCard));
+			if(currentCard instanceof Industry) {
+				((Industry) currentCard).draw(sb);
+			}else {
+				sb.draw(currentCard.getTexture(), getXValue(currentCard), getYValue(currentCard), getCardWidth(currentCard),
+						getCardHeight(currentCard));
+			}
 		}
 		
 		// renders player hand
@@ -279,11 +282,16 @@ public class PlayState extends State {
 			// remove && !card.haveBoundsBeenSet() the hand will move cards when you play
 			if (card.isHalfPlayed() != true) {
 				card.setPosition(0, 0);
-				card.setPosition(((((Game.WIDTH) * ((i + 1) / ((float) player.handSize() + 1)))) - card.getWidth() / 2),
+				card.setPosition(((((Game.WIDTH) * ((i + 1) / ((float) player.handSize() + 1)))) - card.getBoundsWidth() / 2),
 						0);
 			}
 
-			sb.draw(card.getTexture(), getXValue(card), getYValue(card), getCardWidth(card), getCardHeight(card));
+			if(card instanceof Industry) {
+				((Industry) card).draw(sb);
+			}else {
+				sb.draw(card.getTexture(), getXValue(card), getYValue(card), getCardWidth(card),
+						getCardHeight(card));
+			}
 		}
 
 		// gets the ai from manager to be changed
@@ -295,7 +303,7 @@ public class PlayState extends State {
 			if (aiCard.isHalfPlayed() != true) {
 				aiCard.setPosition(0, 0);
 				aiCard.setPosition(
-						((((Game.WIDTH) * ((i + 1) / ((float) ai.handSize() + 1)))) - aiCard.getWidth() / 2), 650);
+						((((Game.WIDTH) * ((i + 1) / ((float) ai.handSize() + 1)))) - aiCard.getBoundsWidth() / 2), 650+25);
 			}
 
 			sb.draw(aiCard.getBackTexture(), getXValue(aiCard), getYValue(aiCard), getCardWidth(aiCard),
@@ -308,19 +316,17 @@ public class PlayState extends State {
 					getCardWidth(getAICard(i)), getCardHeight(getAICard(i)));
 		}
 
-		console.draw(sb, messageToPrint, 600, 405);
-		emissions.draw(sb, "Emissions: " + Integer.toString(getEmissionBar()), 600, 380);
-
-		sb.end();
-		
+		//console.draw(sb, messageToPrint, 600, 405);
 		drawEmissionsBar();
+		emissions.draw(sb, "Emissions: " + Integer.toString(getEmissionBar()), cam.position.x-125, cam.position.y+85);
+		sb.end();
 	}
 	
 	private void drawEmissionsBar() {
 		ShapeRenderer shapeRenderer = new ShapeRenderer();
 	    shapeRenderer.begin(ShapeType.Filled);
 	    shapeRenderer.setColor(Color.RED);
-	    shapeRenderer.rect(400, 400, getEmissionBar()*4, 50);
+	    shapeRenderer.rect(cam.position.x-125, cam.position.y+65, getEmissionBar()*4, 30);
 	    shapeRenderer.end();
 	}
 
