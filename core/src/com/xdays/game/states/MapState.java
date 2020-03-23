@@ -13,6 +13,7 @@ import com.xdays.game.User;
 import com.xdays.game.assets.Button;
 import com.xdays.game.cards.CardCollection;
 import com.xdays.game.cutscenes.StartLevel1CutsceneState;
+import com.xdays.game.cutscenes.StartLevel2CutsceneState;
 
 public class MapState extends State {
 	private static final int BTN_WIDTH = 200;

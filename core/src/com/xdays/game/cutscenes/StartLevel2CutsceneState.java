@@ -14,12 +14,11 @@ import com.xdays.game.states.PlayState;
 import com.xdays.game.states.State;
 import com.xdays.game.states.StateEnum;
 
-public class StartLevel1CutsceneState extends State {
+public class StartLevel2CutsceneState extends State{
 
 	private Texture background;
 
 	private Texture opponent;
-	private Texture opponent1;
 	private Texture currentOpponentTexture;
 	private Texture player;
 	
@@ -30,7 +29,10 @@ public class StartLevel1CutsceneState extends State {
 
 	private Queue<TextBox> textBoxQueue;
 
-	public StartLevel1CutsceneState(GameStateManager gsm) {
+	private Texture opponent1;
+
+	public StartLevel2CutsceneState(GameStateManager gsm) {
+		
 		super(gsm);
 		cam.setToOrtho(false, Game.WIDTH, Game.HEIGHT);
 
@@ -65,8 +67,8 @@ public class StartLevel1CutsceneState extends State {
 		textBoxQueue.add(text5);
 
 		background = new Texture("level1CutsceneBackground.png");
-		opponent = new Texture("Donald Trump.png");
-		opponent1 = new Texture("Donald Trump1.png");
+		opponent = new Texture("Putin 1.png");
+		opponent1 = new Texture("Putin 2.png");
 		player = new Texture("scientist.png");
 		
 		currentOpponentTexture = opponent;
@@ -103,6 +105,7 @@ public class StartLevel1CutsceneState extends State {
 		sb.begin();
 		sb.draw(background, 0, Game.HEIGHT / 4);
 
+		// only call when change textbox
 		try {
 			textBoxQueue.peek().showTextBox(sb);
 		} catch (Exception e) {
@@ -117,7 +120,7 @@ public class StartLevel1CutsceneState extends State {
 			currentOpponentTexture = opponent1;
 		}
 		
-		sb.draw(currentOpponentTexture, (Game.WIDTH / 4) * 2, (Game.HEIGHT / 4));
+		sb.draw(currentOpponentTexture, ((Game.WIDTH / 9) * 5) , (Game.HEIGHT / 4));
 		
 		sb.draw(player, 0, (Game.HEIGHT / 4));
 		sb.end();
@@ -128,5 +131,5 @@ public class StartLevel1CutsceneState extends State {
 	public void dispose() {
 		americaCutsceneMusic.dispose();
 	}
-
+	
 }
