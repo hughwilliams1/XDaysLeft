@@ -21,6 +21,7 @@ public class MapState extends State {
 
 	private Texture background;
 	private ArrayList<Marker> markers;
+	private Button tutMarker;
 	private Button collectionBtn;
 	private Button homeBtn;
 	
@@ -38,7 +39,10 @@ public class MapState extends State {
 		markers = new ArrayList<Marker>();
 		markers.add(new Marker((cam.position.x - 335), (cam.position.y - 120)));
 		markers.add(new Marker((cam.position.x - 475), (cam.position.y+150)));
-
+		
+		tutMarker = new Button((int) markers.get(0).getWidth(), (int) markers.get(0).getHeight(), Game.WIDTH - 190, 180, "Marker.PNG", "Marker Hover.PNG");
+		
+		
 		int x = (Game.WIDTH / 2 - BTN_WIDTH / 2);
 		collectionBtn = new Button(BTN_WIDTH, BTN_HEIGHT, x + (BTN_WIDTH/2) + 30,
 				(Game.HEIGHT / 2 - BTN_HEIGHT / 2) - (110 + (BTN_HEIGHT * 3) + 30), "DeckBtn.PNG");
@@ -57,7 +61,7 @@ public class MapState extends State {
 				if (bounds.overlaps(markers.get(i).getBounds()) && !markers.get(i).isCompleted()) {
 					clickSound.play();
 					gsm.setStateAsNew(new StartLevel1CutsceneState(gsm), StateEnum.CUTSCENE_STATE);
-					markers.get(i).complete();
+					markers.get(i).complete(); 
 				}
 			}
 		}
@@ -73,6 +77,12 @@ public class MapState extends State {
 			clickSound.play();
 			gsm.setState(StateEnum.MENU_STATE);
 		}		
+		
+		// if tutorialBtn is clicked changed to collection state
+		if (Gdx.input.justTouched() && tutMarker.isPointerOver(Gdx.input.getX(), Gdx.input.getY())) {
+			clickSound.play();
+			gsm.setState(StateEnum.TUTORIAL_STATE);
+		}	
 	}
 
 	@Override
@@ -90,6 +100,7 @@ public class MapState extends State {
 		sb.begin();
 		sb.draw(background, 0, 0);
 		renderAllMarkers(sb);
+		tutMarker.draw(sb);
 		collectionBtn.draw(sb);
 		homeBtn.draw(sb);
 		sb.end();
@@ -103,6 +114,11 @@ public class MapState extends State {
 			} else {
 				markers.get(i).drawNormalMarker(sb);
 			}
+		}
+		if(tutMarker.isPointerOver(Gdx.input.getX(), Gdx.input.getY())) {
+			tutMarker.hovering();
+		} else {
+			tutMarker.notHovering();
 		}
 	}
 

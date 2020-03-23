@@ -21,6 +21,7 @@ import com.xdays.game.User;
 import com.xdays.game.assets.Button;
 import com.xdays.game.cards.Card;
 import com.xdays.game.cards.Destroy;
+import com.xdays.game.cards.Industry;
 import com.xdays.game.cards.Social;
 
 public class PlayState extends State {
@@ -266,8 +267,12 @@ public class PlayState extends State {
 
 			Card currentCard = playerBoard.getCard(i);
 
-			sb.draw(currentCard.getTexture(), getXValue(currentCard), getYValue(currentCard), getCardWidth(currentCard),
-					getCardHeight(currentCard));
+			if(currentCard instanceof Industry) {
+				((Industry) currentCard).draw(sb);
+			}else {
+				sb.draw(currentCard.getTexture(), getXValue(currentCard), getYValue(currentCard), getCardWidth(currentCard),
+						getCardHeight(currentCard));
+			}
 		}
 		
 		// renders player hand
@@ -277,11 +282,16 @@ public class PlayState extends State {
 			// remove && !card.haveBoundsBeenSet() the hand will move cards when you play
 			if (card.isHalfPlayed() != true) {
 				card.setPosition(0, 0);
-				card.setPosition(((((Game.WIDTH) * ((i + 1) / ((float) player.handSize() + 1)))) - card.getWidth() / 2),
+				card.setPosition(((((Game.WIDTH) * ((i + 1) / ((float) player.handSize() + 1)))) - card.getBoundsWidth() / 2),
 						0);
 			}
 
-			sb.draw(card.getTexture(), getXValue(card), getYValue(card), getCardWidth(card), getCardHeight(card));
+			if(card instanceof Industry) {
+				((Industry) card).draw(sb);
+			}else {
+				sb.draw(card.getTexture(), getXValue(card), getYValue(card), getCardWidth(card),
+						getCardHeight(card));
+			}
 		}
 
 		// gets the ai from manager to be changed
@@ -293,7 +303,7 @@ public class PlayState extends State {
 			if (aiCard.isHalfPlayed() != true) {
 				aiCard.setPosition(0, 0);
 				aiCard.setPosition(
-						((((Game.WIDTH) * ((i + 1) / ((float) ai.handSize() + 1)))) - aiCard.getWidth() / 2), 650+25);
+						((((Game.WIDTH) * ((i + 1) / ((float) ai.handSize() + 1)))) - aiCard.getBoundsWidth() / 2), 650+25);
 			}
 
 			sb.draw(aiCard.getBackTexture(), getXValue(aiCard), getYValue(aiCard), getCardWidth(aiCard),

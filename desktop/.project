@@ -24,7 +24,11 @@
 		<link>
 			<name>assets</name>
 			<type>2</type>
+<<<<<<< HEAD
 			<location>C:/Users/rlove/Documents/Git/XDaysLeft/core/assets</location>
+=======
+			<location>C:/Users/markb/XDaysLeft/core/assets</location>
+>>>>>>> master
 		</link>
 	</linkedResources>
 </projectDescription>

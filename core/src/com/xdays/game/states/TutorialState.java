@@ -28,7 +28,7 @@ public class TutorialState extends State {
 		
 		int x = (Game.WIDTH / 2 - BTN_WIDTH / 2);
 		
-		quitBtn = new Button(BTN_WIDTH, BTN_HEIGHT, x, (Game.HEIGHT / 2 - BTN_HEIGHT / 2) - (110 + (BTN_HEIGHT*2) + 20), "QuitBtn.PNG");
+		quitBtn = new Button(BTN_WIDTH, BTN_HEIGHT, x, (Game.HEIGHT / 2 - BTN_HEIGHT / 2) - (110 + (BTN_HEIGHT*2) + 20), "BackBtn.PNG");
 	}
 
 	@Override
