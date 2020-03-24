@@ -24,7 +24,7 @@ public class Deck {
 		// randomises card order each time
 		/*Commented this, because it's already done in addCards()?
 		arrayDeck = queueToArray();*/
-		shuffle();
+		//shuffle();
 	}
 	
 	public void resetDeck(ArrayList<Card> givenCards) {
