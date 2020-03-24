@@ -25,6 +25,8 @@ public class MapState extends State {
 	private Button collectionBtn;
 	private Button homeBtn;
 	
+	private int currentLevel;
+	
     static Music mainMenuMusic;
     private Sound clickSound;
 
@@ -49,6 +51,8 @@ public class MapState extends State {
 		
 		homeBtn = new Button(BTN_WIDTH, BTN_HEIGHT, x - (BTN_WIDTH/2) - 30, 
 				(Game.HEIGHT / 2 - BTN_HEIGHT / 2) - (110 + (BTN_HEIGHT * 3) + 30), "HomeBtn.PNG");
+		
+		currentLevel = 0;
 	}
 
 	@Override
@@ -59,9 +63,14 @@ public class MapState extends State {
 			MenuState.mainMenuMusic.pause();
 			for (int i = 0; i < markers.size(); i++) {
 				if (bounds.overlaps(markers.get(i).getBounds()) && !markers.get(i).isCompleted()) {
-					clickSound.play();
-					gsm.setStateAsNew(new StartLevel1CutsceneState(gsm), StateEnum.CUTSCENE_STATE);
-					markers.get(i).complete(); 
+					if(i == currentLevel) {
+						clickSound.play();
+						gsm.setStateAsNew(new StartLevel1CutsceneState(gsm), StateEnum.CUTSCENE_STATE);
+						markers.get(i).complete();
+						if (markers.get(i).isCompleted()) {
+							currentLevel++;
+						}
+					}
 				}
 			}
 		}
