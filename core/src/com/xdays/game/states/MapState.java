@@ -23,6 +23,7 @@ public class MapState extends State {
 	private Button tutMarker;
 	private Button collectionBtn;
 	private Button homeBtn;
+	private int currentLevel;
 
 	static Music mainMenuMusic;
 	private Sound clickSound;
@@ -48,6 +49,8 @@ public class MapState extends State {
 
 		homeBtn = new Button(BTN_WIDTH, BTN_HEIGHT, x - (BTN_WIDTH / 2) - 30,
 				(Game.HEIGHT / 2 - BTN_HEIGHT / 2) - (110 + (BTN_HEIGHT * 3) + 30), "HomeBtn.PNG");
+		
+		currentLevel = 0;
 	}
 
 	@Override

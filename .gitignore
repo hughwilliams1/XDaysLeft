@@ -130,3 +130,7 @@ desktop/.project
 .gradle/5.4.1/executionHistory/executionHistory.lock
 .gradle/5.4.1/executionHistory/executionHistory.bin
 desktop/.project
+.gradle/5.4.1/executionHistory/executionHistory.bin
+.gradle/5.4.1/executionHistory/executionHistory.lock
+.gradle/5.4.1/fileHashes/fileHashes.lock
+.gradle/buildOutputCleanup/buildOutputCleanup.lock

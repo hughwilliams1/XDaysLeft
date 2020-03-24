@@ -23,12 +23,12 @@ public class EditEmmison implements SocialEffect{
 			if(card == null) {
 				boolean found = false;
 				Card c = null;
-				while (!found) { // line below throws a null pointer?
+				while (!found) { //
 					ArrayList<Card> cards = board.getField();
 					int cardSize = board.getField().size();
 					System.out.println(cardSize);
 					int nextRandom = rand.nextInt(cardSize);
-					c = cards.get(nextRandom); // is this supposed to be one??
+					c = cards.get(nextRandom); 
 				//	c = board.getField().get(rand.nextInt(board.getField().size())); // is this supposed to be one??
 					if (c instanceof Industry) {
 						found = true;
