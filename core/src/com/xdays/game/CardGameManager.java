@@ -36,7 +36,7 @@ public class CardGameManager {
 
 		user = givenUser;
 		this.enemyAI = new AI("Enemy", 1, createEnemyDeck());
-		
+
 		user.resetHand();
 		user.setHandFromDeck();
 		enemyAI.setHandFromDeck();
@@ -95,7 +95,7 @@ public class CardGameManager {
 
 					handleInputEnemy(card);
 					aiBoard.mergeCard(card, chosenCards, false);
-					
+
 					enemyAI.removeCard(card);
 					enemyAI.addCardToHand();
 					for(int i=0; i<chosenCards.size(); i++) {
@@ -103,7 +103,7 @@ public class CardGameManager {
 					}
 				} else {
 					card.switchTextures();
-					
+
 					handleInputEnemy(card);
 					aiBoard.addToField(card, false);
 					enemyAI.removeCard(card);
@@ -118,16 +118,19 @@ public class CardGameManager {
 						user.removeCard(card);
 					}else {
 						((Social) card).doEffect(playerBoard, chosenCards.get(0));
+						user.removeCard(card);
 					}
 				}else {
 					switch(card.getTitle()) {
 					case "Online Posts":
 					case "UN Law":
 						((Social) card).doEffect(playerBoard, null);
+						user.removeCard(card);
 						break;
 					case "Strike":
 					case "Petition":
-					((Social) card).doEffect(aiBoard, null);
+						((Social) card).doEffect(aiBoard, null);
+						user.removeCard(card);
 						break;
 					}
 				}
@@ -138,23 +141,26 @@ public class CardGameManager {
 						enemyAI.removeCard(card);
 					}else {
 						((Social) card).doEffect(aiBoard, chosenCards.get(0));
+						enemyAI.removeCard(card);
 					}
-				}else {
+				} else {
 					switch(card.getTitle()) {
 					case "Online Posts":
 					case "Cover-up":
 						((Social) card).doEffect(aiBoard, null);
+						enemyAI.removeCard(card);
 						break;
 					case "Bribe":
 					case "Propaganda":
-					((Social) card).doEffect(playerBoard, null);
+						((Social) card).doEffect(playerBoard, null);
+						enemyAI.removeCard(card);
 						break;
 					}
 				}
 			}
 		}
 	}
-	
+
 	private void handleInput(Card card) {
 		if(!card.isPlayed()) {
 			if(card instanceof Social) {
@@ -168,7 +174,7 @@ public class CardGameManager {
 			}
 		}
 	}
-	
+
 	private void handleInputEnemy(Card card) {
 		if(!card.isPlayed()) {
 			if(card.isHalfPlayed()) {
