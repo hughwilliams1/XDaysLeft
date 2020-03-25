@@ -324,7 +324,11 @@ public class PlayState extends State {
 		}
 
 		//console.draw(sb, messageToPrint, 600, 405);
+		sb.end();
+		
 		drawEmissionsBar();
+	    
+		sb.begin();
 		emissions.draw(sb, "Emissions: " + Integer.toString(getEmissionBar()), cam.position.x-125, cam.position.y+85);
 		sb.end();
 	}
