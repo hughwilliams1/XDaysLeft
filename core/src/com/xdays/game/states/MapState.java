@@ -61,7 +61,7 @@ public class MapState extends State {
 
 			MenuState.mainMenuMusic.pause();
 
-			if (bounds.overlaps(americaMarker.getBounds()) && !americaMarker.isCompleted()) {
+			if (bounds.overlaps(americaMarker.getBounds()) && !americaMarker.isCompleted() && germanyMarker.isCompleted() && russiaMarker.isCompleted()) {
 				clickSound.play();
 				gsm.setStateAsNew(new StartCutsceneState(gsm, 3), StateEnum.CUTSCENE_STATE);
 				americaMarker.complete();
@@ -73,7 +73,7 @@ public class MapState extends State {
 				germanyMarker.complete();
 			}
 			
-			if (bounds.overlaps(russiaMarker.getBounds()) && !russiaMarker.isCompleted()) {
+			if (bounds.overlaps(russiaMarker.getBounds()) && !russiaMarker.isCompleted()&& germanyMarker.isCompleted()) {
 				clickSound.play();
 				gsm.setStateAsNew(new StartCutsceneState(gsm, 2), StateEnum.CUTSCENE_STATE);
 				russiaMarker.complete();
