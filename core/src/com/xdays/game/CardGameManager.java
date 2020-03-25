@@ -27,8 +27,8 @@ public class CardGameManager {
 
 	public CardGameManager (int emissionsValue, User givenUser) {
 
-		enemyDeck_1 = new String[]{"Remove Tree", "Remove Tree", "Remove Tree", "Diesel Car",
-				"Diesel Car", "Diesel Car", "Online Posts", "Online Posts", "Online Posts", "Online Posts"}; //"Landfill", "Landfill", "Remove Tree", "Remove Tree"
+		enemyDeck_1 = new String[]{"Landfill", "Remove Tree", "Remove Tree", "Remove Tree",
+				"Remove Tree", "Diesel Car", "Remove Tree", "Diesel Car"}; //"Landfill", "Landfill", "Remove Tree", "Remove Tree"
 
 		emissionsBar = emissionsValue;
 
@@ -39,7 +39,10 @@ public class CardGameManager {
 
 		user.resetHand();
 		user.setHandFromDeck();
+		//enemyAI.resetHand();
 		enemyAI.setHandFromDeck();
+		
+		System.out.print(enemyAI.currentHandAsString());
 
 		isPlayerTurn = true;
 

@@ -308,6 +308,9 @@ public class PlayState extends State {
 				aiCard.setPosition(0, 0);
 				aiCard.setPosition(
 						((((Game.WIDTH) * ((i + 1) / ((float) ai.handSize() + 1)))) - aiCard.getBoundsWidth() / 2), 650+25);
+				
+				// for testing 
+				//System.out.println(aiCard.position);
 			}
 
 			sb.draw(aiCard.getBackTexture(), getXValue(aiCard), getYValue(aiCard), getCardWidth(aiCard),
