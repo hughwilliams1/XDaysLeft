@@ -1,5 +1,7 @@
 package com.xdays.game.states;
 
+import java.util.HashMap;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
@@ -15,11 +17,10 @@ public class MapState extends State {
 	private static final int BTN_HEIGHT = 60;
 
 	private Texture background;
+	
+	private HashMap<String, Marker> markers;
 
-	private Marker americaMarker;
-	private Marker germanyMarker;
-	private Marker russiaMarker;
-
+	private Marker previusMarker;
 	private Button tutMarker;
 	private Button collectionBtn;
 	private Button homeBtn;
@@ -35,12 +36,13 @@ public class MapState extends State {
 
 		cam.setToOrtho(false, Game.WIDTH, Game.HEIGHT);
 		background = new Texture("Area Selection2.png");
+		
+		markers = new HashMap<String, Marker>();
+		markers.put("germany", new Marker((cam.position.x - 70), (cam.position.y + 180), 1, null));
+		markers.put("russia", new Marker ((cam.position.x + 220), (cam.position.y + 220), 2, markers.get("germany")));
+		markers.put("america", new Marker((cam.position.x - 475), (cam.position.y + 150), 3, markers.get("russia")));
 
-		americaMarker = new Marker((cam.position.x - 475), (cam.position.y + 150));
-		germanyMarker = new Marker((cam.position.x - 70), (cam.position.y + 180));
-		russiaMarker = new Marker ((cam.position.x + 220), (cam.position.y + 220));
-
-		tutMarker = new Button((int) americaMarker.getWidth(), (int) americaMarker.getHeight(), Game.WIDTH - 190, 180,
+		tutMarker = new Button((int) markers.get("america").getWidth(), (int) markers.get("america").getHeight(), Game.WIDTH - 190, 180,
 				"Marker.PNG", "Marker Hover.PNG");
 
 		int x = (Game.WIDTH / 2 - BTN_WIDTH / 2);
@@ -60,23 +62,12 @@ public class MapState extends State {
 			Rectangle bounds = new Rectangle(Gdx.input.getX(), -(Gdx.input.getY() - 720), 0.01f, 0.01f);
 
 			MenuState.mainMenuMusic.pause();
-
-			if (bounds.overlaps(americaMarker.getBounds()) && !americaMarker.isCompleted() && germanyMarker.isCompleted() && russiaMarker.isCompleted()) {
-				clickSound.play();
-				gsm.setStateAsNew(new StartCutsceneState(gsm, 3), StateEnum.CUTSCENE_STATE);
-				americaMarker.complete();
-			}
-
-			if (bounds.overlaps(germanyMarker.getBounds()) && !germanyMarker.isCompleted()) {
-				clickSound.play();
-				gsm.setStateAsNew(new StartCutsceneState(gsm, 1), StateEnum.CUTSCENE_STATE);
-				germanyMarker.complete();
-			}
 			
-			if (bounds.overlaps(russiaMarker.getBounds()) && !russiaMarker.isCompleted()&& germanyMarker.isCompleted()) {
-				clickSound.play();
-				gsm.setStateAsNew(new StartCutsceneState(gsm, 2), StateEnum.CUTSCENE_STATE);
-				russiaMarker.complete();
+			for(String key : markers.keySet()) {
+				if(bounds.overlaps(markers.get(key).getBounds())) {
+					markers.get(key).handleInput();
+					previusMarker= markers.get(key);
+				}
 			}
 
 			// if collectionBtn is clicked changed to collection state
@@ -123,23 +114,13 @@ public class MapState extends State {
 
 	private void renderAllMarkers(SpriteBatch sb) {
 		Rectangle bounds = new Rectangle(Gdx.input.getX(), -(Gdx.input.getY() - 720), 1, 1);
-
-		if (bounds.overlaps(americaMarker.getBounds())) {
-			americaMarker.drawHoverMarker(sb);
-		} else {
-			americaMarker.drawNormalMarker(sb);
-		}
-
-		if (bounds.overlaps(germanyMarker.getBounds())) {
-			germanyMarker.drawHoverMarker(sb);
-		} else {
-			germanyMarker.drawNormalMarker(sb);
-		}
 		
-		if (bounds.overlaps(russiaMarker.getBounds())) {
-			russiaMarker.drawHoverMarker(sb);
-		} else {
-			russiaMarker.drawNormalMarker(sb);
+		for(String key : markers.keySet()) {
+			if(bounds.overlaps(markers.get(key).getBounds())) {
+				markers.get(key).drawHoverMarker(sb);
+			}else {
+				markers.get(key).drawNormalMarker(sb);
+			}
 		}
 
 		if (tutMarker.isPointerOver(Gdx.input.getX(), Gdx.input.getY())) {
@@ -148,12 +129,20 @@ public class MapState extends State {
 			tutMarker.notHovering();
 		}
 	}
+	
+	public Marker getPreviusMarker() {
+		return previusMarker;
+	}
 
 	@Override
 	public void dispose() {
 	}
 
 	class Marker {
+		
+		private int cutscene;
+		private Marker previusMarker;
+		private Texture notAvailableMarker;
 		private Texture normalMarker;
 		private Texture hoverMarker;
 		private Texture completedMarker;
@@ -163,15 +152,27 @@ public class MapState extends State {
 		private final int DEFAULT_SCALE = 3;
 		private boolean completed;
 
-		public Marker(float x, float y) {
+		public Marker(float x, float y, int cutscene, Marker previousMarker) {
+			this.previusMarker = previousMarker;
+			this.cutscene = cutscene;
 			normalMarker = new Texture("Marker.png");
 			hoverMarker = new Texture("Marker Hover.png");
 			completedMarker = new Texture("Marker Completed.png");
+			notAvailableMarker = new Texture("Marker Not Available.png");
 			redMark = new Texture("RedMark.png");
 			redMarkHover = new Texture("RedMark2.png");
 			bounds = new Rectangle(x, y, normalMarker.getWidth() / DEFAULT_SCALE,
 					normalMarker.getHeight() / DEFAULT_SCALE);
 			completed = false;
+		}
+		
+		public void handleInput() {
+			if(previusMarker==null || previusMarker.isCompleted()) {
+				clickSound.play();
+				gsm.setStateAsNew(new StartCutsceneState(gsm, cutscene), StateEnum.CUTSCENE_STATE);
+			}else {
+				System.out.println("Previous marker not completed.");
+			}
 		}
 
 		public boolean isCompleted() {
@@ -213,7 +214,10 @@ public class MapState extends State {
 		public void drawNormalMarker(SpriteBatch sb) {
 			if (completed) {
 				sb.draw(completedMarker, getX(), getY(), getWidth(), getHeight());
-			} else {
+			}else if(previusMarker!=null && !previusMarker.isCompleted()) {
+				sb.draw(redMark, getX() - 85, getY() - 85, getWidth() * 5, getHeight() * 5);
+				sb.draw(notAvailableMarker, getX(), getY(), getWidth(), getHeight());
+			}else {
 				sb.draw(redMark, getX() - 85, getY() - 85, getWidth() * 5, getHeight() * 5);
 				sb.draw(normalMarker, getX(), getY(), getWidth(), getHeight());
 			}
@@ -222,7 +226,10 @@ public class MapState extends State {
 		public void drawHoverMarker(SpriteBatch sb) {
 			if (completed) {
 				sb.draw(completedMarker, getX(), getY(), getWidth(), getHeight());
-			} else {
+			}else if(previusMarker!=null && !previusMarker.isCompleted()) {
+				sb.draw(redMark, getX() - 85, getY() - 85, getWidth() * 5, getHeight() * 5);
+				sb.draw(notAvailableMarker, getX(), getY(), getWidth(), getHeight());
+			}else {
 				sb.draw(redMarkHover, getX() - 85, getY() - 85, getWidth() * 5, getHeight() * 5);
 				sb.draw(hoverMarker, getX(), getY(), getWidth(), getHeight());
 			}

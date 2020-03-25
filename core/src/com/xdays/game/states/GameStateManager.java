@@ -58,10 +58,13 @@ public class GameStateManager {
         }).start();
     }
     
-    public void setState(StateEnum state) {
+    public State setState(StateEnum state) {
     	if(stateMap.containsKey(state)) {
     		previousState = currentState;
         	currentState = state;
+        	return stateMap.get(state);
+    	}else {
+    		return null;
     	}
     }
     
