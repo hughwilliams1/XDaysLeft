@@ -1,0 +1,92 @@
+[
+	{
+	"title" : "Remove Tree", 
+	"cardText" : "Remove Tree",
+	"stars" : "1",
+	"points" : "2"
+	},
+	{
+	"title" : "Diesel Car", 
+	"cardText" : "Diesel Car",
+	"stars" : "1",
+	"points" : "1"
+	},
+	{
+	"title" : "Landfill", 
+	"cardText" : "Landfill",
+	"stars" : "2",
+	"points" : "6"
+	},
+	{
+	"title" : "Car Factory", 
+	"cardText" : "Car Factory",
+	"stars" : "3",
+	"points" : "9"
+	},
+	{
+	"title" : "Coal Power Plant", 
+	"cardText" : "Coal Power Plant",
+	"stars" : "4",
+	"points" : "13"
+	},
+	{
+	"title" : "Gas Boiler", 
+	"cardText" : "Gas Boiler",
+	"stars" : "1",
+	"points" : "2"
+	},
+	{
+	"title" : "Household Waste", 
+	"cardText" : "Household Waste",
+	"stars" : "1",
+	"points" : "1"
+	},
+	{
+	"title" : "Battery Farm", 
+	"cardText" : "Battery Farm",
+	"stars" : "2",
+	"points" : "6"
+	},
+	{
+	"title" : "Taxi", 
+	"cardText" : "Taxi",
+	"stars" : "2",
+	"points" : "5"
+	},
+	{
+	"title" : "Fracking", 
+	"cardText" : "Fracking",
+	"stars" : "2",
+	"points" : "5"
+	},
+	{
+	"title" : "Freight Ships", 
+	"cardText" : "Freight Ships",
+	"stars" : "3",
+	"points" : "10"
+	},
+	{
+	"title" : "Industrial Manufacturing", 
+	"cardText" : "Industrial Manufacturing",
+	"stars" : "3",
+	"points" : "9"
+	},
+	{
+	"title" : "Cattle Farming", 
+	"cardText" : "Cattle Farming",
+	"stars" : "4",
+	"points" : "13"
+	},
+	{
+	"title" : "Meat Eater", 
+	"cardText" : "Meat Eater",
+	"stars" : "4",
+	"points" : "13"
+	},
+	{
+	"title" : "Deforestation", 
+	"cardText" : "Deforestation",
+	"stars" : "3",
+	"points" : "9"
+	}
+]
