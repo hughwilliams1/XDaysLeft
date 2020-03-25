@@ -33,7 +33,7 @@ public class Industry extends Card {
 	
 	public void draw(SpriteBatch sb) {
 		sb.draw(getTexture(), getX(), getY(), getBoundsWidth(), getBoundsHeight());
-		font.draw(sb, Integer.toString(getPoints()), getX()+getBoundsWidth()-22, getY()+22);
+		font.draw(sb, Integer.toString(getPoints()).replace("-", ""), getX()+getBoundsWidth()-22, getY()+22);
 	}
 	
 	@Override

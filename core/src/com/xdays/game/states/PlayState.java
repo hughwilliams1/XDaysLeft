@@ -278,19 +278,23 @@ public class PlayState extends State {
 		// renders player hand
 		for (int i = 0; i < player.handSize(); i++) {
 			Card card = player.getCardFromHand(i);
-
 			// remove && !card.haveBoundsBeenSet() the hand will move cards when you play
-			if (card.isHalfPlayed() != true) {
-				card.setPosition(0, 0);
-				card.setPosition(((((Game.WIDTH) * ((i + 1) / ((float) player.handSize() + 1)))) - card.getBoundsWidth() / 2),
-						0);
-			}
+			try {
+				if (card.isHalfPlayed() != true) {
+					card.setPosition(0, 0);
+					card.setPosition(((((Game.WIDTH) * ((i + 1) / ((float) player.handSize() + 1)))) - card.getBoundsWidth() / 2),
+							0);
+				}
 
-			if(card instanceof Industry) {
-				((Industry) card).draw(sb);
-			}else {
-				sb.draw(card.getTexture(), getXValue(card), getYValue(card), getCardWidth(card),
-						getCardHeight(card));
+				if(card instanceof Industry) {
+					((Industry) card).draw(sb);
+				}else {
+					sb.draw(card.getTexture(), getXValue(card), getYValue(card), getCardWidth(card),
+							getCardHeight(card));
+				}
+			}catch(Exception e) {
+				System.out.println(card==null);
+				System.out.println(card.getTitle());
 			}
 		}
 
