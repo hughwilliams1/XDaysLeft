@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.xdays.game.Game;
@@ -88,7 +89,18 @@ public class MapState extends State {
 				gsm.setState(StateEnum.TUTORIAL_STATE);
 			}
 		}
-
+	}
+	
+	public void displayCompletedLevels(SpriteBatch sb) {
+		int completedLevels = 0;
+		for(String key : markers.keySet()) {
+			if(markers.get(key).isCompleted()) {
+				completedLevels++;
+			}
+		}
+		BitmapFont font = new BitmapFont(Gdx.files.internal("calibri-font/calibri.fnt"), false);
+		font.getData().setScale(0.25f, 0.25f);
+		font.draw(sb, completedLevels+ "/" + markers.size() + " levels completed", 10,50);
 	}
 
 	@Override
@@ -128,6 +140,8 @@ public class MapState extends State {
 		} else {
 			tutMarker.notHovering();
 		}
+		
+		displayCompletedLevels(sb);
 	}
 	
 	public Marker getPreviusMarker() {
