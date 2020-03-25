@@ -113,7 +113,7 @@ public class PlayState extends State {
 				messageToPrint = "You have won this battle";
 				// Player win return to edited map
 				gsm.wonLevel();
-				gsm.setState(StateEnum.MAP_STATE);
+				((MapState) gsm.setState(StateEnum.MAP_STATE)).getPreviusMarker().complete();
 				gsm.removeState(StateEnum.PLAY_STATE);
 
 			}
