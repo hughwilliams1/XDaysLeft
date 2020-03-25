@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.utils.Array;
 import com.xdays.game.Game;
 
@@ -24,11 +26,13 @@ public class TextBox {
 
 	public TextBox(String name, String dialogue) {
 		texture = new Texture("textBoxBlack.png");
-		font = new BitmapFont(Gdx.files.internal("font/recreativos.fnt"), false);
+		
+		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/Staatliches-Regular.ttf"));
+		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
+		parameter.size = 32;
+		font = generator.generateFont(parameter);
 
 		this.name = name;
-
-		font.getData().setScale(0.15f, 0.15f);
 
 		lines = processDialogue(dialogue);
 		
