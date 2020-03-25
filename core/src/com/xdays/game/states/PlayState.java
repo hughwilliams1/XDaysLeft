@@ -86,6 +86,8 @@ public class PlayState extends State {
 		if (hasPlayerWon()) {
 			System.out.println("Player Win");
 			messageToPrint = "You have won this battle";
+			dispose();
+			
 			// Player win return to edited map
 			gsm.wonLevel();
 			((MapState) gsm.setState(StateEnum.MAP_STATE)).getPreviusMarker().complete();
@@ -94,6 +96,8 @@ public class PlayState extends State {
 		if (hasAIWon()) {
 			System.out.println("Enemy Win");
 			System.out.println(getEmissionBar());
+			dispose();
+			
 			// //AI win return to original map
 			messageToPrint = "You have lost this battle";
 			gsm.setState(StateEnum.MAP_STATE);
@@ -105,12 +109,14 @@ public class PlayState extends State {
 			if (getEmissionBar() >= 50) {
 				System.out.println("Enemy Win");
 				messageToPrint = "You have lost this battle";
+				dispose();
 				// AI win return to original map
 				gsm.setState(StateEnum.MAP_STATE);
 				gsm.removeState(StateEnum.PLAY_STATE);
 			} else {
 				System.out.println("Player Win");
 				messageToPrint = "You have won this battle";
+				dispose();
 				// Player win return to edited map
 				gsm.wonLevel();
 				((MapState) gsm.setState(StateEnum.MAP_STATE)).getPreviusMarker().complete();
@@ -308,9 +314,7 @@ public class PlayState extends State {
 				aiCard.setPosition(0, 0);
 				aiCard.setPosition(
 						((((Game.WIDTH) * ((i + 1) / ((float) ai.handSize() + 1)))) - aiCard.getBoundsWidth() / 2), 650+25);
-				
-				// for testing 
-				//System.out.println(aiCard.position);
+
 			}
 
 			sb.draw(aiCard.getBackTexture(), getXValue(aiCard), getYValue(aiCard), getCardWidth(aiCard),
