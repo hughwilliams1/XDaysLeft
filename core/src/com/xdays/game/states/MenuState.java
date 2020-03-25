@@ -9,6 +9,7 @@ import com.xdays.game.Game;
 import com.xdays.game.User;
 import com.xdays.game.assets.Button;
 import com.xdays.game.cards.CardCollection;
+import com.xdays.game.cutscenes.StartCutsceneState;
 
 /**
  * Created by Brent on 6/26/2015.
@@ -51,7 +52,7 @@ public class MenuState extends State{
     public void handleInput() {
         if(Gdx.input.justTouched() && playBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY())){
         	clickSound();
-        	gsm.setState(StateEnum.MAP_STATE);
+        	gsm.setStateAsNew(new StartCutsceneState(gsm, 0), StateEnum.CUTSCENE_STATE);
         }
         
         if(Gdx.input.justTouched() && settingsBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY())){

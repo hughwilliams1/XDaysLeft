@@ -49,18 +49,54 @@ public class StartCutsceneState extends State{
 		textBoxQueue = new LinkedList<TextBox>();
 		player = new Texture("scientist.png");
 		
-		if (currentLevel == 1) {
+		switch(currentLevel) {
+		case(0):
+			introInitialisation();
+			break;
+		case(1):
 			germanyInitialisation();
-		} 
-		else if (currentLevel == 2) {
+			break;
+		case(2):
 			russiaInitialisation();
-		}
-		else if (currentLevel == 3) {
+			break;
+		case(3):
 			americaInitialisation();
+			break;
 		}
 		
 		currentOpponentTexture = opponentTexture;
 	}
+	
+	private void introInitialisation() {
+		background = new Texture("LabBackground.png");
+		opponentTexture = new Texture("BlankCut.png");
+		opponentAltTexture = new Texture("BlankCut.png");
+		
+		opponentXPosition = ((Game.WIDTH / 9) * 5);
+		
+		TextBox text1 = new TextBox("Scientist Y",
+				"All my life I have been in search of a goal.  184 years i've spent ...");
+
+		TextBox text2 = new TextBox("Scientist Y",
+				"wait,  no no,  let me see,  MOON GUY    err    THAT WAR THINGY");
+
+		TextBox text3 = new TextBox("Scientist Y",
+				"That's it!  I've lived for 84 years with nothing to show for it,  except for my devilishly good looks of course.");
+		
+		TextBox text4 = new TextBox("Scientist Y",
+				"Finally I have something to fight for!  This world,  our world.  "
+				+ "Climate change will be the end of us all,  if I don't act quick it will be too late!");
+		
+		TextBox text5 = new TextBox("Scientist Y",
+				"Ah!  Here's my walking stick.  Now off to fight this from the bottom up,  Mrs Merkel,  you're first.");
+
+		textBoxQueue.add(text1);
+		textBoxQueue.add(text2);
+		textBoxQueue.add(text3);
+		textBoxQueue.add(text4);
+		textBoxQueue.add(text5);
+	}
+	
 	
 	private void germanyInitialisation() {
 		background = new Texture("European Parliament Background.png");
@@ -70,26 +106,34 @@ public class StartCutsceneState extends State{
 		opponentXPosition = ((Game.WIDTH / 9) * 5);
 		
 		TextBox text1 = new TextBox("Scientist Y",
-				"Trump we finally meet. America is among the most significant emmitters of greenhouse in the world,"
-				+ " all in the name of corporate greed what do you have to say for yourself. Reprent now and ill make it a quick death");
+				"There you are,  we need a talk,  air pollution is the biggest environmental "
+				+ "health risk in Europe.  People are chocking,the planet is dying.  You're willing to stand by?");
 
 		TextBox text2 = new TextBox("Angela Merkel",
-				"");
+				"Was zur Hölle?");
 
 		TextBox text3 = new TextBox("Scientist Y",
-				"blahahahaaadaw");
+				"What? Enough of the profanities, this is serious!");
 		
 		TextBox text4 = new TextBox("Angela Merkel",
-				"");
+				"How dare you! I don't even know who you are, we are ze best in ze whole world for the environment.");
 		
 		TextBox text5 = new TextBox("Scientist Y",
-				"");
+				"Pointing fingers will get you nowhere. The time to act is now, we are already too late.");
+		
+		TextBox text6 = new TextBox("Angela Merkel",
+				"Sheisse! Show me what you're made of.");
+		
+		TextBox text7 = new TextBox("Scientist Y",
+				"Bring it on!");
 
 		textBoxQueue.add(text1);
 		textBoxQueue.add(text2);
 		textBoxQueue.add(text3);
 		textBoxQueue.add(text4);
 		textBoxQueue.add(text5);
+		textBoxQueue.add(text6);
+		textBoxQueue.add(text7);
 	}
 	
 	private void russiaInitialisation() {
@@ -188,9 +232,16 @@ public class StartCutsceneState extends State{
 		try {
 			textBoxQueue.peek().showTextBox(sb);
 		} catch (Exception e) {
-			gsm.setStateAsNew(new PlayState(gsm), StateEnum.PLAY_STATE);
-			gsm.removeState(StateEnum.CUTSCENE_STATE);
-			dispose();
+			if(currentLevel != 0) {
+				gsm.setStateAsNew(new PlayState(gsm), StateEnum.PLAY_STATE);
+				gsm.removeState(StateEnum.CUTSCENE_STATE);
+				dispose();
+			} else {
+				gsm.setState(StateEnum.MAP_STATE);
+				gsm.removeState(StateEnum.CUTSCENE_STATE);
+				dispose();
+			}
+			
 		}
 		
 		if (opponentImageCount == 0) {
