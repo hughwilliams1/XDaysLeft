@@ -23,6 +23,8 @@ public class CollectionState extends State {
 	private CollectionPage currentCollectionPage;
 	private CollectionPage currentPlayerPage;
 	
+	private User player;
+	
 	private static final int BTN_WIDTH = 150;
 	private static final int BTN_HEIGHT = 45;
 	
@@ -38,6 +40,9 @@ public class CollectionState extends State {
 	
 	public CollectionState(GameStateManager gsm, CardCollection cardCollection, User player) {
 		super(gsm);
+		
+		this.player = player;
+		
 		cam.setToOrtho(false, Game.WIDTH, Game.HEIGHT);
 		// textures
 		background = new Texture("collectionBackground.png");
@@ -55,6 +60,8 @@ public class CollectionState extends State {
 		// Circular pages array
 		collectionDisplayPages = new CircularList<CollectionPage>();
 		playerDisplayPages = new CircularList<CollectionPage>();
+		
+		
 		
 		createPages(cardCollection, player);
 		currentCollectionPage = collectionDisplayPages.get(0);
@@ -221,6 +228,9 @@ public class CollectionState extends State {
 					if (((offset * CollectionState.CARDS_PER_PAGE) + currentCardNumber) < player.getDeck().getDeckSize()) {
 						// get the card to be rendered using current card and the pageoffset
 						Card card = player.getDeck().getCard(((offset * CollectionState.CARDS_PER_PAGE) + currentCardNumber));
+						
+						cardHeight = card.getTexture().getHeight() / 3.4f;
+						cardWidth = card.getTexture().getWidth() / 3.4f;
 						
 						// Gives the cards bound depending on it current position
 						card.setPosition(X_COORDINATES_PLAYER[x] - cardWidth, Y_COORINATES[y] - cardHeight);

@@ -38,15 +38,15 @@ public class GameStateManager {
 
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
+
 				Gdx.app.postRunnable(new Runnable() {
 
 					@Override
 					public void run() {
-						// TODO Auto-generated method stub
+						
 				    	stateMap.put(StateEnum.MENU_STATE, new MenuState(GameStateManager.this));
 				    	stateMap.put(StateEnum.MAP_STATE, new MapState(GameStateManager.this));
-				    	stateMap.put(StateEnum.COLLECTION_STATE, new CollectionState(GameStateManager.this, new CardCollection(), new User("Player 1", new CardCollection())));
+				    	stateMap.put(StateEnum.COLLECTION_STATE, new CollectionState(GameStateManager.this, collection, user));
 				    	stateMap.put(StateEnum.PAUSE_STATE, new PauseState(GameStateManager.this));
 				    	stateMap.put(StateEnum.TUTORIAL_STATE, new TutorialState(GameStateManager.this));
 				    	currentState = StateEnum.MENU_STATE;
