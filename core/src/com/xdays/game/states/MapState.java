@@ -91,16 +91,28 @@ public class MapState extends State {
 		}
 	}
 	
+	public boolean areAllLevelsComplete() {
+		if(getCompletedLevels()==markers.size()) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
 	public void displayCompletedLevels(SpriteBatch sb) {
+		BitmapFont font = new BitmapFont(Gdx.files.internal("calibri-font/calibri.fnt"), false);
+		font.getData().setScale(0.25f, 0.25f);
+		font.draw(sb, getCompletedLevels()+ "/" + markers.size() + " levels completed", 10,50);
+	}
+	
+	public int getCompletedLevels() {
 		int completedLevels = 0;
 		for(String key : markers.keySet()) {
 			if(markers.get(key).isCompleted()) {
 				completedLevels++;
 			}
 		}
-		BitmapFont font = new BitmapFont(Gdx.files.internal("calibri-font/calibri.fnt"), false);
-		font.getData().setScale(0.25f, 0.25f);
-		font.draw(sb, completedLevels+ "/" + markers.size() + " levels completed", 10,50);
+		return completedLevels;
 	}
 
 	@Override
