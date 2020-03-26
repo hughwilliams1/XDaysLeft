@@ -60,23 +60,27 @@ public class CollectionState extends State {
 		// Circular pages array
 		collectionDisplayPages = new CircularList<CollectionPage>();
 		playerDisplayPages = new CircularList<CollectionPage>();
-		
-		
-		
-		createPages(cardCollection, player);
+			
+		createCollectionPages(cardCollection);
+		createPlayerPages(player);
+
 		currentCollectionPage = collectionDisplayPages.get(0);
 		currentPlayerPage = playerDisplayPages.get(0);
 	}
-
-	public void createPages(CardCollection cardCollection, User player) {
-		
+	
+	public void createCollectionPages(CardCollection cardCollection) {
+		collectionDisplayPages.clear();
 		int collectionPages = (int) Math.ceil((double) cardCollection.getSize() / CARDS_PER_PAGE);
-		int playerPages = (int) Math.ceil((double) player.getDeck().getDeckSize() / CARDS_PER_PAGE);
 		
 		for (int x = 0; x < collectionPages; x++) {
 			CollectionPage page = new CollectionPage(cardCollection.getAllCards(), x);
 			collectionDisplayPages.add(page);
 		}
+	}
+	
+	public void createPlayerPages(User player) {
+		playerDisplayPages.clear();
+		int playerPages = (int) Math.ceil((double) player.getDeck().getDeckSize() / CARDS_PER_PAGE);
 		
 		for (int x = 0; x < playerPages; x++) {
 			CollectionPage page = new CollectionPage(player, x);
@@ -104,9 +108,13 @@ public class CollectionState extends State {
 		
 		
 		// Checks if any collection cards are touched by comparing the card bounds to a small rectangle created around the mouse
+		// TODO check if amount of cards exceed card limit
 		for (Card card : currentCollectionPage.getDisplayedCards()) {
 			if (Gdx.input.justTouched() && card.getBounds().overlaps(new Rectangle(Gdx.input.getX(), -(Gdx.input.getY() - 720), 0.01f, 0.01f))) {
 				System.out.print("Collection Card: " + card.getTitle() + " was touched \n");
+				player.getDeck().addCard(card);
+				
+				createPlayerPages(player);
 			}
 		}
 		
@@ -114,6 +122,12 @@ public class CollectionState extends State {
 		for (Card card : currentPlayerPage.getDisplayedCards()) {
 			if (Gdx.input.justTouched() && card.getBounds().overlaps(new Rectangle(Gdx.input.getX(), -(Gdx.input.getY() - 720), 0.01f, 0.01f))) {
 				System.out.print("Player Card: " + card.getTitle() + " was touched \n");
+				
+				if (player.getDeck().getDeckSize() != player.MAX_HAND_SIZE) {
+					player.getDeck().removeCard(card);
+					createPlayerPages(player);
+				}
+				
 			}
 		}
 
