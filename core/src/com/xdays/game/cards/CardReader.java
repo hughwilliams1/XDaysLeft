@@ -22,7 +22,7 @@ public class CardReader {
 		
 	}
 	
-	public HashMap<String, Industry> readIndustryCards() {
+	public ArrayList<Map<String, Industry>> readIndustryCards() {
 		
 		// creates the good industry card hashmap to be returned
 		HashMap<String, Industry> industryCards = new HashMap <String , Industry>();
@@ -30,9 +30,8 @@ public class CardReader {
 		// creates the bad social card hashmap to be returned
 		HashMap<String, Industry> industryCardsBad = new HashMap <String , Industry>();
 		
-		/** Array of Map<String, Industry> in case we want to divide good and bad cards
+		//Array of Map<String, Industry> to divide good and bad cards
 		ArrayList<Map<String, Industry>> industryCollection = new ArrayList<Map<String, Industry>>();
-		**/
 		
 		JSONParser jsonParser = new JSONParser();
 		JSONArray cards = new JSONArray();
@@ -60,24 +59,23 @@ public class CardReader {
 			industryCardsBad.put(industryBad.getTitle(), industryBad);
 		}
 		
-		// adds the bad and good cards together to be returned
-		industryCards.putAll(industryCardsBad);
+		industryCollection.add(industryCards);
+		industryCollection.add(industryCardsBad);
 		
-		return industryCards;
+		return industryCollection;
 	}
 	
 	// should return an arraylist of hashmaps
 	
-	public HashMap<String, Social> readSocialCards() {
+	public ArrayList<Map<String, Social>> readSocialCards() {
 		// creates the good social card hashmap to be returned
 		HashMap<String, Social> socialCards = new HashMap <String , Social>();
 		
 		// creates the bad social card hashmap to be returned
 		HashMap<String, Social> socialCardsBad = new HashMap <String , Social>();
 		
-		/** creates array of HashMaps<String, Social> so you can return bad or good cards
+		// creates array of HashMaps<String, Social> so you can return bad or good cards
 		ArrayList<Map<String, Social>> socialCollection = new ArrayList<Map<String, Social>>();
-		**/
 		
 		JSONParser jsonParser = new JSONParser();
 		JSONArray cards = new JSONArray();
@@ -120,8 +118,9 @@ public class CardReader {
 		}
 		
 		// merges bad and good social cards together to be returned
-		socialCards.putAll(socialCardsBad);
+		socialCollection.add(socialCards);
+		socialCollection.add(socialCardsBad);
 		
-		return socialCards;
+		return socialCollection;
 	}
 }

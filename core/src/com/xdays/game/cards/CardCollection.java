@@ -1,7 +1,9 @@
 package com.xdays.game.cards;
 
+import java.io.ObjectOutputStream.PutField;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -14,15 +16,33 @@ import java.util.HashMap;
 
 public class CardCollection {
 
-	private HashMap <String , Industry> industryCards;
-	private HashMap <String , Social> socialCards;
+	private HashMap <String , Industry> goodIndustryCards;
+	private HashMap <String , Industry> badIndustryCards;
+	
+	private HashMap <String , Social> goodSocialCards;
+	private HashMap <String , Social> badSocialCards;
+	
+	private HashMap <String , Industry> industryCollection;
+	private HashMap <String , Social> socialCollection;
 	
 	public CardCollection() {
 		
 		CardReader reader = new CardReader();
 		
-		industryCards = reader.readIndustryCards();
-		socialCards = reader.readSocialCards();
+		ArrayList<Map<String, Industry>> industryCardsTemp = reader.readIndustryCards();
+		ArrayList<Map<String, Social>> socialCardsTemp = reader.readSocialCards();
+		
+		goodIndustryCards = (HashMap<String, Industry>) industryCardsTemp.get(0);
+		badIndustryCards = (HashMap<String, Industry>) industryCardsTemp.get(1);
+		
+		goodSocialCards = (HashMap<String, Social>) socialCardsTemp.get(0);
+		badSocialCards = (HashMap<String, Social>) socialCardsTemp.get(1);
+		
+		industryCollection = (HashMap<String, Industry>) goodIndustryCards.clone();
+		industryCollection.putAll(badIndustryCards);
+		
+		socialCollection = (HashMap<String, Social>) goodSocialCards.clone();
+		socialCollection.putAll(badSocialCards);
 	}
 	
 	// returns a card from either the industry cards or the social card
@@ -30,9 +50,9 @@ public class CardCollection {
 	
 	public Card getCard(String key) {
 		
-		Card returnCard = industryCards.get(key);
+		Card returnCard = industryCollection.get(key);
 		if (returnCard == null) {
-			returnCard = socialCards.get(key);
+			returnCard = socialCollection.get(key);
 		}
 
 		// ** IMPORTANT **
@@ -50,8 +70,8 @@ public class CardCollection {
 		return returnCard;
 	}
 	
-	public int getSize() {
-		return industryCards.size() + socialCards.size();
+	public int getGoodSize() {
+		return goodIndustryCards.size() + goodSocialCards.size();
 	}
 	
 	// draw multiple card from the deck using an array of strings
@@ -69,12 +89,25 @@ public class CardCollection {
 	
 	public ArrayList<Card> getAllCards() {
 		ArrayList<Card> returnArray = new ArrayList<Card>();
-		for (String key : industryCards.keySet()) {
-			returnArray.add(industryCards.get(key));
+		for (String key : industryCollection.keySet()) {
+			returnArray.add(industryCollection.get(key));
 		}
 		
-		for (String key : socialCards.keySet()) {
-			returnArray.add(socialCards.get(key));
+		for (String key : socialCollection.keySet()) {
+			returnArray.add(socialCollection.get(key));
+		}
+		
+		return returnArray;
+	}
+	
+	public ArrayList<Card> getAllGoodCards() {
+		ArrayList<Card> returnArray = new ArrayList<Card>();
+		for (String key : goodIndustryCards.keySet()) {
+			returnArray.add(goodIndustryCards.get(key));
+		}
+		
+		for (String key : goodSocialCards.keySet()) {
+			returnArray.add(goodSocialCards.get(key));
 		}
 		
 		return returnArray;
@@ -87,12 +120,12 @@ public class CardCollection {
 	
 	private String getKeySet() {
 		String keyString = "Industry Cards Keyset: \n";
-		for (String key : industryCards.keySet()) {
+		for (String key : industryCollection.keySet()) {
 			keyString = keyString + key + ", ";
 		}
 		
 		keyString = keyString + "\n Social Cards Keyset: \n";
-		for (String key : socialCards.keySet()) {
+		for (String key : socialCollection.keySet()) {
 			keyString = keyString + key + ", ";
 		}
 		

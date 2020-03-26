@@ -84,9 +84,12 @@ public class TextBox {
 			}
 		}
 
+		/**
+		 * Test if the dialogue is properly formatted
 		for (String line : lines) {
 			System.out.print(line + "\n");
 		}
+		**/
 
 		return lines;
 	}
@@ -127,9 +130,6 @@ public class TextBox {
 		}
 		
 		font.draw(sb, name, (Game.WIDTH / 2) - nameWidth / 2, Game.HEIGHT / 25 * 6);
-		
-		
-		
 		
 		int count = 5;
 		font.setColor(new Color().WHITE);

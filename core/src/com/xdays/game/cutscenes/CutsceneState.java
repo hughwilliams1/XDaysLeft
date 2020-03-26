@@ -14,7 +14,7 @@ import com.xdays.game.states.PlayState;
 import com.xdays.game.states.State;
 import com.xdays.game.states.StateEnum;
 
-public class StartCutsceneState extends State{
+public class CutsceneState extends State{
 
 	private Texture background;
 	
@@ -34,7 +34,7 @@ public class StartCutsceneState extends State{
 
 	private Queue<TextBox> textBoxQueue;
 
-	public StartCutsceneState(GameStateManager gsm, int level) {
+	public CutsceneState(GameStateManager gsm, int level) {
 		super(gsm);
 		currentLevel = level;
 		

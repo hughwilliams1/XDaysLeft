@@ -58,6 +58,7 @@ public class Deck {
 		if (deck.contains(card)) {
 			deck.remove(card);
 		}
+		arrayDeck = queueToArray();
 	}
 	
 	public Card draw() {
@@ -77,6 +78,17 @@ public class Deck {
 	
 	public Card getCard(int position) {
 		return arrayDeck.get(position);
+	}
+	
+	public int instancesOfCardInDeck(Card card) {
+		int returnNumber = 0;
+		for (Card deckCard : arrayDeck) {
+			if (card.getTitle().equals(deckCard.getTitle())) {
+				returnNumber++;
+			}
+		}
+		
+		return returnNumber;
 	}
 	
 	// shuffle the current deck so cards are not drawn in the same order

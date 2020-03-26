@@ -7,7 +7,11 @@ import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.xdays.game.Game;
 import com.xdays.game.User;
 import com.xdays.game.assets.Button;
@@ -34,6 +38,8 @@ public class CollectionState extends State {
 	private Button playerNextPageBtn;
 	private Button mapBackBtn;
 	
+	private BitmapFont font;
+	
     private Sound clickSound;
 	
 	protected static final int CARDS_PER_PAGE = 9;
@@ -49,13 +55,17 @@ public class CollectionState extends State {
 		
 		// Click sound
         clickSound = Gdx.audio.newSound(Gdx.files.internal("sounds/ClickSound.wav"));
-
 		
 		// Buttons
 		// TODO give btns a texture
 		collectionNextPageBtn = new Button(BTN_WIDTH, BTN_HEIGHT, ((Game.WIDTH / 6 ) * 3 ) - 180, 15, "NextBtn.PNG");
 		playerNextPageBtn = new Button(BTN_WIDTH, BTN_HEIGHT, ((Game.WIDTH / 6 ) * 3 ) + 30, 15, "NextBtn.PNG");
 		mapBackBtn = new Button(BTN_WIDTH, BTN_HEIGHT, ((Game.WIDTH / 6 ) * 5 ) + 60, 15, "BackBtn.PNG");
+		
+		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/Staatliches-Regular.ttf"));
+		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
+		parameter.size = 32;
+		font = generator.generateFont(parameter);
 		
 		// Circular pages array
 		collectionDisplayPages = new CircularList<CollectionPage>();
@@ -70,10 +80,10 @@ public class CollectionState extends State {
 	
 	public void createCollectionPages(CardCollection cardCollection) {
 		collectionDisplayPages.clear();
-		int collectionPages = (int) Math.ceil((double) cardCollection.getSize() / CARDS_PER_PAGE);
+		int collectionPages = (int) Math.ceil((double) cardCollection.getGoodSize() / CARDS_PER_PAGE);
 		
 		for (int x = 0; x < collectionPages; x++) {
-			CollectionPage page = new CollectionPage(cardCollection.getAllCards(), x);
+			CollectionPage page = new CollectionPage(cardCollection.getAllGoodCards(), x);
 			collectionDisplayPages.add(page);
 		}
 	}
@@ -108,13 +118,17 @@ public class CollectionState extends State {
 		
 		
 		// Checks if any collection cards are touched by comparing the card bounds to a small rectangle created around the mouse
-		// TODO check if amount of cards exceed card limit
 		for (Card card : currentCollectionPage.getDisplayedCards()) {
 			if (Gdx.input.justTouched() && card.getBounds().overlaps(new Rectangle(Gdx.input.getX(), -(Gdx.input.getY() - 720), 0.01f, 0.01f))) {
 				System.out.print("Collection Card: " + card.getTitle() + " was touched \n");
-				player.getDeck().addCard(card);
+				if (player.getDeck().instancesOfCardInDeck(card) < 3) {
+					player.getDeck().addCard(card);
+				} else {
+					//TODO play some sound
+				}
 				
 				createPlayerPages(player);
+				// TODO TRACK LAST CURRENT PAGE
 			}
 		}
 		
@@ -126,6 +140,8 @@ public class CollectionState extends State {
 				if (player.getDeck().getDeckSize() != player.MAX_HAND_SIZE) {
 					player.getDeck().removeCard(card);
 					createPlayerPages(player);
+				} else {
+					//TODO PLAY SOME SOUND
 				}
 				
 			}
@@ -153,16 +169,31 @@ public class CollectionState extends State {
 		collectionNextPageBtn.draw(sb);
 		playerNextPageBtn.draw(sb);
 		mapBackBtn.draw(sb);
+		if (currentPlayerPage.isEmpty()) {
+			currentPlayerPage = playerDisplayPages.get(0);
+		}
+		renderPageNumber(sb);
 		sb.end();
+	}
+	
+	public void renderPageNumber(SpriteBatch sb) {
+		
+		String collectionPageNumbers = currentCollectionPage.getPageNumber() + "/" + collectionDisplayPages.size();
+		GlyphLayout layout = new GlyphLayout(font, collectionPageNumbers);
+		float pageNumberWidth = layout.width;
+		font.draw(sb, collectionPageNumbers, ((Game.WIDTH / 2) - (pageNumberWidth/2)) * 0.4f, Game.HEIGHT/14);
+		
+		String playerPageNumbers = currentPlayerPage.getPageNumber() + "/" + playerDisplayPages.size();
+		layout = new GlyphLayout(font, playerPageNumbers);
+		pageNumberWidth = layout.width;
+		
+		font.draw(sb, playerPageNumbers, (((Game.WIDTH / 2) - (pageNumberWidth/2)) * 1.5f) + 20f, Game.HEIGHT/14);
 	}
 
 	@Override
 	public void dispose() {
-		System.out.println("DISDAPIHS{ODIGPOF@SDF");
-		// TODO Not sure what this does or if its important
+		
 	}
-
-	
 	
 	private class CollectionPage {
 
@@ -191,7 +222,10 @@ public class CollectionState extends State {
 		private ArrayList<Card> collectionCards;
 		private User player;
 
+		private int pageNumber;
+		
 		public CollectionPage(ArrayList<Card> cards, int offset) {
+			this.pageNumber = offset + 1;
 			cardHeight = cards.get(0).getTexture().getHeight() / 3.4f;
 			cardWidth = cards.get(0).getTexture().getWidth() / 3.4f;
 			displayedCards = new ArrayList<Card>();
@@ -200,6 +234,7 @@ public class CollectionState extends State {
 		}
 		
 		public CollectionPage(User user, int offset) {
+			this.pageNumber = offset + 1;
 			displayedCards = new ArrayList<Card>();
 			this.player = user;
 			this.offset = offset;
@@ -255,6 +290,14 @@ public class CollectionState extends State {
 					}
 				}
 			}
+		}
+		
+		public boolean isEmpty() {
+			return displayedCards.isEmpty();
+		}
+		
+		public int getPageNumber() {
+			return pageNumber;
 		}
 		
 		public ArrayList<Card> getDisplayedCards() {
