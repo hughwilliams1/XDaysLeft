@@ -1,16 +1,16 @@
 [
 	{
-	"title" : "Protests", 
+	"title" : "Protests",
 	"cardText" : "Destroy a card of your choosing.",
 	"amount" : "0",
 	"type" : "Destroy",
 	"selectedCardsNeeded" : "true"
 	},
 	{
-	"title" : "Online Posts", 
+	"title" : "Online Posts",
 	"cardText" : "Buff",
-	"amount" : "2",
-	"type" : "EditEmission",
-	"selectedCardsNeeded" : "true"
+	"amount" : "1",
+	"type" : "EditEmmision",
+	"selectedCardsNeeded" : "false"
 	}
 ]
