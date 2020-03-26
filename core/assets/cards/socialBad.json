@@ -1,55 +1,55 @@
 [
 	{
-	"title" : "Fake news", 
+	"title" : "Fake news",
 	"cardText" : "Destroy a card of your choosing.",
 	"amount" : "0",
 	"type" : "Destroy",
 	"selectedCardsNeeded" : "true"
 	},
 	{
-	"title" : "Online Posts", 
+	"title" : "Online Posts",
 	"cardText" : "Test",
 	"amount" : "1",
 	"type" : "EditEmmison",
 	"selectedCardsNeeded" : "false"
 	},
 	{
-	"title" : "Propaganda", 
+	"title" : "Propaganda",
 	"cardText" : "Test",
 	"amount" : "0",
 	"type" : "Destroy",
 	"selectedCardsNeeded" : "false"
 	},
 	{
-	"title" : "Corruption", 
+	"title" : "Corruption",
 	"cardText" : "Test",
 	"amount" : "0",
 	"type" : "EditStar",
 	"selectedCardsNeeded" : "true"
 	},
 	{
-	"title" : "Cover-up", 
+	"title" : "Cover-up",
 	"cardText" : "Test",
 	"amount" : "5",
 	"type" : "EditEmmison",
 	"selectedCardsNeeded" : "false"
 	},
 	{
-	"title" : "Bribe", 
+	"title" : "Bribe",
 	"cardText" : "Test",
 	"amount" : "0",
 	"type" : "Destroy",
 	"selectedCardsNeeded" : "false"
 	},
 	{
-	"title" : "Manipulation", 
+	"title" : "Manipulation",
 	"cardText" : "Test",
 	"amount" : "0",
 	"type" : "Destory",
 	"selectedCardsNeeded" : "true"
 	},
 	{
-	"title" : "Increase Population", 
+	"title" : "Increase Population",
 	"cardText" : "Test",
 	"amount" : "0",
 	"type" : "EditStar",

@@ -1,16 +1,58 @@
 [
 	{
-	"title" : "Protests", 
+	"title" : "Online Posts",
+	"cardText" : "Buff",
+	"amount" : "1",
+	"type" : "EditEmmision",
+	"selectedCardsNeeded" : "false"
+	},
+	{
+	"title" : "Protests",
 	"cardText" : "Destroy a card of your choosing.",
 	"amount" : "0",
 	"type" : "Destroy",
 	"selectedCardsNeeded" : "true"
 	},
 	{
-	"title" : "Online Posts", 
-	"cardText" : "Buff",
-	"amount" : "2",
-	"type" : "EditEmission",
+	"title" : "Strike",
+	"cardText" : "Destroy 2 random star card.",
+	"amount" : "0",
+	"type" : "Destroy",
+	"selectedCardsNeeded" : "false"
+	},
+	{
+	"title" : "News",
+	"cardText" : "Test",
+	"amount" : "0",
+	"type" : "EditStar",
+	"selectedCardsNeeded" : "true"
+	},
+	{
+	"title" : "UN Law",
+	"cardText" : "Test",
+	"amount" : "5",
+	"type" : "EditEmmison",
+	"selectedCardsNeeded" : "false"
+	},
+	{
+	"title" : "Petition",
+	"cardText" : "Test",
+	"amount" : "0",
+	"type" : "Destroy",
+	"selectedCardsNeeded" : "false"
+	},
+	{
+	"title" : "Boycott",
+	"cardText" : "Test",
+	"amount" : "0",
+	"type" : "Destory",
+	"selectedCardsNeeded" : "true"
+	},
+	{
+	"title" : "Marketing Scheme", 
+	"cardText" : "Test",
+	"amount" : "0",
+	"type" : "EditStar",
 	"selectedCardsNeeded" : "true"
 	}
 ]
