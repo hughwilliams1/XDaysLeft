@@ -323,7 +323,7 @@ public class PlayState extends State {
 
 		// render the ais cards on the board
 		for (int i = 0; i < getNumAiCards(); i++) {
-			sb.draw(getAICard(i).getTexture(), getXValue(getAICard(i)), getYValue(getAICard(i)),
+			sb.draw(getAICard(i).getTexture(), getXValue(getAICard(i)), getYValue(getAICard(i)) + 10,
 					getCardWidth(getAICard(i)), getCardHeight(getAICard(i)));
 		}
 
@@ -333,7 +333,6 @@ public class PlayState extends State {
 		drawEmissionsBar();
 	    
 		sb.begin();
-		emissions.draw(sb, "Emissions: " + Integer.toString(getEmissionBar()), cam.position.x-125, cam.position.y+85);
 		sb.end();
 	}
 	
@@ -341,7 +340,7 @@ public class PlayState extends State {
 		ShapeRenderer shapeRenderer = new ShapeRenderer();
 	    shapeRenderer.begin(ShapeType.Filled);
 	    shapeRenderer.setColor(Color.RED);
-	    shapeRenderer.rect(cam.position.x-125, cam.position.y+65, getEmissionBar()*4, 30);
+	    shapeRenderer.rect(cam.position.x-100, cam.position.y+65, getEmissionBar()*2, 30);
 	    shapeRenderer.end();
 	}
 
