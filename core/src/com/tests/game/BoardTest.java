@@ -1,10 +1,11 @@
-package com.xdays.game;
+package com.tests.game;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.xdays.game.Board;
 import com.xdays.game.cards.Card;
 import com.xdays.game.cards.CardCollection;
 
@@ -19,6 +20,7 @@ class BoardTest {
 		board=new Board();
 		cardCollection=new CardCollection();
 		card=cardCollection.getCard("Windmill");
+		
 	}
 
 	@Test
@@ -37,22 +39,22 @@ class BoardTest {
 
 	@Test
 	void testRemoveGroupFromField() {
-		fail("Not yet implemented"); // TODO
+		board.addToField(card, false);
+		Boolean check=board.removeFromField(card);
+		assertTrue(check);
 	}
 
 	@Test
 	void testGetTotalPoints() {
-		fail("Not yet implemented"); // TODO
+		board.addToField(card, false);
+		int actual=board.getTotalPoints();
+		assertEquals(-6,actual);
 	}
 
 	@Test
 	void testGetTotalStars() {
-		fail("Not yet implemented"); // TODO
+		board.addToField(card, false);
+		int actual=board.getTotalPoints();
+		assertEquals(2,actual);
 	}
-
-	@Test
-	void testMergeCard() {
-		fail("Not yet implemented"); // TODO
-	}
-
 }

@@ -1,23 +1,28 @@
-package com.xdays.game.cards;
+package com.tests.game.cards;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class EditStarTest {
+class SocialTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
 	}
 
 	@Test
-	void testDoEffect() {
+	void testIsSelectedCardNeeded() {
 		fail("Not yet implemented"); // TODO
 	}
 
 	@Test
-	void testGetChosenCard() {
+	void testSetEffect() {
+		fail("Not yet implemented"); // TODO
+	}
+
+	@Test
+	void testDoEffect() {
 		fail("Not yet implemented"); // TODO
 	}
 

@@ -1,33 +1,43 @@
-package com.xdays.game.cards;
+package com.tests.game;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class IndustryTest {
+class DeckTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
 	}
 
 	@Test
-	void testIndustryStringStringIntInt() {
+	void testResetDeck() {
 		fail("Not yet implemented"); // TODO
 	}
 
 	@Test
-	void testIndustryIndustry() {
+	void testAddCard() {
 		fail("Not yet implemented"); // TODO
 	}
 
 	@Test
-	void testEditBuff() {
+	void testAddCards() {
 		fail("Not yet implemented"); // TODO
 	}
 
 	@Test
-	void testEditStars() {
+	void testDraw() {
+		fail("Not yet implemented"); // TODO
+	}
+
+	@Test
+	void testGetCard() {
+		fail("Not yet implemented"); // TODO
+	}
+
+	@Test
+	void testDrawAmount() {
 		fail("Not yet implemented"); // TODO
 	}
 

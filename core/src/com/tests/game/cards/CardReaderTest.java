@@ -1,4 +1,4 @@
-package com.xdays.game.cards;
+package com.tests.game.cards;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -8,6 +8,9 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import com.xdays.game.cards.CardReader;
+import com.xdays.game.cards.Industry;
 
 class CardReaderTest {
 
