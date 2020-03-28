@@ -19,6 +19,7 @@ import com.xdays.game.assets.Button;
 import com.xdays.game.assets.CircularList;
 import com.xdays.game.cards.Card;
 import com.xdays.game.cards.CardCollection;
+import com.xdays.game.cards.Industry;
 
 public class CollectionState extends State {
 
@@ -297,8 +298,11 @@ public class CollectionState extends State {
 						// Gives the cards bound depending on it current position
 						card.setPosition(X_COORDINATES[x] - cardWidth, Y_COORINATES[y] - cardHeight);
 						
-						sb.draw(card.getTexture(), X_COORDINATES[x] - cardWidth, Y_COORINATES[y] - cardHeight, cardWidth,
-								cardHeight);
+						//sb.draw(card.getTexture(), X_COORDINATES[x] - cardWidth, Y_COORINATES[y] - cardHeight, cardWidth,
+						//		cardHeight);
+						if(card instanceof Industry) {
+							((Industry) card).draw(sb);
+						}
 						displayedCards.add(card);
 						
 						// displays the amount in deck out of the collection limit
@@ -328,8 +332,11 @@ public class CollectionState extends State {
 						// Gives the cards bound depending on it current position
 						card.setPosition(X_COORDINATES_PLAYER[x] - cardWidth, Y_COORINATES[y] - cardHeight);
 						
-						sb.draw(card.getTexture(), X_COORDINATES_PLAYER[x] - cardWidth, Y_COORINATES[y] - cardHeight, cardWidth,
-								cardHeight);
+						//sb.draw(card.getTexture(), X_COORDINATES_PLAYER[x] - cardWidth, Y_COORINATES[y] - cardHeight, cardWidth,
+							//	cardHeight);
+						if(card instanceof Industry) {
+							((Industry) card).draw(sb);
+						}
 						displayedCards.add(card);
 					}
 				}
