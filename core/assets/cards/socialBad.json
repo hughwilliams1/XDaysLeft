@@ -10,7 +10,7 @@
 	"title" : "Online Posts",
 	"cardText" : "Test",
 	"amount" : "1",
-	"type" : "EditEmmison",
+	"type" : "EditEmission",
 	"selectedCardsNeeded" : "false"
 	},
 	{
@@ -31,7 +31,7 @@
 	"title" : "Cover-up",
 	"cardText" : "Test",
 	"amount" : "5",
-	"type" : "EditEmmison",
+	"type" : "EditEmission",
 	"selectedCardsNeeded" : "false"
 	},
 	{

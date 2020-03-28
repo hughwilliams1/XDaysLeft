@@ -7,7 +7,7 @@ import com.xdays.game.Board;
 
 
 
-public class EditEmmison implements SocialEffect{
+public class EditEmission implements SocialEffect{
 	
 	private Random rand = new Random();
 	private Card chosenCard;

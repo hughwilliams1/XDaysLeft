@@ -99,8 +99,8 @@ public class CardReader {
 			Social tempSocial = new Social(card.get("title").toString(), card.get("cardText").toString(), Integer.valueOf(card.get("amount").toString()),  Boolean.parseBoolean(card.get("selectedCardsNeeded").toString()));
 			if(card.get("type").toString().equals("Destroy")) {
 				tempSocial.setEffect(new Destroy());
-			}else if(card.get("type").toString().equals("EditEmmision")) {
-				tempSocial.setEffect(new EditEmmison());
+			}else if(card.get("type").toString().equals("EditEmission")) {
+				tempSocial.setEffect(new EditEmission());
 			}else {
 				tempSocial.setEffect(new EditStar());
 			}
@@ -109,8 +109,8 @@ public class CardReader {
 			Social tempSocialBad = new Social(cardBad.get("title").toString(), cardBad.get("cardText").toString(), Integer.valueOf(cardBad.get("amount").toString()), Boolean.parseBoolean(cardBad.get("selectedCardsNeeded").toString()));
 			if(cardBad.get("type").toString().equals("Destroy")) {
 				tempSocialBad.setEffect(new Destroy());
-			}else if(cardBad.get("type").toString().equals("EditEmmision")) {
-				tempSocialBad.setEffect(new EditEmmison());
+			}else if(cardBad.get("type").toString().equals("EditEmission")) {
+				tempSocialBad.setEffect(new EditEmission());
 			}else {
 				tempSocialBad.setEffect(new EditStar());
 			}
