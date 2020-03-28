@@ -44,9 +44,6 @@ public class CollectionState extends State {
 	
 	private Button exitBtn;
 	
-	private Button playerTitle;
-	private Button collectionTitle;
-	
 	private BitmapFont font;
 	
     private Sound clickSound;
@@ -73,10 +70,7 @@ public class CollectionState extends State {
 		playerNextPageBtn = new Button(BTN_WIDTH, BTN_HEIGHT, ((Game.WIDTH / 6 ) * 5 ) + 40, 15, "NextBtn.PNG");
 		playerLastPageBtn = new Button(BTN_WIDTH, BTN_HEIGHT, ((Game.WIDTH / 6 ) * 3 ) + 30, 15, "BackBtn.PNG");
 		
-		exitBtn = new Button(30, 30, Game.WIDTH - 35 , (Game.HEIGHT/15) * 14 + 15, "BackBtn.PNG");
-		
-		playerTitle = new Button(BTN_WIDTH, BTN_HEIGHT, ((Game.WIDTH / 13 ) * 9 ), (Game.HEIGHT/15) * 14, "BackBtn.PNG");
-		collectionTitle = new Button(BTN_WIDTH, BTN_HEIGHT, ((Game.WIDTH / 5 ) - 10 ), (Game.HEIGHT/15) * 14, "BackBtn.PNG");
+		exitBtn = new Button(47, 41, (Game.WIDTH / 2 - 47 / 2) , 15, "HomeSBtn.PNG");
 		
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/Staatliches-Regular.ttf"));
 		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
@@ -193,9 +187,6 @@ public class CollectionState extends State {
 		currentCollectionPage.displayCollectionCards(sb);
 		currentPlayerPage.displayPlayerCards(sb);
 		
-		playerTitle.draw(sb);
-		collectionTitle.draw(sb);
-		
 		collectionNextPageBtn.draw(sb);
 		collectionLastPageBtn.draw(sb);
 		
@@ -212,16 +203,16 @@ public class CollectionState extends State {
 	
 	public void renderPageNumber(SpriteBatch sb) {
 		
-		String collectionPageNumbers = currentCollectionPage.getPageNumber() + "/" + collectionDisplayPages.size();
+		String collectionPageNumbers = "Cards  --  " + currentCollectionPage.getPageNumber() + "/" + collectionDisplayPages.size();
 		GlyphLayout layout = new GlyphLayout(font, collectionPageNumbers);
 		float pageNumberWidth = layout.width;
-		font.draw(sb, collectionPageNumbers, (((Game.WIDTH / 2) - (pageNumberWidth/2)) * 0.5f) - 7f, Game.HEIGHT/14);
+		font.draw(sb, collectionPageNumbers, (Game.WIDTH / 4) - (pageNumberWidth/2), Game.HEIGHT/14);
 		
-		String playerPageNumbers = currentPlayerPage.getPageNumber() + "/" + playerDisplayPages.size();
+		String playerPageNumbers = "Deck  --  " + currentPlayerPage.getPageNumber() + "/" + playerDisplayPages.size();
 		layout = new GlyphLayout(font, playerPageNumbers);
 		pageNumberWidth = layout.width;
 		
-		font.draw(sb, playerPageNumbers, (((Game.WIDTH / 2) - (pageNumberWidth/2)) * 1.5f) + 9f, Game.HEIGHT/14);
+		font.draw(sb, playerPageNumbers, ((Game.WIDTH / 4)*3) - (pageNumberWidth/2), Game.HEIGHT/14);
 	}
 
 	@Override
