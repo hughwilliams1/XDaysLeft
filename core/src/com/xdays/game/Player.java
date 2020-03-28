@@ -16,7 +16,9 @@ public abstract class Player {
 	private String[] starterDeck;
 	
 	// most card that can be in a hand
-	private static final int MAX_HAND_SIZE = 8;
+	public final int MAX_HAND_SIZE = 8;
+	// max amount of one type of card per deck
+	public final int MAX_ONE_CARD = 3;
 	
 	//All cards loaded
 	private CardCollection collection;

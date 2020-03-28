@@ -35,7 +35,7 @@ public class Industry extends Card {
 		sb.draw(getTexture(), getX(), getY(), getBoundsWidth(), getBoundsHeight());
 		String points = Integer.toString(getPoints()).replace("-", "");
 		if(points.length()>1) {
-			font.draw(sb, points, getX()+getBoundsWidth()-20, getY()+22);
+			font.draw(sb, points, getX()+getBoundsWidth()-27, getY()+22);
 		}else {
 			font.draw(sb, points, getX()+getBoundsWidth()-22, getY()+22);
 		}

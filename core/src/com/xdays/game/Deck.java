@@ -10,6 +10,7 @@ import java.util.Random;
 
 import com.xdays.game.cards.Card;
 import com.xdays.game.cards.Industry;
+import com.xdays.game.cards.Social;
 
 public class Deck {
 	
@@ -24,7 +25,7 @@ public class Deck {
 		// randomises card order each time
 		/*Commented this, because it's already done in addCards()?
 		arrayDeck = queueToArray();*/
-		//shuffle();
+		shuffle();
 	}
 	
 	public void resetDeck(ArrayList<Card> givenCards) {
@@ -33,8 +34,15 @@ public class Deck {
 		shuffle();
 	}
 	
-	public void addCard(Card card) {	
-		deck.add(card);
+	public void addCard(Card card) {
+		Card deckCard = null;
+		if (card instanceof Social) {
+			deckCard = new Social((Social) card);
+		}
+		else if (card instanceof Industry) {
+			deckCard = new Industry((Industry) card);
+		}
+		deck.add(deckCard);
 		arrayDeck = queueToArray();
 	}
 	
@@ -42,6 +50,13 @@ public class Deck {
 	public void addCards(ArrayList<Card> givenCards) {
 		for(Card c : givenCards) {
 			deck.add(c);
+		}
+		arrayDeck = queueToArray();
+	}
+	
+	public void removeCard(Card card) {
+		if (deck.contains(card)) {
+			deck.remove(card);
 		}
 		arrayDeck = queueToArray();
 	}
@@ -63,6 +78,17 @@ public class Deck {
 	
 	public Card getCard(int position) {
 		return arrayDeck.get(position);
+	}
+	
+	public int instancesOfCardInDeck(Card card) {
+		int returnNumber = 0;
+		for (Card deckCard : arrayDeck) {
+			if (card.getTitle().equals(deckCard.getTitle())) {
+				returnNumber++;
+			}
+		}
+		
+		return returnNumber;
 	}
 	
 	// shuffle the current deck so cards are not drawn in the same order

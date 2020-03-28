@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.xdays.game.Game;
 import com.xdays.game.assets.Button;
-import com.xdays.game.cutscenes.StartCutsceneState;
+import com.xdays.game.cutscenes.CutsceneState;
 
 public class MapState extends State {
 	private static final int BTN_WIDTH = 200;
@@ -193,7 +193,7 @@ public class MapState extends State {
 		public void handleInput() {
 			if(previusMarker==null || previusMarker.isCompleted()) {
 				clickSound.play();
-				gsm.setStateAsNew(new StartCutsceneState(gsm, cutscene), StateEnum.CUTSCENE_STATE);
+				gsm.setStateAsNew(new CutsceneState(gsm, cutscene), StateEnum.CUTSCENE_STATE);
 			}else {
 				System.out.println("Previous marker not completed.");
 			}
