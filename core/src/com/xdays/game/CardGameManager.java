@@ -58,7 +58,6 @@ public class CardGameManager {
 		} else {
 			processCard(card, chosenCards);
 			System.out.println("Player's Current Hand: " + user.currentHandAsString());
-			changeEmissions(playerBoard.getTotalPoints());
 			switchPlayerTurn();
 		}
 		ArrayList<Card> cardsToProcess = getAI().nextCard(aiBoard, playerBoard);
@@ -69,8 +68,10 @@ public class CardGameManager {
 			processCard(aiCard, cardsToProcess); //Need the chosen cards to destroy too
 			// prints out ai's current hand
 			System.out.println("AI's Current Hand: " + enemyAI.currentHandAsString());
-			changeEmissions(aiBoard.getTotalPoints());
 		}
+		System.out.println("AI EMISSIONS: " +aiBoard.getTotalPoints() +"Player emmisions: "+  playerBoard.getTotalPoints());
+		changeEmissions(playerBoard.getTotalPoints());
+		changeEmissions(aiBoard.getTotalPoints());
 		switchPlayerTurn();
 	}
 

@@ -188,7 +188,8 @@ public class PlayState extends State {
 									lastCardPlayed = selectedCard;
 									lastCardPlayed.halfPlayed();
 								} else {
-									((Social) selectedCard).doEffect(getPlayerBoard(), null);
+									manager.processCard(selectedCard, null);
+									//((Social) selectedCard).doEffect(getPlayerBoard(), null);
 									messageToPrint = "Social card applied.";
 									System.out.println("Select card applied to: "
 											+ ((Social) selectedCard).getSocialEffect().getChosenCard());
