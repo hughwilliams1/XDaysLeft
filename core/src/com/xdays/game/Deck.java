@@ -18,6 +18,8 @@ public class Deck {
 	private Queue<Card> deck;
 	private ArrayList<Card> arrayDeck;
 	
+	public static final int MAX_DECK_SIZE = 45;
+	
 	public Deck(ArrayList<Card> givenCards) {
 		deck = new LinkedList<>();
 		addCards(givenCards);

@@ -145,7 +145,8 @@ public class CollectionState extends State {
 		for (Card card : currentCollectionPage.getDisplayedCards()) {
 			if (Gdx.input.justTouched() && card.getBounds().overlaps(new Rectangle(Gdx.input.getX(), -(Gdx.input.getY() - 720), 0.01f, 0.01f))) {
 				System.out.print("Collection Card: " + card.getTitle() + " was touched \n");
-				if (player.getDeck().instancesOfCardInDeck(card) < player.MAX_ONE_CARD) {
+				player.getDeck();
+				if (player.getDeck().instancesOfCardInDeck(card) < player.MAX_ONE_CARD && player.getDeck().getDeckSize() < Deck.MAX_DECK_SIZE) {
 					player.getDeck().addCard(card);
 					clickSound.play();
 				} else {
@@ -298,11 +299,15 @@ public class CollectionState extends State {
 						// Gives the cards bound depending on it current position
 						card.setPosition(X_COORDINATES[x] - cardWidth, Y_COORINATES[y] - cardHeight);
 						
-						//sb.draw(card.getTexture(), X_COORDINATES[x] - cardWidth, Y_COORINATES[y] - cardHeight, cardWidth,
-						//		cardHeight);
+						
+						
 						if(card instanceof Industry) {
 							((Industry) card).draw(sb);
+						} else {
+							sb.draw(card.getTexture(), X_COORDINATES[x] - cardWidth, Y_COORINATES[y] - cardHeight, cardWidth,
+								cardHeight);
 						}
+						
 						displayedCards.add(card);
 						
 						// displays the amount in deck out of the collection limit
@@ -332,11 +337,13 @@ public class CollectionState extends State {
 						// Gives the cards bound depending on it current position
 						card.setPosition(X_COORDINATES_PLAYER[x] - cardWidth, Y_COORINATES[y] - cardHeight);
 						
-						//sb.draw(card.getTexture(), X_COORDINATES_PLAYER[x] - cardWidth, Y_COORINATES[y] - cardHeight, cardWidth,
-							//	cardHeight);
 						if(card instanceof Industry) {
 							((Industry) card).draw(sb);
+						} else {
+							sb.draw(card.getTexture(), X_COORDINATES_PLAYER[x] - cardWidth, Y_COORINATES[y] - cardHeight, cardWidth,
+							cardHeight);
 						}
+						
 						displayedCards.add(card);
 					}
 				}
