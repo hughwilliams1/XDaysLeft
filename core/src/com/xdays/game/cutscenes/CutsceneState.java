@@ -74,27 +74,21 @@ public class CutsceneState extends State{
 		
 		opponentXPosition = ((Game.WIDTH / 9) * 5);
 		
-		TextBox text1 = new TextBox("Scientist Y",
-				"All my life I have been in search of a goal.  184 years i've spent ...");
+		textBoxQueue.add(new TextBox("Scientist Y",
+				"All my life I have been in search of a goal.  184 years i've spent ..."));
 
-		TextBox text2 = new TextBox("Scientist Y",
-				"wait,  no no,  let me see,  MOON GUY    err    THAT WAR THINGY");
+		textBoxQueue.add(new TextBox("Scientist Y",
+				"wait,  no no,  let me see,  MOON GUY    err    THAT WAR THINGY"));
 
-		TextBox text3 = new TextBox("Scientist Y",
-				"That's it!  I've lived for 84 years with nothing to show for it,  except for my devilishly good looks of course.");
+		textBoxQueue.add(new TextBox("Scientist Y",
+				"That's it!  I've lived for 84 years with nothing to show for it,  except for my devilishly good looks of course."));
 		
-		TextBox text4 = new TextBox("Scientist Y",
+		textBoxQueue.add(new TextBox("Scientist Y",
 				"Finally I have something to fight for!  This world,  our world.  "
-				+ "Climate change will be the end of us all,  if I don't act quick it will be too late!");
+				+ "Climate change will be the end of us all,  if I don't act quick it will be too late!"));
 		
-		TextBox text5 = new TextBox("Scientist Y",
-				"Ah!  Here's my walking stick.  Now off to fight this from the bottom up,  Mrs Merkel,  you're first.");
-
-		textBoxQueue.add(text1);
-		textBoxQueue.add(text2);
-		textBoxQueue.add(text3);
-		textBoxQueue.add(text4);
-		textBoxQueue.add(text5);
+		textBoxQueue.add(new TextBox("Scientist Y",
+				"Ah!  Here's my walking stick.  Now off to fight this from the bottom up,  Mrs Merkel,  you're first."));
 	}
 	
 	
@@ -105,35 +99,27 @@ public class CutsceneState extends State{
 		
 		opponentXPosition = ((Game.WIDTH / 9) * 5);
 		
-		TextBox text1 = new TextBox("Scientist Y",
+		textBoxQueue.add(new TextBox("Scientist Y",
 				"There you are,  we need a talk,  air pollution is the biggest environmental "
-				+ "health risk in Europe.  People are chocking,the planet is dying.  You're willing to stand by?");
+				+ "health risk in Europe.  People are chocking,the planet is dying.  You're willing to stand by?"));
 
-		TextBox text2 = new TextBox("Angela Merkel",
-				"Was zur Hölle?");
+		textBoxQueue.add(new TextBox("Angela Merkel",
+				"Was zur Hölle?"));
 
-		TextBox text3 = new TextBox("Scientist Y",
-				"What? Enough of the profanities, this is serious!");
+		textBoxQueue.add(new TextBox("Scientist Y",
+				"What? Enough of the profanities, this is serious!"));
 		
-		TextBox text4 = new TextBox("Angela Merkel",
-				"How dare you! I don't even know who you are, we are ze best in ze whole world for the environment.");
+		textBoxQueue.add(new TextBox("Angela Merkel",
+				"How dare you! I don't even know who you are, we are ze best in ze whole world for the environment."));
 		
-		TextBox text5 = new TextBox("Scientist Y",
-				"Pointing fingers will get you nowhere. The time to act is now, we are already too late.");
+		textBoxQueue.add(new TextBox("Scientist Y",
+				"Pointing fingers will get you nowhere. The time to act is now, we are already too late."));
 		
-		TextBox text6 = new TextBox("Angela Merkel",
-				"Sheisse! Show me what you're made of.");
+		textBoxQueue.add(new TextBox("Angela Merkel",
+				"Sheisse! Show me what you're made of."));
 		
-		TextBox text7 = new TextBox("Scientist Y",
-				"Bring it on!");
-
-		textBoxQueue.add(text1);
-		textBoxQueue.add(text2);
-		textBoxQueue.add(text3);
-		textBoxQueue.add(text4);
-		textBoxQueue.add(text5);
-		textBoxQueue.add(text6);
-		textBoxQueue.add(text7);
+		textBoxQueue.add(new TextBox("Scientist Y",
+				"Bring it on!"));
 	}
 	
 	private void russiaInitialisation() {
@@ -143,27 +129,29 @@ public class CutsceneState extends State{
 		
 		opponentXPosition = ((Game.WIDTH / 9) * 5);
 		
-		TextBox text1 = new TextBox("Scientist Y",
-				"Trump we finally meet. America is among the most significant emmitters of greenhouse in the world,"
-				+ " all in the name of corporate greed what do you have to say for yourself. Reprent now and ill make it a quick death");
+		textBoxQueue.add(new TextBox("Scientist Y",
+				"Mr. Putin, your layers of corruption and damage to this world are going to be torn apart like a Matryoshka doll."));
 
-		TextBox text2 = new TextBox("Vladimir Putin",
-				"");
+		textBoxQueue.add(new TextBox("Putin",
+				"WHO ARE YOU?!?! GUARDS!"));
 
-		TextBox text3 = new TextBox("Scientist Y",
-				"blahahahaaadaw");
+		textBoxQueue.add(new TextBox("Scientist Y",
+				"Ok, maybe a little up-front. Look, we have no time, not acting now on our climate emergency will mean no Russia. "
+				+ "The motherland will be childless."));
 		
-		TextBox text4 = new TextBox("Vladimir Putin",
-				"");
+		textBoxQueue.add(new TextBox("Putin",
+				"I've heard the rumours coming from Europe of a man like you, dishevelled, old and most of all not a good looker."
+				+ " Angela is weak, I am not."));
 		
-		TextBox text5 = new TextBox("Scientist Y",
-				"");
-
-		textBoxQueue.add(text1);
-		textBoxQueue.add(text2);
-		textBoxQueue.add(text3);
-		textBoxQueue.add(text4);
-		textBoxQueue.add(text5);
+		textBoxQueue.add(new TextBox("Scientist Y",
+				"How dare you! My looks are most certainly not ... never mind."
+				+ " Prove your worth, show your people your power, they will be watching."));
+		
+		textBoxQueue.add(new TextBox("Putin",
+				"Your offer is insulting at best, this will be quick."));
+		
+		textBoxQueue.add(new TextBox("Scientist Y",
+				"It sure will."));
 	}
 	
 	private void americaInitialisation() {
@@ -173,27 +161,35 @@ public class CutsceneState extends State{
 		
 		opponentXPosition = (Game.WIDTH / 4) * 2;
 		
-		TextBox text1 = new TextBox("Scientist Y",
-				"Trump we finally meet. America is among the most significant emmitters of greenhouse in the world,"
-				+ " all in the name of corporate greed what do you have to say for yourself. Reprent now and ill make it a quick death");
+		textBoxQueue.add(new TextBox("Scientist Y",
+				"Donald, we finally meet. I have defeated everyone in my path, you are the only one left."));
 
-		TextBox text2 = new TextBox("Angela Merkel",
-				"");
+		textBoxQueue.add(new TextBox("Trump",
+				"I've seen what you have done, very impressive, I am the best for the environment, you wouldn't even know."
+				+ " We have the best people on it, the best."));
 
-		TextBox text3 = new TextBox("Scientist Y",
-				"blahahahaaadaw");
+		textBoxQueue.add(new TextBox("Scientist Y",
+				"You emit 10% of the worlds CO2, most of which is completely avoidable."));
 		
-		TextBox text4 = new TextBox("Angela Merkel",
-				"");
+		textBoxQueue.add(new TextBox("Trump",
+				"We have the cleanest air. I would know. Our air is so clean, the scientists are even baffled."
+				+ " They come to me and say, Donald, how have you done this? Never has our air been cleaner."));
 		
-		TextBox text5 = new TextBox("Scientist Y",
-				"");
-
-		textBoxQueue.add(text1);
-		textBoxQueue.add(text2);
-		textBoxQueue.add(text3);
-		textBoxQueue.add(text4);
-		textBoxQueue.add(text5);
+		textBoxQueue.add(new TextBox("Scientist Y",
+				"Okk, how about this, the US is home to a quarter of the world's cars but only 5% of the world's population."));
+		
+		textBoxQueue.add(new TextBox("Trump",
+				"Driving makes everyone healthier, you get to really stretch your legs."
+				+ " More cars, more jobs, more money ... I mean ... more American. Yes, America."));
+		
+		textBoxQueue.add(new TextBox("Scientist Y",
+				"This is never going to work, I'm going to have to show you myself."));
+		
+		textBoxQueue.add(new TextBox("Trump",
+				"It's freezing and snowing in New York--we need global warming!"));
+		
+		textBoxQueue.add(new TextBox("Scientist Y",
+				"It's time to cut you off, the Russians can't help you now."));
 	}
 	
 
