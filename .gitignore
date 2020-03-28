@@ -139,3 +139,5 @@ desktop/.project
 .gradle/5.4.1/fileHashes/fileHashes.lock
 .gradle/buildOutputCleanup/buildOutputCleanup.lock
 desktop/.project
+.gradle/buildOutputCleanup/buildOutputCleanup.lock
+.gradle/5.4.1/fileHashes/fileHashes.lock

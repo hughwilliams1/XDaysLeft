@@ -36,6 +36,7 @@ public class PlayState extends State {
 	
 	private Button pauseBtn;
 	private Button skipBtn;
+	private Button homeBtn;
 	
 	private static final int BTN_WIDTH = 47;
 	private static final int BTN_HEIGHT = 41;
@@ -49,6 +50,7 @@ public class PlayState extends State {
 		
 		pauseBtn = new Button(BTN_WIDTH, BTN_HEIGHT, 15, 15, "PauseSBtn.PNG");
 		skipBtn = new Button(BTN_WIDTH, BTN_HEIGHT, 15, 30 + BTN_HEIGHT, "SkipSBtn.png");
+		homeBtn = new Button(BTN_WIDTH, BTN_HEIGHT, 15, 45 + (BTN_HEIGHT * 2), "HomeSBtn.png");
 		
 		battleMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/BattleMusic.wav"));
 		battleMusic.setLooping(true);
@@ -81,6 +83,13 @@ public class PlayState extends State {
 		if(Gdx.input.justTouched() && skipBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY())){
 			manager.playCardGameRound(null, null);
         	clickSound.play();
+        }
+		
+		if(Gdx.input.justTouched() && homeBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY())){
+			clickSound.play();
+			dispose();
+			gsm.setState(StateEnum.MAP_STATE);
+			gsm.removeState(StateEnum.PLAY_STATE);
         }
 		
 		if (hasPlayerWon()) {
@@ -261,6 +270,7 @@ public class PlayState extends State {
 		sb.draw(background, 0, 0);
 		pauseBtn.draw(sb);
 		skipBtn.draw(sb);
+		homeBtn.draw(sb);
 		
 		// gets player to be used
 		User player = manager.getUser();
