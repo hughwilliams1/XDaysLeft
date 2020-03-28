@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
+import com.xdays.game.Deck;
 import com.xdays.game.Game;
 import com.xdays.game.User;
 import com.xdays.game.assets.Button;
@@ -35,8 +36,15 @@ public class CollectionState extends State {
 	private Texture background;
 	
 	private Button collectionNextPageBtn;
+	private Button collectionLastPageBtn;
+	
 	private Button playerNextPageBtn;
-	private Button mapBackBtn;
+	private Button playerLastPageBtn;
+	
+	private Button exitBtn;
+	
+	private Button playerTitle;
+	private Button collectionTitle;
 	
 	private BitmapFont font;
 	
@@ -59,12 +67,19 @@ public class CollectionState extends State {
 		// Buttons
 		// TODO give btns a texture
 		collectionNextPageBtn = new Button(BTN_WIDTH, BTN_HEIGHT, ((Game.WIDTH / 6 ) * 3 ) - 180, 15, "NextBtn.PNG");
-		playerNextPageBtn = new Button(BTN_WIDTH, BTN_HEIGHT, ((Game.WIDTH / 6 ) * 3 ) + 30, 15, "NextBtn.PNG");
-		mapBackBtn = new Button(BTN_WIDTH, BTN_HEIGHT, ((Game.WIDTH / 6 ) * 5 ) + 60, 15, "BackBtn.PNG");
+		collectionLastPageBtn = new Button(BTN_WIDTH, BTN_HEIGHT, ((Game.WIDTH / 40 )), 15, "BackBtn.PNG");
+		
+		playerNextPageBtn = new Button(BTN_WIDTH, BTN_HEIGHT, ((Game.WIDTH / 6 ) * 5 ) + 40, 15, "NextBtn.PNG");
+		playerLastPageBtn = new Button(BTN_WIDTH, BTN_HEIGHT, ((Game.WIDTH / 6 ) * 3 ) + 30, 15, "BackBtn.PNG");
+		
+		exitBtn = new Button(30, 30, Game.WIDTH - 35 , (Game.HEIGHT/15) * 14 + 15, "BackBtn.PNG");
+		
+		playerTitle = new Button(BTN_WIDTH, BTN_HEIGHT, ((Game.WIDTH / 13 ) * 9 ), (Game.HEIGHT/15) * 14, "BackBtn.PNG");
+		collectionTitle = new Button(BTN_WIDTH, BTN_HEIGHT, ((Game.WIDTH / 5 ) - 10 ), (Game.HEIGHT/15) * 14, "BackBtn.PNG");
 		
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/Staatliches-Regular.ttf"));
 		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
-		parameter.size = 32;
+		parameter.size = 35;
 		font = generator.generateFont(parameter);
 		
 		// Circular pages array
@@ -83,7 +98,7 @@ public class CollectionState extends State {
 		int collectionPages = (int) Math.ceil((double) cardCollection.getGoodSize() / CARDS_PER_PAGE);
 		
 		for (int x = 0; x < collectionPages; x++) {
-			CollectionPage page = new CollectionPage(cardCollection.getAllGoodCards(), x);
+			CollectionPage page = new CollectionPage(player, cardCollection.getAllGoodCards(), x);
 			collectionDisplayPages.add(page);
 		}
 	}
@@ -105,13 +120,21 @@ public class CollectionState extends State {
 			clickSound.play();
 			currentCollectionPage = collectionDisplayPages.get(collectionDisplayPages.indexOf((currentCollectionPage))+1);
         }
+		if (Gdx.input.justTouched() && collectionLastPageBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY())){
+			clickSound.play();
+			currentCollectionPage = collectionDisplayPages.get(collectionDisplayPages.indexOf((currentCollectionPage))-1);
+		}
 		
 		if (Gdx.input.justTouched() && playerNextPageBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY())) {
 			clickSound.play();
 			currentPlayerPage = playerDisplayPages.get(playerDisplayPages.indexOf((currentPlayerPage))+1);
 		}
+		if (Gdx.input.justTouched() && playerLastPageBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY())) {
+			clickSound.play();
+			currentPlayerPage = playerDisplayPages.get(playerDisplayPages.indexOf((currentPlayerPage))-1);
+		}
 		
-		if (Gdx.input.justTouched() && mapBackBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY())) {
+		if (Gdx.input.justTouched() && exitBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY())) {
 			clickSound.play();
 			gsm.setState(StateEnum.MAP_STATE);
 		}
@@ -121,14 +144,13 @@ public class CollectionState extends State {
 		for (Card card : currentCollectionPage.getDisplayedCards()) {
 			if (Gdx.input.justTouched() && card.getBounds().overlaps(new Rectangle(Gdx.input.getX(), -(Gdx.input.getY() - 720), 0.01f, 0.01f))) {
 				System.out.print("Collection Card: " + card.getTitle() + " was touched \n");
-				if (player.getDeck().instancesOfCardInDeck(card) < 3) {
+				if (player.getDeck().instancesOfCardInDeck(card) < player.MAX_ONE_CARD) {
 					player.getDeck().addCard(card);
+					clickSound.play();
 				} else {
-					//TODO play some sound
+					//TODO play some fail sound
 				}
-				
 				createPlayerPages(player);
-				// TODO TRACK LAST CURRENT PAGE
 			}
 		}
 		
@@ -140,8 +162,9 @@ public class CollectionState extends State {
 				if (player.getDeck().getDeckSize() != player.MAX_HAND_SIZE) {
 					player.getDeck().removeCard(card);
 					createPlayerPages(player);
+					clickSound.play();
 				} else {
-					//TODO PLAY SOME SOUND
+					//TODO PLAY SOME FAIL SOUND
 				}
 				
 			}
@@ -164,11 +187,20 @@ public class CollectionState extends State {
 		sb.setProjectionMatrix(cam.combined);
 		sb.begin();
 		sb.draw(background, 0, 0);
+		
 		currentCollectionPage.displayCollectionCards(sb);
 		currentPlayerPage.displayPlayerCards(sb);
+		
+		playerTitle.draw(sb);
+		collectionTitle.draw(sb);
+		
 		collectionNextPageBtn.draw(sb);
+		collectionLastPageBtn.draw(sb);
+		
 		playerNextPageBtn.draw(sb);
-		mapBackBtn.draw(sb);
+		playerLastPageBtn.draw(sb);
+		
+		exitBtn.draw(sb);
 		if (currentPlayerPage.isEmpty()) {
 			currentPlayerPage = playerDisplayPages.get(0);
 		}
@@ -181,13 +213,13 @@ public class CollectionState extends State {
 		String collectionPageNumbers = currentCollectionPage.getPageNumber() + "/" + collectionDisplayPages.size();
 		GlyphLayout layout = new GlyphLayout(font, collectionPageNumbers);
 		float pageNumberWidth = layout.width;
-		font.draw(sb, collectionPageNumbers, ((Game.WIDTH / 2) - (pageNumberWidth/2)) * 0.4f, Game.HEIGHT/14);
+		font.draw(sb, collectionPageNumbers, (((Game.WIDTH / 2) - (pageNumberWidth/2)) * 0.5f) - 7f, Game.HEIGHT/14);
 		
 		String playerPageNumbers = currentPlayerPage.getPageNumber() + "/" + playerDisplayPages.size();
 		layout = new GlyphLayout(font, playerPageNumbers);
 		pageNumberWidth = layout.width;
 		
-		font.draw(sb, playerPageNumbers, (((Game.WIDTH / 2) - (pageNumberWidth/2)) * 1.5f) + 20f, Game.HEIGHT/14);
+		font.draw(sb, playerPageNumbers, (((Game.WIDTH / 2) - (pageNumberWidth/2)) * 1.5f) + 9f, Game.HEIGHT/14);
 	}
 
 	@Override
@@ -224,7 +256,8 @@ public class CollectionState extends State {
 
 		private int pageNumber;
 		
-		public CollectionPage(ArrayList<Card> cards, int offset) {
+		public CollectionPage(User user, ArrayList<Card> cards, int offset) {
+			this.player = user;
 			this.pageNumber = offset + 1;
 			cardHeight = cards.get(0).getTexture().getHeight() / 3.4f;
 			cardWidth = cards.get(0).getTexture().getWidth() / 3.4f;
@@ -241,6 +274,12 @@ public class CollectionState extends State {
 		}
 
 		public void displayCollectionCards(SpriteBatch sb) {
+			
+			FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/Staatliches-Regular.ttf"));
+			FreeTypeFontParameter parameter = new FreeTypeFontParameter();
+			parameter.size = 20;
+			BitmapFont deckNumberFont = generator.generateFont(parameter);
+			
 			displayedCards.clear();
 			// total card per page divide by the card rows
 			int currentCardNumber = 0;
@@ -251,6 +290,7 @@ public class CollectionState extends State {
 				for (int x = 0; x < CARD_ROWS; x++, currentCardNumber++) {
 					// checks if the card index is out the array
 					if (((offset * CollectionState.CARDS_PER_PAGE) + currentCardNumber) < collectionCards.size()) {
+						
 						// get the card to be rendered using current card and the pageoffset
 						Card card = collectionCards.get((offset * CollectionState.CARDS_PER_PAGE) + currentCardNumber);
 						
@@ -260,6 +300,10 @@ public class CollectionState extends State {
 						sb.draw(card.getTexture(), X_COORDINATES[x] - cardWidth, Y_COORINATES[y] - cardHeight, cardWidth,
 								cardHeight);
 						displayedCards.add(card);
+						
+						// displays the amount in deck out of the collection limit
+						String deckAmount = player.getDeck().instancesOfCardInDeck(card) + "/" + player.MAX_ONE_CARD;
+						deckNumberFont.draw(sb, deckAmount, X_COORDINATES[x] - 118, Y_COORINATES[y] - cardHeight + 25);
 					}
 				}
 			}
