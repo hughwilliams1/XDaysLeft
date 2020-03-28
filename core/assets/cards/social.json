@@ -3,7 +3,7 @@
 	"title" : "Online Posts",
 	"cardText" : "Buff",
 	"amount" : "1",
-	"type" : "EditEmmision",
+	"type" : "EditEmission",
 	"selectedCardsNeeded" : "false"
 	},
 	{
@@ -31,7 +31,7 @@
 	"title" : "UN Law",
 	"cardText" : "Test",
 	"amount" : "5",
-	"type" : "EditEmmison",
+	"type" : "EditEmission",
 	"selectedCardsNeeded" : "false"
 	},
 	{
@@ -49,7 +49,7 @@
 	"selectedCardsNeeded" : "true"
 	},
 	{
-	"title" : "Marketing Scheme", 
+	"title" : "Marketing Scheme",
 	"cardText" : "Test",
 	"amount" : "0",
 	"type" : "EditStar",
