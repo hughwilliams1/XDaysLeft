@@ -8,6 +8,8 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.math.Rectangle;
 import com.xdays.game.Game;
 import com.xdays.game.assets.Button;
@@ -28,6 +30,8 @@ public class MapState extends State {
 
 	static Music mainMenuMusic;
 	private Sound clickSound;
+	
+	private BitmapFont font;
 
 	public MapState(GameStateManager gsm) {
 		super(gsm);
@@ -50,8 +54,12 @@ public class MapState extends State {
 				(Game.HEIGHT / 2 - BTN_HEIGHT / 2) - (110 + (BTN_HEIGHT * 3) + 30), "DeckBtn.PNG");
 
 		homeBtn = new Button(BTN_WIDTH, BTN_HEIGHT, x - (BTN_WIDTH / 2) - 30,
-				(Game.HEIGHT / 2 - BTN_HEIGHT / 2) - (110 + (BTN_HEIGHT * 3) + 30), "HomeBtn.PNG");
-
+				(Game.HEIGHT / 2 - BTN_HEIGHT / 2) - (110 + (BTN_HEIGHT * 3) + 30), "MenuBtn.PNG");
+		
+		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/Staatliches-Regular.ttf"));
+		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
+		parameter.size = 35;
+		font = generator.generateFont(parameter);
 	}
 
 	@Override
@@ -78,7 +86,7 @@ public class MapState extends State {
 			// if collectionBtn is clicked changed to collection state
 			if (homeBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY())) {
 				clickSound.play();
-				gsm.setState(StateEnum.MENU_STATE);
+				gsm.setState(StateEnum.PAUSE_STATE);
 			}
 
 			// if tutorialBtn is clicked changed to collection state
@@ -97,10 +105,8 @@ public class MapState extends State {
 		}
 	}
 	
-	public void displayCompletedLevels(SpriteBatch sb) {
-		BitmapFont font = new BitmapFont(Gdx.files.internal("calibri-font/calibri.fnt"), false);
-		font.getData().setScale(0.25f, 0.25f);
-		font.draw(sb, getCompletedLevels()+ "/" + markers.size() + " levels completed", 10,50);
+	public void displayCompletedLevels(SpriteBatch sb) {		
+		font.draw(sb, getCompletedLevels()+ "/" + markers.size() + " zones completed", 10,50);
 	}
 	
 	public int getCompletedLevels() {
