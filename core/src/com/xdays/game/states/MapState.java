@@ -101,7 +101,7 @@ public class MapState extends State {
 			}
 			
 			// if collectionBtn is clicked changed to collection state
-			if (winMarker.isPointerOver(Gdx.input.getX(), Gdx.input.getY())) {
+			if (winMarker.isPointerOver(Gdx.input.getX(), Gdx.input.getY()) && areAllLevelsComplete()) {
 				clickSound.play();
 				gsm.setStateAsNew(new CutsceneState(gsm, 99), StateEnum.CUTSCENE_STATE);
 			}
