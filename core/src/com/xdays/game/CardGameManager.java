@@ -35,6 +35,7 @@ public class CardGameManager {
 		collection = new CardCollection();
 
 		user = givenUser;
+
 		this.enemyAI = new AI("Enemy", 1, createEnemyDeck());
 
 		user.resetHand();
@@ -127,6 +128,8 @@ public class CardGameManager {
 				}else {
 					switch(card.getTitle()) {
 					case "Online Posts":
+						
+						
 					case "UN Law":
 						((Social) card).doEffect(playerBoard, null);
 						user.removeCard(card);

@@ -13,7 +13,9 @@ public abstract class Player {
 	protected ArrayList<Card> hand;
 	// current players deck
 	private Deck deck;
+	
 	private String[] starterDeck;
+	private String[] currentDeck;
 	
 	// most card that can be in a hand
 	public final int MAX_HAND_SIZE = 8;
@@ -38,6 +40,8 @@ public abstract class Player {
 		// uses the string array start deck and the card collection to make a deck
 		this.collection = collection;
 		deck = new Deck(collection.getMultipleCards(starterDeck));
+		
+		currentDeck = starterDeck.clone();
 	}
 	
 	// constructor used by the ai as there deck differs per level
@@ -48,9 +52,10 @@ public abstract class Player {
 	}
 	
 	public void resetHand() {
+		// TODO this is causing the bug
 		hand.clear();
-		deck.resetDeck(collection.getMultipleCards(starterDeck));
-	}
+		deck.resetDeck(collection.getMultipleCards(currentDeck));
+	} 
 	
 	// gets hand size
 	public int handSize() {
@@ -66,6 +71,10 @@ public abstract class Player {
 		return deck;
 	}
 	
+	public void updateCurrentDeck() {
+		currentDeck = deck.deckToString();
+	}
+	
 	// set hand as a give array of cards
 	public void setHand(ArrayList<Card> givenCards) {
 		hand = givenCards;
@@ -77,7 +86,6 @@ public abstract class Player {
 	}
 	
 	// adds a card from the deck to the player hand
-	// TODO update hand visually
 	public void addCardToHand() {
 		if (!deck.isDeckEmpty()) {
 			hand.add(deck.draw());

@@ -130,4 +130,11 @@ public class Deck {
 		return null;
 	}
 	
+	public String[] deckToString() {
+		String[] returnArray = new String[arrayDeck.size()]; 
+		for (int x = 0 ; x < arrayDeck.size() ; x++) {
+			returnArray[x] = arrayDeck.get(x).getTitle();
+		}
+		return returnArray;
+	}
 }

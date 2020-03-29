@@ -84,6 +84,7 @@ public class MapState extends State {
 			// if collectionBtn is clicked changed to collection state
 			if (collectionBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY())) {
 				clickSound.play();
+				gsm.user.resetHand();
 				gsm.setState(StateEnum.COLLECTION_STATE);
 			}
 

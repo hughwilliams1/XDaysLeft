@@ -20,9 +20,10 @@ public class GameStateManager {
     
     private StateEnum currentState;
     private StateEnum previousState;
-    private User user;
+    protected User user;
     private CardCollection collection;
     private int levelsWon;
+    
     public GameStateManager(){        
         currentState = StateEnum.LOADING_STATE;
         previousState = null;
