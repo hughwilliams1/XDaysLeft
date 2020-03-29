@@ -142,6 +142,7 @@ public class CollectionState extends State {
 				player.getDeck();
 				if (player.getDeck().instancesOfCardInDeck(card) < player.MAX_ONE_CARD && player.getDeck().getDeckSize() < Deck.MAX_DECK_SIZE) {
 					player.getDeck().addCard(card);
+					player.updateCurrentDeck();
 					clickSound.play();
 				} else {
 					//TODO play some fail sound
@@ -157,6 +158,7 @@ public class CollectionState extends State {
 				
 				if (player.getDeck().getDeckSize() != player.MAX_HAND_SIZE) {
 					player.getDeck().removeCard(card);
+					player.updateCurrentDeck();
 					createPlayerPages(player);
 					clickSound.play();
 				} else {
