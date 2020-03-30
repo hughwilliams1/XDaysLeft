@@ -25,6 +25,7 @@ public class MapState extends State {
 
 	private Marker previusMarker;
 	private Button tutMarker;
+	private Button winMarker;
 	private Button collectionBtn;
 	private Button homeBtn;
 
@@ -47,6 +48,9 @@ public class MapState extends State {
 		markers.put("america", new Marker((cam.position.x - 475), (cam.position.y + 150), 3, markers.get("russia")));
 
 		tutMarker = new Button((int) markers.get("america").getWidth(), (int) markers.get("america").getHeight(), Game.WIDTH - 190, 180,
+				"Marker.PNG", "Marker Hover.PNG");
+		
+		winMarker = new Button((int) markers.get("america").getWidth(), (int) markers.get("america").getHeight(), Game.WIDTH / 2, 350,
 				"Marker.PNG", "Marker Hover.PNG");
 
 		int x = (Game.WIDTH / 2 - BTN_WIDTH / 2);
@@ -84,7 +88,7 @@ public class MapState extends State {
 				gsm.setState(StateEnum.COLLECTION_STATE);
 			}
 
-			// if collectionBtn is clicked changed to collection state
+			// if homeBtn is clicked changed to collection state
 			if (homeBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY())) {
 				clickSound.play();
 				gsm.setState(StateEnum.PAUSE_STATE);
@@ -94,6 +98,12 @@ public class MapState extends State {
 			if (tutMarker.isPointerOver(Gdx.input.getX(), Gdx.input.getY())) {
 				clickSound.play();
 				gsm.setState(StateEnum.TUTORIAL_STATE);
+			}
+			
+			// if collectionBtn is clicked changed to collection state
+			if (winMarker.isPointerOver(Gdx.input.getX(), Gdx.input.getY()) && areAllLevelsComplete()) {
+				clickSound.play();
+				gsm.setStateAsNew(new CutsceneState(gsm, 99), StateEnum.CUTSCENE_STATE);
 			}
 		}
 	}
@@ -130,7 +140,7 @@ public class MapState extends State {
 		if (!MenuState.mainMenuMusic.isPlaying()) {
 			MenuState.mainMenuMusic.play();
 		}
-
+		
 		sb.setProjectionMatrix(cam.combined);
 		sb.begin();
 		sb.draw(background, 0, 0);
@@ -138,6 +148,10 @@ public class MapState extends State {
 		tutMarker.draw(sb);
 		collectionBtn.draw(sb);
 		homeBtn.draw(sb);
+		if (areAllLevelsComplete()) {
+			winMarker.draw(sb);
+			font.draw(sb, "Complete Game!", Game.WIDTH / 2 - 90, 350);
+		}
 		sb.end();
 	}
 
@@ -158,6 +172,12 @@ public class MapState extends State {
 			tutMarker.notHovering();
 		}
 		
+		if (winMarker.isPointerOver(Gdx.input.getX(), Gdx.input.getY())) {
+			winMarker.hovering();
+		} else {
+			winMarker.notHovering();
+		}
+		
 		displayCompletedLevels(sb);
 	}
 	
@@ -169,7 +189,7 @@ public class MapState extends State {
 	public void dispose() {
 	}
 
-	class Marker {
+	public class Marker {
 		
 		private int cutscene;
 		private Marker previusMarker;

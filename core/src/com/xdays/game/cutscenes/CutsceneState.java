@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.xdays.game.Game;
 import com.xdays.game.states.GameStateManager;
+import com.xdays.game.states.MapState;
 import com.xdays.game.states.PlayState;
 import com.xdays.game.states.State;
 import com.xdays.game.states.StateEnum;
@@ -61,6 +62,18 @@ public class CutsceneState extends State{
 			break;
 		case(3):
 			americaInitialisation();
+			break;
+		case(4):
+			germanyWinInitialisation();
+			break;
+		case(5):
+			russiaWinInitialisation();
+			break;
+		case(6):
+			americaWinInitialisation();
+			break;
+		case(99):
+			endInitialisation();
 			break;
 		}
 		
@@ -122,6 +135,29 @@ public class CutsceneState extends State{
 				"Bring it on!"));
 	}
 	
+	private void germanyWinInitialisation() {
+		background = new Texture("European Parliament Background.png");
+		opponentTexture = new Texture("Merkel 1.png");
+		opponentAltTexture = new Texture("Merkel 2.png");
+		
+		opponentXPosition = ((Game.WIDTH / 9) * 5);
+		
+		textBoxQueue.add(new TextBox("Scientist Y",
+				"You see! Now you are on track, your denial that you could do no more led us to this mess."));
+
+		textBoxQueue.add(new TextBox("Angela Merkel",
+				"You were right, sorry ... "));
+
+		textBoxQueue.add(new TextBox("Scientist Y",
+				"...  Now that I have dealt with you, only two more big polluters are left, Putin and Trump."));
+		
+		textBoxQueue.add(new TextBox("Angela Merkel",
+				"You will never defeat them. Unmöglich!"));
+		
+		textBoxQueue.add(new TextBox("Scientist Y",
+				"We'll see ..."));
+	}
+	
 	private void russiaInitialisation() {
 		background = new Texture("Kremlin Background.png");
 		opponentTexture = new Texture("Putin 1.png");
@@ -152,6 +188,27 @@ public class CutsceneState extends State{
 		
 		textBoxQueue.add(new TextBox("Scientist Y",
 				"It sure will."));
+	}
+	
+	private void russiaWinInitialisation() {
+		background = new Texture("Kremlin Background.png");
+		opponentTexture = new Texture("Putin 1.png");
+		opponentAltTexture = new Texture("Putin 2.png");
+		
+		opponentXPosition = ((Game.WIDTH / 9) * 5);
+		
+		textBoxQueue.add(new TextBox("Scientist Y",
+				"The Babushkas will be happy, their land will no longer be ravaged."));
+
+		textBoxQueue.add(new TextBox("Putin",
+				"Mother Russia owes you a great debt."));
+
+		textBoxQueue.add(new TextBox("Scientist Y",
+				"The one I seek now is Trump, he spreads lies to the whole western world."
+				+ " More damaging than anything we have seen before."));
+		
+		textBoxQueue.add(new TextBox("Putin",
+				"I know, it's my script. Now get out before I have my men throw you in the gulag."));
 	}
 	
 	private void americaInitialisation() {
@@ -192,6 +249,47 @@ public class CutsceneState extends State{
 				"It's time to cut you off, the Russians can't help you now."));
 	}
 	
+	private void americaWinInitialisation() {
+		background = new Texture("Whitehouse Background.png");
+		opponentTexture = new Texture("Trump 1.png");
+		opponentAltTexture = new Texture("Trump 2.png");
+		
+		opponentXPosition = (Game.WIDTH / 4) * 2;
+		
+		textBoxQueue.add(new TextBox("Scientist Y",
+				"It's over, your lies are no more."));
+
+		textBoxQueue.add(new TextBox("Trump",
+				"All truths, no lies were ever spoken. I would know."));
+
+		textBoxQueue.add(new TextBox("Scientist Y",
+				"No one will have to hear you speak again. The world now knows who you really are, who you really serve."));
+	}
+	
+	private void endInitialisation() {
+		background = new Texture("LabBackground.png");
+		opponentTexture = new Texture("BlankCut.png");
+		opponentAltTexture = new Texture("BlankCut.png");
+		
+		opponentXPosition = ((Game.WIDTH / 9) * 5);
+		
+		textBoxQueue.add(new TextBox("Scientist Y",
+				"Now I can finally rest, my work is done."));
+
+		textBoxQueue.add(new TextBox("Scientist Y",
+				"A Global team set up to never allow this to happen again. My faith has been restored in humanity."));
+
+		textBoxQueue.add(new TextBox("Phone",
+				"*BZZZ BZZZ*"));
+		
+		textBoxQueue.add(new TextBox("Phone",
+				"## NEWS ALERT COVID-19 Officially A PANDEMIC ##"));
+		
+		textBoxQueue.add(new TextBox("Scientist Y",
+				"Oh F*** Not again."));
+	}
+	
+	
 
 	@Override
 	protected void handleInput() {
@@ -228,12 +326,19 @@ public class CutsceneState extends State{
 		try {
 			textBoxQueue.peek().showTextBox(sb);
 		} catch (Exception e) {
-			if(currentLevel != 0) {
-				gsm.setStateAsNew(new PlayState(gsm), StateEnum.PLAY_STATE);
-				gsm.removeState(StateEnum.CUTSCENE_STATE);
-				dispose();
-			} else {
+			if(currentLevel == 0) {
 				gsm.setState(StateEnum.MAP_STATE);
+				gsm.removeState(StateEnum.CUTSCENE_STATE);
+				dispose();			
+			} else if (currentLevel == 99) {
+				Gdx.app.exit();
+			} else if (currentLevel > 3) {
+				gsm.wonLevel();
+				((MapState) gsm.setState(StateEnum.MAP_STATE)).getPreviusMarker().complete();
+				gsm.removeState(StateEnum.CUTSCENE_STATE);
+				dispose();		
+			} else {
+				gsm.setStateAsNew(new PlayState(gsm, currentLevel + 3), StateEnum.PLAY_STATE);
 				gsm.removeState(StateEnum.CUTSCENE_STATE);
 				dispose();
 			}

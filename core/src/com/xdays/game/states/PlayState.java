@@ -23,6 +23,7 @@ import com.xdays.game.cards.Card;
 import com.xdays.game.cards.Destroy;
 import com.xdays.game.cards.Industry;
 import com.xdays.game.cards.Social;
+import com.xdays.game.cutscenes.CutsceneState;
 
 public class PlayState extends State {
 
@@ -44,8 +45,10 @@ public class PlayState extends State {
 	private Music battleMusic;
 	private Sound selectCard;
 	private Sound clickSound;
+	
+	private int level;
 
-	public PlayState(GameStateManager gsm) {
+	public PlayState(GameStateManager gsm, int level) {
 		super(gsm);
 		
 		pauseBtn = new Button(BTN_WIDTH, BTN_HEIGHT, 15, 15, "PauseSBtn.PNG");
@@ -65,9 +68,8 @@ public class PlayState extends State {
 		selectedCards = new ArrayList<Card>();
 		messageToPrint = "";
 		cam.setToOrtho(false, Game.WIDTH, Game.HEIGHT);
-
-		// Deck goodDeck = new Deck(cardReader.getInudstryAndSocialCards());
-		// Deck badDeck = new Deck(cardReader.getInudstryAndSocialCardsBad());
+		
+		this.level = level;
 
 		manager = new CardGameManager(50, gsm.getUser());
 	}
@@ -98,8 +100,7 @@ public class PlayState extends State {
 			dispose();
 			
 			// Player win return to edited map
-			gsm.wonLevel();
-			((MapState) gsm.setState(StateEnum.MAP_STATE)).getPreviusMarker().complete();
+			gsm.setStateAsNew(new CutsceneState(gsm, level), StateEnum.CUTSCENE_STATE);
 			gsm.removeState(StateEnum.PLAY_STATE);
 		}
 		if (hasAIWon()) {
