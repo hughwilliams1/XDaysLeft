@@ -16,6 +16,7 @@ public class PauseState extends State {
 	private Button backBtn;
 	private Button loadBtn;
 	private Button saveBtn;
+	private Button quitBtn;
 	
 	private Sound clickSound;
 	
@@ -27,9 +28,10 @@ public class PauseState extends State {
         cam.setToOrtho(false, Game.WIDTH, Game.HEIGHT);
         
 		background = new Texture("pauseMenuBackground.PNG");
-		backBtn = new Button(BTN_WIDTH, BTN_HEIGHT, x, (Game.HEIGHT / 2 - BTN_HEIGHT / 2) - 120, "BackBtn.PNG");
+		backBtn = new Button(BTN_WIDTH, BTN_HEIGHT, x, (Game.HEIGHT / 2 - BTN_HEIGHT / 2) - 150, "BackBtn.PNG");
+		quitBtn = new Button(BTN_WIDTH, BTN_HEIGHT, x, (Game.HEIGHT / 2 - BTN_HEIGHT / 2) - BTN_HEIGHT, "QuitBtn.PNG");
 		loadBtn = new Button(BTN_WIDTH, BTN_HEIGHT, x, (Game.HEIGHT / 2 - BTN_HEIGHT / 2) + BTN_HEIGHT + 20, "LoadBtn.PNG");
-		saveBtn = new Button(BTN_WIDTH, BTN_HEIGHT, x, (Game.HEIGHT / 2 - BTN_HEIGHT / 2), "SaveBtn.PNG");
+		saveBtn = new Button(BTN_WIDTH, BTN_HEIGHT, x, (Game.HEIGHT / 2 - BTN_HEIGHT / 2) + 10, "SaveBtn.PNG");
 
         clickSound = Gdx.audio.newSound(Gdx.files.internal("sounds/ClickSound.wav"));
 	}
@@ -48,6 +50,10 @@ public class PauseState extends State {
 			clickSound.play();
 			//gsm.saveGame();
 		}
+		
+        if(Gdx.input.justTouched() && quitBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY())){
+        	Gdx.app.exit();
+        }
 	}
 
 	@Override
@@ -64,6 +70,7 @@ public class PauseState extends State {
         backBtn.draw(sb);
         saveBtn.draw(sb);
         loadBtn.draw(sb);
+        quitBtn.draw(sb);
         sb.end();
 	}
 

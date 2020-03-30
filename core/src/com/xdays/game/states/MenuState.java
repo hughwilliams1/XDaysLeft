@@ -11,9 +11,6 @@ import com.xdays.game.assets.Button;
 import com.xdays.game.cards.CardCollection;
 import com.xdays.game.cutscenes.CutsceneState;
 
-/**
- * Created by Brent on 6/26/2015.
- */
 public class MenuState extends State{
 	
 	private static final int BTN_WIDTH = 200;
