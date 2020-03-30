@@ -20,7 +20,7 @@ public class TextBox {
 
 	private String name;
 
-	private final int CHARS_PER_LINE = 60;
+	private int charPerLine = 60;
 
 	private ArrayList<String> lines;
 
@@ -36,6 +36,20 @@ public class TextBox {
 
 		lines = processDialogue(dialogue);
 		
+	}
+	
+	public TextBox(int charPerLine, String name, String dialogue) {
+		this.charPerLine = charPerLine;
+		texture = new Texture("textBoxBlack.png");
+		
+		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/Staatliches-Regular.ttf"));
+		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
+		parameter.size = 32;
+		font = generator.generateFont(parameter);
+
+		this.name = name;
+
+		lines = processDialogue(dialogue);
 	}
 
 
@@ -54,18 +68,18 @@ public class TextBox {
 		while (process) {
 
 			try {
-				currentLetter = array[startCharIndex + CHARS_PER_LINE];
+				currentLetter = array[startCharIndex + charPerLine];
 
 				int offset = 0;
 
 				while (currentLetter != ' ') {
 
 					offset++;
-					currentLetter = array[(startCharIndex + CHARS_PER_LINE) - offset];
+					currentLetter = array[(startCharIndex + charPerLine) - offset];
 
 				}
 
-				lastCharIndex = (startCharIndex + CHARS_PER_LINE) - offset;
+				lastCharIndex = (startCharIndex + charPerLine) - offset;
 				lines.add (removeWhitespace (convertCharArray (array, startCharIndex, lastCharIndex)));
 				startCharIndex = lastCharIndex;
 
