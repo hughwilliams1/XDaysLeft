@@ -186,7 +186,7 @@ public class PlayState extends State {
 				for (int i = 0; i < player.handSize(); i++) {
 					Card card = player.getCardFromHand(i);
 					if (card.getBounds().overlaps(bounds)) {
-						System.out.println(card.getTitle());
+						System.out.println("User Played:" + card.getTitle());
 						Card selectedCard = card;
 						if (selectedCard instanceof Social) {
 							selectCardSound();
@@ -328,15 +328,21 @@ public class PlayState extends State {
 						((((Game.WIDTH) * ((i + 1) / ((float) ai.handSize() + 1)))) - aiCard.getBoundsWidth() / 2), 650+25);
 
 			}
-
 			sb.draw(aiCard.getBackTexture(), getXValue(aiCard), getYValue(aiCard), getCardWidth(aiCard),
 					getCardHeight(aiCard));
 		}
 
 		// render the ais cards on the board
 		for (int i = 0; i < getNumAiCards(); i++) {
-			sb.draw(getAICard(i).getTexture(), getXValue(getAICard(i)), getYValue(getAICard(i)) + 10,
-					getCardWidth(getAICard(i)), getCardHeight(getAICard(i)));
+			Card aiCard = getAICard(i);
+			if(aiCard instanceof Industry) {
+				((Industry) aiCard).AiDraw(sb);
+			}else {
+				sb.draw(aiCard.getTexture(), getXValue(aiCard), getYValue(aiCard)+10, getCardWidth(aiCard),
+						getCardHeight(aiCard));
+			}
+			/*sb.draw(getAICard(i).getTexture(), getXValue(getAICard(i)), getYValue(getAICard(i)) + 10,
+					getCardWidth(getAICard(i)), getCardHeight(getAICard(i)));*/
 		}
 
 		//console.draw(sb, messageToPrint, 600, 405);
