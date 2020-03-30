@@ -26,7 +26,7 @@ public class EditEmission implements SocialEffect{
 				while (!found) { //
 					ArrayList<Card> cards = board.getField();
 					int cardSize = board.getField().size();
-					System.out.println(cardSize);
+					//System.out.println(cardSize);
 					int nextRandom = rand.nextInt(cardSize);
 					c = cards.get(nextRandom); 
 				//	c = board.getField().get(rand.nextInt(board.getField().size())); // is this supposed to be one??
@@ -35,6 +35,7 @@ public class EditEmission implements SocialEffect{
 					}
 				}
 				chosenCard = c;
+				System.out.println("Applied to: " + chosenCard.getTitle() + " - Ammount:  " + amount);
 				((Industry) c).editBuff(amount);
 			} else {
 				((Industry) card).editBuff(amount);

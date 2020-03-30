@@ -1,6 +1,8 @@
 package com.xdays.game;
 
 import java.util.ArrayList;
+import java.util.Random;
+
 import com.xdays.game.cards.Card;
 import com.xdays.game.cards.CardCollection;
 import com.xdays.game.cards.Destroy;
@@ -27,8 +29,8 @@ public class CardGameManager {
 
 	public CardGameManager (int emissionsValue, User givenUser) {
 
-		enemyDeck_1 = new String[]{"Landfill", "Remove Tree", "Remove Tree", "Remove Tree",
-				"Remove Tree", "Diesel Car", "Remove Tree", "Diesel Car"}; //"Landfill", "Landfill", "Remove Tree", "Remove Tree"
+		enemyDeck_1 = new String[]{"Cover-up", "Remove Tree", "Remove Tree", "Remove Tree",
+				"Remove Tree", "Remove Tree", "Diesel Car", "Online Posts", "Online Posts", "Online Posts", "Cover-up", "Cover-up"}; //"Landfill", "Landfill", "Remove Tree", "Remove Tree"
 
 		emissionsBar = emissionsValue;
 
@@ -71,7 +73,7 @@ public class CardGameManager {
 			System.out.println("AI's Current Hand: " + enemyAI.currentHandAsString());
 		}
 		System.out.println("AI EMISSIONS: " +aiBoard.getTotalPoints() +"Player emmisions: "+  playerBoard.getTotalPoints());
-		changeEmissions(playerBoard.getTotalPoints());
+		changeEmissions(-playerBoard.getTotalPoints());
 		changeEmissions(aiBoard.getTotalPoints());
 		switchPlayerTurn();
 	}
@@ -129,10 +131,15 @@ public class CardGameManager {
 					switch(card.getTitle()) {
 					case "Online Posts":
 						
-						
 					case "UN Law":
-						((Social) card).doEffect(playerBoard, null);
-						user.removeCard(card);
+						Random r = new Random();
+						if(r.nextBoolean()) {
+							((Social) card).doEffect(playerBoard, null, true);
+							user.removeCard(card);	
+						}else {
+							((Social) card).doEffect(aiBoard, null, false);
+							user.removeCard(card);
+						}
 						break;
 					case "Strike":
 					case "Petition":
@@ -154,8 +161,14 @@ public class CardGameManager {
 					switch(card.getTitle()) {
 					case "Online Posts":
 					case "Cover-up":
-						((Social) card).doEffect(aiBoard, null);
-						enemyAI.removeCard(card);
+						Random r = new Random();
+						if(r.nextBoolean()) {
+							((Social) card).doEffect(playerBoard, null, false);
+							user.removeCard(card);	
+						}else {
+							((Social) card).doEffect(aiBoard, null, true);
+							user.removeCard(card);
+						}
 						break;
 					case "Bribe":
 					case "Propaganda":

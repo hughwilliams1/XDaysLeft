@@ -36,6 +36,14 @@ public class Social extends Card {
 		return socialEffect.doEffect(board, card, amount);
 	}
 	
+	public Board doEffect(Board board, Card card, boolean playerBoardOrAIBoard) {
+		if(playerBoardOrAIBoard) {
+			return socialEffect.doEffect(board, card, amount);
+		}else {
+			return socialEffect.doEffect(board, card, -amount);
+		}
+	}
+	
 	public SocialEffect getSocialEffect() {
 		return socialEffect;
 	}

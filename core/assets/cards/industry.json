@@ -3,72 +3,72 @@
 	"title" : "Plant Tree", 
 	"cardText" : "Plant Tree",
 	"stars" : "1",
-	"points" : "-2"
+	"points" : "2"
 	},
 	{
 	"title" : "Solar Panel", 
 	"cardText" : "Solar Panel",
 	"stars" : "1",
-	"points" : "-1"
+	"points" : "1"
 	},
 	{
 	"title" : "Windmill", 
 	"cardText" : "Windmill",
 	"stars" : "2",
-	"points" : "-6"
+	"points" : "6"
 	},
 	{
 	"title" : "Solar Farm", 
 	"cardText" : "Solar Farm",
 	"stars" : "3",
-	"points" : "-9"
+	"points" : "9"
 	},
 	{
 	"title" : "Wind Farm", 
 	"cardText" : "Wind Farm",
 	"stars" : "3",
-	"points" : "-9"
+	"points" : "9"
 	},
 	{
 	"title" : "Electric Car", 
 	"cardText" : "Electric Car",
 	"stars" : "2",
-	"points" : "-5"
+	"points" : "5"
 	},
 	{
 	"title" : "Household Recycle", 
 	"cardText" : "Household Recycle",
 	"stars" : "1",
-	"points" : "-1"
+	"points" : "1"
 	},
 	{
 	"title" : "Electric Bus", 
 	"cardText" : "Electric Bus",
 	"stars" : "2",
-	"points" : "-5"
+	"points" : "5"
 	},
 	{
 	"title" : "Vegan", 
 	"cardText" : "Vegan",
 	"stars" : "2",
-	"points" : "-5"
+	"points" : "5"
 	},
 	{
 	"title" : "Hydroelectric Energy", 
 	"cardText" : "Hydroelectric Energy",
 	"stars" : "4",
-	"points" : "-14"
+	"points" : "14"
 	},
 	{
 	"title" : "Nuclear Plant", 
 	"cardText" : "Nuclear Plant",
 	"stars" : "3",
-	"points" : "-10"
+	"points" : "10"
 	},
 	{
 	"title" : "Geothermal", 
 	"cardText" : "Geothermal",
 	"stars" : "4",
-	"points" : "-13"
+	"points" : "13"
 	}
 ]

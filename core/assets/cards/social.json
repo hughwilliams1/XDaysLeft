@@ -1,7 +1,7 @@
 [
 	{
 	"title" : "Online Posts",
-	"cardText" : "Buff",
+	"cardText" : "Increase/Decrease the emissions of a random card by 1.",
 	"amount" : "1",
 	"type" : "EditEmission",
 	"selectedCardsNeeded" : "false"
@@ -15,44 +15,30 @@
 	},
 	{
 	"title" : "Strike",
-	"cardText" : "Destroy 2 random star card.",
+	"cardText" : "Destroy a random 2 star card.",
 	"amount" : "0",
 	"type" : "Destroy",
 	"selectedCardsNeeded" : "false"
 	},
 	{
-	"title" : "News",
-	"cardText" : "Test",
-	"amount" : "0",
-	"type" : "EditStar",
-	"selectedCardsNeeded" : "true"
-	},
-	{
 	"title" : "UN Law",
-	"cardText" : "Test",
+	"cardText" : "Increase/Decrease the emissions of a random card by 5.",
 	"amount" : "5",
 	"type" : "EditEmission",
 	"selectedCardsNeeded" : "false"
 	},
 	{
 	"title" : "Petition",
-	"cardText" : "Test",
+	"cardText" : "Destroy a random 3 star card.",
 	"amount" : "0",
 	"type" : "Destroy",
 	"selectedCardsNeeded" : "false"
 	},
 	{
 	"title" : "Boycott",
-	"cardText" : "Test",
+	"cardText" : "Destroy a card of your choosing.",
 	"amount" : "0",
 	"type" : "Destory",
-	"selectedCardsNeeded" : "true"
-	},
-	{
-	"title" : "Marketing Scheme",
-	"cardText" : "Test",
-	"amount" : "0",
-	"type" : "EditStar",
 	"selectedCardsNeeded" : "true"
 	}
 ]

@@ -33,11 +33,37 @@ public class Industry extends Card {
 	
 	public void draw(SpriteBatch sb) {
 		sb.draw(getTexture(), getX(), getY(), getBoundsWidth(), getBoundsHeight());
-		String points = Integer.toString(getPoints()).replace("-", "");
+		String points = Integer.toString(getPoints());
 		if(points.length()>1) {
-			font.draw(sb, points, getX()+getBoundsWidth()-27, getY()+22);
+			if(getPoints()<0) {
+				font.draw(sb, points, getX()+getBoundsWidth()-27, getY()+22);
+			}else {
+				font.draw(sb, points, getX()+getBoundsWidth()-27, getY()+22);
+			}
 		}else {
-			font.draw(sb, points, getX()+getBoundsWidth()-22, getY()+22);
+			if(getPoints()<0) {
+				font.draw(sb, points, getX()+getBoundsWidth()-22, getY()+22);
+			}else {
+				font.draw(sb, points, getX()+getBoundsWidth()-22, getY()+22);
+			}
+		}
+	}
+	
+	public void AiDraw(SpriteBatch sb) {
+		sb.draw(getTexture(), getX(), getY()+10, getBoundsWidth(), getBoundsHeight());
+		String points = Integer.toString(getPoints());
+		if(points.length()>1) {
+			if(getPoints()<0) {
+				font.draw(sb, points, getX()+getBoundsWidth()-27, getY()+32);
+			}else {
+				font.draw(sb, points, getX()+getBoundsWidth()-27, getY()+32);	
+			}
+		}else {
+			if(getPoints()<0) {
+				font.draw(sb, points, getX()+getBoundsWidth()-22, getY()+32);
+			}else {
+				font.draw(sb, points, getX()+getBoundsWidth()-22, getY()+32);
+			}
 		}
 	}
 	
