@@ -24,7 +24,7 @@ public class TutorialState extends State {
 		cam.setToOrtho(false, Game.WIDTH, Game.HEIGHT);
 		clickSound = Gdx.audio.newSound(Gdx.files.internal("sounds/ClickSound.wav"));
 
-		Gdx.gl.glClearColor(157 / 255f, 46 / 255f, 46 / 255f, 1);
+		Gdx.gl.glClearColor(157f / 255f, 46f / 255f, 46f / 255f, 1);
 
 		tutorialExampleQueue = new LinkedList<Texture>();
 		createTutorialExampleImages();
@@ -32,6 +32,11 @@ public class TutorialState extends State {
 		textBoxQueue = new LinkedList<TextBox>();
 		createTutorialDialogue();
 
+	}
+	
+	private void resetState() {
+		createTutorialExampleImages();
+		createTutorialDialogue();
 	}
 
 	private void createTutorialExampleImages() {
@@ -172,6 +177,7 @@ public class TutorialState extends State {
 			textBoxQueue.peek().showTextBox(sb);
 			sb.draw(tutorialExampleQueue.peek(), Game.WIDTH / 8, 180);
 		} catch (Exception e) {
+			resetState();
 			gsm.setState(StateEnum.MAP_STATE);
 			gsm.removeState(StateEnum.CUTSCENE_STATE);
 			dispose();

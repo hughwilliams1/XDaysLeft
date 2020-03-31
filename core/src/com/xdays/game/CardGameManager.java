@@ -40,7 +40,7 @@ public class CardGameManager {
 
 		this.enemyAI = new AI("Enemy", 1, createEnemyDeck());
 
-		user.resetHand();
+		//user.resetHand();
 		user.setHandFromDeck();
 		//enemyAI.resetHand();
 		enemyAI.setHandFromDeck();

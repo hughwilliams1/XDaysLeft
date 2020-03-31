@@ -20,7 +20,7 @@ public class GameStateManager {
     
     private StateEnum currentState;
     private StateEnum previousState;
-    protected User user;
+    private User user;
     private CardCollection collection;
     private int levelsWon;
     
@@ -90,6 +90,9 @@ public class GameStateManager {
     
     public void removeState(StateEnum state) {
     	stateMap.remove(state);
+    	if (state == StateEnum.PLAY_STATE) {
+    		user.resetHand();
+    	}
     }
     
     public State getState(StateEnum state) {
