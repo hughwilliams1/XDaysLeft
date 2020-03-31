@@ -34,29 +34,6 @@ public class GameStateManager {
         
         user = new User("User", collection);
         levelsWon=0;
-        
-//        new Thread(new Runnable() {
-//
-//			@Override
-//			public void run() {
-//
-//				Gdx.app.postRunnable(new Runnable() {
-//
-//					@Override
-//					public void run() {
-//						
-//				    	stateMap.put(StateEnum.MENU_STATE, new MenuState(GameStateManager.this));
-//				    	stateMap.put(StateEnum.MAP_STATE, new MapState(GameStateManager.this));
-//				    	stateMap.put(StateEnum.COLLECTION_STATE, new CollectionState(GameStateManager.this, collection, user));
-//				    	stateMap.put(StateEnum.PAUSE_STATE, new PauseState(GameStateManager.this));
-//				    	stateMap.put(StateEnum.TUTORIAL_STATE, new TutorialState(GameStateManager.this));
-//				    	currentState = StateEnum.MENU_STATE;
-//					}
-//					
-//				}) ;
-//			}
-//        	
-//        }).start();
     }
     
     public void createStates() {
