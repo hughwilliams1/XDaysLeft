@@ -56,26 +56,33 @@ public class CardGameManager {
 	}
 
 	public void playCardGameRound(Card card, ArrayList<Card> chosenCards) {
-		if(card == null) {
-			switchPlayerTurn();
-		} else {
-			processCard(card, chosenCards);
-			System.out.println("Player's Current Hand: " + user.currentHandAsString());
+		if(isPlayerTurn) {
+			if(card == null) {
+				switchPlayerTurn();
+			} else {
+				processCard(card, chosenCards);
+				System.out.println("Player's Current Hand: " + user.currentHandAsString());
+				switchPlayerTurn();
+				
+			}
+		}
+		if(!isPlayerTurn) {
+			ArrayList<Card> cardsToProcess = getAI().nextCard(aiBoard, playerBoard);
+			if(cardsToProcess != null) {
+				aiCard = cardsToProcess.remove(0);
+				// prints out ai's played card
+				System.out.println("AI Played: " + aiCard.getTitle());
+				processCard(aiCard, cardsToProcess); //Need the chosen cards to destroy too
+				// prints out ai's current hand
+				System.out.println("AI's Current Hand: " + enemyAI.currentHandAsString());
+			}
+			System.out.println("AI EMISSIONS: " +aiBoard.getTotalPoints() +"Player emmisions: "+  playerBoard.getTotalPoints());
 			switchPlayerTurn();
 		}
-		ArrayList<Card> cardsToProcess = getAI().nextCard(aiBoard, playerBoard);
-		if(cardsToProcess != null) {
-			aiCard = cardsToProcess.remove(0);
-			// prints out ai's played card
-			System.out.println("AI Played: " + aiCard.getTitle());
-			processCard(aiCard, cardsToProcess); //Need the chosen cards to destroy too
-			// prints out ai's current hand
-			System.out.println("AI's Current Hand: " + enemyAI.currentHandAsString());
-		}
-		System.out.println("AI EMISSIONS: " +aiBoard.getTotalPoints() +"Player emmisions: "+  playerBoard.getTotalPoints());
+
 		changeEmissions(-playerBoard.getTotalPoints());
 		changeEmissions(aiBoard.getTotalPoints());
-		switchPlayerTurn();
+		
 	}
 
 	public void processCard(Card card, ArrayList<Card> chosenCards) {
@@ -141,17 +148,24 @@ public class CardGameManager {
 						}
 						break;
 					case "Strike":
+						System.out.println("is a strike card");
 						if(hasStarCard(aiBoard, 2)) {
+							System.out.println("can play card");
 							((Social) card).doEffect(aiBoard, null);
 							user.removeCard(card);
-							break;	
+						} else {
+							System.out.println("cannot be played");
+							switchPlayerTurn();
 						}
+						break;
 					case "Petition":
 						if(hasStarCard(aiBoard, 3)) {
 							((Social) card).doEffect(aiBoard, null);
 							user.removeCard(card);
-							break;	
+						} else {
+							switchPlayerTurn();
 						}
+						break;
 						 // needs to check whether AI board contains 2/3 star card - happens below as well.
 					}
 				}
@@ -181,14 +195,18 @@ public class CardGameManager {
 						if(hasStarCard(playerBoard, 3)) {
 							((Social) card).doEffect(playerBoard, null);
 							enemyAI.removeCard(card);
-							break;	
+						} else {
+							switchPlayerTurn();
 						}
+						break;
 					case "Propaganda":
 						if(hasStarCard(playerBoard, 2)) {
 							((Social) card).doEffect(playerBoard, null);
 							enemyAI.removeCard(card);
-							break;	
+						} else {
+							switchPlayerTurn();
 						}
+						break;
 					}
 				}
 			}
