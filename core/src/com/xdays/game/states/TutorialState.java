@@ -24,7 +24,7 @@ public class TutorialState extends State {
 		cam.setToOrtho(false, Game.WIDTH, Game.HEIGHT);
 		clickSound = Gdx.audio.newSound(Gdx.files.internal("sounds/ClickSound.wav"));
 
-		Gdx.gl.glClearColor(157 / 255f, 46 / 255f, 46 / 255f, 1);
+		Gdx.gl.glClearColor(157f / 255f, 46f / 255f, 46f / 255f, 1);
 
 		tutorialExampleQueue = new LinkedList<Texture>();
 		createTutorialExampleImages();
