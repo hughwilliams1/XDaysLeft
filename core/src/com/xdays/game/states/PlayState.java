@@ -113,6 +113,7 @@ public class PlayState extends State {
 			gsm.setState(StateEnum.MAP_STATE);
 			gsm.removeState(StateEnum.PLAY_STATE);
 		}
+		
         if (AreDecksEmpty() && manager.getUser().handSize() == 0 && manager.getAI().handSize() == 0) {
 			messageToPrint = "Sudden Death";
 			System.out.println("Sudden Death");
