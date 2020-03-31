@@ -250,6 +250,7 @@ public class CollectionState extends State {
 		private User player;
 
 		private int pageNumber;
+		private BitmapFont deckNumberFont;
 		
 		public CollectionPage(User user, ArrayList<Card> cards, int offset) {
 			this.player = user;
@@ -259,6 +260,11 @@ public class CollectionState extends State {
 			displayedCards = new ArrayList<Card>();
 			this.collectionCards = cards;
 			this.offset = offset;
+			
+			FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/Staatliches-Regular.ttf"));
+			FreeTypeFontParameter parameter = new FreeTypeFontParameter();
+			parameter.size = 20;
+			deckNumberFont = generator.generateFont(parameter);
 		}
 		
 		public CollectionPage(User user, int offset) {
@@ -269,11 +275,6 @@ public class CollectionState extends State {
 		}
 
 		public void displayCollectionCards(SpriteBatch sb) {
-			
-			FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/Staatliches-Regular.ttf"));
-			FreeTypeFontParameter parameter = new FreeTypeFontParameter();
-			parameter.size = 20;
-			BitmapFont deckNumberFont = generator.generateFont(parameter);
 			
 			displayedCards.clear();
 			// total card per page divide by the card rows
