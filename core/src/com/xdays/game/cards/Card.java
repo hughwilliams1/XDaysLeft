@@ -6,23 +6,22 @@ import com.badlogic.gdx.math.Vector3;
 
 public class Card {
 	
+	public static final int CARD_WIDTH = 467;
+	public static final int CARD_HEIGHT = 722;
+	
 	private String title;
 	private String cardText;
-	private Texture texture;
 	private Rectangle bounds;
 	public Vector3 position;
 	private boolean played;
 	private boolean halfPlayed;
-	private Texture back;
 	private boolean boundsSet;
 	
 	public Card(String title, String cardText) {
 		this.title = title;
 		this.cardText = cardText;
-		texture = new Texture(title + ".PNG");
 		played = false;
 		halfPlayed = false;
-		back = new Texture("back.PNG");
 		boundsSet = false;
 	}
 	
@@ -36,10 +35,6 @@ public class Card {
 	
 	public boolean isHalfPlayed() {
 		return halfPlayed;
-	}
-	
-	public void switchTextures() {
-		back = texture;
 	}
 	
 	public void halfPlayed() {
@@ -78,18 +73,10 @@ public class Card {
 		return cardText;
 	}
 	
-	public Texture getTexture() {
-		return texture;
-	}
-	
-	public Texture getBackTexture() {
-		return back;
-	}
-	
 	public void setPosition(float x, float y) {
 		boundsSet = true;
 		position = new Vector3 (x, y, 0);
-		bounds = new Rectangle(x, y, (texture.getWidth()/3.4f), (texture.getHeight()/3.4f));
+		bounds = new Rectangle(x, y, (Card.CARD_WIDTH/3.4f), (Card.CARD_HEIGHT/3.4f));
 	}
 	
 	public boolean haveBoundsBeenSet() {

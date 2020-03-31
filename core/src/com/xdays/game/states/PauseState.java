@@ -27,7 +27,7 @@ public class PauseState extends State {
 		
         cam.setToOrtho(false, Game.WIDTH, Game.HEIGHT);
         
-		background = new Texture("pauseMenuBackground.PNG");
+		background = (Texture) Game.assetManager.get("pauseMenuBackground.PNG");
 		backBtn = new Button(BTN_WIDTH, BTN_HEIGHT, x, (Game.HEIGHT / 2 - BTN_HEIGHT / 2) - 150, "BackBtn.PNG");
 		quitBtn = new Button(BTN_WIDTH, BTN_HEIGHT, x, (Game.HEIGHT / 2 - BTN_HEIGHT / 2) - BTN_HEIGHT, "QuitBtn.PNG");
 		loadBtn = new Button(BTN_WIDTH, BTN_HEIGHT, x, (Game.HEIGHT / 2 - BTN_HEIGHT / 2) + BTN_HEIGHT + 20, "LoadBtn.PNG");

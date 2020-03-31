@@ -96,7 +96,6 @@ public class CardCollection {
 		for (String key : socialCollection.keySet()) {
 			returnArray.add(socialCollection.get(key));
 		}
-		
 		return returnArray;
 	}
 	

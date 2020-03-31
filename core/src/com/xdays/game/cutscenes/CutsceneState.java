@@ -9,6 +9,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.xdays.game.Game;
+import com.xdays.game.assets.Assets;
 import com.xdays.game.states.GameStateManager;
 import com.xdays.game.states.MapState;
 import com.xdays.game.states.PlayState;
@@ -47,7 +48,7 @@ public class CutsceneState extends State{
 		currentLevel = level;	
 
 		textBoxQueue = new LinkedList<TextBox>();
-		player = new Texture("scientist.png");
+		player = (Texture) Game.assetManager.get("scientist.PNG");
 		
 		switch(currentLevel) {
 		case(0):
@@ -80,9 +81,9 @@ public class CutsceneState extends State{
 	}
 	
 	private void introInitialisation() {
-		background = new Texture("LabBackground.png");
-		opponentTexture = new Texture("BlankCut.png");
-		opponentAltTexture = new Texture("BlankCut.png");
+		background = (Texture) Game.assetManager.get("LabBackground.PNG");
+		opponentTexture = (Texture) Game.assetManager.get("BlankCut.PNG");
+		opponentAltTexture = (Texture) Game.assetManager.get("BlankCut.PNG");
 		
 		opponentXPosition = ((Game.WIDTH / 9) * 5);
 		
@@ -105,9 +106,9 @@ public class CutsceneState extends State{
 	
 	
 	private void germanyInitialisation() {
-		background = new Texture("European Parliament Background.png");
-		opponentTexture = new Texture("Merkel 1.png");
-		opponentAltTexture = new Texture("Merkel 2.png");
+		background = (Texture) Game.assetManager.get("European Parliament Background.PNG");
+		opponentTexture = (Texture) Game.assetManager.get("Merkel 1.PNG");
+		opponentAltTexture = (Texture) Game.assetManager.get("Merkel 2.PNG");
 		
 		opponentXPosition = ((Game.WIDTH / 9) * 5);
 		
@@ -135,9 +136,9 @@ public class CutsceneState extends State{
 	}
 	
 	private void germanyWinInitialisation() {
-		background = new Texture("European Parliament Background.png");
-		opponentTexture = new Texture("Merkel 1.png");
-		opponentAltTexture = new Texture("Merkel 2.png");
+		background = (Texture) Game.assetManager.get("European Parliament Background.PNG");
+		opponentTexture = (Texture) Game.assetManager.get("Merkel 1.PNG");
+		opponentAltTexture = (Texture) Game.assetManager.get("Merkel 2.PNG");
 		
 		opponentXPosition = ((Game.WIDTH / 9) * 5);
 		
@@ -158,9 +159,9 @@ public class CutsceneState extends State{
 	}
 	
 	private void russiaInitialisation() {
-		background = new Texture("Kremlin Background.png");
-		opponentTexture = new Texture("Putin 1.png");
-		opponentAltTexture = new Texture("Putin 2.png");
+		background = (Texture) Game.assetManager.get("Kremlin Background.PNG");
+		opponentTexture = (Texture) Game.assetManager.get("Putin 1.PNG");
+		opponentAltTexture = (Texture) Game.assetManager.get("Putin 2.PNG");
 		
 		opponentXPosition = ((Game.WIDTH / 9) * 5);
 		
@@ -190,9 +191,9 @@ public class CutsceneState extends State{
 	}
 	
 	private void russiaWinInitialisation() {
-		background = new Texture("Kremlin Background.png");
-		opponentTexture = new Texture("Putin 1.png");
-		opponentAltTexture = new Texture("Putin 2.png");
+		background = (Texture) Game.assetManager.get("Kremlin Background.PNG");
+		opponentTexture = (Texture) Game.assetManager.get("Putin 1.PNG");
+		opponentAltTexture = (Texture) Game.assetManager.get("Putin 2.PNG");
 		
 		opponentXPosition = ((Game.WIDTH / 9) * 5);
 		
@@ -211,9 +212,9 @@ public class CutsceneState extends State{
 	}
 	
 	private void americaInitialisation() {
-		background = new Texture("Whitehouse Background.png");
-		opponentTexture = new Texture("Trump 1.png");
-		opponentAltTexture = new Texture("Trump 2.png");
+		background = (Texture) Game.assetManager.get("Whitehouse Background.PNG");
+		opponentTexture = (Texture) Game.assetManager.get("Trump 2.PNG");
+		opponentAltTexture = (Texture) Game.assetManager.get("Trump 1.PNG");
 		
 		opponentXPosition = (Game.WIDTH / 4) * 2;
 		
@@ -249,9 +250,9 @@ public class CutsceneState extends State{
 	}
 	
 	private void americaWinInitialisation() {
-		background = new Texture("Whitehouse Background.png");
-		opponentTexture = new Texture("Trump 1.png");
-		opponentAltTexture = new Texture("Trump 2.png");
+		background = (Texture) Game.assetManager.get("Whitehouse Background.PNG");
+		opponentTexture = (Texture) Game.assetManager.get("Trump 2.PNG");
+		opponentAltTexture = (Texture) Game.assetManager.get("Trump 1.PNG");
 		
 		opponentXPosition = (Game.WIDTH / 4) * 2;
 		
@@ -266,9 +267,9 @@ public class CutsceneState extends State{
 	}
 	
 	private void endInitialisation() {
-		background = new Texture("LabBackground.png");
-		opponentTexture = new Texture("BlankCut.png");
-		opponentAltTexture = new Texture("BlankCut.png");
+		background = (Texture) Game.assetManager.get("LabBackground.PNG");
+		opponentTexture = (Texture) Game.assetManager.get("BlankCut.PNG");
+		opponentAltTexture = (Texture) Game.assetManager.get("BlankCut.PNG");
 		
 		opponentXPosition = ((Game.WIDTH / 9) * 5);
 		

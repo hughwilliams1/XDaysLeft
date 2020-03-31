@@ -42,31 +42,31 @@ public class TutorialState extends State {
 
 	private void createTutorialExampleImages() {
 
-		tutorialExampleQueue.add(new Texture("tutorial/Tutorial Example 1.png"));
-		tutorialExampleQueue.add(new Texture("tutorial/Tutorial Example 1 Symbol Highlight.png"));
-		tutorialExampleQueue.add(new Texture("tutorial/Tutorial Example 1.png"));
-		tutorialExampleQueue.add(new Texture("tutorial/Tutorial Example 1 Emissions Bar Highlight.png"));
-		tutorialExampleQueue.add(new Texture("tutorial/Tutorial Example 1 Emissions Bar Highlight.png"));
+		tutorialExampleQueue.add((Texture) Game.assetManager.get("tutorial/Tutorial Example 1.PNG"));
+		tutorialExampleQueue.add((Texture) Game.assetManager.get("tutorial/Tutorial Example 1 Symbol Highlight.PNG"));
+		tutorialExampleQueue.add((Texture) Game.assetManager.get("tutorial/Tutorial Example 1.PNG"));
+		tutorialExampleQueue.add((Texture) Game.assetManager.get("tutorial/Tutorial Example 1 Emissions Bar Highlight.PNG"));
+		tutorialExampleQueue.add((Texture) Game.assetManager.get("tutorial/Tutorial Example 1 Emissions Bar Highlight.PNG"));
 
-		tutorialExampleQueue.add(new Texture("tutorial/Tutorial Example 2.png"));
+		tutorialExampleQueue.add((Texture) Game.assetManager.get("tutorial/Tutorial Example 2.PNG"));
 		
-		tutorialExampleQueue.add(new Texture("tutorial/Tutorial Example 3.png"));
-		tutorialExampleQueue.add(new Texture("tutorial/Tutorial Example 3.png"));
+		tutorialExampleQueue.add((Texture) Game.assetManager.get("tutorial/Tutorial Example 3.PNG"));
+		tutorialExampleQueue.add((Texture) Game.assetManager.get("tutorial/Tutorial Example 3.PNG"));
 		
-		tutorialExampleQueue.add(new Texture("tutorial/Tutorial Example 4.png"));
-		tutorialExampleQueue.add(new Texture("tutorial/Tutorial Example 5.png"));
-		tutorialExampleQueue.add(new Texture("tutorial/Tutorial Example 6.png"));
+		tutorialExampleQueue.add((Texture) Game.assetManager.get("tutorial/Tutorial Example 4.PNG"));
+		tutorialExampleQueue.add((Texture) Game.assetManager.get("tutorial/Tutorial Example 5.PNG"));
+		tutorialExampleQueue.add((Texture) Game.assetManager.get("tutorial/Tutorial Example 6.PNG"));
 		
-		tutorialExampleQueue.add(new Texture("tutorial/Tutorial Example 7.png"));
-		tutorialExampleQueue.add(new Texture("tutorial/Tutorial Example 7.png"));
+		tutorialExampleQueue.add((Texture) Game.assetManager.get("tutorial/Tutorial Example 7.PNG"));
+		tutorialExampleQueue.add((Texture) Game.assetManager.get("tutorial/Tutorial Example 7.PNG"));
 		
-		tutorialExampleQueue.add(new Texture("tutorial/Tutorial Example 8.png"));
-		tutorialExampleQueue.add(new Texture("tutorial/Tutorial Example 9.png"));
-		tutorialExampleQueue.add(new Texture("tutorial/Tutorial Example 10.png"));
-		tutorialExampleQueue.add(new Texture("tutorial/Tutorial Example 11.png"));
-		tutorialExampleQueue.add(new Texture("tutorial/Tutorial Example 12.png"));
-		tutorialExampleQueue.add(new Texture("tutorial/Tutorial Example 13.png"));
-		tutorialExampleQueue.add(new Texture("tutorial/Tutorial Example 13 Skip Highlight.png"));
+		tutorialExampleQueue.add((Texture) Game.assetManager.get("tutorial/Tutorial Example 8.PNG"));
+		tutorialExampleQueue.add((Texture) Game.assetManager.get("tutorial/Tutorial Example 9.PNG"));
+		tutorialExampleQueue.add((Texture) Game.assetManager.get("tutorial/Tutorial Example 10.PNG"));
+		tutorialExampleQueue.add((Texture) Game.assetManager.get("tutorial/Tutorial Example 11.PNG"));
+		tutorialExampleQueue.add((Texture) Game.assetManager.get("tutorial/Tutorial Example 12.PNG"));
+		tutorialExampleQueue.add((Texture) Game.assetManager.get("tutorial/Tutorial Example 13.PNG"));
+		tutorialExampleQueue.add((Texture) Game.assetManager.get("tutorial/Tutorial Example 13 Skip Highlight.PNG"));
 
 	}
 

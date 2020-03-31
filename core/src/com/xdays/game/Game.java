@@ -5,21 +5,30 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.xdays.game.assets.Assets;
 import com.xdays.game.states.GameStateManager;
 
 public class Game extends ApplicationAdapter {
+	
 	public static final int WIDTH = 1280;
 	public static final int HEIGHT = 720;
 	public static final String TITLE = "X Days Left";
+	public static Assets assetManager;
 	
 	private GameStateManager gsm;
 	public static SpriteBatch batch;
+	
 	Texture img;
+	
+	
 	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		Gdx.gl.glClearColor(1, 0, 0, 1);
+		assetManager = new Assets();
+		assetManager.load();
+		
 		gsm = new GameStateManager();
 	}
 	

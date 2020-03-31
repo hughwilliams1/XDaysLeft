@@ -25,7 +25,7 @@ public class TextBox {
 	private ArrayList<String> lines;
 
 	public TextBox(String name, String dialogue) {
-		texture = new Texture("textBoxBlack.png");
+		texture = (Texture) Game.assetManager.get("textBoxBlack.PNG");
 		
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/Staatliches-Regular.ttf"));
 		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
@@ -40,7 +40,7 @@ public class TextBox {
 	
 	public TextBox(int charPerLine, String name, String dialogue) {
 		this.charPerLine = charPerLine;
-		texture = new Texture("textBoxBlack.png");
+		texture = (Texture) Game.assetManager.get("textBoxBlack.PNG");
 		
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/Staatliches-Regular.ttf"));
 		FreeTypeFontParameter parameter = new FreeTypeFontParameter();

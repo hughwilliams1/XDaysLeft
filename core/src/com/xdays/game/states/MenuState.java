@@ -36,7 +36,7 @@ public class MenuState extends State{
         clickSound = Gdx.audio.newSound(Gdx.files.internal("sounds/ClickSound.wav"));
         
         cam.setToOrtho(false, Game.WIDTH, Game.HEIGHT);
-        background = new Texture("Title.PNG");
+        background = (Texture) Game.assetManager.get("title.PNG");;
         
         int x = (Game.WIDTH / 2 - BTN_WIDTH / 2);
         

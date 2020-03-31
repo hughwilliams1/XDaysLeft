@@ -52,8 +52,8 @@ public class PlayState extends State {
 		super(gsm);
 		
 		pauseBtn = new Button(BTN_WIDTH, BTN_HEIGHT, 15, 15, "PauseSBtn.PNG");
-		skipBtn = new Button(BTN_WIDTH, BTN_HEIGHT, 15, 30 + BTN_HEIGHT, "SkipSBtn.png");
-		homeBtn = new Button(BTN_WIDTH, BTN_HEIGHT, 15, 45 + (BTN_HEIGHT * 2), "HomeSBtn.png");
+		skipBtn = new Button(BTN_WIDTH, BTN_HEIGHT, 15, 30 + BTN_HEIGHT, "SkipSBtn.PNG");
+		homeBtn = new Button(BTN_WIDTH, BTN_HEIGHT, 15, 45 + (BTN_HEIGHT * 2), "HomeSBtn.PNG");
 		
 		battleMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/BattleMusic.wav"));
 		battleMusic.setLooping(true);
@@ -64,7 +64,7 @@ public class PlayState extends State {
 		selectCard = Gdx.audio.newSound(Gdx.files.internal("sounds/SelectCard.wav"));
 		
 		// CardReader cardReader = new CardReader();
-		background = new Texture("background2.png");
+		background = (Texture) Game.assetManager.get("background2.PNG");
 		selectedCards = new ArrayList<Card>();
 		messageToPrint = "";
 		cam.setToOrtho(false, Game.WIDTH, Game.HEIGHT);
@@ -294,7 +294,7 @@ public class PlayState extends State {
 			if(currentCard instanceof Industry) {
 				((Industry) currentCard).draw(sb);
 			}else {
-				sb.draw(currentCard.getTexture(), getXValue(currentCard), getYValue(currentCard), getCardWidth(currentCard),
+				sb.draw((Texture) Game.assetManager.get(currentCard.getTitle()+".PNG"), getXValue(currentCard), getYValue(currentCard), getCardWidth(currentCard),
 						getCardHeight(currentCard));
 			}
 		}
@@ -313,7 +313,7 @@ public class PlayState extends State {
 				if(card instanceof Industry) {
 					((Industry) card).draw(sb);
 				}else {
-					sb.draw(card.getTexture(), getXValue(card), getYValue(card), getCardWidth(card),
+					sb.draw((Texture) Game.assetManager.get(card.getTitle()+".PNG"), getXValue(card), getYValue(card), getCardWidth(card),
 							getCardHeight(card));
 				}
 			}catch(Exception e) {
@@ -334,7 +334,7 @@ public class PlayState extends State {
 						((((Game.WIDTH) * ((i + 1) / ((float) ai.handSize() + 1)))) - aiCard.getBoundsWidth() / 2), 650+25);
 
 			}
-			sb.draw(aiCard.getBackTexture(), getXValue(aiCard), getYValue(aiCard), getCardWidth(aiCard),
+			sb.draw((Texture) Game.assetManager.get("back"+".PNG"), getXValue(aiCard), getYValue(aiCard), getCardWidth(aiCard),
 					getCardHeight(aiCard));
 		}
 
@@ -344,14 +344,13 @@ public class PlayState extends State {
 			if(aiCard instanceof Industry) {
 				((Industry) aiCard).AiDraw(sb);
 			}else {
-				sb.draw(aiCard.getTexture(), getXValue(aiCard), getYValue(aiCard)+10, getCardWidth(aiCard),
+				sb.draw((Texture) Game.assetManager.get(aiCard.getTitle()+".PNG"), getXValue(aiCard), getYValue(aiCard)+10, getCardWidth(aiCard),
 						getCardHeight(aiCard));
 			}
 			/*sb.draw(getAICard(i).getTexture(), getXValue(getAICard(i)), getYValue(getAICard(i)) + 10,
 					getCardWidth(getAICard(i)), getCardHeight(getAICard(i)));*/
 		}
-
-		//console.draw(sb, messageToPrint, 600, 405);
+		
 		sb.end();
 		
 		drawEmissionsBar();
@@ -443,11 +442,11 @@ public class PlayState extends State {
 	}
 
 	private float getCardWidth(Card card) {
-		return card.getTexture().getWidth() / 3.4f;
+		return card.CARD_WIDTH / 3.4f;
 	}
 
 	private float getCardHeight(Card card) {
-		return card.getTexture().getHeight() / 3.4f;
+		return card.CARD_HEIGHT / 3.4f;
 	}
 
 	private float getXValue(Card card) {
@@ -471,7 +470,6 @@ public class PlayState extends State {
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
 		selectCard.dispose();
 		battleMusic.dispose();
 	}

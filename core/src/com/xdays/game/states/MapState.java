@@ -39,7 +39,7 @@ public class MapState extends State {
 		clickSound = Gdx.audio.newSound(Gdx.files.internal("sounds/ClickSound.wav"));
 
 		cam.setToOrtho(false, Game.WIDTH, Game.HEIGHT);
-		background = new Texture("Area Selection2.png");
+		background = (Texture) Game.assetManager.get("Area Selection2.PNG");
 		
 		markers = new HashMap<String, Marker>();
 		markers.put("germany", new Marker((cam.position.x - 70), (cam.position.y + 180), 1, null));
@@ -204,12 +204,12 @@ public class MapState extends State {
 		public Marker(float x, float y, int cutscene, Marker previousMarker) {
 			this.previusMarker = previousMarker;
 			this.cutscene = cutscene;
-			normalMarker = new Texture("Marker.png");
-			hoverMarker = new Texture("Marker Hover.png");
-			completedMarker = new Texture("Marker Completed.png");
-			notAvailableMarker = new Texture("Marker Not Available.png");
-			redMark = new Texture("RedMark.png");
-			redMarkHover = new Texture("RedMark2.png");
+			normalMarker = (Texture) Game.assetManager.get("Marker.PNG");
+			hoverMarker = (Texture) Game.assetManager.get("Marker Hover.PNG");
+			completedMarker = (Texture) Game.assetManager.get("Marker Completed.PNG");
+			notAvailableMarker = (Texture) Game.assetManager.get("Marker Not Available.PNG");
+			redMark = (Texture) Game.assetManager.get("RedMark.PNG");
+			redMarkHover = (Texture) Game.assetManager.get("RedMark2.PNG");
 			bounds = new Rectangle(x, y, normalMarker.getWidth() / DEFAULT_SCALE,
 					normalMarker.getHeight() / DEFAULT_SCALE);
 			completed = false;

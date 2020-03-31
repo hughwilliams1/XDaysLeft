@@ -1,6 +1,7 @@
 package com.xdays.game.cards;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.xdays.game.Game;
@@ -32,7 +33,7 @@ public class Industry extends Card {
 	}
 	
 	public void draw(SpriteBatch sb) {
-		sb.draw(getTexture(), getX(), getY(), getBoundsWidth(), getBoundsHeight());
+		sb.draw((Texture) Game.assetManager.get(getTitle()+".PNG"), getX(), getY(), getBoundsWidth(), getBoundsHeight());
 		String points = Integer.toString(getPoints());
 		if(points.length()>1) {
 			if(getPoints()<0) {
@@ -50,7 +51,7 @@ public class Industry extends Card {
 	}
 	
 	public void AiDraw(SpriteBatch sb) {
-		sb.draw(getTexture(), getX(), getY()+10, getBoundsWidth(), getBoundsHeight());
+		sb.draw((Texture) Game.assetManager.get(getTitle()+".PNG"), getX(), getY()+10, getBoundsWidth(), getBoundsHeight());
 		String points = Integer.toString(getPoints());
 		if(points.length()>1) {
 			if(getPoints()<0) {

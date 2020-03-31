@@ -55,7 +55,7 @@ public class CollectionState extends State {
 	
 		cam.setToOrtho(false, Game.WIDTH, Game.HEIGHT);
 		// textures
-		background = new Texture("collectionBackground.png");
+		background = (Texture) Game.assetManager.get("collectionBackground.PNG");;
 		
 		this.player = player;
 		
@@ -255,8 +255,8 @@ public class CollectionState extends State {
 		public CollectionPage(User user, ArrayList<Card> cards, int offset) {
 			this.player = user;
 			this.pageNumber = offset + 1;
-			cardHeight = cards.get(0).getTexture().getHeight() / 3.4f;
-			cardWidth = cards.get(0).getTexture().getWidth() / 3.4f;
+			cardHeight = Card.CARD_HEIGHT / 3.4f ;
+			cardWidth = Card.CARD_WIDTH / 3.4f;
 			displayedCards = new ArrayList<Card>();
 			this.collectionCards = cards;
 			this.offset = offset;
@@ -298,7 +298,7 @@ public class CollectionState extends State {
 						if(card instanceof Industry) {
 							((Industry) card).draw(sb);
 						} else {
-							sb.draw(card.getTexture(), X_COORDINATES[x] - cardWidth, Y_COORINATES[y] - cardHeight, cardWidth,
+							sb.draw((Texture) Game.assetManager.get(card.getTitle()+".PNG"), X_COORDINATES[x] - cardWidth, Y_COORINATES[y] - cardHeight, cardWidth,
 								cardHeight);
 						}
 						
@@ -325,8 +325,8 @@ public class CollectionState extends State {
 						// get the card to be rendered using current card and the pageoffset
 						Card card = player.getDeck().getCard(((offset * CollectionState.CARDS_PER_PAGE) + currentCardNumber));
 						
-						cardHeight = card.getTexture().getHeight() / 3.4f;
-						cardWidth = card.getTexture().getWidth() / 3.4f;
+						cardHeight = card.CARD_HEIGHT / 3.4f;
+						cardWidth = card.CARD_WIDTH / 3.4f;
 						
 						// Gives the cards bound depending on it current position
 						card.setPosition(X_COORDINATES_PLAYER[x] - cardWidth, Y_COORINATES[y] - cardHeight);
@@ -334,7 +334,7 @@ public class CollectionState extends State {
 						if(card instanceof Industry) {
 							((Industry) card).draw(sb);
 						} else {
-							sb.draw(card.getTexture(), X_COORDINATES_PLAYER[x] - cardWidth, Y_COORINATES[y] - cardHeight, cardWidth,
+							sb.draw((Texture) Game.assetManager.get(card.getTitle()+".PNG"), X_COORDINATES_PLAYER[x] - cardWidth, Y_COORINATES[y] - cardHeight, cardWidth,
 							cardHeight);
 						}
 						

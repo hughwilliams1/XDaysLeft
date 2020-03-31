@@ -124,7 +124,6 @@ public class CardGameManager {
 				}
 			} else {
 				if (card.getStars() > 1) {
-					card.switchTextures();
 
 					handleInputEnemy(card);
 					aiBoard.mergeCard(card, chosenCards, false);
@@ -135,7 +134,6 @@ public class CardGameManager {
 						enemyAI.removeCard(chosenCards.get(i));
 					}
 				} else {
-					card.switchTextures();
 
 					handleInputEnemy(card);
 					aiBoard.addToField(card, false);

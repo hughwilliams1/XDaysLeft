@@ -24,7 +24,7 @@ public class Button {
 		this.posX = posX;
 		this.posY = posY;
 		
-		texture = new Texture(textureLocation);
+		texture = (Texture) Game.assetManager.get(textureLocation);
 		altTexture = null;
 		hover = false;
 	}
@@ -32,7 +32,7 @@ public class Button {
 	public Button(int width, int height, int posX, int posY, String textureLocation, String altTextureLoc) {
 		this(width, height, posX, posY, textureLocation);
 		
-		altTexture = new Texture(altTextureLoc);
+		altTexture = (Texture) Game.assetManager.get(altTextureLoc);
 	}
 	
 	public void draw(SpriteBatch sb) {

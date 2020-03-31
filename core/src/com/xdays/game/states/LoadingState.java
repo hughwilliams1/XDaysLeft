@@ -3,8 +3,11 @@ package com.xdays.game.states;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.xdays.game.Game;
 
 public class LoadingState extends State {
@@ -20,6 +23,7 @@ public class LoadingState extends State {
 	private float elapsedTime = 0;
 	
 	private Texture background;
+	private BitmapFont font;
 	
 	public LoadingState(GameStateManager gsm) {
 		super(gsm);
@@ -44,6 +48,12 @@ public class LoadingState extends State {
 		y = (Game.HEIGHT / 2 - loadFrames[0].getRegionHeight() / 2);
 		
 		cam.setToOrtho(false, Game.WIDTH, Game.HEIGHT);
+		
+		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/Staatliches-Regular.ttf"));
+		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
+		parameter.size = 35;
+		font = generator.generateFont(parameter);
+		
         background = new Texture("loadingBackground.PNG");
 	}
 
@@ -59,6 +69,9 @@ public class LoadingState extends State {
 
 	@Override
 	public void render(SpriteBatch sb) {
+		if (Game.assetManager.manager.update()) {
+			gsm.createStates();
+		}
 		
 		elapsedTime += Gdx.graphics.getDeltaTime();
 		
@@ -66,6 +79,9 @@ public class LoadingState extends State {
 		sb.begin();
 		sb.draw(background, 0,0);
 		sb.draw(currentFrame, x, y - 75);
+		float progress = Game.assetManager.manager.getProgress();
+		font.draw(sb, "" + 5*Math.round(Math.round(progress*100) / 5) + "%",
+				x - 20 + currentFrame.getRegionWidth()/2, y -65 + currentFrame.getRegionHeight() / 2);
 		sb.end();
 	}
 
