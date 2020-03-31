@@ -33,6 +33,11 @@ public class TutorialState extends State {
 		createTutorialDialogue();
 
 	}
+	
+	private void resetState() {
+		createTutorialExampleImages();
+		createTutorialDialogue();
+	}
 
 	private void createTutorialExampleImages() {
 
@@ -172,6 +177,7 @@ public class TutorialState extends State {
 			textBoxQueue.peek().showTextBox(sb);
 			sb.draw(tutorialExampleQueue.peek(), Game.WIDTH / 8, 180);
 		} catch (Exception e) {
+			resetState();
 			gsm.setState(StateEnum.MAP_STATE);
 			gsm.removeState(StateEnum.CUTSCENE_STATE);
 			dispose();
