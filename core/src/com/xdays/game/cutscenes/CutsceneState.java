@@ -37,16 +37,15 @@ public class CutsceneState extends State{
 
 	public CutsceneState(GameStateManager gsm, int level) {
 		super(gsm);
-		currentLevel = level;
-		
 		cam.setToOrtho(false, Game.WIDTH, Game.HEIGHT);
-
+		
 		cutsceneMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/IntenseDrumMusic.mp3"));
 		cutsceneMusic.setLooping(true);
 		cutsceneMusic.setVolume(.05f);  
-		
 		clickSound = Gdx.audio.newSound(Gdx.files.internal("sounds/ClickSound.wav"));
 		
+		currentLevel = level;	
+
 		textBoxQueue = new LinkedList<TextBox>();
 		player = new Texture("scientist.png");
 		

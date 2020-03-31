@@ -25,20 +25,16 @@ public class CardGameManager {
 	private CardCollection collection;
 
 	// array of strings for representing the enemy deck
-	private String[] enemyDeck_1;
+	private String[] enemyDeck;
 
-	public CardGameManager (int emissionsValue, User givenUser) {
-
-		enemyDeck_1 = new String[]{"Remove Tree", "Remove Tree", "Remove Tree", "Remove Tree",
-				"Remove Tree", "Remove Tree", "Diesel Car",  "Remove Tree", "Remove Tree"}; //"Landfill", "Landfill", "Remove Tree", "Remove Tree"
-
+	public CardGameManager (int emissionsValue, User givenUser, int level) {
 		emissionsBar = emissionsValue;
 
 		collection = new CardCollection();
 
 		user = givenUser;
 
-		this.enemyAI = new AI("Enemy", 1, createEnemyDeck());
+		createEnemyAi(level);
 
 		//user.resetHand();
 		user.setHandFromDeck();
@@ -54,6 +50,29 @@ public class CardGameManager {
 
 		aiCard = null;
 	}
+	
+	public void createEnemyAi(int level) {
+		int difficulty = 0;
+		if (level == 1) {
+			enemyDeck = new String[]{ "Remove Tree", "Remove Tree", 
+					"Online Posts", "Online Posts", "Online Posts", "Cover-up", "Cover-up", "Cover-up"}; //"Landfill", "Landfill", "Remove Tree", "Remove Tree"
+		
+			difficulty = 1;
+		} 
+		else if (level == 2) {
+			enemyDeck = new String[]{"Cover-up", "Remove Tree", "Remove Tree", "Remove Tree",
+					"Remove Tree", "Remove Tree", "Diesel Car", "Online Posts", "Online Posts", "Online Posts", "Cover-up", "Cover-up"}; //"Landfill", "Landfill", "Remove Tree", "Remove Tree"
+
+			difficulty = 3;
+		} 
+		else if (level == 3) {
+			enemyDeck = new String[]{"Plant Tree", "Plant Tree", "Plant Tree", "Online Posts", "Online Posts", "Online Posts",
+					"UN Law", "UN Law", "UN Law", "Solar Panel", "Solar Panel", "Solar Panel"};		
+			difficulty = 5;
+		}
+		
+		this.enemyAI = new AI("Enemy", difficulty, createEnemyDeck());
+	} 
 
 	public void playCardGameRound(Card card, ArrayList<Card> chosenCards) {
 		if(card == null) {
@@ -267,7 +286,7 @@ public class CardGameManager {
 	// creates a deck by using the string array enemyDeck and the CardCollection class
 	// for retrieving cards
 	private Deck createEnemyDeck() {
-		Deck deck = new Deck(collection.getMultipleCards(enemyDeck_1));
+		Deck deck = new Deck(collection.getMultipleCards(enemyDeck));
 
 		return deck;
 

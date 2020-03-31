@@ -20,7 +20,7 @@ public abstract class Player {
 	// most card that can be in a hand
 	public final int MAX_HAND_SIZE = 8;
 	// max amount of one type of card per deck
-	public final int MAX_ONE_CARD = 3;
+	public final int MAX_ONE_CARD = 2;
 	
 	//All cards loaded
 	private CardCollection collection;

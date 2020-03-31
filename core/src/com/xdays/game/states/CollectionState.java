@@ -52,12 +52,12 @@ public class CollectionState extends State {
 	
 	public CollectionState(GameStateManager gsm, CardCollection cardCollection, User player) {
 		super(gsm);
-		
-		this.player = player;
-		
+	
 		cam.setToOrtho(false, Game.WIDTH, Game.HEIGHT);
 		// textures
 		background = new Texture("collectionBackground.png");
+		
+		this.player = player;
 		
 		// Click sound
         clickSound = Gdx.audio.newSound(Gdx.files.internal("sounds/ClickSound.wav"));
