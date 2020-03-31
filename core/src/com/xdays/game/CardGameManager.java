@@ -29,8 +29,8 @@ public class CardGameManager {
 
 	public CardGameManager (int emissionsValue, User givenUser) {
 
-		enemyDeck_1 = new String[]{"Cover-up", "Remove Tree", "Remove Tree", "Remove Tree",
-				"Remove Tree", "Remove Tree", "Diesel Car", "Online Posts", "Online Posts", "Online Posts", "Cover-up", "Cover-up"}; //"Landfill", "Landfill", "Remove Tree", "Remove Tree"
+		enemyDeck_1 = new String[]{"Remove Tree", "Remove Tree", "Remove Tree", "Remove Tree",
+				"Remove Tree", "Remove Tree", "Diesel Car",  "Remove Tree", "Remove Tree"}; //"Landfill", "Landfill", "Remove Tree", "Remove Tree"
 
 		emissionsBar = emissionsValue;
 
@@ -141,10 +141,18 @@ public class CardGameManager {
 						}
 						break;
 					case "Strike":
+						if(hasStarCard(aiBoard, 2)) {
+							((Social) card).doEffect(aiBoard, null);
+							user.removeCard(card);
+							break;	
+						}
 					case "Petition":
-						((Social) card).doEffect(aiBoard, null);
-						user.removeCard(card);
-						break;
+						if(hasStarCard(aiBoard, 3)) {
+							((Social) card).doEffect(aiBoard, null);
+							user.removeCard(card);
+							break;	
+						}
+						 // needs to check whether AI board contains 2/3 star card - happens below as well.
 					}
 				}
 			} else {
@@ -163,23 +171,39 @@ public class CardGameManager {
 						Random r = new Random();
 						if(r.nextBoolean()) {
 							((Social) card).doEffect(playerBoard, null, false);
-							user.removeCard(card);	
+							enemyAI.removeCard(card);	
 						}else {
 							((Social) card).doEffect(aiBoard, null, true);
-							user.removeCard(card);
+							enemyAI.removeCard(card);
 						}
 						break;
 					case "Bribe":
+						if(hasStarCard(playerBoard, 3)) {
+							((Social) card).doEffect(playerBoard, null);
+							enemyAI.removeCard(card);
+							break;	
+						}
 					case "Propaganda":
-						((Social) card).doEffect(playerBoard, null);
-						enemyAI.removeCard(card);
-						break;
+						if(hasStarCard(playerBoard, 2)) {
+							((Social) card).doEffect(playerBoard, null);
+							enemyAI.removeCard(card);
+							break;	
+						}
 					}
 				}
 			}
 		}
 	}
-
+	
+	private boolean hasStarCard(Board board, int starValue) {
+		for(Card card: board.getField()) {
+			if(card.getStars() == starValue) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	private void handleInput(Card card) {
 		if(!card.isPlayed()) {
 			if(card instanceof Social) {
