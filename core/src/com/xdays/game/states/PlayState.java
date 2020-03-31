@@ -71,7 +71,7 @@ public class PlayState extends State {
 		
 		this.level = level;
 
-		manager = new CardGameManager(50, gsm.getUser());
+		manager = new CardGameManager(50, gsm.getUser(), level - 3);
 	}
 
 	@Override
@@ -90,6 +90,7 @@ public class PlayState extends State {
 		if(Gdx.input.justTouched() && homeBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY())){
 			clickSound.play();
 			dispose();
+			Gdx.gl.glClearColor(157f / 255f, 46f / 255f, 46f / 255f, 1);
 			gsm.setState(StateEnum.MAP_STATE);
 			gsm.removeState(StateEnum.PLAY_STATE);
         }
@@ -98,6 +99,7 @@ public class PlayState extends State {
 			System.out.println("Player Win");
 			messageToPrint = "You have won this battle";
 			dispose();
+			Gdx.gl.glClearColor(157f / 255f, 46f / 255f, 46f / 255f, 1);
 			
 			// Player win return to edited map
 			gsm.setStateAsNew(new CutsceneState(gsm, level), StateEnum.CUTSCENE_STATE);
@@ -107,6 +109,7 @@ public class PlayState extends State {
 			System.out.println("Enemy Win");
 			System.out.println(getEmissionBar());
 			dispose();
+			Gdx.gl.glClearColor(157f / 255f, 46f / 255f, 46f / 255f, 1);
 			
 			// //AI win return to original map
 			messageToPrint = "You have lost this battle";
@@ -132,8 +135,9 @@ public class PlayState extends State {
 				gsm.wonLevel();
 				((MapState) gsm.setState(StateEnum.MAP_STATE)).getPreviusMarker().complete();
 				gsm.removeState(StateEnum.PLAY_STATE);
-
+				
 			}
+			Gdx.gl.glClearColor(157f / 255f, 46f / 255f, 46f / 255f, 1);
         }
 		
 		

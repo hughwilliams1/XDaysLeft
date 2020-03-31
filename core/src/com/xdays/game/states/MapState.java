@@ -36,7 +36,6 @@ public class MapState extends State {
 
 	public MapState(GameStateManager gsm) {
 		super(gsm);
-
 		clickSound = Gdx.audio.newSound(Gdx.files.internal("sounds/ClickSound.wav"));
 
 		cam.setToOrtho(false, Game.WIDTH, Game.HEIGHT);

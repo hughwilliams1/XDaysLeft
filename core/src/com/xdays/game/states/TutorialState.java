@@ -34,7 +34,8 @@ public class TutorialState extends State {
 
 	}
 	
-	private void resetState() {
+	public void resetState() {
+		Gdx.gl.glClearColor(157f / 255f, 46f / 255f, 46f / 255f, 1);
 		createTutorialExampleImages();
 		createTutorialDialogue();
 	}
