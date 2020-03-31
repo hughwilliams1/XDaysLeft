@@ -190,7 +190,7 @@ public class PlayState extends State {
 						Card selectedCard = card;
 						if (selectedCard instanceof Social) {
 							selectCardSound();
-							if (!manager.getAIBoard().getField().isEmpty() && !getPlayerBoard().getField().isEmpty()) {
+							if ((!manager.getAIBoard().getField().isEmpty() && (!getPlayerBoard().getField().isEmpty()) || ((Social) selectedCard).getSocialEffect() instanceof Destroy)) {
 								if (((Social) selectedCard).isSelectedCardNeeded()) {
 									messageToPrint = "Select cards to apply the social card to";
 									System.out.println("Select cards to apply the social card to");
@@ -206,7 +206,7 @@ public class PlayState extends State {
 
 								}
 							} else {
-								messageToPrint = "No cards have been placed on the board yet.";
+								messageToPrint = "No cards have been placed on the board yet."; 
 								System.out.println("No cards have been placed on the board yet.");
 							}
 						} else {

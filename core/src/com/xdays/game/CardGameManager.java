@@ -130,7 +130,6 @@ public class CardGameManager {
 				}else {
 					switch(card.getTitle()) {
 					case "Online Posts":
-						
 					case "UN Law":
 						Random r = new Random();
 						if(r.nextBoolean()) {
