@@ -16,7 +16,7 @@
 	{
 	"title" : "Strike",
 	"cardText" : "Destroy a random 2 star card.",
-	"amount" : "0",
+	"amount" : "2",
 	"type" : "Destroy",
 	"selectedCardsNeeded" : "false"
 	},
@@ -30,7 +30,7 @@
 	{
 	"title" : "Petition",
 	"cardText" : "Destroy a random 3 star card.",
-	"amount" : "0",
+	"amount" : "3",
 	"type" : "Destroy",
 	"selectedCardsNeeded" : "false"
 	},
