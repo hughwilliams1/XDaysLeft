@@ -223,10 +223,16 @@ public class PlayState extends State {
 									//manager.processCard(selectedCard, null);
 									manager.playCardGameRound(selectedCard, null); 
 									break;
-									
-
 								}
-							} else {
+								
+							} else if (((Social) selectedCard).getSocialEffect() instanceof EditEmission && ((!manager.getAIBoard().getField().isEmpty() || (!getPlayerBoard().getField().isEmpty())))) {
+								System.out.println("HEREREJRHJERHERHEHRH");
+								//manager.processCard(selectedCard, null);
+								manager.playCardGameRound(selectedCard, null); 
+								break;
+							}
+							
+							else {
 								messageToPrint = "No cards have been placed on the board yet."; 
 								System.out.println("No cards have been placed on the board yet.");
 							}

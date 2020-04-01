@@ -55,7 +55,7 @@ public class CardGameManager {
 		int difficulty = 0;
 		if (level == 1) {
 			enemyDeck = new String[]{ "Remove Tree", "Remove Tree", 
-					"Fracking", "Online Posts", "Online Posts", "Cover-up", "Cover-up", "Cover-up"}; //"Landfill", "Landfill", "Remove Tree", "Remove Tree"
+					"Remove Tree", "Nuclear Plant", "Hydroelectric Energy", "Hydroelectric Energy", "Hydroelectric Energy", "Hydroelectric Energy"};
 		
 			difficulty = 1;
 		} 
@@ -161,17 +161,33 @@ public class CardGameManager {
 					case "Online Posts":
 					case "UN Law":
 						Random r = new Random();
-						if(r.nextBoolean()) {
-							((Social) card).doEffect(playerBoard, null, true);
-							//handleInput(card);
-							user.removeCard(card);
-							user.addCardToHand();
-						}else {
+
+						if (playerBoard.getBoardSize() == 0 && aiBoard.getBoardSize() > 0) {
 							((Social) card).doEffect(aiBoard, null, false);
-							//handleInput(card);
 							user.removeCard(card);
 							user.addCardToHand();
-						}
+						} else if (aiBoard.getBoardSize() == 0 && playerBoard.getBoardSize() > 0) {
+							((Social) card).doEffect(playerBoard, null, true);
+							user.removeCard(card);
+							user.addCardToHand();
+						} else {
+							if(r.nextBoolean()) {
+								((Social) card).doEffect(playerBoard, null, true);
+								user.removeCard(card);
+								user.addCardToHand();
+							}
+							else {
+								((Social) card).doEffect(aiBoard, null, false);
+								user.removeCard(card);
+								user.addCardToHand();
+							}
+						}	
+						
+							
+						
+						
+						
+						
 						break;
 					case "Strike":
 						System.out.println("is a strike card");
