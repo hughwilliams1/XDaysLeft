@@ -55,7 +55,7 @@ public class CardGameManager {
 		int difficulty = 0;
 		if (level == 1) {
 			enemyDeck = new String[]{ "Remove Tree", "Remove Tree", 
-					"Online Posts", "Online Posts", "Online Posts", "Cover-up", "Cover-up", "Cover-up"}; //"Landfill", "Landfill", "Remove Tree", "Remove Tree"
+					"Fracking", "Online Posts", "Online Posts", "Cover-up", "Cover-up", "Cover-up"}; //"Landfill", "Landfill", "Remove Tree", "Remove Tree"
 		
 			difficulty = 1;
 		} 
@@ -165,12 +165,12 @@ public class CardGameManager {
 							((Social) card).doEffect(playerBoard, null, true);
 							handleInput(card);
 							user.removeCard(card);
-							user.addCardToHand();
+							//user.addCardToHand();
 						}else {
 							((Social) card).doEffect(aiBoard, null, false);
 							handleInput(card);
 							user.removeCard(card);
-							user.addCardToHand();
+							//user.addCardToHand();
 						}
 						break;
 					case "Strike":
@@ -180,7 +180,7 @@ public class CardGameManager {
 							((Social) card).doEffect(aiBoard, null);
 							handleInput(card);
 							user.removeCard(card);
-							user.addCardToHand();
+							//user.addCardToHand();
 						} else {
 							System.out.println("cannot be played");
 							switchPlayerTurn();

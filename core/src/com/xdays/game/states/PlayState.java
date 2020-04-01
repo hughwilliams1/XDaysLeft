@@ -21,6 +21,7 @@ import com.xdays.game.User;
 import com.xdays.game.assets.Button;
 import com.xdays.game.cards.Card;
 import com.xdays.game.cards.Destroy;
+import com.xdays.game.cards.EditEmission;
 import com.xdays.game.cards.Industry;
 import com.xdays.game.cards.Social;
 import com.xdays.game.cutscenes.CutsceneState;
@@ -170,6 +171,7 @@ public class PlayState extends State {
 				}
 			} else if (selectedCardsNeeded) { // maybe deselection of protest/ boycott below?
 				if (((Social) lastCardPlayed).getSocialEffect() instanceof Destroy) {
+					
 					for (int i = 0; i < getNumAiCards(); i++) {
 						if (getAICard(i).getBounds().overlaps(bounds)) {
 							Card selectedCard = getAICard(i);
@@ -183,7 +185,8 @@ public class PlayState extends State {
 								selectedCardsNeeded = false;
 								render(Game.batch);
 							}
-						} else if (checkCardOverlaps(lastCardPlayed, bounds) && ((Social) lastCardPlayed).getSocialEffect() instanceof Destroy) {
+						}
+						else if (checkCardOverlaps(lastCardPlayed, bounds) && ((Social) lastCardPlayed).getSocialEffect() instanceof Destroy) {
 							lastCardPlayed.stopHalfPlay();
 							selectedCardsNeeded = false;
 							System.out.println("Unselected card for merge: " + lastCardPlayed.getTitle());
@@ -202,13 +205,17 @@ public class PlayState extends State {
 						Card selectedCard = card;
 						if (selectedCard instanceof Social) {
 							selectCardSound();
-							if ((!manager.getAIBoard().getField().isEmpty() && (!getPlayerBoard().getField().isEmpty()) || ((Social) selectedCard).getSocialEffect() instanceof Destroy)) {
+							
+							if (((!manager.getAIBoard().getField().isEmpty() && (!getPlayerBoard().getField().isEmpty())) || ((Social) selectedCard).getSocialEffect() instanceof Destroy)) {
 								if (((Social) selectedCard).isSelectedCardNeeded()) {
 									messageToPrint = "Select cards to apply the social card to";
 									System.out.println("Select cards to apply the social card to");
-									selectedCardsNeeded = true;
-									lastCardPlayed = selectedCard;
-									lastCardPlayed.halfPlayed();
+									if (getNumAiCards() != 0) {
+										selectedCardsNeeded = true;
+										lastCardPlayed = selectedCard;
+										lastCardPlayed.halfPlayed();
+									}
+									
 								} else {
 									System.out.println("HEREREJRHJERHERHEHRH");
 									//manager.processCard(selectedCard, null);
@@ -360,8 +367,7 @@ public class PlayState extends State {
 		}
 
 		//console.draw(sb, messageToPrint, 600, 405);
-		sb.end();
-		
+		sb.end();	
 		drawEmissionsBar();
 	    
 		sb.begin();
