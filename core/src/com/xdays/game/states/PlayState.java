@@ -183,6 +183,11 @@ public class PlayState extends State {
 								selectedCardsNeeded = false;
 								render(Game.batch);
 							}
+						} else if (checkCardOverlaps(lastCardPlayed, bounds) && ((Social) lastCardPlayed).getSocialEffect() instanceof Destroy) {
+							lastCardPlayed.stopHalfPlay();
+							selectedCardsNeeded = false;
+							System.out.println("Unselected card for merge: " + lastCardPlayed.getTitle());
+							messageToPrint = "Unselected card for merge: " + lastCardPlayed.getTitle();
 						}
 					}
 				}

@@ -80,7 +80,7 @@ public class CollectionState extends State {
 		parameter.size = 35;
 		font = generator.generateFont(parameter);
 
-		lockedCards = new String[] { "Plant Tree", "UN Law", "Solar Panel", "Solar Farm"
+		lockedCards = new String[] {"UN Law", "Solar Panel", "Solar Farm"
 		};
 		
 		// Circular pages array
