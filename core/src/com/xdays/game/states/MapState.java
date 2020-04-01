@@ -205,7 +205,7 @@ public class MapState extends State {
 		displayCompletedLevels(sb);
 	}
 	
-	public Marker getPreviusMarker() {
+	public Marker getPreviousMarker() {
 		return previousMarker;
 	}
 
@@ -246,7 +246,6 @@ public class MapState extends State {
 				if(!isCompleted()) {
 					clickSound.play();
 					gsm.setStateAsNew(new CutsceneState(gsm, cutscene), StateEnum.CUTSCENE_STATE);
-					markers.get(key).complete();
 				}else {
 					System.out.println("Marker completed.");
 				}
@@ -255,7 +254,6 @@ public class MapState extends State {
 			}else {
 				clickSound.play();
 				gsm.setStateAsNew(new CutsceneState(gsm, cutscene), StateEnum.CUTSCENE_STATE);
-				markers.get(key).complete();
 			}
 		}
 
