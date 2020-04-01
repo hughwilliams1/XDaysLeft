@@ -99,9 +99,10 @@ public class CardGameManager {
 			//System.out.println("AI EMISSIONS: " +aiBoard.getTotalPoints() +"Player emmisions: "+  playerBoard.getTotalPoints());
 			switchPlayerTurn();
 		}
-
-		changeEmissions(-playerBoard.getTotalPoints());
-		changeEmissions(aiBoard.getTotalPoints());
+		if(!card.getTitle().contentEquals("Strike") || !card.getTitle().contentEquals("Petition")) {
+			changeEmissions(-playerBoard.getTotalPoints());
+			changeEmissions(aiBoard.getTotalPoints());	
+		}
 		
 	}
 
