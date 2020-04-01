@@ -313,7 +313,6 @@ public class CollectionState extends State {
 
 							if (lockedCard.equals(card.getTitle())) {
 								displayCard = false;
-								x--;
 							}
 						}
 
@@ -336,6 +335,10 @@ public class CollectionState extends State {
 									+ player.MAX_ONE_CARD;
 							deckNumberFont.draw(sb, deckAmount, X_COORDINATES[x] - 118,
 									Y_COORINATES[y] - cardHeight + 25);
+						} else {
+							sb.draw((Texture) Game.assetManager.get( "back question"+ ".PNG"),
+									X_COORDINATES[x] - cardWidth, Y_COORINATES[y] - cardHeight, cardWidth,
+									cardHeight);
 						}
 						
 						displayCard = true;

@@ -30,6 +30,7 @@ public class Assets {
 		manager.load("Battery Farm.PNG", Texture.class);
 		manager.load("Blank.PNG", Texture.class);
 		manager.load("back.PNG", Texture.class);
+		manager.load("back question.PNG", Texture.class);
 		manager.load("Boycott.PNG", Texture.class);
 		manager.load("Bribe.PNG", Texture.class);
 		manager.load("Car Factory.PNG", Texture.class);
