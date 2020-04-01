@@ -54,19 +54,143 @@
         </div>
     </nav>
 
+
     <!-- Download -->
     <div class="screenshot">
             <a href="https://github.com/hughwilliams1/XDaysLeft"><button class="btn"><i class="fa fa-download"></i> Download</button></a>
     </div>
 
-    <form action="" method="post" id="com">
-        <label> name:<br><input type="text" name="name" size="36"></label><br></br>
-        <label> message: <br><textarea cols="35" rows="5" name="mes"></textarea></label><br></br>
-        <input type="submit" name="submit" value="Submit" class="texty">
-    
-    </form>
 
+    <!--facts carousel-->
     
+    <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+    * {box-sizing: border-box}
+    body {font-family: Verdana, sans-serif; margin:0}
+    
+    /*slideshow container*/
+    .slideshow-container {
+      position: relative;
+      background: #f1f1f1f1;
+    }
+    
+    /* Slides */
+    .mySlides {
+      display: none;
+      padding: 80px;
+      text-align: center;
+    }
+    
+    /* Next & previous buttons */
+    .prev, .next {
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      width: auto;
+      margin-top: -30px;
+      padding: 16px;
+      color: rgb(187, 129, 82);
+      font-weight: bold;
+      font-size: 20px;
+      border-radius: 0 3px 3px 0;
+      user-select: none;
+    }
+    
+    /* Position the "next button" to the right */
+    .next {
+      position: absolute;
+      right: 0;
+      border-radius: 3px 0 0 3px;
+    }
+    
+    
+    /* The dot/bullet/indicator container */
+    .dot-container {
+        text-align: center;
+        padding: 20px;
+        background: rgb(221, 221, 221);
+    }
+    
+    /* The dots/bullets/indicators */
+    .dot {
+      cursor: pointer;
+      height: 15px;
+      width: 15px;
+      margin: 0 2px;
+      background-color: rgb(187, 129, 82);
+      border-radius: 50%;
+      display: inline-block;
+      transition: background-color 0.6s ease;
+    }
+    
+
+    q {font-style: italic;}
+    
+    </style>
+    </head>
+    <body>
+    
+    <div class="slideshow-container">
+    
+    <div class="mySlides">
+      <q>Over the past 50 years, the average global temperature has increased at the fastest rate in recorded history.</q>
+    </div>
+    
+    <div class="mySlides">
+      <q>With the start of industry in the 1700's, humans began emitting more fossil fuels from coal, oil, and gas to run our cars, trucks, and factories.</q>
+    </div>
+    
+    <div class="mySlides">
+      <q>There is more carbon dioxide in the atmosphere today than at any point in the last 800,000 years.</q>
+    </div>
+    
+    <a class="prev" onclick="plusSlides(-1)">❮</a>
+    <a class="next" onclick="plusSlides(1)">❯</a>
+    
+    </div>
+    
+    <div class="dot-container">
+      <span class="dot" onclick="currentSlide(1)"></span> 
+      <span class="dot" onclick="currentSlide(2)"></span> 
+      <span class="dot" onclick="currentSlide(3)"></span> 
+    </div>
+    
+    <script>
+    var slideIndex = 1;
+    showSlides(slideIndex);
+    
+    function plusSlides(n) {
+      showSlides(slideIndex += n);
+    }
+    
+    function currentSlide(n) {
+      showSlides(slideIndex = n);
+    }
+    
+    function showSlides(n) {
+      var i;
+      var slides = document.getElementsByClassName("mySlides");
+      var dots = document.getElementsByClassName("dot");
+      if (n > slides.length) {slideIndex = 1}    
+      if (n < 1) {slideIndex = slides.length}
+      for (i = 0; i < slides.length; i++) {
+          slides[i].style.display = "none";  
+      }
+      for (i = 0; i < dots.length; i++) {
+          dots[i].className = dots[i].className.replace(" active", "");
+      }
+      slides[slideIndex-1].style.display = "block";  
+      dots[slideIndex-1].className += " active";
+    }
+    </script>
+    
+    </body>
+
+
+
+
+    <!--image section-->
     <div class="gallery">
         <div class="row" id="game-screenshots">
             <div class="card-hover col-xs-4 col-sm-4 col-md-4 col-lg-4">
