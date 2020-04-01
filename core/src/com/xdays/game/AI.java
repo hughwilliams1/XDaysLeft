@@ -21,7 +21,7 @@ public class AI extends Player {
 	}
 
 	public ArrayList<Card> nextCard(Board enemyBoard, Board playerBoard) {
-		ArrayList<Card> cardsToUse = cardsAvailableToPlay(enemyBoard.getField(), this.hand);
+		ArrayList<Card> cardsToUse = cardsAvailableToPlay(enemyBoard.getField(), this.hand, playerBoard.getField());
 		ArrayList<Card> cardsToProcess = new ArrayList<Card>();
 		this.playerBoard = playerBoard.getField();
 		if(cardsToUse.size() == 0) {
@@ -204,7 +204,7 @@ public class AI extends Player {
 
 	}
 
-	private ArrayList<Card> cardsAvailableToPlay(ArrayList<Card> cardsOnBoard, ArrayList<Card> cardsInHand){
+	private ArrayList<Card> cardsAvailableToPlay(ArrayList<Card> cardsOnBoard, ArrayList<Card> cardsInHand, ArrayList<Card> playerBoard){
 		int oneStarCards = 0;
 		int twoStarCards = 0;
 		int threeStarCards = 0;
@@ -253,9 +253,35 @@ public class AI extends Player {
 				break;
 				}
 			} else {
-				acceptableCardsToPlay.add(card);
+				if(!playerBoard.isEmpty() && !cardsOnBoard.isEmpty()) {
+					switch(card.getTitle()) {
+					case "Propaganda":
+						if(hasStarCard(playerBoard, 2)) {
+							acceptableCardsToPlay.add(card);
+						}
+						break;
+					case "Bribe":
+						if(hasStarCard(playerBoard, 3)) {
+							acceptableCardsToPlay.add(card);
+						}
+						break;
+					default:
+						acceptableCardsToPlay.add(card);
+						break;
+					}
+					
+				}
 			}
 		}
 		return acceptableCardsToPlay;
 	}
+	private boolean hasStarCard(ArrayList<Card> board, int starValue) {
+		for(Card card: board) {
+			if(card.getStars() == starValue) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
+
