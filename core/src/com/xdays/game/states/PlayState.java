@@ -101,7 +101,7 @@ public class PlayState extends State {
 			messageToPrint = "You have won this battle";
 			dispose();
 			Gdx.gl.glClearColor(157f / 255f, 46f / 255f, 46f / 255f, 1);
-			
+			manager.getUser().setCompletedLevel(level - 3);
 			// Player win return to edited map
 			gsm.setStateAsNew(new CutsceneState(gsm, level), StateEnum.CUTSCENE_STATE);
 			gsm.removeState(StateEnum.PLAY_STATE);
@@ -112,7 +112,7 @@ public class PlayState extends State {
 			dispose();
 			Gdx.gl.glClearColor(157f / 255f, 46f / 255f, 46f / 255f, 1);
 			
-			// //AI win return to original map
+			// AI win return to original map
 			messageToPrint = "You have lost this battle";
 			gsm.setState(StateEnum.MAP_STATE);
 			gsm.removeState(StateEnum.PLAY_STATE);
@@ -132,6 +132,7 @@ public class PlayState extends State {
 				System.out.println("Player Win");
 				messageToPrint = "You have won this battle";
 				dispose();
+				manager.getUser().setCompletedLevel(level - 3);
 				// Player win return to edited map
 				gsm.wonLevel();
 				//((MapState) gsm.setState(StateEnum.MAP_STATE)).getPreviousMarker().complete();
@@ -140,7 +141,6 @@ public class PlayState extends State {
 			}
 			Gdx.gl.glClearColor(157f / 255f, 46f / 255f, 46f / 255f, 1);
         }
-		
 		
 		if (Gdx.input.justTouched() && manager.isPlayersTurn()) {
 			// System.out.println("Play State touched");

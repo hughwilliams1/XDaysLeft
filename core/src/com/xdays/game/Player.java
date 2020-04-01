@@ -22,11 +22,15 @@ public abstract class Player {
 	// max amount of one type of card per deck
 	public final int MAX_ONE_CARD = 2;
 	
+	private int completedLevel;
+	
 	//All cards loaded
 	private CardCollection collection;
 	
 	// constructor used by the player who deck will remain the same throughout different levels
 	public Player(String name, CardCollection collection) {
+		completedLevel = 0;
+		
 		// string array of the start deck
 		/*starterDeck = new String[]{"Plant Tree", "Plant Tree", "Solar Panel",
 				"Solar Panel", "Windmill", "Windmill", "Solar Farm", "Solar Farm", "Protests", "Protests",
@@ -112,6 +116,14 @@ public abstract class Player {
 		if(hand.contains(card)) {
 			System.out.println("Card removed: " + hand.remove(hand.indexOf(card)).getTitle());
 		}
+	}
+	
+	public void setCompletedLevel(int level) {
+		completedLevel = level;
+	}
+	
+	public int getCompletedLevel() {
+		return completedLevel;
 	}
 	
 	// returns the current hand of the player as a string

@@ -61,7 +61,7 @@ public class CollectionState extends State {
 		;
 
 		this.player = player;
-
+		
 		// Click sound
 		clickSound = Gdx.audio.newSound(Gdx.files.internal("sounds/ClickSound.wav"));
 
@@ -80,8 +80,7 @@ public class CollectionState extends State {
 		parameter.size = 35;
 		font = generator.generateFont(parameter);
 
-		lockedCards = new String[] {
-		};
+		getLockedCard(player.getCompletedLevel());
 		
 		// Circular pages array
 		collectionDisplayPages = new CircularList<CollectionPage>();
@@ -92,6 +91,16 @@ public class CollectionState extends State {
 
 		currentCollectionPage = collectionDisplayPages.get(0);
 		currentPlayerPage = playerDisplayPages.get(0);
+	}
+
+	
+	public void getLockedCard(int level) {
+		if (level == 0) {
+			String[] test = new String[] {"Plant Tree", "Strike"};
+			lockedCards = test;
+		} else if (level == 1) {
+			lockedCards = new String[]{};
+		}
 	}
 
 	public void createCollectionPages(CardCollection cardCollection) {
@@ -195,6 +204,8 @@ public class CollectionState extends State {
 			MenuState.mainMenuMusic.play();
 		}
 
+		getLockedCard(player.getCompletedLevel());
+		
 		sb.setProjectionMatrix(cam.combined);
 		sb.begin();
 		sb.draw(background, 0, 0);

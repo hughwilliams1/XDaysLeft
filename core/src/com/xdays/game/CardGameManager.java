@@ -8,6 +8,7 @@ import com.xdays.game.cards.CardCollection;
 import com.xdays.game.cards.Destroy;
 import com.xdays.game.cards.Industry;
 import com.xdays.game.cards.Social;
+import com.xdays.game.states.PlayState;
 
 public class CardGameManager {
 
@@ -55,7 +56,7 @@ public class CardGameManager {
 		int difficulty = 0;
 		if (level == 1) {
 			enemyDeck = new String[]{ "Remove Tree", "Remove Tree", 
-					"Remove Tree", "Nuclear Plant", "Hydroelectric Energy", "Hydroelectric Energy", "Hydroelectric Energy", "Hydroelectric Energy"};
+					"Fracking", "Propaganda", "Propaganda", "Propaganda", "Propaganda", "Propaganda"}; //"Landfill", "Landfill", "Remove Tree", "Remove Tree"
 		
 			difficulty = 1;
 		} 
@@ -150,6 +151,7 @@ public class CardGameManager {
 						//handleInput(card);
 						user.removeCard(card);
 						user.addCardToHand();
+						
 					}else {
 						((Social) card).doEffect(playerBoard, chosenCards.get(0));
 						//handleInput(card);
@@ -182,11 +184,6 @@ public class CardGameManager {
 								user.addCardToHand();
 							}
 						}	
-						
-							
-						
-						
-						
 						
 						break;
 					case "Strike":
