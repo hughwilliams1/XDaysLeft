@@ -133,7 +133,7 @@ public class PlayState extends State {
 				dispose();
 				// Player win return to edited map
 				gsm.wonLevel();
-				((MapState) gsm.setState(StateEnum.MAP_STATE)).getPreviusMarker().complete();
+				((MapState) gsm.setState(StateEnum.MAP_STATE)).getPreviousMarker().complete();
 				gsm.removeState(StateEnum.PLAY_STATE);
 				
 			}
@@ -269,7 +269,6 @@ public class PlayState extends State {
 		if(!battleMusic.isPlaying()) {
 			battleMusic.play();
 		}
-		
 		
 		BitmapFont console = new BitmapFont();
 		BitmapFont emissions = new BitmapFont();

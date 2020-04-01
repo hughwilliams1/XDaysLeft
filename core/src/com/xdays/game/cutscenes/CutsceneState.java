@@ -334,7 +334,7 @@ public class CutsceneState extends State{
 				Gdx.app.exit();
 			} else if (currentLevel > 3) {
 				gsm.wonLevel();
-				((MapState) gsm.setState(StateEnum.MAP_STATE)).getPreviusMarker().complete();
+				((MapState) gsm.setState(StateEnum.MAP_STATE)).getPreviousMarker().complete();
 				gsm.removeState(StateEnum.CUTSCENE_STATE);
 				dispose();		
 			} else {

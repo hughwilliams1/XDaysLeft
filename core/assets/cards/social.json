@@ -38,7 +38,7 @@
 	"title" : "Boycott",
 	"cardText" : "Destroy a card of your choosing.",
 	"amount" : "0",
-	"type" : "Destory",
+	"type" : "Destroy",
 	"selectedCardsNeeded" : "true"
 	}
 ]
