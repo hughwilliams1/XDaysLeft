@@ -147,12 +147,12 @@ public class CardGameManager {
 				if(((Social) card).isSelectedCardNeeded()) {
 					if(((Social) card).getSocialEffect() instanceof Destroy) {
 						((Social) card).doEffect(aiBoard, chosenCards.get(0));
-						handleInput(card);
+						//handleInput(card);
 						user.removeCard(card);
 						user.addCardToHand();
 					}else {
 						((Social) card).doEffect(playerBoard, chosenCards.get(0));
-						handleInput(card);
+						//handleInput(card);
 						user.removeCard(card);
 						user.addCardToHand();
 					}
@@ -163,14 +163,14 @@ public class CardGameManager {
 						Random r = new Random();
 						if(r.nextBoolean()) {
 							((Social) card).doEffect(playerBoard, null, true);
-							handleInput(card);
+							//handleInput(card);
 							user.removeCard(card);
-							//user.addCardToHand();
+							user.addCardToHand();
 						}else {
 							((Social) card).doEffect(aiBoard, null, false);
-							handleInput(card);
+							//handleInput(card);
 							user.removeCard(card);
-							//user.addCardToHand();
+							user.addCardToHand();
 						}
 						break;
 					case "Strike":
@@ -178,9 +178,9 @@ public class CardGameManager {
 						if(hasStarCard(aiBoard, 2)) {
 							System.out.println("can play card");
 							((Social) card).doEffect(aiBoard, null);
-							handleInput(card);
+							//handleInput(card);
 							user.removeCard(card);
-							//user.addCardToHand();
+							user.addCardToHand();
 						} else {
 							System.out.println("cannot be played");
 							switchPlayerTurn();
