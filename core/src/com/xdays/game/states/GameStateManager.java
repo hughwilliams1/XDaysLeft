@@ -112,11 +112,11 @@ public class GameStateManager {
     	String[] completedLevels = ((MapState)getState(StateEnum.MAP_STATE)).getCompletedLevelsName();
     	toWrite[0]=Arrays.toString(completedLevels);
     	//System.out.println(Arrays.toString(completedLevels));
-    	/*String[] deck = user.getCurrentDeck();
+    	String[] deck = user.getCurrentDeck();
     	toWrite[1]=Arrays.toString(deck);
     	//System.out.println(Arrays.toString(deck));
     	
-    	if(previousState==StateEnum.PLAY_STATE) {
+    	/*if(previousState==StateEnum.PLAY_STATE) {
     		String[] playerHand = user.getCurrentHand();
     		toWrite[2]=Arrays.toString(playerHand);
     		//System.out.println(Arrays.toString(playerHand));
@@ -204,9 +204,12 @@ public class GameStateManager {
 		if(!completedLevels[0].contentEquals("null")) {
 			((MapState)getState(StateEnum.MAP_STATE)).loadLevels(readFromSaveFile(1));
 		}
-		/*user.setCurrentDeck(readFromSaveFile(2));
+		String[] currentDeck = readFromSaveFile(2);
+		if(currentDeck[0].contentEquals("null")) {
+			user.setCurrentDeck(currentDeck);
+		}
 		
-		String[] playerHand = readFromSaveFile(3);
+		/*String[] playerHand = readFromSaveFile(3);
 		if(!playerHand[0].contentEquals("null")) {
 			user.setHand(collection.getMultipleCards(playerHand));
 		}

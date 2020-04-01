@@ -56,11 +56,19 @@ public abstract class Player {
 		hand = new ArrayList<Card>();
 	}
 	
+	public void setCurrentDeck(String[] givenDeck) {
+		currentDeck = givenDeck;
+	}
+	
 	public void resetHand() {
 		// TODO this is causing the bug
 		hand.clear();
 		deck.resetDeck(collection.getMultipleCards(currentDeck));
 	} 
+	
+	public String[] getCurrentDeck() {
+		return currentDeck;
+	}
 	
 	// gets hand size
 	public int handSize() {
