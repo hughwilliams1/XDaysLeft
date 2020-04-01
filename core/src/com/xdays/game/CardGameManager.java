@@ -80,7 +80,7 @@ public class CardGameManager {
 				switchPlayerTurn();
 			} else {
 				processCard(card, chosenCards);
-				System.out.println("Player's Current Hand: " + user.currentHandAsString());
+				//System.out.println("Player's Current Hand: " + user.currentHandAsString());
 				switchPlayerTurn();
 				
 			}
@@ -93,9 +93,9 @@ public class CardGameManager {
 				System.out.println("AI Played: " + aiCard.getTitle());
 				processCard(aiCard, cardsToProcess); //Need the chosen cards to destroy too
 				// prints out ai's current hand
-				System.out.println("AI's Current Hand: " + enemyAI.currentHandAsString());
+				//System.out.println("AI's Current Hand: " + enemyAI.currentHandAsString());
 			}
-			System.out.println("AI EMISSIONS: " +aiBoard.getTotalPoints() +"Player emmisions: "+  playerBoard.getTotalPoints());
+			//System.out.println("AI EMISSIONS: " +aiBoard.getTotalPoints() +"Player emmisions: "+  playerBoard.getTotalPoints());
 			switchPlayerTurn();
 		}
 
@@ -105,6 +105,7 @@ public class CardGameManager {
 	}
 
 	public void processCard(Card card, ArrayList<Card> chosenCards) {
+		System.out.println("Pocessing card: " + card.getTitle());
 		if(card instanceof Industry) {
 			if (isPlayerTurn) {
 				if (card.getStars() > 1) {
@@ -146,10 +147,12 @@ public class CardGameManager {
 				if(((Social) card).isSelectedCardNeeded()) {
 					if(((Social) card).getSocialEffect() instanceof Destroy) {
 						((Social) card).doEffect(aiBoard, chosenCards.get(0));
+						handleInput(card);
 						user.removeCard(card);
 						user.addCardToHand();
 					}else {
 						((Social) card).doEffect(playerBoard, chosenCards.get(0));
+						handleInput(card);
 						user.removeCard(card);
 						user.addCardToHand();
 					}
@@ -160,10 +163,12 @@ public class CardGameManager {
 						Random r = new Random();
 						if(r.nextBoolean()) {
 							((Social) card).doEffect(playerBoard, null, true);
+							handleInput(card);
 							user.removeCard(card);
 							user.addCardToHand();
 						}else {
 							((Social) card).doEffect(aiBoard, null, false);
+							handleInput(card);
 							user.removeCard(card);
 							user.addCardToHand();
 						}
@@ -173,6 +178,7 @@ public class CardGameManager {
 						if(hasStarCard(aiBoard, 2)) {
 							System.out.println("can play card");
 							((Social) card).doEffect(aiBoard, null);
+							handleInput(card);
 							user.removeCard(card);
 							user.addCardToHand();
 						} else {
@@ -183,6 +189,7 @@ public class CardGameManager {
 					case "Petition":
 						if(hasStarCard(aiBoard, 3)) {
 							((Social) card).doEffect(aiBoard, null);
+							handleInput(card);
 							user.removeCard(card);
 							user.addCardToHand();
 						} else {
@@ -254,6 +261,7 @@ public class CardGameManager {
 	private void handleInput(Card card) {
 		if(!card.isPlayed()) {
 			if(card instanceof Social) {
+				System.out.println("TASTRETRTRTRT");
 				card.position.y += 210;
 			}else {
 				if(card.isHalfPlayed()) {

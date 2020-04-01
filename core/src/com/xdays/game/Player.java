@@ -110,7 +110,7 @@ public abstract class Player {
 	// removes a given card from the player hand
 	public void removeCard(Card card) {
 		if(hand.contains(card)) {
-			hand.remove(hand.indexOf(card));
+			System.out.println("Card removed: " + hand.remove(hand.indexOf(card)).getTitle());
 		}
 	}
 	

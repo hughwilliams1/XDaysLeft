@@ -133,7 +133,7 @@ public class PlayState extends State {
 				dispose();
 				// Player win return to edited map
 				gsm.wonLevel();
-				((MapState) gsm.setState(StateEnum.MAP_STATE)).getPreviousMarker().complete();
+				//((MapState) gsm.setState(StateEnum.MAP_STATE)).getPreviousMarker().complete();
 				gsm.removeState(StateEnum.PLAY_STATE);
 				
 			}
@@ -194,9 +194,11 @@ public class PlayState extends State {
 			} else {
 				User player = manager.getUser();
 				for (int i = 0; i < player.handSize(); i++) {
+					//System.out.println(i + " : " + player.getCardFromHand(i).getTitle() + " : " + player.getCardFromHand(i).getBounds());
 					Card card = player.getCardFromHand(i);
+					System.out.println(i + " : " + card.getTitle());
 					if (card.getBounds().overlaps(bounds)) {
-						System.out.println("User Played:" + card.getTitle());
+						System.out.println("3 User Played:" + card.getTitle());
 						Card selectedCard = card;
 						if (selectedCard instanceof Social) {
 							selectCardSound();
@@ -208,13 +210,15 @@ public class PlayState extends State {
 									lastCardPlayed = selectedCard;
 									lastCardPlayed.halfPlayed();
 								} else {
+									System.out.println("HEREREJRHJERHERHEHRH");
 									//manager.processCard(selectedCard, null);
 									manager.playCardGameRound(selectedCard, null); 
 									//((Social) selectedCard).doEffect(getPlayerBoard(), null);
 									messageToPrint = "Social card applied.";
+									System.out.println("1 User played card: " + selectedCard.getTitle());
 									System.out.println("Select card applied to: "
-											+ ((Social) selectedCard).getSocialEffect().getChosenCard());
-
+											+ ((Social) selectedCard).getSocialEffect().getChosenCard().getTitle());
+									selectedCard=null;
 								}
 							} else {
 								messageToPrint = "No cards have been placed on the board yet."; 
@@ -236,7 +240,7 @@ public class PlayState extends State {
 							} else if (!selectedCard.isPlayed()) {
 								selectCardSound();
 								messageToPrint = "User played card: " + selectedCard.getTitle();
-								System.out.println("User played card: " + selectedCard.getTitle());
+								System.out.println("2 User played card: " + selectedCard.getTitle());
 								manager.playCardGameRound(selectedCard, null);
 								render(Game.batch);
 							}

@@ -75,7 +75,8 @@ public class MapState extends State {
 			
 			for(String key : markers.keySet()) {
 				if(bounds.overlaps(markers.get(key).getBounds())) {
-					markers.get(key).handleInput(key);
+					markers.get(key).handleInput();
+					setPreviousMarker(markers.get(key));
 				}
 			}
 
@@ -241,7 +242,7 @@ public class MapState extends State {
 			completed = false;
 		}
 		
-		public void handleInput(String key) {
+		public void handleInput() {
 			if(previousMarker==null) {
 				if(!isCompleted()) {
 					clickSound.play();
@@ -251,9 +252,11 @@ public class MapState extends State {
 				}
 			}else if(!previousMarker.isCompleted()) {
 				System.out.println("Previous marker not completed.");
-			}else {
+			}else if(!isCompleted()){
 				clickSound.play();
 				gsm.setStateAsNew(new CutsceneState(gsm, cutscene), StateEnum.CUTSCENE_STATE);
+			}else {
+				System.out.println("Marker completed.");
 			}
 		}
 
