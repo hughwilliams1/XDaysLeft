@@ -7,10 +7,12 @@ import com.xdays.game.cards.CardCollection;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.Stack;
 
@@ -104,44 +106,133 @@ public class GameStateManager {
     public EnumMap<StateEnum, State> getStateMap() {
     	return stateMap;
     }
+
+    public void saveGame() {
+    	String[] toWrite = new String[9];
+    	String[] completedLevels = ((MapState)getState(StateEnum.MAP_STATE)).getCompletedLevelsName();
+    	toWrite[0]=Arrays.toString(completedLevels);
+    	//System.out.println(Arrays.toString(completedLevels));
+    	/*String[] deck = user.getCurrentDeck();
+    	toWrite[1]=Arrays.toString(deck);
+    	//System.out.println(Arrays.toString(deck));
+    	
+    	if(previousState==StateEnum.PLAY_STATE) {
+    		String[] playerHand = user.getCurrentHand();
+    		toWrite[2]=Arrays.toString(playerHand);
+    		//System.out.println(Arrays.toString(playerHand));
+    		String[] playerDeck = user.getDeck().deckToString();
+    		toWrite[3]=Arrays.toString(playerDeck);
+    		//System.out.println(Arrays.toString(playerDeck));
+    		String[] playerBoard = ((PlayState)stateMap.get(StateEnum.PLAY_STATE)).getCardGameManager().getPlayedPlayedCards();
+    		toWrite[4]=Arrays.toString(playerBoard);
+    		//System.out.println(Arrays.toString(playerBoard));
+    		
+    		String[] enemyHand = ((PlayState)stateMap.get(StateEnum.PLAY_STATE)).getCardGameManager().getAI().getCurrentHand();
+    		toWrite[5]=Arrays.toString(enemyHand);
+    		//System.out.println(Arrays.toString(enemyHand));
+    		String[] enemyDeck = ((PlayState)stateMap.get(StateEnum.PLAY_STATE)).getCardGameManager().getAI().getDeck().deckToString();
+    		toWrite[6]=Arrays.toString(enemyDeck);
+    		//System.out.println(Arrays.toString(enemyDeck));
+    		String[] enemyBoard = ((PlayState)stateMap.get(StateEnum.PLAY_STATE)).getCardGameManager().getEnemyPlayedCards();
+    		toWrite[7]=Arrays.toString(enemyBoard);
+    		//System.out.println(Arrays.toString(enemyBoard));
+    		
+    		int emissions = ((PlayState)stateMap.get(StateEnum.PLAY_STATE)).getCardGameManager().getEmissionsBar();
+    		toWrite[8]=Integer.toString(emissions);
+    		//System.out.println(emissions);
+    	}*/
+    	writeToSaveFile(toWrite);
+    	System.out.println("Game saved.");
+    }
     
-//    public void saveGame() {
-//    	try {
-//            FileWriter fileWriter = new FileWriter("saveFile.txt");
-//            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-//            bufferedWriter.write(getLevelsWon());
-//            bufferedWriter.close();
-//        }
-//        catch(IOException ex) {
-//        	ex.printStackTrace();
-//        }
-//    }
-//    
-//    public void loadGame() {
-//
-//        String line = null;
-//        String levelValue=null;
-//
-//        try {
-//            FileReader fileReader = new FileReader("saveFile.txt");
-//
-//            // Always wrap FileReader in BufferedReader.
-//            BufferedReader bufferedReader = new BufferedReader(fileReader);
-//
-//            while((line = bufferedReader.readLine()) != null) {
-//                levelValue=line;
-//            }   
-//
-//            // Always close files.
-//            bufferedReader.close();         
-//        }
-//        catch(FileNotFoundException ex) {
-//        	ex.printStackTrace();            
-//        }
-//        catch(IOException ex) {
-//            ex.printStackTrace();
-//        }
-//        levelsWon=Integer.valueOf(levelValue);
-//    }
+	private void writeToSaveFile(String[] toWrite) {
+		File file = new File("Saves/game.save"); 
+		FileWriter fr = null;
+		try {
+			fr = new FileWriter(file, false);
+			for(int i=0; i<toWrite.length; i++) {
+				if(i==0) {
+					fr.write(toWrite[i]);
+				}else {
+					fr.write("\n"+toWrite[i]);
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.out.println("Failed to write to save file.");
+		}finally {
+			try {
+				fr.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	private String[] readFromSaveFile(int line) {
+		File file = new File("Saves/game.save"); 
+		BufferedReader br = null;
+		try {
+			br = new BufferedReader(new FileReader(file));
+		} catch (FileNotFoundException e1) {
+			System.out.println("Save file doesn't exist.");
+		} 
+		
+		String st; 
+		try {
+			int i=1;
+			while ((st = br.readLine()) != null) {
+				if(i==line) {
+					return st.replace("[", "").replace("]", "").replaceAll(" ", "").split(",");
+				}
+				i++;
+			}
+		} catch (IOException | NullPointerException e) {
+			System.out.println("Failed to read save file.");
+		} 
+		
+		try {
+			br.close();
+		} catch (IOException e) {
+		}
+		return null;
+	}
+ 
+	public void loadGame() {
+		String[] completedLevels = readFromSaveFile(1);
+		System.out.println(Arrays.toString(completedLevels));
+		if(!completedLevels[0].contentEquals("null")) {
+			((MapState)getState(StateEnum.MAP_STATE)).loadLevels(readFromSaveFile(1));
+		}
+		/*user.setCurrentDeck(readFromSaveFile(2));
+		
+		String[] playerHand = readFromSaveFile(3);
+		if(!playerHand[0].contentEquals("null")) {
+			user.setHand(collection.getMultipleCards(playerHand));
+		}
+		
+		String[] playerDeck = readFromSaveFile(4);
+		if(!playerDeck[0].contentEquals("null")) {
+			user.setDeck(playerDeck);
+		}
+		
+		String[] playerBoardString = readFromSaveFile(5);
+		Board playerBoard;
+		if(!playerBoardString[0].contentEquals("null")) {
+			playerBoard = new Board();
+			for(int i=0; i<playerBoardString.length; i++) {
+				playerBoard.addToField(collection.getCard(playerBoardString[i]), true);
+			}
+		}
+		
+		String[] aiHand = readFromSaveFile(6);
+		AI ai;
+		if(!aiHand[0].contentEquals("null")) {
+			String[] aiDeck = readFromSaveFile(7);
+			ai = new AI("Enemy", 1, new Deck(collection.getMultipleCards(aiDeck)));
+			ai.setHand(collection.getMultipleCards(aiHand));
+		}*/
+		
+	}
     
 }

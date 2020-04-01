@@ -23,7 +23,7 @@ public class MapState extends State {
 	
 	private HashMap<String, Marker> markers;
 
-	private Marker previusMarker;
+	private Marker previousMarker;
 	private Button tutMarker;
 	private Button winMarker;
 	private Button collectionBtn;
@@ -75,8 +75,7 @@ public class MapState extends State {
 			
 			for(String key : markers.keySet()) {
 				if(bounds.overlaps(markers.get(key).getBounds())) {
-					markers.get(key).handleInput();
-					previusMarker= markers.get(key);
+					markers.get(key).handleInput(key);
 				}
 			}
 
@@ -106,6 +105,10 @@ public class MapState extends State {
 		}
 	}
 	
+	public void setPreviousMarker(Marker givenMarker) {
+		previousMarker = givenMarker;
+	}
+	
 	public boolean areAllLevelsComplete() {
 		if(getCompletedLevels()==markers.size()) {
 			return true;
@@ -114,8 +117,31 @@ public class MapState extends State {
 		}
 	}
 	
+	public String[] getCompletedLevelsName() {
+		String[] completedLevels = new String[markers.size()];
+		int j=0;
+		for(String key: markers.keySet()) {
+			if(markers.get(key).isCompleted()) {
+				completedLevels[j]=key;
+				j++;
+			}
+		}
+		return completedLevels;
+	}
+	
+	public void loadLevels(String[] completedLevels) {
+		for(int i=0; i<completedLevels.length; i++) {
+			System.out.println("Completed Levels: " + i);
+			if(!completedLevels[i].contentEquals("null")) {
+				System.out.println("Here");
+				markers.get(completedLevels[i]).complete();	
+				previousMarker = markers.get(completedLevels[i]);
+			}
+		}
+	}
+	
 	public void displayCompletedLevels(SpriteBatch sb) {		
-		font.draw(sb, getCompletedLevels()+ "/" + markers.size() + " zones completed", 10,50);
+		font.draw(sb, getCompletedLevels()+ "/" + markers.size() + " zones completed", 25,50);
 	}
 	
 	public int getCompletedLevels() {
@@ -180,7 +206,7 @@ public class MapState extends State {
 	}
 	
 	public Marker getPreviusMarker() {
-		return previusMarker;
+		return previousMarker;
 	}
 
 	@Override
@@ -190,7 +216,7 @@ public class MapState extends State {
 	public class Marker {
 		
 		private int cutscene;
-		private Marker previusMarker;
+		private Marker previousMarker;
 		private Texture notAvailableMarker;
 		private Texture normalMarker;
 		private Texture hoverMarker;
@@ -202,7 +228,7 @@ public class MapState extends State {
 		private boolean completed;
 
 		public Marker(float x, float y, int cutscene, Marker previousMarker) {
-			this.previusMarker = previousMarker;
+			this.previousMarker = previousMarker;
 			this.cutscene = cutscene;
 			normalMarker = (Texture) Game.assetManager.get("Marker.PNG");
 			hoverMarker = (Texture) Game.assetManager.get("Marker Hover.PNG");
@@ -215,12 +241,21 @@ public class MapState extends State {
 			completed = false;
 		}
 		
-		public void handleInput() {
-			if(previusMarker==null || previusMarker.isCompleted()) {
+		public void handleInput(String key) {
+			if(previousMarker==null) {
+				if(!isCompleted()) {
+					clickSound.play();
+					gsm.setStateAsNew(new CutsceneState(gsm, cutscene), StateEnum.CUTSCENE_STATE);
+					markers.get(key).complete();
+				}else {
+					System.out.println("Marker completed.");
+				}
+			}else if(!previousMarker.isCompleted()) {
+				System.out.println("Previous marker not completed.");
+			}else {
 				clickSound.play();
 				gsm.setStateAsNew(new CutsceneState(gsm, cutscene), StateEnum.CUTSCENE_STATE);
-			}else {
-				System.out.println("Previous marker not completed.");
+				markers.get(key).complete();
 			}
 		}
 
@@ -263,7 +298,7 @@ public class MapState extends State {
 		public void drawNormalMarker(SpriteBatch sb) {
 			if (completed) {
 				sb.draw(completedMarker, getX(), getY(), getWidth(), getHeight());
-			}else if(previusMarker!=null && !previusMarker.isCompleted()) {
+			}else if(previousMarker!=null && !previousMarker.isCompleted()) {
 				sb.draw(redMark, getX() - 85, getY() - 85, getWidth() * 5, getHeight() * 5);
 				sb.draw(notAvailableMarker, getX(), getY(), getWidth(), getHeight());
 			}else {
@@ -275,7 +310,7 @@ public class MapState extends State {
 		public void drawHoverMarker(SpriteBatch sb) {
 			if (completed) {
 				sb.draw(completedMarker, getX(), getY(), getWidth(), getHeight());
-			}else if(previusMarker!=null && !previusMarker.isCompleted()) {
+			}else if(previousMarker!=null && !previousMarker.isCompleted()) {
 				sb.draw(redMark, getX() - 85, getY() - 85, getWidth() * 5, getHeight() * 5);
 				sb.draw(notAvailableMarker, getX(), getY(), getWidth(), getHeight());
 			}else {

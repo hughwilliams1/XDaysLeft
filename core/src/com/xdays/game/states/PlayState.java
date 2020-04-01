@@ -71,7 +71,7 @@ public class PlayState extends State {
 		
 		this.level = level;
 
-		manager = new CardGameManager(50, gsm.getUser(), level - 3);
+		manager = new CardGameManager(50, gsm.getUser(), level - 3, gsm.getCollection());
 	}
 
 	@Override

@@ -27,10 +27,10 @@ public class CardGameManager {
 	// array of strings for representing the enemy deck
 	private String[] enemyDeck;
 
-	public CardGameManager (int emissionsValue, User givenUser, int level) {
+	public CardGameManager (int emissionsValue, User givenUser, int level, CardCollection collection) {
 		emissionsBar = emissionsValue;
 
-		collection = new CardCollection();
+		this.collection = collection;
 
 		user = givenUser;
 
@@ -147,9 +147,11 @@ public class CardGameManager {
 					if(((Social) card).getSocialEffect() instanceof Destroy) {
 						((Social) card).doEffect(aiBoard, chosenCards.get(0));
 						user.removeCard(card);
+						user.addCardToHand();
 					}else {
 						((Social) card).doEffect(playerBoard, chosenCards.get(0));
 						user.removeCard(card);
+						user.addCardToHand();
 					}
 				}else {
 					switch(card.getTitle()) {
@@ -158,10 +160,12 @@ public class CardGameManager {
 						Random r = new Random();
 						if(r.nextBoolean()) {
 							((Social) card).doEffect(playerBoard, null, true);
-							user.removeCard(card);	
+							user.removeCard(card);
+							user.addCardToHand();
 						}else {
 							((Social) card).doEffect(aiBoard, null, false);
 							user.removeCard(card);
+							user.addCardToHand();
 						}
 						break;
 					case "Strike":
@@ -170,6 +174,7 @@ public class CardGameManager {
 							System.out.println("can play card");
 							((Social) card).doEffect(aiBoard, null);
 							user.removeCard(card);
+							user.addCardToHand();
 						} else {
 							System.out.println("cannot be played");
 							switchPlayerTurn();
@@ -179,6 +184,7 @@ public class CardGameManager {
 						if(hasStarCard(aiBoard, 3)) {
 							((Social) card).doEffect(aiBoard, null);
 							user.removeCard(card);
+							user.addCardToHand();
 						} else {
 							switchPlayerTurn();
 						}
@@ -191,9 +197,11 @@ public class CardGameManager {
 					if(((Social) card).getSocialEffect() instanceof Destroy) {
 						((Social) card).doEffect(playerBoard, chosenCards.get(0));
 						enemyAI.removeCard(card);
+						enemyAI.addCardToHand();
 					}else {
 						((Social) card).doEffect(aiBoard, chosenCards.get(0));
 						enemyAI.removeCard(card);
+						enemyAI.addCardToHand();
 					}
 				} else {
 					switch(card.getTitle()) {
@@ -203,15 +211,18 @@ public class CardGameManager {
 						if(r.nextBoolean()) {
 							((Social) card).doEffect(playerBoard, null, false);
 							enemyAI.removeCard(card);	
+							enemyAI.addCardToHand();
 						}else {
 							((Social) card).doEffect(aiBoard, null, true);
 							enemyAI.removeCard(card);
+							enemyAI.addCardToHand();
 						}
 						break;
 					case "Bribe":
 						if(hasStarCard(playerBoard, 3)) {
 							((Social) card).doEffect(playerBoard, null);
 							enemyAI.removeCard(card);
+							enemyAI.addCardToHand();
 						} else {
 							switchPlayerTurn();
 						}
@@ -220,6 +231,7 @@ public class CardGameManager {
 						if(hasStarCard(playerBoard, 2)) {
 							((Social) card).doEffect(playerBoard, null);
 							enemyAI.removeCard(card);
+							enemyAI.addCardToHand();
 						} else {
 							switchPlayerTurn();
 						}

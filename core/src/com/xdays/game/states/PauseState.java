@@ -44,11 +44,11 @@ public class PauseState extends State {
 		}
 		if (Gdx.input.justTouched() && loadBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY())) {
 			clickSound.play();
-			//gsm.loadGame();
+			gsm.loadGame();
 		}
 		if (Gdx.input.justTouched() && saveBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY())) {
 			clickSound.play();
-			//gsm.saveGame();
+			gsm.saveGame();
 		}
 		
         if(Gdx.input.justTouched() && quitBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY())){
