@@ -101,9 +101,15 @@ public class CardGameManager {
 			//System.out.println("AI EMISSIONS: " +aiBoard.getTotalPoints() +"Player emmisions: "+  playerBoard.getTotalPoints());
 			switchPlayerTurn();
 		}
-		if(!card.getTitle().contentEquals("Strike") || !card.getTitle().contentEquals("Petition")) {
+		
+		if(card==null) {
 			changeEmissions(-playerBoard.getTotalPoints());
-			changeEmissions(aiBoard.getTotalPoints());	
+			changeEmissions(aiBoard.getTotalPoints());		
+		}else if(!card.getTitle().contentEquals("Strike")) {
+			if(!card.getTitle().contentEquals("Petition")) {
+				changeEmissions(-playerBoard.getTotalPoints());
+				changeEmissions(aiBoard.getTotalPoints());		
+			}
 		}
 		
 	}
