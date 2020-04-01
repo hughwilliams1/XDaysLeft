@@ -26,10 +26,12 @@ public class CardGameManager {
 
 	// array of strings for representing the enemy deck
 	private String[] enemyDeck;
+	
+	private String aiCardPlayed;
 
 	public CardGameManager (int emissionsValue, User givenUser, int level, CardCollection collection) {
 		emissionsBar = emissionsValue;
-
+		aiCardPlayed = null;
 		this.collection = collection;
 
 		user = givenUser;
@@ -91,6 +93,7 @@ public class CardGameManager {
 				aiCard = cardsToProcess.remove(0);
 				// prints out ai's played card
 				System.out.println("AI Played: " + aiCard.getTitle());
+				aiCardPlayed = aiCard.getTitle();
 				processCard(aiCard, cardsToProcess); //Need the chosen cards to destroy too
 				// prints out ai's current hand
 				//System.out.println("AI's Current Hand: " + enemyAI.currentHandAsString());
@@ -302,6 +305,10 @@ public class CardGameManager {
 
 	public Board getPlayerBoard() {
 		return playerBoard;
+	}
+	
+	public String getAiCardPlayed() {
+		return aiCardPlayed;
 	}
 
 	public Board getAIBoard() {
