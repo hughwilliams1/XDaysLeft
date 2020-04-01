@@ -64,14 +64,14 @@ public class PlayState extends State {
 		selectCard = Gdx.audio.newSound(Gdx.files.internal("sounds/SelectCard.wav"));
 		
 		// CardReader cardReader = new CardReader();
-		background = (Texture) Game.assetManager.get("background2.PNG");
+		background = new Texture("background2.png");
 		selectedCards = new ArrayList<Card>();
 		messageToPrint = "";
 		cam.setToOrtho(false, Game.WIDTH, Game.HEIGHT);
 		
 		this.level = level;
 
-		manager = new CardGameManager(50, gsm.getUser(), level - 3);
+		manager = new CardGameManager(50, gsm.getUser(), level - 3, gsm.getCollection());
 	}
 
 	@Override
@@ -168,7 +168,7 @@ public class PlayState extends State {
 						messageToPrint = "Unselected card for merge: " + lastCardPlayed.getTitle();
 					}
 				}
-			} else if (selectedCardsNeeded) {
+			} else if (selectedCardsNeeded) { // maybe deselection of protest/ boycott below?
 				if (((Social) lastCardPlayed).getSocialEffect() instanceof Destroy) {
 					for (int i = 0; i < getNumAiCards(); i++) {
 						if (getAICard(i).getBounds().overlaps(bounds)) {
@@ -334,7 +334,7 @@ public class PlayState extends State {
 						((((Game.WIDTH) * ((i + 1) / ((float) ai.handSize() + 1)))) - aiCard.getBoundsWidth() / 2), 650+25);
 
 			}
-			sb.draw((Texture) Game.assetManager.get("back"+".PNG"), getXValue(aiCard), getYValue(aiCard), getCardWidth(aiCard),
+			sb.draw((Texture) Game.assetManager.get("back.PNG"), getXValue(aiCard), getYValue(aiCard), getCardWidth(aiCard),
 					getCardHeight(aiCard));
 		}
 
@@ -350,7 +350,8 @@ public class PlayState extends State {
 			/*sb.draw(getAICard(i).getTexture(), getXValue(getAICard(i)), getYValue(getAICard(i)) + 10,
 					getCardWidth(getAICard(i)), getCardHeight(getAICard(i)));*/
 		}
-		
+
+		//console.draw(sb, messageToPrint, 600, 405);
 		sb.end();
 		
 		drawEmissionsBar();
@@ -470,6 +471,7 @@ public class PlayState extends State {
 
 	@Override
 	public void dispose() {
+		// TODO Auto-generated method stub
 		selectCard.dispose();
 		battleMusic.dispose();
 	}
