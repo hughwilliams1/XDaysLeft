@@ -1,12 +1,10 @@
 package com.xdays.game.states;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.xdays.game.User;
 import com.xdays.game.cards.CardCollection;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -14,7 +12,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.EnumMap;
-import java.util.Stack;
 
 public class GameStateManager {
 	
