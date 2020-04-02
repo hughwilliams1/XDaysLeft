@@ -6,16 +6,26 @@ import java.util.Random;
 import com.xdays.game.Board;
 
 
-
+/**  
+ * EditEmmission.java - Models the emissions editing function of the social cards
+ *
+ * @author  Damian Hobeanu, Mark Ebel, Roberto Lovece, Ronil Goldenwalla, Hugh Williams
+ * @version 1.0 
+ * @see SocialEffect
+ */ 
 public class EditEmission implements SocialEffect{
 	
 	private Random rand = new Random();
 	private Card chosenCard;
 	
 	/**
+	 * Edits the emissions of a card depending on the params
+	 * 
 	 * @param board - The board to be altered
 	 * @param card - The card who's having a buff. Null if random. Must be a card instance from the board
 	 * @param amount - The buff amount +/-.
+	 * 
+	 * @return Board The modified board
 	 */
 	@Override
 	public Board doEffect(Board board, Card card, int amount) {
@@ -45,6 +55,11 @@ public class EditEmission implements SocialEffect{
 		return board;	
 	}
 	
+	/**
+	 * Gets the card chosen to be edited
+	 * 
+	 * @return Card The card chosen
+	 */
 	public Card getChosenCard() {
 		return chosenCard;
 	}

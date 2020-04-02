@@ -14,13 +14,24 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader;
 import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader;
 import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader.FreeTypeFontLoaderParameter;
 import com.xdays.game.Game;
+import com.xdays.game.cards.Card;
 import com.xdays.game.states.GameStateManager;
 
+/**  
+ * Assets.java - Loads and Stores all the assests in the game to be called
+ * upon later
+ *
+ * @author  Hugh Williams
+ * @version 1.0 
+ * @see AssetManager
+ */ 
 public class Assets {
 		
 	private final AssetManager manager = new AssetManager();	
 	
-	
+	/**
+	 * loads all the different asset sections
+	 */
 	public void load() {
 		loadCards();
 		loadCutscenes();
@@ -29,6 +40,9 @@ public class Assets {
 		loadFonts();
 	}
 	
+	/**
+	 * Loads the card images
+	 */
 	public void loadCards() {
 		manager.load("Battery Farm.PNG", Texture.class);
 		manager.load("Blank.PNG", Texture.class);
@@ -78,6 +92,9 @@ public class Assets {
 		manager.load("Windmill.PNG", Texture.class);	
 	}
 	
+	/**
+	 * Loads the cutscenes
+	 */
 	public void loadCutscenes() {
 		manager.load("Merkel 1.PNG", Texture.class);
 		manager.load("Merkel 2.PNG", Texture.class);
@@ -94,6 +111,9 @@ public class Assets {
 			
 	}
 	
+	/**
+	 * Loads the buttons
+	 */
 	public void loadButtons() {
 		manager.load("BackBtn.PNG", Texture.class);
 		manager.load("DeckBtn.PNG", Texture.class);
@@ -115,6 +135,9 @@ public class Assets {
 		manager.load("RedMark2.PNG", Texture.class);
 	}
 	
+	/**
+	 * Load the backgrounds
+	 */
 	public void loadBackgrounds() {
 		manager.load("Area Selection.PNG", Texture.class);
 		manager.load("Area Selection2.PNG", Texture.class);
@@ -142,6 +165,9 @@ public class Assets {
 		manager.load("textBoxBlack.PNG", Texture.class);
 	}
 	
+	/**
+	 * Load the fonts
+	 */
 	public void loadFonts() {
 		FileHandleResolver resolver = new InternalFileHandleResolver();
 		manager.setLoader(FreeTypeFontGenerator.class, new FreeTypeFontGeneratorLoader(resolver));
@@ -170,19 +196,33 @@ public class Assets {
 	}
  	
 	
-	
+	/**
+	 * @see {@code AssetManager.update()}
+	 */
 	public boolean update() {
 		return manager.update();
 	}
 	
+	/**
+	 * @see {@code AssetManager.getProgress()}
+	 */
 	public float getProgress() {
 		return manager.getProgress();
 	}
 	
+	/**
+	 * @see {@code AssetManager.finishLoading()}
+	 */
 	public void finishLoading() {
 		manager.finishLoading();
 	}
 
+	/**
+	 * Gets the Object from the asset manager
+	 * 
+	 * @param fileName The name / Location of the file
+	 * @return Object The object that was loaded into the manager
+	 */
 	public Object get(String fileName) {
 		return manager.get(fileName);
 	}
