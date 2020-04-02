@@ -1,6 +1,7 @@
 package com.xdays.game.states;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
@@ -11,6 +12,13 @@ import com.xdays.game.assets.Button;
 import com.xdays.game.cards.CardCollection;
 import com.xdays.game.cutscenes.CutsceneState;
 
+/**  
+ * MenuState.java - The main screen that starts, Three buttons Play Quit 
+ *
+ * @author  Damian Hobeanu, Mark Ebel, Roberto Lovece, Ronil Goldenwalla, Hugh Williams
+ * @version 1.0 
+ * @see State
+ */ 
 public class MenuState extends State{
 	
 	private static final int BTN_WIDTH = 200;
@@ -25,6 +33,11 @@ public class MenuState extends State{
     static Music mainMenuMusic;
     private Sound clickSound;
     
+    /**
+	 * Constructor for the menu state
+	 * 
+	 * @param gsm The GameStateManager
+	 */
     public MenuState(GameStateManager gsm) {
         super(gsm);
         
