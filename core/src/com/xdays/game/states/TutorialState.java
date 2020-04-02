@@ -8,16 +8,27 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.xdays.game.Game;
-import com.xdays.game.assets.Button;
 import com.xdays.game.cutscenes.TextBox;
+
+/**  
+ * TutorialState.java - A tutorial for XDAYSLEFT  
+ *
+ * @author  Damian Hobeanu, Mark Ebel, Roberto Lovece, Ronil Goldenwalla, Hugh Williams
+ * @version 1.0 
+ * @see {@link State}
+ */ 
 
 public class TutorialState extends State {
 
 	private Sound clickSound;
-	private Texture texture;
 
 	private Queue<TextBox> textBoxQueue;
 	private Queue<Texture> tutorialExampleQueue;
+	
+	/**
+	 * Creates the TutorialState object
+	 * @param gsm	used for libgdx rendering
+	 */
 
 	public TutorialState(GameStateManager gsm) {
 		super(gsm);
@@ -34,11 +45,18 @@ public class TutorialState extends State {
 
 	}
 	
+	/**
+	 * Resets the state to the condition it was created in as the TutorialState object is reused
+	 */
 	public void resetState() {
 		Gdx.gl.glClearColor(157f / 255f, 46f / 255f, 46f / 255f, 1);
 		createTutorialExampleImages();
 		createTutorialDialogue();
 	}
+	
+	/**
+	 * Loads the images for each slide of the tutorial
+	 */
 
 	private void createTutorialExampleImages() {
 
@@ -70,6 +88,10 @@ public class TutorialState extends State {
 
 	}
 
+	/**
+	 * Creates the dialogue for each slide of the tutorial
+	 */
+	
 	private void createTutorialDialogue() {
 
 		textBoxQueue.add(new TextBox("XDAYSLEFT",
@@ -158,7 +180,9 @@ public class TutorialState extends State {
 	protected void handleInput() {
 		if (Gdx.input.justTouched()) {
 			clickSound.play();
+			// gets the next text box on click
 			textBoxQueue.poll();
+			// gets the next tutorial image on click
 			tutorialExampleQueue.poll();
 		}
 	}
@@ -174,6 +198,8 @@ public class TutorialState extends State {
 		sb.setProjectionMatrix(cam.combined);
 		sb.begin();
 
+		// if the textBoxQueue.peek() throws an exception the queue is empty and tutorial is over
+		// so you can set state back to map
 		try {
 			textBoxQueue.peek().showTextBox(sb);
 			sb.draw(tutorialExampleQueue.peek(), Game.WIDTH / 8, 180);
@@ -191,10 +217,6 @@ public class TutorialState extends State {
 	@Override
 	public void dispose() {
 
-	}
-
-	private void clickSound() {
-		clickSound.play(0.1f);
 	}
 
 }

@@ -20,6 +20,16 @@ import com.xdays.game.cards.CardCollection;
 import com.xdays.game.cards.Industry;
 import com.xdays.game.cards.Social;
 
+/**
+ * CollectionState.java - Creates and renders a collection page for the player
+ * to add a remove card to their deck
+ *
+ * @author Damian Hobeanu, Mark Ebel, Roberto Lovece, Ronil Goldenwalla, Hugh
+ *         Williams
+ * @version 1.0
+ * @see {@link State}
+ */
+
 public class CollectionState extends State {
 
 	private CircularList<CollectionPage> collectionDisplayPages;
@@ -49,27 +59,37 @@ public class CollectionState extends State {
 	private String[] lockedCards;
 
 	protected static final int CARDS_PER_PAGE = 9;
-	
-	// amount of each type of card allowed in the deck 
+
+	// amount of each type of card allowed in the deck
 	private static final int MAX_ONE_INDUSTRY_CARD = 3;
 	private static final int MAX_ONE_SOCIAL_CARD = 2;
 	private static final int MAX_ONE_STAR_CARD = 5;
+
+	/**
+	 * Creates the CollectionState object and loads all the textures used in the in
+	 * class
+	 *
+	 * @param gsm            Gives a GameStateManager to render the textures
+	 * @param cardCollection A collection of card for the player to add there deck
+	 * @param player         A player whose deck you can customise
+	 * 
+	 * @return what it returns
+	 */
 
 	public CollectionState(GameStateManager gsm, CardCollection cardCollection, User player) {
 		super(gsm);
 
 		cam.setToOrtho(false, Game.WIDTH, Game.HEIGHT);
-		// textures
+		// background texture
 		background = (Texture) Game.assetManager.get("collectionBackground.PNG");
 		;
 
 		this.player = player;
-		
-		// Click sound
+
+		// click sound
 		clickSound = Gdx.audio.newSound(Gdx.files.internal("sounds/ClickSound.wav"));
 
-		// Buttons
-		// TODO give btns a texture
+		// buttons
 		collectionNextPageBtn = new Button(BTN_WIDTH, BTN_HEIGHT, ((Game.WIDTH / 6) * 3) - 180, 15, "NextBtn.PNG");
 		collectionLastPageBtn = new Button(BTN_WIDTH, BTN_HEIGHT, ((Game.WIDTH / 40)), 15, "BackBtn.PNG");
 
@@ -80,9 +100,9 @@ public class CollectionState extends State {
 
 		font = (BitmapFont) Game.assetManager.get("font/Staatliches-Regular35.ttf");
 
-		getLockedCard(player.getCompletedLevel());
-		
-		// Circular pages array
+		setLockedCard(player.getCompletedLevel());
+
+		// circular pages array
 		collectionDisplayPages = new CircularList<CollectionPage>();
 		playerDisplayPages = new CircularList<CollectionPage>();
 
@@ -93,17 +113,33 @@ public class CollectionState extends State {
 		currentPlayerPage = playerDisplayPages.get(0);
 	}
 
-	
-	public void getLockedCard(int level) {
+	/**
+	 * Sets the {@link #lockedCards} array depending on the level so the only
+	 * unlocked card can be added to the deck
+	 *
+	 * @param level used to determine what cards in the collection can be added to
+	 *              the deck
+	 */
+
+	public void setLockedCard(int level) {
 		if (level == 0) {
-			String[] test = new String[] {"Plant Tree", "Windmill", "Nuclear Plant", "Hydroelectric Energy", "UN Law", "Petition"};
+			String[] test = new String[] { "Plant Tree", "Windmill", "Nuclear Plant", "Hydroelectric Energy", "UN Law",
+					"Petition" };
 			lockedCards = test;
 		} else if (level == 1) {
-			lockedCards = new String[]{"UN Law", "Petition"};
+			lockedCards = new String[] { "UN Law", "Petition" };
 		} else if (level == 2) {
-			lockedCards = new String[]{};
+			lockedCards = new String[] {};
 		}
 	}
+
+	/**
+	 * Creates the pages for the total amount of cards from the cards in collection
+	 * to be rendered
+	 *
+	 * @param cardCollection Used to render the collection cards that can be added
+	 *                       in the deck
+	 */
 
 	public void createCollectionPages(CardCollection cardCollection) {
 		collectionDisplayPages.clear();
@@ -114,6 +150,12 @@ public class CollectionState extends State {
 			collectionDisplayPages.add(page);
 		}
 	}
+
+	/**
+	 * Creates the pages of the current players deck to be displayed
+	 *
+	 * @param player Used to render the player cards
+	 */
 
 	public void createPlayerPages(User player) {
 		playerDisplayPages.clear();
@@ -166,20 +208,18 @@ public class CollectionState extends State {
 					player.getDeck().addCard(card);
 					player.updateCurrentDeck();
 					clickSound.play();
-				} 
-				else if (card instanceof Industry && player.getDeck().instancesOfCardInDeck(card) < MAX_ONE_STAR_CARD
+				} else if (card instanceof Industry && player.getDeck().instancesOfCardInDeck(card) < MAX_ONE_STAR_CARD
 						&& player.getDeck().getDeckSize() < Deck.MAX_DECK_SIZE && card.getStars() == 1) {
 					player.getDeck().addCard(card);
 					player.updateCurrentDeck();
 					clickSound.play();
-				}
-				else if (card instanceof Social && player.getDeck().instancesOfCardInDeck(card) < MAX_ONE_SOCIAL_CARD
+				} else if (card instanceof Social && player.getDeck().instancesOfCardInDeck(card) < MAX_ONE_SOCIAL_CARD
 						&& player.getDeck().getDeckSize() < Deck.MAX_DECK_SIZE) {
 					player.getDeck().addCard(card);
 					player.updateCurrentDeck();
 					clickSound.play();
 				} else {
-					
+
 				}
 				createPlayerPages(player);
 			}
@@ -218,8 +258,8 @@ public class CollectionState extends State {
 			MenuState.mainMenuMusic.play();
 		}
 
-		getLockedCard(player.getCompletedLevel());
-		
+		setLockedCard(player.getCompletedLevel());
+
 		sb.setProjectionMatrix(cam.combined);
 		sb.begin();
 		sb.draw(background, 0, 0);
@@ -241,6 +281,11 @@ public class CollectionState extends State {
 		sb.end();
 	}
 
+	/**
+	 * Render the current page display of cards for the collection and player deck
+	 *
+	 * @param sb Used for libgdx to draw objects
+	 */
 	public void renderPageNumber(SpriteBatch sb) {
 
 		String collectionPageNumbers = "Cards  --  " + currentCollectionPage.getPageNumber() + "/"
@@ -262,6 +307,15 @@ public class CollectionState extends State {
 	}
 
 	private class CollectionPage {
+
+		/**
+		 * CollectionPage.java - A page of up to 9 cards displayed in a grid like 3 * 3
+		 * structure 
+		 *
+		 * @author Damian Hobeanu, Mark Ebel, Roberto Lovece, Ronil Goldenwalla, Hugh
+		 *         Williams
+		 * @version 1.0
+		 */
 
 		private static final float CARD_WIDTH_OFFSET = 40f;
 		private static final int CARD_ROWS = 3;
@@ -288,6 +342,14 @@ public class CollectionState extends State {
 
 		private int pageNumber;
 		private BitmapFont deckNumberFont;
+		
+		 /**
+		 * Used for creating a CollectionPage for the collection cards
+		 * 
+		 * @param user    Used for adding cards from the collection to the player deck 
+		 * @param cards    Arraylist form of all the collection cards   
+		 * @param offset    Offset used to calculate which collection page is being created
+		 */
 
 		public CollectionPage(User user, ArrayList<Card> cards, int offset) {
 			this.player = user;
@@ -301,6 +363,13 @@ public class CollectionState extends State {
 			deckNumberFont = (BitmapFont) Game.assetManager.get("font/Staatliches-Regular20.ttf");
 		}
 
+		 /**
+		 * Used for creating a CollectionPage for the player deck cards
+		 *
+		 * @param user    Used for removing cards from the players deck and rendering the deck   
+		 * @param offset    Offset used to calculate which collection page is being created   
+		 */ 
+		
 		public CollectionPage(User user, int offset) {
 			this.pageNumber = offset + 1;
 			displayedCards = new ArrayList<Card>();
@@ -308,16 +377,22 @@ public class CollectionState extends State {
 			this.offset = offset;
 		}
 
+		 /**
+		 * Displays the collection cards for a page
+		 *
+		 * @param sb   Used for libgdx to draw objects     
+		 */ 
+		
 		public void displayCollectionCards(SpriteBatch sb) {
 
 			displayedCards.clear();
 			// total card per page divide by the card rows
 			int currentCardNumber = 0;
-			
+
 			Boolean displayCard = new Boolean(true);
 
 			for (int y = 0; y < CollectionState.CARDS_PER_PAGE / CARD_ROWS; y++) {
-				
+
 				// CollectionState.CARDS_PER_PAGE/CARD_ROWS represents the total cards on page /
 				// the number of card row
 				// so the card are displayed on separate rows
@@ -354,32 +429,32 @@ public class CollectionState extends State {
 							// displays the amount in deck out of the collection limit
 							String deckAmount = "";
 							if (card instanceof Industry && card.getStars() > 1) {
-								deckAmount = player.getDeck().instancesOfCardInDeck(card) + "/"
-										+ MAX_ONE_INDUSTRY_CARD;
-							} 
-							else if (card instanceof Industry && card.getStars() == 1) {
-								deckAmount = player.getDeck().instancesOfCardInDeck(card) + "/"
-										+ MAX_ONE_STAR_CARD;
+								deckAmount = player.getDeck().instancesOfCardInDeck(card) + "/" + MAX_ONE_INDUSTRY_CARD;
+							} else if (card instanceof Industry && card.getStars() == 1) {
+								deckAmount = player.getDeck().instancesOfCardInDeck(card) + "/" + MAX_ONE_STAR_CARD;
+							} else if (card instanceof Social) {
+								deckAmount = player.getDeck().instancesOfCardInDeck(card) + "/" + MAX_ONE_SOCIAL_CARD;
 							}
-							else if (card instanceof Social) {
-								deckAmount = player.getDeck().instancesOfCardInDeck(card) + "/"
-										+ MAX_ONE_SOCIAL_CARD;
-							}
-							
+
 							deckNumberFont.draw(sb, deckAmount, X_COORDINATES[x] - 118,
 									Y_COORINATES[y] - cardHeight + 25);
 						} else {
-							sb.draw((Texture) Game.assetManager.get( "back question"+ ".PNG"),
-									X_COORDINATES[x] - cardWidth, Y_COORINATES[y] - cardHeight, cardWidth,
-									cardHeight);
+							sb.draw((Texture) Game.assetManager.get("back question" + ".PNG"),
+									X_COORDINATES[x] - cardWidth, Y_COORINATES[y] - cardHeight, cardWidth, cardHeight);
 						}
-						
+
 						displayCard = true;
 					}
 				}
 			}
 		}
 
+		 /**
+		 * Displays the player deck cards for a page
+		 *
+		 * @param sb   Used for libgdx to draw objects     
+		 */ 
+		
 		public void displayPlayerCards(SpriteBatch sb) {
 			displayedCards.clear();
 			int currentCardNumber = 0;
@@ -415,14 +490,26 @@ public class CollectionState extends State {
 				}
 			}
 		}
+		
+		 /**
+		 * @return {@link Boolean} whether a page has any cards to display
+		 */ 
 
 		public boolean isEmpty() {
 			return displayedCards.isEmpty();
 		}
 
+		 /**
+		 * @return current page number of a page
+		 */ 
+		
 		public int getPageNumber() {
 			return pageNumber;
 		}
+		
+		/**
+		 * @return an array of all the cards in a page that would be displayed
+		 */ 
 
 		public ArrayList<Card> getDisplayedCards() {
 			return displayedCards;

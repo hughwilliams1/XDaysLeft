@@ -1,18 +1,16 @@
 package com.xdays.game.cards;
 
-import java.io.ObjectOutputStream.PutField;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 
-/**
- * 
- * Collection of all of both social and industry cards in the game
- * 
- * @author Roberto
+/**  
+ * CardCollection.java - a collection of all social and industry cards in the game.  
  *
- */
+ * @author  Damian Hobeanu, Mark Ebel, Roberto Lovece, Ronil Goldenwalla, Hugh Williams
+ * @version 1.0 
+ */ 
 
 public class CardCollection {
 
@@ -45,9 +43,13 @@ public class CardCollection {
 		socialCollection.putAll(badSocialCards);
 	}
 	
-	// returns a card from either the industry cards or the social card
-	// note if key is invalid with return null which may cause a null point error
-	
+	 /**
+	 *	Get a social or industry card from the collection
+	 *
+	 * @param key    a key for the hashmap to get a card   
+	 * 
+	 * @return a card from either the industry cards or the social card, return null if card isn't in the collection
+	 */
 	public Card getCard(String key) {
 		
 		Card returnCard = industryCollection.get(key);
@@ -74,8 +76,12 @@ public class CardCollection {
 		return goodIndustryCards.size() + goodSocialCards.size();
 	}
 	
-	// draw multiple card from the deck using an array of strings
-	// TODO could maybe have CardCollection direction create the decks and return that
+	/**
+	 * Gets multiple cards for the collection using {@link #getCard(String)}
+	 * 
+	 * @param keys
+	 * @return multiple cards from the collection
+	 */
 	public ArrayList<Card> getMultipleCards(String[] keys) {	
 		ArrayList<Card> cardArray = new ArrayList<Card>();
 		
@@ -86,6 +92,10 @@ public class CardCollection {
 		
 		return cardArray;
 	}
+	
+	/**
+	 * @return all social and industry cards from the deck good and bad
+	 */
 	
 	public ArrayList<Card> getAllCards() {
 		ArrayList<Card> returnArray = new ArrayList<Card>();
@@ -98,6 +108,10 @@ public class CardCollection {
 		}
 		return returnArray;
 	}
+	
+	/**
+	 * @return all social and industry cards from the deck good only
+	 */
 	
 	public ArrayList<Card> getAllGoodCards() {
 		ArrayList<Card> returnArray = new ArrayList<Card>();
@@ -112,9 +126,8 @@ public class CardCollection {
 		return returnArray;
 	}
 	
-	/** 
-	 * Mainly just used for testing goes through the industry and social cards
-	 * and returns a string for all valid keys
+	/**
+	 * @return goes through the industry and social cards and returns a string for all valid keys
 	 */
 	
 	private String getKeySet() {
