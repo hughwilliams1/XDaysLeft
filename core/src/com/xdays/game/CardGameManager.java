@@ -68,8 +68,12 @@ public class CardGameManager {
 			difficulty = 1;
 		} 
 		else if (level == 2) {
-			enemyDeck = new String[]{"Cover-up", "Remove Tree", "Remove Tree", "Remove Tree",
-					"Remove Tree", "Remove Tree", "Diesel Car", "Online Posts", "Online Posts", "Online Posts", "Cover-up", "Cover-up"}; //"Landfill", "Landfill", "Remove Tree", "Remove Tree"
+			enemyDeck = new String[]{"Remove Tree", "Remove Tree", "Remove Tree", "Remove Tree",
+					"Diesel Car", "Diesel Car", "Household Waste", "Household Waste",
+					"Battery Farm", "Fracking",
+					"Freight Ships",
+					"Coal Power Plant",
+					"Online Posts", "Online Posts", "Cover-up", "Bribe"};
 
 			difficulty = 3;
 		} 

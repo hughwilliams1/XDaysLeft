@@ -28,23 +28,12 @@ public abstract class Player {
 	// constructor used by the player who deck will remain the same throughout different levels
 	public Player(String name, CardCollection collection) {
 		completedLevel = 0;
-		
-		// string array of the start deck
-		/*starterDeck = new String[]{"Plant Tree", "Plant Tree", "Solar Panel",
-				"Solar Panel", "Windmill", "Windmill", "Solar Farm", "Solar Farm", "Protests", "Protests",
-				"Plant Tree", "Plant Tree", "Solar Panel", "Solar Panel", "Windmill", "Windmill",
-				"Solar Farm", "Solar Farm", "Online Posts", "Protests", "Electric Car", "Household Recycle", 
-				"Electric Bus", "Vegan", "Hydroelectric Energy", "Nuclear Plant", "Geothermal"};*/
-		
 		starterDeck = new String[]{"Solar Panel", "Solar Panel", "Solar Panel", "Solar Panel",
 				"Household Recycle", "Household Recycle", "Household Recycle", "Household Recycle",
 				"Vegan", "Electric Bus",
 				"Solar Farm",
 				"Geothermal",
 				"Protests", "Protests", "Strike", "Online Posts"};
-		
-		//		starterDeck = new String[]{"Plant Tree", "Plant Tree", "Plant Tree", "Online Posts", "Online Posts", "Online Posts",
-		//				"UN Law", "UN Law", "UN Law", "Solar Panel", "Solar Panel", "Solar Panel"};
 		
 		this.name = name;
 		hand = new ArrayList<Card>();
