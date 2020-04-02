@@ -1,6 +1,7 @@
 package com.xdays.game.states;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -10,6 +11,13 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.xdays.game.Game;
 
+/**  
+ * LoadingState.java - The first state to load, waits for {@link AssetManager} to load assets then moves on
+ *
+ * @author  Damian Hobeanu, Mark Ebel, Roberto Lovece, Ronil Goldenwalla, Hugh Williams
+ * @version 1.0 
+ * @see State
+ */ 
 public class LoadingState extends State {
 	
 	private static final int FRAME_COLS = 5, FRAME_ROWS = 4;
@@ -25,6 +33,11 @@ public class LoadingState extends State {
 	private Texture background;
 	private BitmapFont font;
 	
+	/**
+	 * Constructor for the loading state
+	 * 
+	 * @param gsm The GameStateManager
+	 */
 	public LoadingState(GameStateManager gsm) {
 		super(gsm);
 		loadSheet = new Texture(Gdx.files.internal("LoadingAnimation.PNG"));
@@ -66,7 +79,10 @@ public class LoadingState extends State {
 	public void update(float dt) {
 		
 	}
-
+	
+	/**
+	 * Waits until assets are loaded in AssetManager then chnages states
+	 */
 	@Override
 	public void render(SpriteBatch sb) {
 		if (Game.assetManager.update()) {
