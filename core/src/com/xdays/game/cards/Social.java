@@ -3,7 +3,7 @@ package com.xdays.game.cards;
 import com.xdays.game.Board;
 
 /**  
- * Social.java - a simple class for demonstrating the use of javadoc comments.  
+ * Social.java - Models the Social cards and their abilites
  *
  * @author  Damian Hobeanu, Mark Ebel, Roberto Lovece, Ronil Goldenwalla, Hugh Williams
  * @version 1.0 
