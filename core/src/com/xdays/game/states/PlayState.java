@@ -159,8 +159,7 @@ public class PlayState extends State {
 				dispose();
 				manager.getUser().setCompletedLevel(level - 3);
 				// Player win return to edited map
-				gsm.wonLevel();
-				//((MapState) gsm.setState(StateEnum.MAP_STATE)).getPreviousMarker().complete();
+				gsm.setStateAsNew(new CutsceneState(gsm, level), StateEnum.CUTSCENE_STATE);
 				gsm.removeState(StateEnum.PLAY_STATE);
 				
 			}
@@ -278,7 +277,8 @@ public class PlayState extends State {
 									lastCardPlayed = selectedCard;
 									lastCardPlayed.halfPlayed();
 								}
-							} else if (!selectedCard.isPlayed()) {
+								// checks if an industry card has space on the board to be played
+							} else if (!selectedCard.isPlayed() && (manager.getPlayerBoard().getBoardSize() < manager.getPlayerBoard().MAX_BOARD_SIZE)) {
 								selectCardSound();
 								messageToPrint = "User played card: " + selectedCard.getTitle();
 								System.out.println("2 User played card: " + selectedCard.getTitle());

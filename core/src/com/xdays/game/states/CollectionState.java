@@ -20,6 +20,7 @@ import com.xdays.game.assets.CircularList;
 import com.xdays.game.cards.Card;
 import com.xdays.game.cards.CardCollection;
 import com.xdays.game.cards.Industry;
+import com.xdays.game.cards.Social;
 
 public class CollectionState extends State {
 
@@ -47,10 +48,14 @@ public class CollectionState extends State {
 	private BitmapFont font;
 
 	private Sound clickSound;
-
 	private String[] lockedCards;
 
 	protected static final int CARDS_PER_PAGE = 9;
+	
+	// amount of each type of card allowed in the deck 
+	private static final int MAX_ONE_INDUSTRY_CARD = 3;
+	private static final int MAX_ONE_SOCIAL_CARD = 2;
+	private static final int MAX_ONE_STAR_CARD = 5;
 
 	public CollectionState(GameStateManager gsm, CardCollection cardCollection, User player) {
 		super(gsm);
@@ -96,9 +101,11 @@ public class CollectionState extends State {
 	
 	public void getLockedCard(int level) {
 		if (level == 0) {
-			String[] test = new String[] {"Plant Tree", "Strike"};
+			String[] test = new String[] {"Plant Tree", "Windmill", "Nuclear Plant", "Hydroelectric Energy", "UN Law", "Petition"};
 			lockedCards = test;
 		} else if (level == 1) {
+			lockedCards = new String[]{"UN Law", "Petition"};
+		} else if (level == 2) {
 			lockedCards = new String[]{};
 		}
 	}
@@ -167,13 +174,25 @@ public class CollectionState extends State {
 					.overlaps(new Rectangle(Gdx.input.getX(), -(Gdx.input.getY() - 720), 0.01f, 0.01f))) {
 				System.out.print("Collection Card: " + card.getTitle() + " was touched \n");
 				player.getDeck();
-				if (player.getDeck().instancesOfCardInDeck(card) < player.MAX_ONE_CARD
+				if (card instanceof Industry && player.getDeck().instancesOfCardInDeck(card) < MAX_ONE_INDUSTRY_CARD
+						&& player.getDeck().getDeckSize() < Deck.MAX_DECK_SIZE && card.getStars() > 1) {
+					player.getDeck().addCard(card);
+					player.updateCurrentDeck();
+					clickSound.play();
+				} 
+				else if (card instanceof Industry && player.getDeck().instancesOfCardInDeck(card) < MAX_ONE_STAR_CARD
+						&& player.getDeck().getDeckSize() < Deck.MAX_DECK_SIZE && card.getStars() == 1) {
+					player.getDeck().addCard(card);
+					player.updateCurrentDeck();
+					clickSound.play();
+				}
+				else if (card instanceof Social && player.getDeck().instancesOfCardInDeck(card) < MAX_ONE_SOCIAL_CARD
 						&& player.getDeck().getDeckSize() < Deck.MAX_DECK_SIZE) {
 					player.getDeck().addCard(card);
 					player.updateCurrentDeck();
 					clickSound.play();
 				} else {
-					// TODO play some fail sound
+					
 				}
 				createPlayerPages(player);
 			}
@@ -350,8 +369,20 @@ public class CollectionState extends State {
 							displayedCards.add(card);
 
 							// displays the amount in deck out of the collection limit
-							String deckAmount = player.getDeck().instancesOfCardInDeck(card) + "/"
-									+ player.MAX_ONE_CARD;
+							String deckAmount = "";
+							if (card instanceof Industry && card.getStars() > 1) {
+								deckAmount = player.getDeck().instancesOfCardInDeck(card) + "/"
+										+ MAX_ONE_INDUSTRY_CARD;
+							} 
+							else if (card instanceof Industry && card.getStars() == 1) {
+								deckAmount = player.getDeck().instancesOfCardInDeck(card) + "/"
+										+ MAX_ONE_STAR_CARD;
+							}
+							else if (card instanceof Social) {
+								deckAmount = player.getDeck().instancesOfCardInDeck(card) + "/"
+										+ MAX_ONE_SOCIAL_CARD;
+							}
+							
 							deckNumberFont.draw(sb, deckAmount, X_COORDINATES[x] - 118,
 									Y_COORINATES[y] - cardHeight + 25);
 						} else {

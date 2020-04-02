@@ -7,7 +7,7 @@ import com.xdays.game.cards.Industry;
 
 public class Board {
 	
-	private final static int MAX_BOARD_SIZE = 8;
+	public final int MAX_BOARD_SIZE = 8;
 	private ArrayList<Card> field;
 	
 	public Board() {
