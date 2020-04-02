@@ -1,4 +1,4 @@
-package tests;
+package Java;
 
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -13,11 +13,13 @@ import com.xdays.game.cards.Industry;
 
 class EditStarTest {
 
-	private EditStar editStar=new EditStar();
-	private Board board=new Board();
+	private EditStar editStar;
+	private Board board;
 	
 	@BeforeEach
 	void setUp() throws Exception {
+		editStar=new EditStar();
+		board=new Board();
 		board.addToField(new Industry("Windmill","Windmill",2,3), false);
 	}
 

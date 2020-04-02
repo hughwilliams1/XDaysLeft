@@ -1,4 +1,4 @@
-package tests;
+package Java;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -40,8 +40,8 @@ class UserTest {
 		String[] newDeck= new String[]{"Solar Panel", "Solar Panel", "Solar Panel"};
 		user.setCurrentDeck(newDeck);
 		user.setHandFromDeck();
-		Card actual=user.getCardFromHand(1);
-		assertEquals("Solar Panel",actual.getTitle());
+		//Card actual=user.getCardFromHand(1);
+		assertEquals("Solar Panel",user.getCardFromHand(1).getTitle());
 		
 	}
 

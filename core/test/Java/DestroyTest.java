@@ -1,4 +1,4 @@
-package tests;
+package Java;
 
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -13,11 +13,11 @@ import com.xdays.game.cards.Industry;
 
 class DestroyTest {
 
-	private static Destroy destroy=new Destroy();
-	private static Board board=new Board();
+	private Destroy destroy;
+	private Board board;
 	
-	@BeforeAll
-	static void setUpBeforeClass() throws Exception {
+	@BeforeEach
+	 void setUp() throws Exception {
 		destroy=new Destroy();
 		board=new Board();
 		

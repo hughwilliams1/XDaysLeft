@@ -1,4 +1,4 @@
-package tests;
+package Java;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,6 +15,8 @@ class SocialTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		social=new Social("Online Post","Online Post",2, true);
+		social.setPosition(1f, 1f);
+
 	}
 
 	@Test

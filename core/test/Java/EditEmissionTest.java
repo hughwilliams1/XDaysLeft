@@ -1,4 +1,4 @@
-package tests;
+package Java;
 
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -13,11 +13,13 @@ import com.xdays.game.cards.Industry;
 
 class EditEmissionTest {
 
-	private EditEmission editEmission=new EditEmission();
-	private Board board=new Board();
+	private EditEmission editEmission;
+	private Board board;
 	
 	@BeforeEach
 	void setUp() throws Exception {
+		editEmission=new EditEmission();
+		board=new Board();
 		board.addToField(new Industry("Windmill","Windmill",2,3), false);
 	}
 

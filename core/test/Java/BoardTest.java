@@ -1,4 +1,4 @@
-package tests;
+package Java;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -8,25 +8,25 @@ import org.junit.jupiter.api.Test;
 import com.xdays.game.Board;
 import com.xdays.game.cards.Card;
 import com.xdays.game.cards.CardCollection;
+import com.xdays.game.cards.Industry;
 
 class BoardTest {
 
 	private Board board;
-	private CardCollection cardCollection;
 	private Card card;
 	
 	@BeforeEach
 	void setUp() throws Exception {
 		board=new Board();
-		cardCollection=new CardCollection();
-		card=cardCollection.getCard("Windmill");
+		card=new Card("Windmill","Windmill");
+		card.setPosition(1f, 1f);
 		
 	}
 
 	@Test
 	void testAddToField() {
 		board.addToField(card, false);
-		assertEquals(card.position.y,-220);
+		assertEquals(-219,card.position.y);
 		assertEquals(board.getBoardSize(),1);
 	}
 

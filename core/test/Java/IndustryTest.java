@@ -1,4 +1,4 @@
-package tests;
+package Java;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -9,10 +9,13 @@ import com.xdays.game.cards.Industry;
 
 class IndustryTest {
 	
-	private Industry industry=new Industry("Windmill","Windmill",2,3);
+	private Industry industry;
 
 	@BeforeEach
 	void setUp() throws Exception {
+		industry=new Industry("Windmill","Windmill",2,3);
+		industry.setPosition(1f, 1f);
+
 	}
 
 	@Test
