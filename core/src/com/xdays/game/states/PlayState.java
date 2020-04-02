@@ -10,8 +10,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
@@ -341,9 +339,10 @@ public class PlayState extends State {
 		// Turn this into a render board method
 		Board playerBoard = manager.getPlayerBoard();
 		int playerNumBoardCards = playerBoard.getBoardSize();
-
+		//manager.getPlayerBoard().updateCards();
+		
 		for (int i = 0; i < playerNumBoardCards; i++) {
-
+			
 			Card currentCard = playerBoard.getCard(i);
 
 			if(currentCard instanceof Industry) {

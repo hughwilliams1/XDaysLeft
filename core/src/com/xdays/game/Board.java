@@ -48,7 +48,7 @@ public class Board {
 	/**
 	 * Updates the positions of the cards and their bounds
 	 */
-	private void updateCards() {
+	public void updateCards() {
 		for (float cardPosition = 0 ; cardPosition < field.size() ; cardPosition++) {
 			
 			Card card = field.get((int) cardPosition);
