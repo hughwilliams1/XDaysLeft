@@ -68,7 +68,7 @@ public class PlayState extends State {
 		
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/Staatliches-Regular.ttf"));
 		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
-		parameter.size = 35;
+		parameter.size = 25;
 		font = generator.generateFont(parameter);
 		
 		clickSound = Gdx.audio.newSound(Gdx.files.internal("sounds/clickSound.wav"));
@@ -331,9 +331,9 @@ public class PlayState extends State {
 		
 		if(!firstTurn) {
 			if(manager.getAiCardPlayed() != null) {
-				font.draw(sb, enemy + " Played: " + manager.getAiCardPlayed(), 50, 450);
+				font.draw(sb, enemy + " Played: " + manager.getAiCardPlayed(), 10, 450);
 			} else {
-				font.draw(sb, enemy + " has skipped a turn!", 50, 450);
+				font.draw(sb, enemy + " has skipped a turn!", 10, 450);
 			}
 		}
 	

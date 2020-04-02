@@ -109,6 +109,14 @@ public class CollectionState extends State {
 			lockedCards = new String[]{};
 		}
 	}
+	
+	public String[] getLockedCards() {
+		return lockedCards;
+	}
+	
+	public void loadLockedCards(String[] givenLockedCards) {
+		lockedCards = givenLockedCards;
+	}
 
 	public void createCollectionPages(CardCollection cardCollection) {
 		collectionDisplayPages.clear();
