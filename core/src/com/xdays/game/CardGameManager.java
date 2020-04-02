@@ -8,7 +8,13 @@ import com.xdays.game.cards.CardCollection;
 import com.xdays.game.cards.Destroy;
 import com.xdays.game.cards.Industry;
 import com.xdays.game.cards.Social;
-import com.xdays.game.states.PlayState;
+
+/**  
+ * CardGameManager.java - Manages each card game, i.e. plays the players cards and then makes the ai to play.  
+ *
+ * @author  Damian Hobeanu, Mark Ebel, Roberto Lovece, Ronil Goldenwalla, Hugh Williams
+ * @version 1.0 
+ */ 
 
 public class CardGameManager {
 
@@ -29,6 +35,15 @@ public class CardGameManager {
 	private String[] enemyDeck;
 	
 	private String aiCardPlayed;
+	
+	/**
+	 * Creates the the decks for both player and ai as well as the board for each side
+	 * 
+	 * @param emissionsValue	start value of the emissions bar
+	 * @param givenUser			the player playing the game
+	 * @param level				current level of the game
+	 * @param collection		collection of all the cards in the game
+	 */
 
 	public CardGameManager (int emissionsValue, User givenUser, int level, CardCollection collection) {
 		emissionsBar = emissionsValue;
@@ -53,6 +68,12 @@ public class CardGameManager {
 
 		aiCard = null;
 	}
+	
+	/**
+	 * Gives the ai a different deck depending on the level
+	 * 
+	 * @param level	current level used to determine which deck to select
+	 */
 	
 	public void createEnemyAi(int level) {
 		int difficulty = 0;
@@ -90,6 +111,14 @@ public class CardGameManager {
 		this.enemyAI = new AI("Enemy", difficulty, createEnemyDeck());
 	} 
 
+	/**
+	 * plays a card game round for either the player of the ai depending on {@link #isPlayerTurn}
+	 * 
+	 * @param card			the card you want to play
+	 * @param chosenCards	the card you want merge/select to destroy with you card can be null if playing a card
+	 * 						that doesn't target anything
+	 */
+	
 	public void playCardGameRound(Card card, ArrayList<Card> chosenCards) {
 		if(isPlayerTurn) {
 			if(card == null) {
@@ -128,10 +157,19 @@ public class CardGameManager {
 		
 	}
 
+	/**
+	 * Processes any type of give card depending on card characteristics
+	 * 
+	 * @param card			the card you want to play
+	 * @param chosenCards	the card you want merge/select to destroy with you card can be null if playing a card
+	 * 						that doesn't target anything
+	 */
+	
 	public void processCard(Card card, ArrayList<Card> chosenCards) {
 		System.out.println("Pocessing card: " + card.getTitle());
 		if(card instanceof Industry) {
 			if (isPlayerTurn) {
+				// if the card is greater than 1 star merge it to the chosen cards else add it to the field (player)
 				if (card.getStars() > 1) {
 					handleInput(card);
 					playerBoard.mergeCard(card, chosenCards, true);
@@ -148,6 +186,7 @@ public class CardGameManager {
 					user.addCardToHand();
 				}
 			} else {
+				// if the card is greater than 1 star merge it to the chosen cards else add it to the field (ai)
 				if (card.getStars() > 1) {
 
 					handleInputEnemy(card);
@@ -168,16 +207,15 @@ public class CardGameManager {
 			}
 		}else {
 			if (isPlayerTurn) {
+				// handles social card for the player
 				if(((Social) card).isSelectedCardNeeded()) {
 					if(((Social) card).getSocialEffect() instanceof Destroy) {
 						((Social) card).doEffect(aiBoard, chosenCards.get(0));
-						//handleInput(card);
 						user.removeCard(card);
 						user.addCardToHand();
 						
 					}else {
 						((Social) card).doEffect(playerBoard, chosenCards.get(0));
-						//handleInput(card);
 						user.removeCard(card);
 						user.addCardToHand();
 					}
@@ -214,7 +252,6 @@ public class CardGameManager {
 						if(hasStarCard(aiBoard, 2)) {
 							System.out.println("can play card");
 							((Social) card).doEffect(aiBoard, null);
-							//handleInput(card);
 							user.removeCard(card);
 							user.addCardToHand();
 						} else {
@@ -232,10 +269,10 @@ public class CardGameManager {
 							switchPlayerTurn();
 						}
 						break;
-						 // needs to check whether AI board contains 2/3 star card - happens below as well.
 					}
 				}
 			} else {
+				// handles social card for the ai
 				if(((Social) card).isSelectedCardNeeded()) {
 					if(((Social) card).getSocialEffect() instanceof Destroy) {
 						((Social) card).doEffect(playerBoard, chosenCards.get(0));
@@ -284,6 +321,12 @@ public class CardGameManager {
 			}
 		}
 	}
+
+	/**
+	 * @param board			current board we want to check
+	 * @param starValue		star value of the card we are searching
+	 * @return	whether or not the board contains a card of a certain star
+	 */
 	
 	private boolean hasStarCard(Board board, int starValue) {
 		for(Card card: board.getField()) {
@@ -294,10 +337,16 @@ public class CardGameManager {
 		return false;
 	}
 	
+	/**
+	 * updates the position for card that need merging and social cards that require a target
+	 * for player
+	 * 
+	 * @param card	card that need to be repositioned
+	 */
+	
 	private void handleInput(Card card) {
 		if(!card.isPlayed()) {
 			if(card instanceof Social) {
-				System.out.println("TASTRETRTRTRT");
 				card.position.y += 210;
 			}else {
 				if(card.isHalfPlayed()) {
@@ -308,6 +357,12 @@ public class CardGameManager {
 			}
 		}
 	}
+	
+	/**
+	 * handles merging card for the ai
+	 * 
+	 * @param card	card that requires merging
+	 */
 
 	private void handleInputEnemy(Card card) {
 		if(!card.isPlayed()) {
@@ -319,48 +374,94 @@ public class CardGameManager {
 		}
 	}
 
+	/**
+	 * @return	current player board
+	 */
+	
 	public Board getPlayerBoard() {
 		return playerBoard;
 	}
+	
+	/**
+	 * @return	get the card the ai played
+	 */
 	
 	public String getAiCardPlayed() {
 		return aiCardPlayed;
 	}
 
+	/**
+	 * @return	get the ai board
+	 */
+	
 	public Board getAIBoard() {
 		return aiBoard;
 	}
+	
+	/**
+	 * @return	get the current user
+	 */
 
 	public User getUser() {
 		return user;
 	}
+	
+	/**
+	 * @return	get the current ai
+	 */
 
 	public AI getAI() {
 		return enemyAI;
 	}
 
+	/**
+	 * increase the emission by an amount
+	 * 
+	 * @param 	amount you want the emissions to change
+	 */
+	
 	public void changeEmissions(int amount) {
 		emissionsBar += amount;
 	}
 
+	/**
+	 * @return	true if it the players turn 
+	 */
+	
 	public boolean isPlayersTurn() {
 		return isPlayerTurn;
 	}
 
+	/**
+	 * @return	the current emissions bar
+	 */
+	
 	public int getEmissionsBar() {
 		return emissionsBar;
 	}
 
+	/**
+	 * @return	get the ai card
+	 */
+	
 	public Card getAiCard() {
 		return aiCard;
 	}
+	
+	/**
+	 * switch to the opposite turn that it is
+	 */
 
 	private void switchPlayerTurn() {
 		isPlayerTurn = !isPlayerTurn;
 	}
 
-	// creates a deck by using the string array enemyDeck and the CardCollection class
-	// for retrieving cards
+	/**
+	 * creates the enemy deck using {@link #collection}
+	 * 
+	 * @return	the enemy deck
+	 */
+	
 	private Deck createEnemyDeck() {
 		Deck deck = new Deck(collection.getMultipleCards(enemyDeck));
 
