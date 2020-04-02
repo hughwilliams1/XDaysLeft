@@ -13,16 +13,25 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.EnumMap;
 
+/**  
+ * GameStateManager.java - This class manages what is being displayed on the screen.  
+ *
+ * @author  Damian Hobeanu, Mark Ebel, Roberto Lovece, Ronil Goldenwalla, Hugh Williams
+ * @version 1.0 
+ */ 
+
 public class GameStateManager {
 	
 	private EnumMap<StateEnum, State> stateMap; 
-    
     private StateEnum currentState;
     private StateEnum previousState;
     private User user;
     private CardCollection collection;
     private int levelsWon;
     
+    /**
+     * Constructor initialises values.
+     */
     public GameStateManager(){        
         currentState = StateEnum.LOADING_STATE;
         previousState = null;
@@ -35,6 +44,9 @@ public class GameStateManager {
         levelsWon=0;
     }
     
+    /**
+     * This method creates all the screens that will be displayed.
+     */
     public void createStates() {
     	stateMap.put(StateEnum.MENU_STATE, new MenuState(GameStateManager.this));
     	stateMap.put(StateEnum.MAP_STATE, new MapState(GameStateManager.this));
@@ -44,6 +56,11 @@ public class GameStateManager {
     	currentState = StateEnum.MENU_STATE;
     }
     
+    /**
+     * This sets the current state to be displayed.
+     * @param state - State to be displayed.
+     * @return Returns state that is set.
+     */
     public State setState(StateEnum state) {
     	if(stateMap.containsKey(state)) {
     		previousState = currentState;
@@ -54,6 +71,11 @@ public class GameStateManager {
     	}
     }
     
+    /**
+     * Creates a new state in map.
+     * @param state - state to be put into map state.
+     * @param stateEnum - enum of state.
+     */
     public void setStateAsNew(State state, StateEnum stateEnum) {
     	previousState = currentState;
     	stateMap.remove(stateEnum);
@@ -61,18 +83,31 @@ public class GameStateManager {
     	currentState = stateEnum;
     }
     
+    /**
+     * @return Returns levels completed and won by user.
+     */
     private int getLevelsWon() {
     	return levelsWon;
     }
     
+    /**
+     * Increments the levels that have been won.
+     */
     public void wonLevel() {
     	levelsWon++;
     }
     
+    /**
+     * Sets current displayed state to previous displayed state.
+     */
     public void back() {
     	setState(previousState);
     }
     
+    /**
+     * Removes state to be displayed from map state.
+     * @param state
+     */
     public void removeState(StateEnum state) {
     	stateMap.remove(state);
     	if (state == StateEnum.PLAY_STATE) {
@@ -80,30 +115,57 @@ public class GameStateManager {
     	}
     }
     
+    /**
+     * This method returns the current state.
+     * @param state
+     * @return Return current state.
+     */
     public State getState(StateEnum state) {
     	return stateMap.get(state);
     }
 
+    /**
+     * Updates what is displaying for current state but doesnt change state.
+     * @param dt
+     */
     public void update(float dt){
     	stateMap.get(currentState).update(dt);
     }
 
+    /**
+     * Renders current state.
+     * @param sb
+     */
     public void render(SpriteBatch sb){
     	stateMap.get(currentState).render(sb);
     }
     
+    /**
+     * Returns object that represents the user.
+     * @return
+     */
     public User getUser() {
     	return user;
     }
     
+    /**
+     * Returns the all the cards that are implemented.
+     * @return
+     */
     public CardCollection getCollection() {
     	return collection;
     }
     
+    /**
+     * @return the state map of the enums mapped to the states.
+     */
     public EnumMap<StateEnum, State> getStateMap() {
     	return stateMap;
     }
 
+    /**
+     * This method saves the current state of the game.
+     */
     public void saveGame() {
     	String[] toWrite = new String[3];
     	String[] completedLevels = ((MapState)getState(StateEnum.MAP_STATE)).getCompletedLevelsName();
@@ -142,6 +204,10 @@ public class GameStateManager {
     	writeToSaveFile(toWrite);
     	System.out.println("Game saved.");
     }
+    /**
+     * This puts the date to save into a file to access later.
+     * @param toWrite
+     */
     
 	private void writeToSaveFile(String[] toWrite) {
 		File file = new File("Saves/game.save"); 
@@ -166,7 +232,11 @@ public class GameStateManager {
 			}
 		}
 	}
-	
+	/**
+	 * This is used to read a line from a file.
+	 * @param line
+	 * @return Returns what is read from file.
+	 */
 	private String[] readFromSaveFile(int line) {
 		File file = new File("Saves/game.save"); 
 		BufferedReader br = null;
@@ -196,7 +266,10 @@ public class GameStateManager {
 		}
 		return null;
 	}
- 
+	
+	/**
+	 * This loads a previously saved game.
+	 */
 	public void loadGame() {
 		String[] completedLevels = readFromSaveFile(1);
 		System.out.println(Arrays.toString(completedLevels));
