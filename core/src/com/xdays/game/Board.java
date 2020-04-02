@@ -5,16 +5,30 @@ import java.util.ArrayList;
 import com.xdays.game.cards.Card;
 import com.xdays.game.cards.Industry;
 
+/**  
+ * Board.java - A class that models the board  
+ *
+ * @author  Damian Hobeanu, Mark Ebel, Roberto Lovece, Ronil Goldenwalla, Hugh Williams
+ * @version 1.0 
+ */ 
 public class Board {
 	
 	public final int MAX_BOARD_SIZE = 8;
 	private ArrayList<Card> field;
 	
+	/**
+	 * Constructor for Board
+	 */
 	public Board() {
 		field = new ArrayList<Card>();
 	}
 	
-	// TODO need to prevent cards from being added if it exceeds board size
+	/**
+	 * Adds a card to a field
+	 * 
+	 * @param card The card to be added
+	 * @param isPlayer true if the player is playing
+	 */
 	public void addToField(Card card, boolean isPlayer) {
 		
 		if (isPlayer) {
@@ -31,6 +45,9 @@ public class Board {
 		
 	}
 	
+	/**
+	 * Updates the positions of the cards and their bounds
+	 */
 	private void updateCards() {
 		for (float cardPosition = 0 ; cardPosition < field.size() ; cardPosition++) {
 			
@@ -41,14 +58,29 @@ public class Board {
 		}
 	}
 	
+	/**
+	 * @return {@code ArrayList<Card>} Returns the Field
+	 */
 	public ArrayList<Card> getField() {
 		return field;
 	}
 	
+	/**
+	 * Removes the specified card from the field
+	 * 
+	 * @param card The card to be removed
+	 * @return boolean true if the card was removed
+	 */
 	public boolean removeFromField(Card card) {
 		return field.remove(card);
 	}
 	
+	/**
+	 * Removes a group of cards to remove
+	 * 
+	 * @param toRemove An {@code ArrayList<Card>} of cards to remove
+	 * @return boolean true if the card was removed
+	 */
 	public boolean removeGroupFromField(ArrayList<Card> toRemove) {
 		if (field.containsAll(toRemove)) {
 			for (Card c : toRemove) {
@@ -60,6 +92,11 @@ public class Board {
 		return true;
 	}
 	
+	/**
+	 * Gets the total points of the field
+	 * 
+	 * @return int The total points of the field
+	 */
 	public int getTotalPoints() {
 		int points = 0;
 		for(Card c : field) {
@@ -69,6 +106,12 @@ public class Board {
 		return points;
 	}
 	
+	/**
+	 * Gets the total stars of the passed field
+	 * 
+	 * @param passedField {@code ArrayList<Card>} The field for the stars to be counted
+	 * @return int The total stars on the field
+	 */
 	public int getTotalStars(ArrayList<Card> passedField) {
 		int stars = 0;
 		for (Card c : passedField) {
@@ -77,6 +120,13 @@ public class Board {
 		return stars;
 	}
 	
+	/**
+	 * Attempts to merge a card with other cards
+	 * 
+	 * @param card The card to be merged
+	 * @param selectedCards {@code ArrayList<Card>} Of cards going into the merge
+	 * @param isPlayer boolean true if it is the player
+	 */
 	public void mergeCard(Card card, ArrayList<Card> selectedCards, Boolean isPlayer) {
 		if(card.getStars() <= getTotalStars(selectedCards)) {
 			removeGroupFromField(selectedCards);
@@ -84,10 +134,20 @@ public class Board {
 		} 
 	}
 	
+	/**
+	 * 
+	 * @return The size of the board
+	 */
 	public int getBoardSize() {
 		return field.size();
 	}
 	
+	/**
+	 * Get a card from the board with a given index
+	 * 
+	 * @param index The index of the card
+	 * @return The card from the index in the field
+	 */
 	public Card getCard(int index) {
 		return field.get(index);
 	}
