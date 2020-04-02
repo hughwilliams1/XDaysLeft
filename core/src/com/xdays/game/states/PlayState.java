@@ -10,6 +10,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
@@ -47,7 +49,11 @@ public class PlayState extends State {
 	private Sound selectCard;
 	private Sound clickSound;
 	
+	private BitmapFont font;
+	
 	private int level;
+	private boolean firstTurn;
+	private String enemy;
 
 	public PlayState(GameStateManager gsm, int level) {
 		super(gsm);
@@ -60,6 +66,11 @@ public class PlayState extends State {
 		battleMusic.setLooping(true);
 		battleMusic.setVolume(.2f);        
 		
+		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/Staatliches-Regular.ttf"));
+		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
+		parameter.size = 35;
+		font = generator.generateFont(parameter);
+		
 		clickSound = Gdx.audio.newSound(Gdx.files.internal("sounds/clickSound.wav"));
 		
 		selectCard = Gdx.audio.newSound(Gdx.files.internal("sounds/SelectCard.wav"));
@@ -68,6 +79,20 @@ public class PlayState extends State {
 		background = new Texture("background2.png");
 		selectedCards = new ArrayList<Card>();
 		messageToPrint = "";
+		firstTurn = true;
+		
+		switch(level) {
+		case(4):
+			enemy = "Merkel";
+			break;
+		case(5):
+			enemy = "Putin";
+			break;
+		case(6):
+			enemy = "Trump";
+			break;
+		}
+		
 		cam.setToOrtho(false, Game.WIDTH, Game.HEIGHT);
 		
 		this.level = level;
@@ -157,6 +182,7 @@ public class PlayState extends State {
 							System.out.println("Selected card for merge: " + selectedCard.getTitle());
 							if (calculateTotalStars(selectedCards) >= lastCardPlayed.getStars()) {
 								manager.playCardGameRound(lastCardPlayed, selectedCards);
+								firstTurn = false;
 								selectCardSound();
 								selectedCards.clear();
 								multipleCardsNeeded = false;
@@ -183,6 +209,7 @@ public class PlayState extends State {
 								manager.playCardGameRound(lastCardPlayed, selectedCards);
 								selectedCards.clear();
 								selectedCardsNeeded = false;
+								firstTurn= false;
 								render(Game.batch);
 							}
 						}
@@ -222,6 +249,7 @@ public class PlayState extends State {
 									System.out.println("HEREREJRHJERHERHEHRH");
 									//manager.processCard(selectedCard, null);
 									manager.playCardGameRound(selectedCard, null); 
+									firstTurn = false;
 									break;
 								}
 								
@@ -229,6 +257,7 @@ public class PlayState extends State {
 								System.out.println("HEREREJRHJERHERHEHRH");
 								//manager.processCard(selectedCard, null);
 								manager.playCardGameRound(selectedCard, null); 
+								firstTurn = false;
 								break;
 							}
 							
@@ -254,6 +283,7 @@ public class PlayState extends State {
 								messageToPrint = "User played card: " + selectedCard.getTitle();
 								System.out.println("2 User played card: " + selectedCard.getTitle());
 								manager.playCardGameRound(selectedCard, null);
+								firstTurn = false;
 								render(Game.batch);
 							}
 						}
@@ -299,6 +329,14 @@ public class PlayState extends State {
 		skipBtn.draw(sb);
 		homeBtn.draw(sb);
 		
+		if(!firstTurn) {
+			if(manager.getAiCardPlayed() != null) {
+				font.draw(sb, enemy + " Played: " + manager.getAiCardPlayed(), 50, 450);
+			} else {
+				font.draw(sb, enemy + " has skipped a turn!", 50, 450);
+			}
+		}
+	
 		// gets player to be used
 		User player = manager.getUser();
 
