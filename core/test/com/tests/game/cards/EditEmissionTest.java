@@ -7,12 +7,12 @@ import org.junit.jupiter.api.Test;
 
 import com.xdays.game.Board;
 import com.xdays.game.cards.Card;
-import com.xdays.game.cards.EditEmmison;
+import com.xdays.game.cards.EditEmission;
 import com.xdays.game.cards.Industry;
 
 class EditEmissionTest {
 
-	private EditEmmison editEmission=new EditEmmison();
+	private EditEmission editEmission=new EditEmission();
 	private Board board=new Board();
 	
 	@BeforeEach

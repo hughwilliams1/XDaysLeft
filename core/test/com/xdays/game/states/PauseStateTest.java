@@ -1,21 +1,15 @@
-package com.tests.game.cards;
+package com.xdays.game.states;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.HashMap;
-
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.xdays.game.cards.CardReader;
-import com.xdays.game.cards.Industry;
+class PauseStateTest {
 
-class CardReaderTest {
-
-	private CardReader cardReader;
-	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 	}
@@ -26,18 +20,19 @@ class CardReaderTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		cardReader=new CardReader();
+	}
+
+	@AfterEach
+	void tearDown() throws Exception {
 	}
 
 	@Test
-	void testReadIndustryCards() {
-		HashMap<String, Industry> industryCards = new HashMap <String , Industry>();
-		
+	void testUpdate() {
 		fail("Not yet implemented"); // TODO
 	}
 
 	@Test
-	void testReadSocialCards() {
+	void testPauseState() {
 		fail("Not yet implemented"); // TODO
 	}
 

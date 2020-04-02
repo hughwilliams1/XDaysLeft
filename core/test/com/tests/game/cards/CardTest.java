@@ -11,45 +11,38 @@ import com.xdays.game.cards.CardCollection;
 
 class CardTest {
 	
-	private static CardCollection cardCollection;
-	private static Card card;
+	//private static Card card=new Card("Windmill","Windmill");
+	/**
+	@BeforeAll
+	static void setUpBeforeClass() throws Exception {
+	}
 	
 	@BeforeEach
 	  void setUp() throws Exception {
-		cardCollection=new CardCollection();
-		card=cardCollection.getCard("Windmill");
-	}
-	
-	@Test
-	void testSetPlayed() {
-		assertEquals(card,null);
+		//card=new Card("Windmill","Windmill");
+	}*/
 		
-		//card.setPlayed(true);
-		//assertTrue(card.isPlayed());
-	}
-	
 	@Test
 	void testSetPlay() {
+		Card card=new Card("Windmill","Windmill");
 		card.setPlayed(true);
 		assertTrue(card.isPlayed());
 	}
 	
 	@Test
-	void testSwitchTextures() {
-		card.switchTextures();
-		assertEquals(card.getTexture(),card.getBackTexture());
-	}
-
-	@Test
 	void testHalfPlayed() {
+		Card card=new Card("Windmill","Windmill");
 		card.halfPlayed();
 		assertTrue(card.isHalfPlayed());
+		
+		card.stopHalfPlay();
+		assertFalse(card.isHalfPlayed());
 	}
-
+/**
 	@Test
 	void testStopHalfPlay() {
 		card.stopHalfPlay();
 		assertFalse(card.isHalfPlayed());
-	}
+	}*/
 
 }
