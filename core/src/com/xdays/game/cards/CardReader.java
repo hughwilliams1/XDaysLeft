@@ -12,16 +12,23 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-/**
- * Reads all the card in the .json files to be used by card collection
- */
-
+/**  
+ * CardReader.java - Reads all the card in the .json files to be used by card collection
+ *
+ * @author  Damian Hobeanu, Mark Ebel, Roberto Lovece, Ronil Goldenwalla, Hugh Williams
+ * @version 1.0 
+ */ 
 public class CardReader {
 	
 	public CardReader() {	
 		
 	}
 	
+	/**
+	 * Reads the industry cards from the .json
+	 * 
+	 * @return {@code ArrayList<Map<String, Industry>>} An ArrayList of Map<String, Industry> to divide good and bad Industry cards
+	 */
 	public ArrayList<Map<String, Industry>> readIndustryCards() {
 		
 		// creates the good industry card hashmap to be returned
@@ -65,8 +72,11 @@ public class CardReader {
 		return industryCollection;
 	}
 	
-	// should return an arraylist of hashmaps
-	
+	/**
+	 * Reads the social cards from the .json
+	 * 
+	 * @return {@codeArrayList<Map<String, Social>>} An ArrayList of Map<String, Social> to divide good and bad social cards
+	 */
 	public ArrayList<Map<String, Social>> readSocialCards() {
 		// creates the good social card hashmap to be returned
 		HashMap<String, Social> socialCards = new HashMap <String , Social>();

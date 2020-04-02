@@ -8,6 +8,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.xdays.game.assets.Assets;
 import com.xdays.game.states.GameStateManager;
 
+/**  
+ * Game.java - Starts the game and has the main render() method called by libgdx
+ *
+ * @author  Damian Hobeanu, Mark Ebel, Roberto Lovece, Ronil Goldenwalla, Hugh Williams
+ * @version 1.0 
+ * @see ApplicationAdapter
+ */ 
 public class Game extends ApplicationAdapter {
 	
 	public static final int WIDTH = 1280;
@@ -32,6 +39,10 @@ public class Game extends ApplicationAdapter {
 		gsm = new GameStateManager();
 	}
 	
+	/**
+	 * Returns the Main batch of the game
+	 * @return the batch
+	 */
 	public SpriteBatch getBatch() {
 		return batch;
 	}

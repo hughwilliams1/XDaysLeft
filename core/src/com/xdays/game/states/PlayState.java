@@ -10,8 +10,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
@@ -66,10 +64,7 @@ public class PlayState extends State {
 		battleMusic.setLooping(true);
 		battleMusic.setVolume(.2f);        
 		
-		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/Staatliches-Regular.ttf"));
-		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
-		parameter.size = 25;
-		font = generator.generateFont(parameter);
+		font = (BitmapFont) Game.assetManager.get("font/Staatliches-Regular25.ttf");
 		
 		clickSound = Gdx.audio.newSound(Gdx.files.internal("sounds/clickSound.wav"));
 		
@@ -344,9 +339,10 @@ public class PlayState extends State {
 		// Turn this into a render board method
 		Board playerBoard = manager.getPlayerBoard();
 		int playerNumBoardCards = playerBoard.getBoardSize();
-
+		//manager.getPlayerBoard().updateCards();
+		
 		for (int i = 0; i < playerNumBoardCards; i++) {
-
+			
 			Card currentCard = playerBoard.getCard(i);
 
 			if(currentCard instanceof Industry) {

@@ -6,12 +6,26 @@ import java.util.Random;
 import com.xdays.game.cards.Card;
 import com.xdays.game.cards.Social;
 
+/**  
+ * AI.java - a simple class that selects the cards that the enemy plays.  
+ *
+ * @author  Damian Hobeanu, Mark Ebel, Roberto Lovece, Ronil Goldenwalla, Hugh Williams
+ * @version 1.0 
+ * @see Player
+ */ 
+
 public class AI extends Player {
 	private Random random;
 	private int level;
 	private Deck deck;
 	private ArrayList<Card> playerBoard;
 
+	 /**
+	  * AI constructor
+	  * @param name - Sets name of AI.
+	  * @param level - Selects difficulty of enemy.
+	  * @param deck - Sets starting cards for enemy.
+	  */
 	public AI(String name, int level, Deck deck) {
 		super(name, deck);
 		this.deck = deck;
@@ -19,7 +33,13 @@ public class AI extends Player {
 		this.level = level;
 
 	}
-
+	
+	/**
+	 * This method finds the next card that will be played by the AI.
+	 * @param enemyBoard - Object containing cards played by the AI that are currently on the board.
+	 * @param playerBoard -  Object containing cards played by the user that are currently on the board.
+	 * @return Returns next card to be played and cards that are selected to merge or have a special effect happen on.
+	 */
 	public ArrayList<Card> nextCard(Board enemyBoard, Board playerBoard) {
 		ArrayList<Card> cardsToUse = cardsAvailableToPlay(enemyBoard.getField(), this.hand, playerBoard.getField());
 		ArrayList<Card> cardsToProcess = new ArrayList<Card>();
@@ -40,7 +60,12 @@ public class AI extends Player {
 		return cardsToProcess;
 	}
 
-	// TODO merging doesn't work ai just plays whatever
+	/**
+	 * This method finds suitable cards to merge for a given industry card.
+	 * @param card - An industry card.
+	 * @param cardsOnBoard - List containing cards already played by AI on the board.
+	 * @return Returns list of cards to be deleted off the board.
+	 */
 	private ArrayList<Card> cardsToMerge(Card card, ArrayList<Card> cardsOnBoard){
 		ArrayList<Card> cardsToReturn = new ArrayList<Card>();
 		int cardStarValue = card.getStars();
@@ -185,7 +210,11 @@ public class AI extends Player {
 		}
 		return cardsToReturn;
 	}
-
+/**
+ *This method finds the card with the highest star value in the list. 
+ * @param cardsToUse - List of cards to be searched.
+ * @return Returns highestStarCard in a given list.
+ */
 	private Card getHighestStarCard(ArrayList<Card> cardsToUse) {
 		
 		if(cardsToUse != null) {
@@ -203,7 +232,13 @@ public class AI extends Player {
 		return null;
 
 	}
-
+/**
+ * A method that returns all the avaliable cards that can be played by the AI.
+ * @param cardsOnBoard - Cards AI has on board.
+ * @param cardsInHand - Cards in AI hand.
+ * @param playerBoard - Cards on player board.
+ * @return Returns list of cards that are valid to play.
+ */
 	private ArrayList<Card> cardsAvailableToPlay(ArrayList<Card> cardsOnBoard, ArrayList<Card> cardsInHand, ArrayList<Card> playerBoard){
 		int oneStarCards = 0;
 		int twoStarCards = 0;
@@ -275,6 +310,12 @@ public class AI extends Player {
 		}
 		return acceptableCardsToPlay;
 	}
+	/**
+	 * Checks whether a list contains at least one card of a certain star value.
+	 * @param board - List of cards.
+	 * @param starValue - Integer represeting how many stars one of the cards needs to be.
+	 * @return Returns true if at least one card has the correct starValue otherwise false.
+	 */
 	private boolean hasStarCard(ArrayList<Card> board, int starValue) {
 		for(Card card: board) {
 			if(card.getStars() == starValue) {

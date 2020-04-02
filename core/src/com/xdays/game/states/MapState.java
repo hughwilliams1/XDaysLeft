@@ -8,12 +8,18 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.math.Rectangle;
 import com.xdays.game.Game;
 import com.xdays.game.assets.Button;
 import com.xdays.game.cutscenes.CutsceneState;
+
+/**  
+ * MapState.java - a map state main menu.  
+ *
+ * @author  Damian Hobeanu, Mark Ebel, Roberto Lovece, Ronil Goldenwalla, Hugh Williams
+ * @version 1.0 
+ * @see Class {@link State}
+ */ 
 
 public class MapState extends State {
 	private static final int BTN_WIDTH = 200;
@@ -33,6 +39,13 @@ public class MapState extends State {
 	private Sound clickSound;
 	
 	private BitmapFont font;
+	
+	/**
+	 * Sets up the markers for each leading to the different states as well as some
+	 * buttons
+	 * 
+	 * @param gsm	used for libgdx rendering
+	 */
 
 	public MapState(GameStateManager gsm) {
 		super(gsm);
@@ -59,10 +72,7 @@ public class MapState extends State {
 		homeBtn = new Button(BTN_WIDTH, BTN_HEIGHT, x - (BTN_WIDTH / 2) - 30,
 				(Game.HEIGHT / 2 - BTN_HEIGHT / 2) - (110 + (BTN_HEIGHT * 3) + 30), "MenuBtn.PNG");
 		
-		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/Staatliches-Regular.ttf"));
-		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
-		parameter.size = 35;
-		font = generator.generateFont(parameter);
+		font = (BitmapFont) Game.assetManager.get("font/Staatliches-Regular35.ttf");
 	}
 
 	@Override
@@ -73,6 +83,7 @@ public class MapState extends State {
 
 			MenuState.mainMenuMusic.pause();
 			
+			// checks if the cursor overlaps any markers
 			for(String key : markers.keySet()) {
 				if(bounds.overlaps(markers.get(key).getBounds())) {
 					markers.get(key).handleInput();
@@ -106,9 +117,19 @@ public class MapState extends State {
 		}
 	}
 	
+	/**
+	 * set the previous marker to the last one
+	 * 
+	 * @param givenMarker	the marker you want to set
+	 */
+	
 	public void setPreviousMarker(Marker givenMarker) {
 		previousMarker = givenMarker;
 	}
+	
+	/**
+	 * @return	returns if all level are complete
+	 */
 	
 	public boolean areAllLevelsComplete() {
 		if(getCompletedLevels()==markers.size()) {
@@ -117,6 +138,10 @@ public class MapState extends State {
 			return false;
 		}
 	}
+	
+	/**
+	 * @return	a array of all the completed levels
+	 */
 	
 	public String[] getCompletedLevelsName() {
 		String[] completedLevels = new String[markers.size()];
@@ -130,6 +155,12 @@ public class MapState extends State {
 		return completedLevels;
 	}
 	
+	/**
+	 * loads the levels based on the save
+	 * 
+	 * @param completedLevels	the level completed in last save file
+	 */
+	
 	public void loadLevels(String[] completedLevels) {
 		for(int i=0; i<completedLevels.length; i++) {
 			System.out.println("Completed Levels: " + i);
@@ -141,9 +172,19 @@ public class MapState extends State {
 		}
 	}
 	
+	/**
+	 * displays the levels completed out of the total levels
+	 * 
+	 * @param sb	used for libgdx rendering
+	 */
+	
 	public void displayCompletedLevels(SpriteBatch sb) {		
 		font.draw(sb, getCompletedLevels()+ "/" + markers.size() + " zones completed", 25,50);
 	}
+	
+	/**
+	 * @return 	the number of completed levels
+	 */
 	
 	public int getCompletedLevels() {
 		int completedLevels = 0;
@@ -180,6 +221,12 @@ public class MapState extends State {
 		sb.end();
 	}
 
+	/**
+	 * Renders all the markers including whether they've been hovered over and if they're completed
+	 * 
+	 * @param sb	Used for libgdx rendering
+	 */
+	
 	private void renderAllMarkers(SpriteBatch sb) {
 		Rectangle bounds = new Rectangle(Gdx.input.getX(), -(Gdx.input.getY() - 720), 1, 1);
 		
@@ -206,6 +253,10 @@ public class MapState extends State {
 		displayCompletedLevels(sb);
 	}
 	
+	/**
+	 * @return	get the previous marker
+	 */
+	
 	public Marker getPreviousMarker() {
 		return previousMarker;
 	}
@@ -215,6 +266,13 @@ public class MapState extends State {
 	}
 
 	public class Marker {
+		
+		/**  
+		  * Marker.java - a marker for the map state.  
+		  *
+		  * @author  Damian Hobeanu, Mark Ebel, Roberto Lovece, Ronil Goldenwalla, Hugh Williams
+		  * @version 1.0 
+		  */ 
 		
 		private int cutscene;
 		private Marker previousMarker;
@@ -227,6 +285,15 @@ public class MapState extends State {
 		private Rectangle bounds;
 		private final int DEFAULT_SCALE = 3;
 		private boolean completed;
+		
+		/**
+		 * 
+		 * 
+		 * @param x					x position of the marker
+		 * @param y					y position of the marker
+		 * @param cutscene			the cutscene the marker leads to
+		 * @param previousMarker	the previous marker following it
+		 */
 
 		public Marker(float x, float y, int cutscene, Marker previousMarker) {
 			this.previousMarker = previousMarker;
@@ -241,6 +308,11 @@ public class MapState extends State {
 					normalMarker.getHeight() / DEFAULT_SCALE);
 			completed = false;
 		}
+		
+		/**
+		 * handles what happens when you click a marker changes it to the cutscene as well as stopping you 
+		 * from going to the next marker without completing the prior markers
+		 */
 		
 		public void handleInput() {
 			if(previousMarker==null) {
@@ -259,42 +331,84 @@ public class MapState extends State {
 				System.out.println("Marker completed.");
 			}
 		}
+		
+		/**
+		 * @return	whether a marker is completed
+		 */
 
 		public boolean isCompleted() {
 			return completed;
 		}
 
+		/**
+		 * changes completed to true
+		 */
+		
 		public void complete() {
 			completed = true;
 		}
+		
+		/**
+		 * @return	the bounds of marker 
+		 */
 
 		public Rectangle getBounds() {
 			return bounds;
 		}
+		
+		/**
+		 * @return	hover marker texture
+		 */
 
 		public Texture getHoverMarker() {
 			return hoverMarker;
 		}
+		
+		/**
+		 * @return	normal marker texture
+		 */
 
 		public Texture getNormalMarker() {
 			return normalMarker;
 		}
+		
+		/**
+		 * @return	x value of the bounds
+		 */
 
 		public float getX() {
 			return bounds.getX();
 		}
+		
+		/**
+		 * @return	y value of the bounds
+		 */
 
 		public float getY() {
 			return bounds.getY();
 		}
+		
+		/**
+		 * @return	width of the bounds
+		 */
 
 		public float getWidth() {
 			return bounds.getWidth();
 		}
+		
+		/**
+		 * @return	height of the bound
+		 */
 
 		public float getHeight() {
 			return bounds.getHeight();
 		}
+		
+		/**
+		 * draws normal markers 
+		 * 
+		 * @param sb	libgdx uses for rendering 
+		 */
 
 		public void drawNormalMarker(SpriteBatch sb) {
 			if (completed) {
@@ -307,6 +421,12 @@ public class MapState extends State {
 				sb.draw(normalMarker, getX(), getY(), getWidth(), getHeight());
 			}
 		}
+		
+		/**
+		 * draws the hover markers
+		 * 
+		 * @param sb	libgdx uses for rendering
+		 */
 
 		public void drawHoverMarker(SpriteBatch sb) {
 			if (completed) {

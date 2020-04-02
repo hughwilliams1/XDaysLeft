@@ -1,12 +1,20 @@
 package com.xdays.game.states;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.xdays.game.Game;
 import com.xdays.game.assets.Button;
 
+/**  
+ * PauseState.java - A screen allowing you to save, load and quit the game
+ *
+ * @author  Damian Hobeanu, Mark Ebel, Roberto Lovece, Ronil Goldenwalla, Hugh Williams
+ * @version 1.0 
+ * @see State
+ */ 
 public class PauseState extends State {
 	
 	private static final int BTN_WIDTH = 200;
@@ -20,6 +28,11 @@ public class PauseState extends State {
 	
 	private Sound clickSound;
 	
+	/**
+	 * Constructor for the pause state
+	 * 
+	 * @param gsm The GameStateManager
+	 */
 	public PauseState(GameStateManager gsm) {
 		super(gsm);
 
