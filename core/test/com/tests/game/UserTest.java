@@ -7,63 +7,42 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.xdays.game.User;
+import com.xdays.game.cards.Card;
+import com.xdays.game.cards.CardCollection;
+
 class UserTest {
-
-	@BeforeAll
-	static void setUpBeforeClass() throws Exception {
-	}
-
+	
+	private User user;
+	
 	@BeforeEach
 	void setUp() throws Exception {
+		user=new User("Player1",new CardCollection());
 	}
-
-	@AfterEach
-	void tearDown() throws Exception {
-	}
-
 	@Test
 	void testSetCurrentDeck() {
-		fail("Not yet implemented"); // TODO
+		String[] newDeck= new String[]{"Solar Panel", "Solar Panel", "Solar Panel"};
+		user.setCurrentDeck(newDeck);
+		assertEquals(3,user.getCurrentDeck().length);
 	}
+
 
 	@Test
-	void testResetHand() {
-		fail("Not yet implemented"); // TODO
+	void testSetHandFromDeck() {
+		user.setHandFromDeck();
+		assertEquals(8,user.handSize());
 	}
-
+	
 	@Test
 	void testGetCardFromHand() {
-		fail("Not yet implemented"); // TODO
+		user.setHandFromDeck();
+		Card actual=user.getCardFromHand(0);
+		assertEquals("Solar Panel",actual.getTitle());
+		
 	}
 
-	@Test
-	void testUpdateCurrentDeck() {
-		fail("Not yet implemented"); // TODO
-	}
 
-	@Test
-	void testSetHand() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	void testAddCardToHand() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	void testRemoveCard() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	void testSetCompletedLevel() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	void testGetCompletedLevel() {
-		fail("Not yet implemented"); // TODO
-	}
-
+	
 }
+
+

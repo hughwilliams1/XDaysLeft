@@ -23,7 +23,6 @@ class CardCollectionTest {
 	void testGetCard() {
 		Card testCard=cardCollection.getCard("Windmill");
 		assertEquals(testCard.getTitle(),"Windmill");
-		//assertEquals(cardCollection,null);
 	}
 
 	@Test
@@ -47,7 +46,7 @@ class CardCollectionTest {
 
 	@Test
 	void testGetAllCards() {
-		fail("Not yet implemented"); // TODO
+		assertNotNull(cardCollection.getAllCards());
 	}
 
 }

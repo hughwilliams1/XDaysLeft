@@ -55,19 +55,14 @@ class DeckTest {
 
 	@Test
 	void testDraw() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	void testGetCard() {
-		Card card=deck.getCard(0);
-		assertEquals(testCard,card);
+		Card actual=deck.draw();
+		assertNotNull(actual);
 	}
 	
 	@Test
 	void testRemoveCard() {
 		deck.removeCard(testCard);
-		assertEquals(deck.getDeckSize(),3);
+		assertEquals(3,deck.getDeckSize());
 	}
 
 	@Test
@@ -81,7 +76,9 @@ class DeckTest {
 	
 	@Test
 	void testDrawAmount() {
-		fail("Not yet implemented"); // TODO
+		ArrayList<Card> expected=new ArrayList<Card>();
+		assertNotNull(deck.drawAmount(2));
+		assertEquals(expected,deck.drawAmount(0));
 	}
 
 }
