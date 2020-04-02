@@ -115,8 +115,8 @@ public class GameStateManager {
     	String[] deck = user.getCurrentDeck();
     	toWrite[1]=Arrays.toString(deck);
     	//System.out.println(Arrays.toString(deck));
-    	String[] lockedCards = ((CollectionState)getState(StateEnum.COLLECTION_STATE)).getLockedCards();
-    	toWrite[2]=Arrays.toString(lockedCards);
+    	int playerLevel = user.getCompletedLevel();
+    	toWrite[2]= Integer.toString(playerLevel);
     	/*if(previousState==StateEnum.PLAY_STATE) {
     		String[] playerHand = user.getCurrentHand();
     		toWrite[2]=Arrays.toString(playerHand);
@@ -184,6 +184,7 @@ public class GameStateManager {
 			int i=1;
 			while ((st = br.readLine()) != null) {
 				if(i==line) {
+					//System.out.println(Arrays.toString(st.replace("[", "").replace("]", "").replaceAll(" ", "").split(",")));
 					return st.replace("[", "").replace("]", "").replaceAll(" ", "").split(",");
 				}
 				i++;
@@ -209,10 +210,8 @@ public class GameStateManager {
 		if(!currentDeck[0].contentEquals("null")) {
 			user.setCurrentDeck(currentDeck);
 		}
-		String[] lockedCards = readFromSaveFile(3);
-		if(!lockedCards[0].contentEquals("null")) {
-			((CollectionState)getState(StateEnum.COLLECTION_STATE)).loadLockedCards(lockedCards);
-		}
+		String[] playerLevel = readFromSaveFile(3);
+		user.setCompletedLevel(Integer.parseInt(playerLevel[0]));
 		/*String[] playerHand = readFromSaveFile(3);
 		if(!playerHand[0].contentEquals("null")) {
 			user.setHand(collection.getMultipleCards(playerHand));
