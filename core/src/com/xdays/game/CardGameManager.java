@@ -73,17 +73,17 @@ public class CardGameManager {
 					"Battery Farm", "Fracking",
 					"Freight Ships",
 					"Coal Power Plant",
-					"Fake news", "Fake news", "Online Posts", "Bribe"};
+					"Fake news", "Fake news", "Online Posts", "Propaganda"};
 
 			difficulty = 3;
 		} 
 		else if (level == 3) {
-			enemyDeck = new String[]{"Remove Tree", "Remove Tree", "Remove Tree", "Remove Tree",
-					"Diesel Car", "Diesel Car", "Household Waste", "Household Waste",
-					"Battery Farm", "Fracking",
-					"Freight Ships",
+			enemyDeck = new String[]{"Remove Tree", "Remove Tree", "Remove Tree", "Remove Tree", "Remove Tree",
+					"Gas Boiler", "Gas Boiler", "Gas Boiler", "Gas Boiler", "Gas Boiler",
+					"Battery Farm", "Battery Farm", "Fracking",
+					"Freight Ships", "Industrial Manufacturing",
 					"Coal Power Plant",
-					"Online Posts", "Online Posts", "Cover-up", "Bribe"};		
+					"Fake news", "Fake news", "Cover-up", "Cover-up", "Bribe"};		
 			difficulty = 5;
 		}
 		
