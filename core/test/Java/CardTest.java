@@ -15,6 +15,7 @@ class CardTest {
 	@BeforeEach
 	  void setUp() throws Exception {
 		card=new Card("Windmill","Windmill");
+		card.setPosition(1f, 1f);
 	}
 		
 	@Test

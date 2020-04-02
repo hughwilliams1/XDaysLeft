@@ -1,4 +1,4 @@
-package com.tests.game.cards;
+package tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 

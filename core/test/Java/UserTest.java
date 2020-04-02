@@ -1,4 +1,4 @@
-package com.tests.game;
+package tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Test;
 import com.xdays.game.User;
 import com.xdays.game.cards.Card;
 import com.xdays.game.cards.CardCollection;
+import com.xdays.game.cards.Industry;
+import com.xdays.game.cards.Social;
 
 class UserTest {
 	
@@ -35,8 +37,10 @@ class UserTest {
 	
 	@Test
 	void testGetCardFromHand() {
+		String[] newDeck= new String[]{"Solar Panel", "Solar Panel", "Solar Panel"};
+		user.setCurrentDeck(newDeck);
 		user.setHandFromDeck();
-		Card actual=user.getCardFromHand(0);
+		Card actual=user.getCardFromHand(1);
 		assertEquals("Solar Panel",actual.getTitle());
 		
 	}
