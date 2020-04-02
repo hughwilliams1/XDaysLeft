@@ -10,8 +10,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.xdays.game.Deck;
 import com.xdays.game.Game;
 import com.xdays.game.User;
@@ -80,10 +78,7 @@ public class CollectionState extends State {
 
 		exitBtn = new Button(47, 41, (Game.WIDTH / 2 - 47 / 2), 15, "HomeSBtn.PNG");
 
-		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/Staatliches-Regular.ttf"));
-		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
-		parameter.size = 35;
-		font = generator.generateFont(parameter);
+		font = (BitmapFont) Game.assetManager.get("font/Staatliches-Regular35.ttf");
 
 		getLockedCard(player.getCompletedLevel());
 		
@@ -302,12 +297,8 @@ public class CollectionState extends State {
 			displayedCards = new ArrayList<Card>();
 			this.collectionCards = cards;
 			this.offset = offset;
-
-			FreeTypeFontGenerator generator = new FreeTypeFontGenerator(
-					Gdx.files.internal("font/Staatliches-Regular.ttf"));
-			FreeTypeFontParameter parameter = new FreeTypeFontParameter();
-			parameter.size = 20;
-			deckNumberFont = generator.generateFont(parameter);
+			
+			deckNumberFont = (BitmapFont) Game.assetManager.get("font/Staatliches-Regular20.ttf");
 		}
 
 		public CollectionPage(User user, int offset) {

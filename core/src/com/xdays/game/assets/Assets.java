@@ -2,28 +2,31 @@ package com.xdays.game.assets;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.FileHandleResolver;
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader;
+import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader;
+import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader.FreeTypeFontLoaderParameter;
 import com.xdays.game.Game;
 import com.xdays.game.states.GameStateManager;
 
 public class Assets {
 		
-	public final AssetManager manager = new AssetManager();	
+	private final AssetManager manager = new AssetManager();	
 	
-	private String loadingStage = "";
 	
 	public void load() {
-		loadingStage = "Loading Cards";
 		loadCards();
-		loadingStage = "Loading Cutscenes";
 		loadCutscenes();
-		loadingStage = "Loading Buttons";
 		loadButtons();
-		loadingStage = "Loading Backgrounds";
 		loadBackgrounds();
+		loadFonts();
 	}
 	
 	public void loadCards() {
@@ -139,10 +142,41 @@ public class Assets {
 		manager.load("textBoxBlack.PNG", Texture.class);
 	}
 	
+	public void loadFonts() {
+		FileHandleResolver resolver = new InternalFileHandleResolver();
+		manager.setLoader(FreeTypeFontGenerator.class, new FreeTypeFontGeneratorLoader(resolver));
+		manager.setLoader(BitmapFont.class, ".ttf", new FreetypeFontLoader(resolver));
+		
+		FreeTypeFontLoaderParameter staaLarge = new FreeTypeFontLoaderParameter();
+		staaLarge.fontFileName = "font/Staatliches-Regular.ttf";
+		staaLarge.fontParameters.size = 35;
+		manager.load("font/Staatliches-Regular35.ttf", BitmapFont.class, staaLarge);
+		
+		FreeTypeFontLoaderParameter staaLargeMed = new FreeTypeFontLoaderParameter();
+		staaLargeMed.fontFileName = "font/Staatliches-Regular.ttf";
+		staaLargeMed.fontParameters.size = 30;
+		manager.load("font/Staatliches-Regular30.ttf", BitmapFont.class, staaLarge);
+		
+		FreeTypeFontLoaderParameter staaMedium = new FreeTypeFontLoaderParameter();
+		staaMedium.fontFileName = "font/Staatliches-Regular.ttf";
+		staaMedium.fontParameters.size = 25;
+		manager.load("font/Staatliches-Regular25.ttf", BitmapFont.class, staaMedium);
+		
+		
+		FreeTypeFontLoaderParameter staaSmall= new FreeTypeFontLoaderParameter();
+		staaSmall.fontFileName = "font/Staatliches-Regular.ttf";
+		staaSmall.fontParameters.size = 20;
+		manager.load("font/Staatliches-Regular20.ttf", BitmapFont.class, staaSmall);
+	}
+ 	
 	
 	
 	public boolean update() {
 		return manager.update();
+	}
+	
+	public float getProgress() {
+		return manager.getProgress();
 	}
 	
 	public void finishLoading() {
@@ -151,10 +185,6 @@ public class Assets {
 
 	public Object get(String fileName) {
 		return manager.get(fileName);
-	}
-	
-	public String getLoadingStage() {
-		return loadingStage;
 	}
 
 }

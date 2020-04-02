@@ -69,7 +69,7 @@ public class LoadingState extends State {
 
 	@Override
 	public void render(SpriteBatch sb) {
-		if (Game.assetManager.manager.update()) {
+		if (Game.assetManager.update()) {
 			gsm.createStates();
 		}
 		
@@ -79,7 +79,7 @@ public class LoadingState extends State {
 		sb.begin();
 		sb.draw(background, 0,0);
 		sb.draw(currentFrame, x, y - 75);
-		float progress = Game.assetManager.manager.getProgress();
+		float progress = Game.assetManager.getProgress();
 		font.draw(sb, "" + 5*Math.round(Math.round(progress*100) / 5) + "%",
 				x - 20 + currentFrame.getRegionWidth()/2, y -65 + currentFrame.getRegionHeight() / 2);
 		sb.end();

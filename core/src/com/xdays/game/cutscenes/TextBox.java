@@ -2,15 +2,11 @@ package com.xdays.game.cutscenes;
 
 import java.util.ArrayList;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
-import com.badlogic.gdx.utils.Array;
 import com.xdays.game.Game;
 
 public class TextBox {
@@ -27,10 +23,7 @@ public class TextBox {
 	public TextBox(String name, String dialogue) {
 		texture = (Texture) Game.assetManager.get("textBoxBlack.PNG");
 		
-		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/Staatliches-Regular.ttf"));
-		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
-		parameter.size = 32;
-		font = generator.generateFont(parameter);
+		font = (BitmapFont) Game.assetManager.get("font/Staatliches-Regular30.ttf");
 
 		this.name = name;
 
@@ -42,10 +35,7 @@ public class TextBox {
 		this.charPerLine = charPerLine;
 		texture = (Texture) Game.assetManager.get("textBoxBlack.PNG");
 		
-		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/Staatliches-Regular.ttf"));
-		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
-		parameter.size = 32;
-		font = generator.generateFont(parameter);
+		font = (BitmapFont) Game.assetManager.get("font/Staatliches-Regular30.ttf");
 
 		this.name = name;
 

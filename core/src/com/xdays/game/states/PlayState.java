@@ -66,10 +66,7 @@ public class PlayState extends State {
 		battleMusic.setLooping(true);
 		battleMusic.setVolume(.2f);        
 		
-		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/Staatliches-Regular.ttf"));
-		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
-		parameter.size = 25;
-		font = generator.generateFont(parameter);
+		font = (BitmapFont) Game.assetManager.get("font/Staatliches-Regular25.ttf");
 		
 		clickSound = Gdx.audio.newSound(Gdx.files.internal("sounds/clickSound.wav"));
 		
