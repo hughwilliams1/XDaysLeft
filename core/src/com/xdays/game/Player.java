@@ -41,9 +41,10 @@ public abstract class Player {
 				"Vegan", "Electric Bus",
 				"Solar Farm",
 				"Geothermal",
-				"Protests", "Protests", "Strike", "Online Post"};
-//		starterDeck = new String[]{"Plant Tree", "Plant Tree", "Plant Tree", "Online Posts", "Online Posts", "Online Posts",
-//				"UN Law", "UN Law", "UN Law", "Solar Panel", "Solar Panel", "Solar Panel"};
+				"Protests", "Protests", "Strike", "Online Posts"};
+		
+		//		starterDeck = new String[]{"Plant Tree", "Plant Tree", "Plant Tree", "Online Posts", "Online Posts", "Online Posts",
+		//				"UN Law", "UN Law", "UN Law", "Solar Panel", "Solar Panel", "Solar Panel"};
 		
 		this.name = name;
 		hand = new ArrayList<Card>();
