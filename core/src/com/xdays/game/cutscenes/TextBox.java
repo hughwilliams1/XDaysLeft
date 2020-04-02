@@ -139,6 +139,8 @@ public class TextBox {
 		
 		if (name.equals("Scientist Y")) {
 			font.setColor(new Color().GREEN);
+		} else if (name.equals("XDAYSLEFT")) {
+			font.setColor(new Color().PURPLE);
 		} else {
 			font.setColor(new Color().SCARLET);
 		}

@@ -156,6 +156,8 @@ public class CutsceneState extends State{
 		
 		textBoxQueue.add(new TextBox("Scientist Y",
 				"We'll see ..."));
+		textBoxQueue.add(new TextBox("XDAYSLEFT",
+				"Congrats on beating the Merkel! As a reward we unlocked Plant Tree, Windmill, Nuclear Power Plant and Hydroelectric Energy in the collection. Go add them to your deck!"));
 	}
 	
 	private void russiaInitialisation() {
@@ -209,6 +211,9 @@ public class CutsceneState extends State{
 		
 		textBoxQueue.add(new TextBox("Putin",
 				"I know, it's my script. Now get out before I have my men throw you in the gulag."));
+		textBoxQueue.add(new TextBox("XDAYSLEFT",
+				"Wow you really made quick work of Putin! As a reward we unlocked two more powerful social card in the collection. "
+				+ "You're gonna need them for the last fight!"));
 	}
 	
 	private void americaInitialisation() {

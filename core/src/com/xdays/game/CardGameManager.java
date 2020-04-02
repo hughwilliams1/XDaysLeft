@@ -56,9 +56,14 @@ public class CardGameManager {
 	
 	public void createEnemyAi(int level) {
 		int difficulty = 0;
+		// ai strong cards are remove tree, gas boiler, landfill, battery farm, Freight Ships, all 4 star are the same power 
 		if (level == 1) {
-			enemyDeck = new String[]{ "Remove Tree", "Remove Tree", 
-					"Fracking", "Propaganda", "Propaganda", "Propaganda", "Propaganda", "Propaganda"}; //"Landfill", "Landfill", "Remove Tree", "Remove Tree"
+			enemyDeck = new String[]{ "Diesel Car", "Diesel Car", "Diesel Car", "Diesel Car",
+					"Household Waste", "Household Waste", "Household Waste", "Household Waste",
+					"Fracking", "Taxi",
+					"Industrial Manufacturing",
+					"Coal Power Plant",
+					"Fake news", "Fake news", "Online Posts"}; 
 		
 			difficulty = 1;
 		} 
