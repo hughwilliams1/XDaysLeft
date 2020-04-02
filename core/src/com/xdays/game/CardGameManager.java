@@ -68,14 +68,22 @@ public class CardGameManager {
 			difficulty = 1;
 		} 
 		else if (level == 2) {
-			enemyDeck = new String[]{"Cover-up", "Remove Tree", "Remove Tree", "Remove Tree",
-					"Remove Tree", "Remove Tree", "Diesel Car", "Online Posts", "Online Posts", "Online Posts", "Cover-up", "Cover-up"}; //"Landfill", "Landfill", "Remove Tree", "Remove Tree"
+			enemyDeck = new String[]{"Remove Tree", "Remove Tree", "Remove Tree", "Remove Tree",
+					"Diesel Car", "Diesel Car", "Household Waste", "Household Waste",
+					"Battery Farm", "Fracking",
+					"Freight Ships",
+					"Coal Power Plant",
+					"Fake news", "Fake news", "Online Posts", "Propaganda"};
 
 			difficulty = 3;
 		} 
 		else if (level == 3) {
-			enemyDeck = new String[]{"Plant Tree", "Plant Tree", "Plant Tree", "Online Posts", "Online Posts", "Online Posts",
-					"UN Law", "UN Law", "UN Law", "Solar Panel", "Solar Panel", "Solar Panel"};		
+			enemyDeck = new String[]{"Remove Tree", "Remove Tree", "Remove Tree", "Remove Tree", "Remove Tree",
+					"Gas Boiler", "Gas Boiler", "Gas Boiler", "Gas Boiler", "Gas Boiler",
+					"Battery Farm", "Battery Farm", "Fracking",
+					"Freight Ships", "Industrial Manufacturing",
+					"Coal Power Plant",
+					"Fake news", "Fake news", "Cover-up", "Cover-up", "Bribe"};		
 			difficulty = 5;
 		}
 		
