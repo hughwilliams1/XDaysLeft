@@ -16,6 +16,12 @@ import com.xdays.game.states.PlayState;
 import com.xdays.game.states.State;
 import com.xdays.game.states.StateEnum;
 
+/**  
+ * {@link CutsceneState}.java - The cutscenes in the game 
+ *
+ * @author  Damian Hobeanu, Mark Ebel, Roberto Lovece, Ronil Goldenwalla, Hugh Williams
+ * @version 1.0
+ */ 
 public class CutsceneState extends State{
 
 	private Texture background;
@@ -35,7 +41,13 @@ public class CutsceneState extends State{
 	private float opponentXPosition;
 
 	private Queue<TextBox> textBoxQueue;
-
+	
+	/**
+	 * Construct a specific cutscene depending on the level passed
+	 * 
+	 * @param gsm The {@link GameStateManager} to call the other states
+	 * @param level The level of the cutscene 0-6, 99 for end
+	 */
 	public CutsceneState(GameStateManager gsm, int level) {
 		super(gsm);
 		cam.setToOrtho(false, Game.WIDTH, Game.HEIGHT);
@@ -80,6 +92,9 @@ public class CutsceneState extends State{
 		currentOpponentTexture = opponentTexture;
 	}
 	
+	/**
+	 * The into scene (0)
+	 */
 	private void introInitialisation() {
 		background = (Texture) Game.assetManager.get("LabBackground.PNG");
 		opponentTexture = (Texture) Game.assetManager.get("BlankCut.PNG");
@@ -104,7 +119,9 @@ public class CutsceneState extends State{
 				"Ah!  Here's my walking stick.  Now off to fight this from the bottom up,  Mrs Merkel,  you're first."));
 	}
 	
-	
+	/**
+	 * The Into to germany scene (1)
+	 */
 	private void germanyInitialisation() {
 		background = (Texture) Game.assetManager.get("European Parliament Background.PNG");
 		opponentTexture = (Texture) Game.assetManager.get("Merkel 1.PNG");
@@ -135,6 +152,9 @@ public class CutsceneState extends State{
 				"Bring it on!"));
 	}
 	
+	/**
+	 * The win in germany scene (4)
+	 */
 	private void germanyWinInitialisation() {
 		background = (Texture) Game.assetManager.get("European Parliament Background.PNG");
 		opponentTexture = (Texture) Game.assetManager.get("Merkel 1.PNG");
@@ -160,6 +180,9 @@ public class CutsceneState extends State{
 				"Congrats on beating the Merkel! As a reward we unlocked Plant Tree, Windmill, Nuclear Power Plant and Hydroelectric Energy in the collection. Go add them to your deck!"));
 	}
 	
+	/**
+	 * The Into to russia scene (2) 
+	 */
 	private void russiaInitialisation() {
 		background = (Texture) Game.assetManager.get("Kremlin Background.PNG");
 		opponentTexture = (Texture) Game.assetManager.get("Putin 1.PNG");
@@ -192,6 +215,9 @@ public class CutsceneState extends State{
 				"It sure will."));
 	}
 	
+	/**
+	 * The Russia win scene (5)
+	 */
 	private void russiaWinInitialisation() {
 		background = (Texture) Game.assetManager.get("Kremlin Background.PNG");
 		opponentTexture = (Texture) Game.assetManager.get("Putin 1.PNG");
@@ -216,6 +242,9 @@ public class CutsceneState extends State{
 				+ "You're gonna need them for the last fight!"));
 	}
 	
+	/**
+	 * The America intro scene (3)
+	 */
 	private void americaInitialisation() {
 		background = (Texture) Game.assetManager.get("Whitehouse Background.PNG");
 		opponentTexture = (Texture) Game.assetManager.get("Trump 2.PNG");
@@ -254,6 +283,9 @@ public class CutsceneState extends State{
 				"It's time to cut you off, the Russians can't help you now."));
 	}
 	
+	/**
+	 * The America win scene (6)
+	 */
 	private void americaWinInitialisation() {
 		background = (Texture) Game.assetManager.get("Whitehouse Background.PNG");
 		opponentTexture = (Texture) Game.assetManager.get("Trump 2.PNG");
@@ -271,6 +303,9 @@ public class CutsceneState extends State{
 				"No one will have to hear you speak again. The world now knows who you really are, who you really serve."));
 	}
 	
+	/**
+	 * End of the game scene (99)
+	 */
 	private void endInitialisation() {
 		background = (Texture) Game.assetManager.get("LabBackground.PNG");
 		opponentTexture = (Texture) Game.assetManager.get("BlankCut.PNG");
