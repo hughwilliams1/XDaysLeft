@@ -318,7 +318,7 @@ public class MapState extends State {
 					clickSound.play();
 					gsm.setStateAsNew(new CutsceneState(gsm, cutscene), StateEnum.CUTSCENE_STATE);
 				}
-			}else if(!isCompleted()){
+			}else if(!isCompleted() && getCompletedLevels()+1 == cutscene){
 				clickSound.play();
 				gsm.setStateAsNew(new CutsceneState(gsm, cutscene), StateEnum.CUTSCENE_STATE);
 			}
