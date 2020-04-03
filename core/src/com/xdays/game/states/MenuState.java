@@ -1,15 +1,12 @@
 package com.xdays.game.states;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.xdays.game.Game;
-import com.xdays.game.User;
 import com.xdays.game.assets.Button;
-import com.xdays.game.cards.CardCollection;
 import com.xdays.game.cutscenes.CutsceneState;
 
 /**  
@@ -62,6 +59,7 @@ public class MenuState extends State{
     public void handleInput() {
         if(Gdx.input.justTouched() && playBtn.isPointerOver(Gdx.input.getX(), Gdx.input.getY())){
         	clickSound();
+        	mainMenuMusic.pause();
         	gsm.setStateAsNew(new CutsceneState(gsm, 0), StateEnum.CUTSCENE_STATE);
         }
         
