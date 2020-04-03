@@ -163,9 +163,7 @@ public class MapState extends State {
 	
 	public void loadLevels(String[] completedLevels) {
 		for(int i=0; i<completedLevels.length; i++) {
-			System.out.println("Completed Levels: " + i);
 			if(!completedLevels[i].contentEquals("null")) {
-				System.out.println("Here");
 				markers.get(completedLevels[i]).complete();	
 				previousMarker = markers.get(completedLevels[i]);
 			}
@@ -319,16 +317,10 @@ public class MapState extends State {
 				if(!isCompleted()) {
 					clickSound.play();
 					gsm.setStateAsNew(new CutsceneState(gsm, cutscene), StateEnum.CUTSCENE_STATE);
-				}else {
-					System.out.println("Marker completed.");
 				}
-			}else if(!previousMarker.isCompleted()) {
-				System.out.println("Previous marker not completed.");
 			}else if(!isCompleted()){
 				clickSound.play();
 				gsm.setStateAsNew(new CutsceneState(gsm, cutscene), StateEnum.CUTSCENE_STATE);
-			}else {
-				System.out.println("Marker completed.");
 			}
 		}
 		

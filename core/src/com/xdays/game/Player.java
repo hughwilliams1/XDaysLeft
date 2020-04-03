@@ -147,8 +147,6 @@ public abstract class Player {
 	public void addCardToHand() {
 		if (!deck.isDeckEmpty()) {
 			hand.add(deck.draw());
-		} else {
-			System.out.println("Deck is empty");
 		}
 	}
 	
@@ -159,7 +157,7 @@ public abstract class Player {
 	 */
 	public void removeCard(Card card) {
 		if(hand.contains(card)) {
-			System.out.println("Card removed: " + hand.remove(hand.indexOf(card)).getTitle());
+			hand.remove(hand.indexOf(card)).getTitle();
 		}
 	}
 	

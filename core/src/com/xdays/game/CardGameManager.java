@@ -58,8 +58,6 @@ public class CardGameManager {
 		user.setHandFromDeck();
 		//enemyAI.resetHand();
 		enemyAI.setHandFromDeck();
-		
-		System.out.print(enemyAI.currentHandAsString());
 
 		isPlayerTurn = true;
 
@@ -125,7 +123,6 @@ public class CardGameManager {
 				switchPlayerTurn();
 			} else {
 				processCard(card, chosenCards);
-				//System.out.println("Player's Current Hand: " + user.currentHandAsString());
 				switchPlayerTurn();
 				
 			}
@@ -135,13 +132,10 @@ public class CardGameManager {
 			if(cardsToProcess != null) {
 				aiCard = cardsToProcess.remove(0);
 				// prints out ai's played card
-				System.out.println("AI Played: " + aiCard.getTitle());
 				aiCardPlayed = aiCard.getTitle();
 				processCard(aiCard, cardsToProcess); //Need the chosen cards to destroy too
-				// prints out ai's current hand
-				//System.out.println("AI's Current Hand: " + enemyAI.currentHandAsString());
+				
 			}
-			//System.out.println("AI EMISSIONS: " +aiBoard.getTotalPoints() +"Player emmisions: "+  playerBoard.getTotalPoints());
 			switchPlayerTurn();
 		}
 		
@@ -166,7 +160,6 @@ public class CardGameManager {
 	 */
 	
 	public void processCard(Card card, ArrayList<Card> chosenCards) {
-		System.out.println("Pocessing card: " + card.getTitle());
 		if(card instanceof Industry) {
 			if (isPlayerTurn) {
 				// if the card is greater than 1 star merge it to the chosen cards else add it to the field (player)
@@ -248,14 +241,11 @@ public class CardGameManager {
 						
 						break;
 					case "Strike":
-						System.out.println("is a strike card");
 						if(hasStarCard(aiBoard, 2)) {
-							System.out.println("can play card");
 							((Social) card).doEffect(aiBoard, null);
 							user.removeCard(card);
 							user.addCardToHand();
 						} else {
-							System.out.println("cannot be played");
 							switchPlayerTurn();
 						}
 						break;

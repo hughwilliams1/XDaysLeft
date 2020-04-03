@@ -45,7 +45,6 @@ public class EditEmission implements SocialEffect{
 					}
 				}
 				chosenCard = c;
-				System.out.println("Applied to: " + chosenCard.getTitle() + " - Ammount:  " + amount);
 				((Industry) c).editBuff(amount);
 			} else {
 				((Industry) card).editBuff(amount);

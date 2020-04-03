@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Queue;
+
 import com.xdays.game.cards.Card;
 import com.xdays.game.cards.Industry;
 import com.xdays.game.cards.Social;

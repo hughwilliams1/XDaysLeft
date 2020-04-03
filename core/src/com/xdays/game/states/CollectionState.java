@@ -1,7 +1,5 @@
 package com.xdays.game.states;
 
-import com.badlogic.gdx.math.Rectangle;
-
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
@@ -10,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.xdays.game.Deck;
 import com.xdays.game.Game;
 import com.xdays.game.User;
@@ -201,7 +200,6 @@ public class CollectionState extends State {
 		for (Card card : currentCollectionPage.getDisplayedCards()) {
 			if (Gdx.input.justTouched() && card.getBounds()
 					.overlaps(new Rectangle(Gdx.input.getX(), -(Gdx.input.getY() - 720), 0.01f, 0.01f))) {
-				System.out.print("Collection Card: " + card.getTitle() + " was touched \n");
 				player.getDeck();
 				if (card instanceof Industry && player.getDeck().instancesOfCardInDeck(card) < MAX_ONE_INDUSTRY_CARD
 						&& player.getDeck().getDeckSize() < Deck.MAX_DECK_SIZE && card.getStars() > 1) {
@@ -230,7 +228,6 @@ public class CollectionState extends State {
 		for (Card card : currentPlayerPage.getDisplayedCards()) {
 			if (Gdx.input.justTouched() && card.getBounds()
 					.overlaps(new Rectangle(Gdx.input.getX(), -(Gdx.input.getY() - 720), 0.01f, 0.01f))) {
-				System.out.print("Player Card: " + card.getTitle() + " was touched \n");
 
 				if (player.getDeck().getDeckSize() != player.MAX_HAND_SIZE) {
 					player.getDeck().removeCard(card);

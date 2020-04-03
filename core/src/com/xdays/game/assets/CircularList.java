@@ -3,8 +3,6 @@ package com.xdays.game.assets;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import com.xdays.game.cards.SocialEffect;
-
 /**
  * CircularList<E>.java - A list the loops round to the first element 
  * when {@link CircularList#get(int)} is called with an index that is greater that 

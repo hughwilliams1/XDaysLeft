@@ -9,7 +9,6 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.xdays.game.Game;
-import com.xdays.game.assets.Assets;
 import com.xdays.game.states.GameStateManager;
 import com.xdays.game.states.MapState;
 import com.xdays.game.states.PlayState;

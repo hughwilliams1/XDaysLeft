@@ -1,9 +1,5 @@
 package com.xdays.game.states;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.xdays.game.User;
-import com.xdays.game.cards.CardCollection;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,6 +8,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.EnumMap;
+
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.xdays.game.User;
+import com.xdays.game.cards.CardCollection;
 
 /**  
  * GameStateManager.java - This class manages what is being displayed on the screen.  
@@ -170,39 +170,14 @@ public class GameStateManager {
     	String[] toWrite = new String[3];
     	String[] completedLevels = ((MapState)getState(StateEnum.MAP_STATE)).getCompletedLevelsName();
     	toWrite[0]=Arrays.toString(completedLevels);
-    	//System.out.println(Arrays.toString(completedLevels));
+    	
     	String[] deck = user.getCurrentDeck();
     	toWrite[1]=Arrays.toString(deck);
-    	//System.out.println(Arrays.toString(deck));
+    	
     	int playerLevel = user.getCompletedLevel();
     	toWrite[2]= Integer.toString(playerLevel);
-    	/*if(previousState==StateEnum.PLAY_STATE) {
-    		String[] playerHand = user.getCurrentHand();
-    		toWrite[2]=Arrays.toString(playerHand);
-    		//System.out.println(Arrays.toString(playerHand));
-    		String[] playerDeck = user.getDeck().deckToString();
-    		toWrite[3]=Arrays.toString(playerDeck);
-    		//System.out.println(Arrays.toString(playerDeck));
-    		String[] playerBoard = ((PlayState)stateMap.get(StateEnum.PLAY_STATE)).getCardGameManager().getPlayedPlayedCards();
-    		toWrite[4]=Arrays.toString(playerBoard);
-    		//System.out.println(Arrays.toString(playerBoard));
-    		
-    		String[] enemyHand = ((PlayState)stateMap.get(StateEnum.PLAY_STATE)).getCardGameManager().getAI().getCurrentHand();
-    		toWrite[5]=Arrays.toString(enemyHand);
-    		//System.out.println(Arrays.toString(enemyHand));
-    		String[] enemyDeck = ((PlayState)stateMap.get(StateEnum.PLAY_STATE)).getCardGameManager().getAI().getDeck().deckToString();
-    		toWrite[6]=Arrays.toString(enemyDeck);
-    		//System.out.println(Arrays.toString(enemyDeck));
-    		String[] enemyBoard = ((PlayState)stateMap.get(StateEnum.PLAY_STATE)).getCardGameManager().getEnemyPlayedCards();
-    		toWrite[7]=Arrays.toString(enemyBoard);
-    		//System.out.println(Arrays.toString(enemyBoard));
-    		
-    		int emissions = ((PlayState)stateMap.get(StateEnum.PLAY_STATE)).getCardGameManager().getEmissionsBar();
-    		toWrite[8]=Integer.toString(emissions);
-    		//System.out.println(emissions);
-    	}*/
+    	
     	writeToSaveFile(toWrite);
-    	System.out.println("Game saved.");
     }
     /**
      * This puts the date to save into a file to access later.
@@ -223,7 +198,6 @@ public class GameStateManager {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-			System.out.println("Failed to write to save file.");
 		}finally {
 			try {
 				fr.close();
@@ -242,23 +216,18 @@ public class GameStateManager {
 		BufferedReader br = null;
 		try {
 			br = new BufferedReader(new FileReader(file));
-		} catch (FileNotFoundException e1) {
-			System.out.println("Save file doesn't exist.");
-		} 
+		} catch (FileNotFoundException e1) {} 
 		
 		String st; 
 		try {
 			int i=1;
 			while ((st = br.readLine()) != null) {
 				if(i==line) {
-					//System.out.println(Arrays.toString(st.replace("[", "").replace("]", "").replaceAll(" ", "").split(",")));
 					return st.replace("[", "").replace("]", "").replaceAll(" ", "").split(",");
 				}
 				i++;
 			}
-		} catch (IOException | NullPointerException e) {
-			System.out.println("Failed to read save file.");
-		} 
+		} catch (IOException | NullPointerException e) {} 
 		
 		try {
 			br.close();
@@ -272,7 +241,6 @@ public class GameStateManager {
 	 */
 	public void loadGame() {
 		String[] completedLevels = readFromSaveFile(1);
-		System.out.println(Arrays.toString(completedLevels));
 		if(!completedLevels[0].contentEquals("null")) {
 			((MapState)getState(StateEnum.MAP_STATE)).loadLevels(readFromSaveFile(1));
 		}

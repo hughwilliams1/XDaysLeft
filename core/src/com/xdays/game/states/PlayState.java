@@ -26,6 +26,13 @@ import com.xdays.game.cards.Industry;
 import com.xdays.game.cards.Social;
 import com.xdays.game.cutscenes.CutsceneState;
 
+/**  
+ * PlayState.java - this class is used to render and handle input for the the state where the card game is being played.
+ *
+ * @author  Damian Hobeanu, Mark Ebel, Roberto Lovece, Ronil Goldenwalla, Hugh Williams
+ * @version 1.0 
+ * @see State.java
+ */ 
 public class PlayState extends State {
 
 	private boolean multipleCardsNeeded = false;
@@ -52,7 +59,14 @@ public class PlayState extends State {
 	private int level;
 	private boolean firstTurn;
 	private String enemy;
-
+	
+	/**
+	 * Constructor.
+	 *
+	 * @param gsm	GameStateManager used to store the various states of the game and switch between them.
+	 * @param level	Used to specify the difficulty level for enemy.
+	 * 
+	 */
 	public PlayState(GameStateManager gsm, int level) {
 		super(gsm);
 		
@@ -95,6 +109,9 @@ public class PlayState extends State {
 		manager = new CardGameManager(50, gsm.getUser(), level - 3, gsm.getCollection());
 	}
 
+	 /**
+	 * Used to handle the users input and give the selected cards to the card game manager.
+	 */
 	@Override
 	protected void handleInput() {
 		
@@ -117,7 +134,6 @@ public class PlayState extends State {
         }
 		
 		if (hasPlayerWon()) {
-			System.out.println("Player Win");
 			messageToPrint = "You have won this battle";
 			dispose();
 			Gdx.gl.glClearColor(157f / 255f, 46f / 255f, 46f / 255f, 1);
@@ -127,13 +143,11 @@ public class PlayState extends State {
 			gsm.removeState(StateEnum.PLAY_STATE);
 		}
 		if (hasAIWon()) {
-			System.out.println("Enemy Win");
 			System.out.println(getEmissionBar());
 			dispose();
 			Gdx.gl.glClearColor(157f / 255f, 46f / 255f, 46f / 255f, 1);
 			
 			// AI win return to original map
-			messageToPrint = "You have lost this battle";
 			gsm.setState(StateEnum.MAP_STATE);
 			gsm.removeState(StateEnum.PLAY_STATE);
 		}
@@ -142,14 +156,12 @@ public class PlayState extends State {
 			messageToPrint = "Sudden Death";
 			System.out.println("Sudden Death");
 			if (getEmissionBar() >= 50) {
-				System.out.println("Enemy Win");
 				messageToPrint = "You have lost this battle";
 				dispose();
 				// AI win return to original map
 				gsm.setState(StateEnum.MAP_STATE);
 				gsm.removeState(StateEnum.PLAY_STATE);
 			} else {
-				System.out.println("Player Win");
 				messageToPrint = "You have won this battle";
 				dispose();
 				manager.getUser().setCompletedLevel(level - 3);
@@ -162,7 +174,7 @@ public class PlayState extends State {
         }
 		
 		if (Gdx.input.justTouched() && manager.isPlayersTurn()) {
-			// System.out.println("Play State touched");
+			
 			Rectangle bounds = new Rectangle(Gdx.input.getX(), -(Gdx.input.getY() - 720), 1, 1);
             
 			if (multipleCardsNeeded) {
@@ -173,7 +185,6 @@ public class PlayState extends State {
 						if (compareStar() && compareCards(bounds, selectedCard)) {
 							selectedCards.add(selectedCard);
 							messageToPrint = "Selected card for merge: " + selectedCard.getTitle();
-							System.out.println("Selected card for merge: " + selectedCard.getTitle());
 							if (calculateTotalStars(selectedCards) >= lastCardPlayed.getStars()) {
 								manager.playCardGameRound(lastCardPlayed, selectedCards);
 								firstTurn = false;
@@ -185,7 +196,6 @@ public class PlayState extends State {
 					} else if (checkCardOverlaps(lastCardPlayed, bounds) && multipleCardsNeeded) {
 						lastCardPlayed.stopHalfPlay();
 						multipleCardsNeeded = false;
-						System.out.println("Unselected card for merge: " + lastCardPlayed.getTitle());
 						messageToPrint = "Unselected card for merge: " + lastCardPlayed.getTitle();
 					}
 				}
@@ -198,8 +208,6 @@ public class PlayState extends State {
 							if (isCardValid(bounds, selectedCard)) {
 								selectedCards.add(selectedCard);
 								messageToPrint = "Selected card for apply social card to: " + selectedCard.getTitle();
-								System.out
-										.println("Selected card for apply social card to: " + selectedCard.getTitle());
 								manager.playCardGameRound(lastCardPlayed, selectedCards);
 								selectedCards.clear();
 								selectedCardsNeeded = false;
@@ -210,7 +218,6 @@ public class PlayState extends State {
 						else if (checkCardOverlaps(lastCardPlayed, bounds) && ((Social) lastCardPlayed).getSocialEffect() instanceof Destroy) {
 							lastCardPlayed.stopHalfPlay();
 							selectedCardsNeeded = false;
-							System.out.println("Unselected card for merge: " + lastCardPlayed.getTitle());
 							messageToPrint = "Unselected card for merge: " + lastCardPlayed.getTitle();
 						}
 					}
@@ -220,19 +227,14 @@ public class PlayState extends State {
 				for (int i = 0; i < player.handSize(); i++) {
 					//System.out.println(i + " : " + player.getCardFromHand(i).getTitle() + " : " + player.getCardFromHand(i).getBounds());
 					Card card = player.getCardFromHand(i);
-					System.out.println(i + " : " + card.getTitle());
 					if (card.getBounds().overlaps(bounds)) {
-						System.out.println("3 User Played:" + card.getTitle());
 						Card selectedCard = card;
 						if (selectedCard instanceof Social) {
 							selectCardSound();
 							
-							System.out.println(getPlayerBoard().getBoardSize());
-							
 							if (((!manager.getAIBoard().getField().isEmpty() && (!getPlayerBoard().getField().isEmpty())) || ((Social) selectedCard).getSocialEffect() instanceof Destroy)) {
 								if (((Social) selectedCard).isSelectedCardNeeded()) {
 									messageToPrint = "Select cards to apply the social card to";
-									System.out.println("Select cards to apply the social card to");
 									if (getNumAiCards() != 0) {
 										selectedCardsNeeded = true;
 										lastCardPlayed = selectedCard;
@@ -240,7 +242,6 @@ public class PlayState extends State {
 									}
 									
 								} else {
-									System.out.println("HEREREJRHJERHERHEHRH");
 									//manager.processCard(selectedCard, null);
 									manager.playCardGameRound(selectedCard, null); 
 									firstTurn = false;
@@ -248,7 +249,6 @@ public class PlayState extends State {
 								}
 								
 							} else if (((Social) selectedCard).getSocialEffect() instanceof EditEmission && ((!manager.getAIBoard().getField().isEmpty() || (!getPlayerBoard().getField().isEmpty())))) {
-								System.out.println("HEREREJRHJERHERHEHRH");
 								//manager.processCard(selectedCard, null);
 								manager.playCardGameRound(selectedCard, null); 
 								firstTurn = false;
@@ -257,17 +257,14 @@ public class PlayState extends State {
 							
 							else {
 								messageToPrint = "No cards have been placed on the board yet."; 
-								System.out.println("No cards have been placed on the board yet.");
 							}
 						} else {
 							if (selectedCard.getStars() > 1 && !selectedCard.isPlayed()) {
 								if (checkValidStars(selectedCard)) {
 									messageToPrint = "Not enough cards to play that card.";
-									System.out.println("Not enough cards to play that card.");
 								} else {
 									selectCardSound();
 									messageToPrint = "Select cards to merge";
-									System.out.println("Select cards to merge");
 									multipleCardsNeeded = true;
 									lastCardPlayed = selectedCard;
 									lastCardPlayed.halfPlayed();
@@ -276,7 +273,6 @@ public class PlayState extends State {
 							} else if (!selectedCard.isPlayed() && (manager.getPlayerBoard().getBoardSize() < manager.getPlayerBoard().MAX_BOARD_SIZE)) {
 								selectCardSound();
 								messageToPrint = "User played card: " + selectedCard.getTitle();
-								System.out.println("2 User played card: " + selectedCard.getTitle());
 								manager.playCardGameRound(selectedCard, null);
 								firstTurn = false;
 								render(Game.batch);
@@ -287,7 +283,14 @@ public class PlayState extends State {
 			}
 		}
 	}
-
+	
+	 /**
+	 * Calculated the total stars for a given array list of cards.
+	 * 
+	 * @param selected an array list of cards
+	 * 
+	 * @return the total stars of the given cards
+	 */
 	private int calculateTotalStars(ArrayList<Card> selected) {
 		int a = 0;
 		if (selected.isEmpty()) {
@@ -299,12 +302,24 @@ public class PlayState extends State {
 			return a;
 		}
 	}
-
+	
+	 /**
+	 * Method used to check for input every frame
+	 * 
+	 * @param dt  
+	 * 
+	 */
 	@Override
 	public void update(float dt) {
 		handleInput();
 	}
-
+	
+	 /**
+	 * Method used to render every frame.
+	 * 
+	 * @param sb sprite batch is given all the textured and coordinates necessary to render the elements  
+	 * 
+	 */
 	@Override
 	public void render(SpriteBatch sb) {
 		if(!battleMusic.isPlaying()) {
@@ -370,10 +385,7 @@ public class PlayState extends State {
 					sb.draw((Texture) Game.assetManager.get(card.getTitle()+".PNG"), getXValue(card), getYValue(card), getCardWidth(card),
 							getCardHeight(card));
 				}
-			}catch(Exception e) {
-				System.out.println(card==null);
-				System.out.println(card.getTitle());
-			}
+			}catch(Exception e) {}
 		}
 
 		// gets the ai from manager to be changed
@@ -405,7 +417,6 @@ public class PlayState extends State {
 					getCardWidth(getAICard(i)), getCardHeight(getAICard(i)));*/
 		}
 
-		//console.draw(sb, messageToPrint, 600, 405);
 		sb.end();	
 		drawEmissionsBar();
 	    
@@ -413,6 +424,9 @@ public class PlayState extends State {
 		sb.end();
 	}
 	
+	 /**
+	 * Renders the emissions bar
+	 */
 	private void drawEmissionsBar() {
 		ShapeRenderer shapeRenderer = new ShapeRenderer();
 	    shapeRenderer.begin(ShapeType.Filled);
@@ -420,18 +434,33 @@ public class PlayState extends State {
 	    shapeRenderer.rect(cam.position.x-100, cam.position.y+65, getEmissionBar()*2, 30);
 	    shapeRenderer.end();
 	}
-
+	
+	 /**
+	 * Return the current value of the emissions from card game manager
+	 * 
+	 * @return the int value of the emissions
+	 */
 	private int getEmissionBar() {
 		return manager.getEmissionsBar();
 	}
 
+	 /**
+	 * Check to see if the player has won the play state by checking if the emissions have reached the desired value
+	 * 
+	 * @return true if the player has won or false if he hasn't 
+	 */
 	private Boolean hasPlayerWon() {
 		if (getEmissionBar() <= 0) {
 			return true;
 		}
 		return false;
 	}
-
+	
+	 /**
+	 * Check to see if the AI has won the play state by checking if the emissions have reached the desired value
+	 * 
+	 * @return true if the AI has won or false if it hasn't 
+	 */
 	private Boolean hasAIWon() {
 		if (getEmissionBar() >= 100) {
 			return true;
@@ -439,7 +468,11 @@ public class PlayState extends State {
 		return false;
 	}
 
-	// TODO Also need to check if hand is empty
+	 /**
+	 * Check if both the player and the AI decks are empty
+	 * 
+	 * @return true if both decks are empty false if they are not
+	 */
 	private Boolean AreDecksEmpty() {
 		if ((manager.getUser().getDeck().getDeckSize() == 0) || (manager.getAI().getDeck().getDeckSize() == 0)) {
 			return true;
@@ -448,65 +481,166 @@ public class PlayState extends State {
 		return false;
 
 	}
-
+	
+	 /**
+	 * Check if a given card can be selected by verifying that the given bounds overlap the card bounds and that the given card hasn't already been selected or played
+	 * 
+	 * @param bounds given bounds to see of they overlap with the bounds of the given card
+	 * 
+	 * @param selectedCard the card given to check if it meets necessary conditions for it to be valid to be played
+	 * 
+	 * @return true if the card is valid, false if it isn't
+	 */
 	private boolean isCardValid(Rectangle bounds, Card selectedCard) {
 		return selectedCard.getBounds().overlaps(bounds) && !selectedCard.equals(lastCardPlayed)
 				&& selectedCard.isPlayed() && !selectedCards.contains(selectedCard);
 	}
-
+	
+	 /**
+	 * Check if the player has enough total stars on his board to be able to play the selected card
+	 * 
+	 * @param selectedCard card given to compare its stars to the total stars on the player board
+	 * 
+	 * @return true if the card has more stars than the total stars of the cards on the players board or else return false
+	 */
 	private boolean checkValidStars(Card selectedCard) {
 		return getPlayerBoard().getTotalStars(getPlayerBoard().getField()) < selectedCard.getStars();
 	}
-
+	
+	 /**
+	 * Get specific card from the player board
+	 * 
+	 * @param i integer specifying the position of the card in the player board 
+	 * 
+	 * @return card from player board
+	 */
 	private Card getPlayerCard(int i) {
 		return getCurrentCard(i);
 	}
-
+	
+	 /**
+	 * Get specific card from the AI board
+	 * 
+	 * @param i integer specifying the position of the card in the AI board 
+	 * 
+	 * @return card from AI board
+	 */
 	private Card getAICard(int i) {
 		return manager.getAIBoard().getCard(i);
 	}
-
+	
+	 /**
+	 * Check if the bounds of a given card overlap with the given bounds
+	 * 
+	 * @param card to check if bounds overlap with given bounds
+	 * 
+	 * @param bounds to check if bounds overlap with given card
+	 * 
+	 * @return true if the bounds overlap, false if they don't
+	 */
 	private Boolean checkCardOverlaps(Card card, Rectangle bounds) {
 		return card.getBounds().overlaps(bounds);
 	}
-
+	
+	 /**
+	 * Get the number of cards placed on the player's board
+	 * 
+	 * @return int of the total number of cards on the player's board
+	 */
 	private int getNumCards() {
 		return getPlayerBoard().getBoardSize();
 	}
-
+	
+	 /**
+	 * Get the number of cards placed on the AI board
+	 * 
+	 * @return int of the total number of cards on the AI board
+	 */
 	private int getNumAiCards() {
 		return manager.getAIBoard().getBoardSize();
 	}
-
+	
+	 /**
+	 * Compare the total stars of the selected cards array with the stars of the last card played
+	 * 
+	 * @return boolean true if stars of the last card played are higher than the total of the selected cards
+	 */
 	private boolean compareStar() {
 		return calculateTotalStars(selectedCards) < lastCardPlayed.getStars();
 	}
 
+	 /**
+	 * To check if a card has already been played
+	 * 
+	 * @param bounds to check if bounds overlap with given card
+	 * 
+	 * @param selectedCard check if the card is the last card played, if it's already been played and if it is being selected
+	 * 
+	 * @return boolean true if the card has been clicked and hasn't already been played
+	 */
 	private boolean compareCards(Rectangle bounds, Card selectedCard) {
 		return checkCardOverlaps(selectedCard, bounds) && !selectedCard.equals(lastCardPlayed)
 				&& selectedCard.isPlayed() && !selectedCards.contains(selectedCard);
 	}
-
+	
+	 /**
+	 * Get the player board
+	 */
 	private Board getPlayerBoard() {
 		return manager.getPlayerBoard();
 	}
-
+	
+	 /**
+	 * Get a specific card from the player's board
+	 * 
+	 * @param i int specifying the position of the card in the player board
+	 * 
+	 * @return Card card from the player's board
+	 */
 	private Card getCurrentCard(int i) {
 		return getPlayerBoard().getCard(i);
 	}
-
+	
+	 /**
+	 * Get the height of a given card
+	 * 
+	 * @param card given card to get width of
+	 * 
+	 * @return float width of given card
+	 */
 	private float getCardWidth(Card card) {
 		return card.CARD_WIDTH / 3.4f;
 	}
-
+	
+	 /**
+	 * Get the height of a given card
+	 * 
+	 * @param card given card to get height of
+	 * 
+	 * @return float height of given card
+	 */
 	private float getCardHeight(Card card) {
 		return card.CARD_HEIGHT / 3.4f;
 	}
-
+	
+	 /**
+	 * Get the X coordinates of a given card
+	 * 
+	 * @param card given card to get X coordinates of
+	 * 
+	 * @return float X coordinates of given card
+	 */
 	private float getXValue(Card card) {
 		return card.getBounds().getX();
 	}
-
+	
+	 /**
+	 * Get the Y coordinates of a given card
+	 * 
+	 * @param card given card to get Y coordinates of
+	 * 
+	 * @return float Y coordinates of given card
+	 */
 	private float getYValue(Card card) {
 		return card.getBounds().getY();
 	}
@@ -518,10 +652,18 @@ public class PlayState extends State {
 
 	}
 	
+	 /**
+	 * Play the sound associated with a card being clicked
+	 * 
+	 */
 	private void selectCardSound() {
 		selectCard.play();
 	}
-
+	
+	 /**
+	 * Method used to dispose of state
+	 * 
+	 */
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
